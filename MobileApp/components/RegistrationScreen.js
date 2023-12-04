@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
 import { View, StyleSheet, Text } from 'react-native';
-import { TextInput, Button, Title } from 'react-native-paper';
+import { TextInput, Button, Title, Card } from 'react-native-paper';
 import axios from 'axios';
 
-const RegistrationScreen = async ({ route }) => {
+const RegistrationScreen = ({ route }) => {
   const { userType } = route.params;
   const [username, setUsername] = useState('');
   const [phone, setPhone] = useState('');
@@ -12,7 +12,9 @@ const RegistrationScreen = async ({ route }) => {
   const [usernameError, setUsernameError] = useState('');
   const [phoneError, setPhoneError] = useState('');
   const [emailError, setEmailError] = useState('');
+  const [registrationStatus, setRegistrationStatus] = useState(null);
 
+  
   const handleRegistration = async () => {
 
     if (username.length < 3) {
@@ -22,8 +24,8 @@ const RegistrationScreen = async ({ route }) => {
       setUsernameError('');
     }
 
-    if (!/^\d{10}$/.test(phone)) {
-      setPhoneError('Phone must be 10 digits');
+    if (!/^\d+$/.test(phone)) {
+      setPhoneError('Phone must be a valid number');
       return;
     } else {
       setPhoneError('');
@@ -38,7 +40,6 @@ const RegistrationScreen = async ({ route }) => {
 
     if (userType === 'Customer') {
       try {
-        userType == 'Customer'
         const response = await axios.post('http://localhost:3000/api/register', {
           userType,
           username,
@@ -48,17 +49,17 @@ const RegistrationScreen = async ({ route }) => {
         });
     
         console.log(response.data); // Log the response from the server
-    
+        setRegistrationStatus(`Registered as ${userType}`);
         // You can add logic here to handle the response, like showing a success message or redirecting to the login page
       } catch (error) {
         console.error('Error registering:', error);
         console.error('Error registering:', error.response.data.error);
+        setRegistrationStatus(`Registration failed: ${error.response.data.error}`);
       }
       console.log('Registerting as Customer');
     } else if (userType === 'Repair Center') {
       try {
-        userType == 'Repair Center'
-        const response = await axios.post('http://localhost:3000/api/register', {
+        const response = await axios.post('http://localhost:3000/api/registerRepairCenter', {
           userType,
           username,
           phone,
@@ -67,7 +68,7 @@ const RegistrationScreen = async ({ route }) => {
         });
     
         console.log(response.data); // Log the response from the server
-    
+        setRegistrationStatus(`Registered as ${userType}`);
         // You can add logic here to handle the response, like showing a success message or redirecting to the login page
       } catch (error) {
         console.error('Error registering:', error);
@@ -79,40 +80,49 @@ const RegistrationScreen = async ({ route }) => {
 
   return (
     <View style={styles.container}>
-    <Title style={styles.title}>Registration Screen for {userType}</Title>
-    <TextInput
-      label="Username"
-      value={username}
-      onChangeText={(text) => setUsername(text)}
-      style={styles.textinput}
-    />
-    <Text style={styles.errorText}>{usernameError}</Text>
-    <TextInput
-      label="Phone"
-      value={phone}
-      onChangeText={(text) => setPhone(text)}
-      type="number"
-      style={styles.textinput}
-    />
-    <Text style={styles.errorText}>{phoneError}</Text>
-    <TextInput
-      label="Email"
-      value={email}
-      onChangeText={(text) => setEmail(text)}
-      style={styles.textinput}
-    />
-    <Text style={styles.errorText}>{emailError}</Text>
-    <TextInput
-      label="Password"
-      value={password}
-      secureTextEntry
-      onChangeText={(text) => setPassword(text)}
-      style={styles.textinput}
-    />
-    <Button mode="contained" onPress={handleRegistration} style={styles.button}>
-      Register
-    </Button>
-  </View>
+      <Card style={styles.card}>
+        <Card.Content>
+          <Title style={styles.title}>Registration Screen for {userType}</Title>
+          <TextInput
+            label="Username"
+            value={username}
+            mode="outlined"
+            onChangeText={(text) => setUsername(text)}
+            style={styles.textinput}
+          />
+          <Text style={styles.errorText}>{usernameError}</Text>
+          <TextInput
+            label="Phone"
+            value={phone}
+            mode="outlined"
+            onChangeText={(text) => setPhone(text)}
+            keyboardType="numeric"
+            style={styles.textinput}
+          />
+          <Text style={styles.errorText}>{phoneError}</Text>
+          <TextInput
+            label="Email"
+            value={email}
+            mode="outlined"
+            onChangeText={(text) => setEmail(text)}
+            style={styles.textinput}
+          />
+          <Text style={styles.errorText}>{emailError}</Text>
+          <TextInput
+            label="Password"
+            value={password}
+            mode="outlined"
+            secureTextEntry
+            onChangeText={(text) => setPassword(text)}
+            style={styles.textinput}
+          />
+          <Button mode="outlined" onPress={handleRegistration} style={styles.button}>
+            Register
+          </Button>
+          {registrationStatus && <Text>{registrationStatus}</Text>}
+        </Card.Content>
+      </Card>
+    </View>
   );
 };
 
@@ -123,12 +133,16 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     padding: 16,
   },
+  card: {
+    width: '80%',
+  },
   title: {
     marginBottom: 20,
+    textAlign : 'center'
   },
   textinput: {
     marginVertical: 5,
-    width: '80%',
+    width: '100%',
   },
   button: {
     marginVertical: 10,

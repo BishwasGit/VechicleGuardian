@@ -24,7 +24,7 @@ const LoginSelectionScreen = ({ navigation }) => {
             Login as Customer
           </Button>
           <Button
-            mode="contained"
+            mode = "elevated"
             onPress={() => navigation.navigate('RepairCenterLogin')}
             style={styles.button}
           >

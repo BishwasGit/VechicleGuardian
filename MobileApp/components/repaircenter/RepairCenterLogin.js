@@ -26,6 +26,7 @@ const RepairCenterLogin = ({navigation}) => {
           value={username}
           onChangeText={(text) => setUsername(text)}
           style={styles.textinput}
+          mode = "outlined"
         />
         <TextInput
           label="Password"
@@ -33,6 +34,7 @@ const RepairCenterLogin = ({navigation}) => {
           secureTextEntry
           onChangeText={(text) => setPassword(text)}
           style={styles.textinput}
+          mode = "outlined"
         />
         <Button mode="contained" onPress={handleLogin} style={styles.button}>
           Login

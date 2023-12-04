@@ -24,6 +24,7 @@ const CustomerLogin = ({navigation}) => {
           value={username}
           onChangeText={(text) => setUsername(text)}
           style={styles.textinput}
+          mode = "outlined"
         />
         <TextInput
           label="Password"
@@ -31,6 +32,7 @@ const CustomerLogin = ({navigation}) => {
           secureTextEntry
           onChangeText={(text) => setPassword(text)}
           style={styles.textinput}
+          mode = "outlined"
         />
         <Button mode="contained" onPress={handleLogin} style={styles.button}>
           Login
