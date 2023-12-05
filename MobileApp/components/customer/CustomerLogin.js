@@ -6,11 +6,30 @@ const CustomerLogin = ({navigation}) => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
 
-  const handleLogin = () => {
-    // Implement login logic for repair center
-    console.log('Logging in as Customer');
+  const handleLogin = async () => {
+    try {
+      const response = await fetch('http://localhost:3000/api/login', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ username, password }),
+      });
+  
+      const data = await response.json();
+  
+      if (response.ok) {
+        const {customer_id } = data;
+        navigation.navigate('CustomerDashboard',{ customer_id });
+        console.log('Login Successful')
+      } else {
+        // Login failed, display an error message
+        console.error('Login failed:', data.error);
+      }
+    } catch (error) {
+      console.error('Error during login:', error);
+    }
   };
-
   const handleRegisterNow = () => {
     navigation.navigate('Registration', { userType: 'Customer' });
   };

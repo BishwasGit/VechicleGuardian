@@ -14,6 +14,12 @@ app.use('/api', registerRoute);
 const registerRouteRepairCenter = require('./api/registerRepairCenter');
 app.use('/api', registerRouteRepairCenter);
 
+const customerLogin = require('./api/login');
+app.use('/api', customerLogin);
+
+const repairCenterLogin = require('./api/repairCenterLogin');
+app.use('/api', repairCenterLogin);
+
 const PORT = process.env.PORT || 3000;
 
 app.listen(PORT, () => {

@@ -10,17 +10,31 @@ router.post('/register', async (req, res) => {
     const phoneExists = await checkDuplicateEntry('phone', phone);
     const emailExists = await checkDuplicateEntry('email', email);
 
-    if (usernameExists || phoneExists || emailExists) {
-      return res.status(400).json({ error: 'Duplicate entry detected' });
-    }
+    // Declare hashed_password outside the callback function
+    let hashed_password;
 
-    // Insert into customer_user table
-    const insertQuery = 'INSERT INTO repaircenter_users (username, phone, email, password) VALUES (?, ?, ?, ?)';
-    await db.execute(insertQuery, [username, phone, email, password]);
+    // Hash the password
+    bcrypt.hash(password, saltRounds, (err, hash) => {
+      if (err) {
+        console.error('Error hashing password:', err);
+        return res.status(500).send('Internal Server Error');
+      }
+      // Assign the hash to hashed_password
+      hashed_password = hash;
 
-    res.json({ success: true, message: 'Registered as Customer' });
-  } catch (error) {
-    console.error('Error registering as Customer:', error);
+      // Insert into customer_user table
+      const insertQuery = 'INSERT INTO reparicenter_users (username, phone, email, password) VALUES (?, ?, ?, ?)';
+      db.execute(insertQuery, [username, phone, email, hashed_password])
+        .then(() => {
+          res.json({ success: true, message: 'Registered as Repair Center User' });
+        })
+        .catch((error) => {
+          console.error('Error registering as  Repair Center User:', error);
+          res.status(500).send('Internal Server Error');
+        });
+    });
+  }  catch (error) {
+    console.error('Error registering as  Repair Center User:', error);
     res.status(500).send('Internal Server Error');
   }
 });

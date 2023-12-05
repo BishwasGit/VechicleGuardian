@@ -5,6 +5,8 @@ import CustomerLogin from './components/customer/CustomerLogin';
 import RepairCenterLogin from './components/repaircenter/RepairCenterLogin';
 import LoginSelectionScreen from './components/LoginScreen';
 import RegistrationScreen from './components/RegistrationScreen'; // Create a new component for registration
+import CustomerDashboard from './components/customer/dashboard'
+import RepariCenterDashboard from './components/repaircenter/dashboard'
 
 const Stack = createStackNavigator();
 
@@ -16,6 +18,8 @@ const App = () => {
         <Stack.Screen name="CustomerLogin" component={CustomerLogin} />
         <Stack.Screen name="RepairCenterLogin" component={RepairCenterLogin} />
         <Stack.Screen name="Registration" component={RegistrationScreen} />
+        <Stack.Screen name="CustomerDashboard" component={CustomerDashboard} />
+        <Stack.Screen name="RepariCenterDashboard" component={RepariCenterDashboard} />
       </Stack.Navigator>
     </NavigationContainer>
   );

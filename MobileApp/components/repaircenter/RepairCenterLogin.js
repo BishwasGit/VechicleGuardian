@@ -6,9 +6,29 @@ const RepairCenterLogin = ({navigation}) => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
 
-  const handleLogin = () => {
-    // Implement login logic for repair center
-    console.log('Logging in as Repair Center');
+  const handleLogin = async () => {
+    try {
+      const response = await fetch('http://localhost:3000/api/repairCenterLogin', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ username, password }),
+      });
+  
+      const data = await response.json();
+  
+      if (response.ok) {
+        const {repaircenter_id } = data;
+        navigation.navigate('RepariCenterDashboard',{ repaircenter_id });
+        console.log('Login Successful')
+      } else {
+        // Login failed, display an error message
+        console.error('Login failed:', data.error);
+      }
+    } catch (error) {
+      console.error('Error during login:', error);
+    }
   };
 
   const handleRegisterNow = () => {
