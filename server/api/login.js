@@ -25,8 +25,8 @@ const { db } = require('../db');
         }
         if (passwordMatch) {
           // Passwords match, login successful
+          // console.log(customer_id)
           res.json({ success: true, message: 'Login successful', customer_id });
-          console.log(customer_id);
         } else {
           // Passwords don't match, login failed
           res.status(401).json({ error: 'Invalid username or password' });
