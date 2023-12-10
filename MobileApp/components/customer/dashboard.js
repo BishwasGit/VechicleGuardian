@@ -59,7 +59,7 @@ const CustomerDashboard = ({ route }) => {
               style={styles.gridItem}
               onPress={() => handleButtonPress("listVehicleDetails")}
             >
-              <Icon name="person" size={30} color="#333" />
+              <Icon name="format-list-bulleted" size={30} color="#333" />
               <Text style={styles.buttonText}>List Vehicle</Text>
             </TouchableOpacity>
 
@@ -69,6 +69,13 @@ const CustomerDashboard = ({ route }) => {
             >
               <Icon name="history" size={30} color="#333" />
               <Text style={styles.buttonText}>View Service History</Text>
+            </TouchableOpacity>
+            <TouchableOpacity
+              style={styles.gridItem}
+              onPress={() => handleButtonPress("locateRepairCenters")}
+            >
+              <Icon name="location-pin" size={30} color="#333" />
+              <Text style={styles.buttonText}>Locate Repair Centers</Text>
             </TouchableOpacity>
           </View>
         </Card.Content>
