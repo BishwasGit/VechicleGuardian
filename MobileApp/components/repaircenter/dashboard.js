@@ -8,14 +8,16 @@ const RepariCenterDashboard = ({ route }) => {
   // Fetch customer details based on repaircenter_id when the component mounts
   useEffect(() => {
     const fetchRepairCenterDetails = async () => {
-      const repaircenter_id = route.params.repaircenter_id;
-
+      // const repaircenter_id = route.params.repaircenter_id;
+      const { repaircenter_id } = route.params;
       // Make a request to your server to get customer details based on repaircenter_id
       // Example using fetch:
       try {
         const response = await fetch(`http://localhost:3000/api/RepairCenterDetails/${repaircenter_id}`);
         const data = await response.json();
 
+        setRepairCenterDetails(data.RepairCenterDetails);
+        console.log("Repair Center Details:", data.RepairCenterDetails);
         // Assuming the server response contains customer details
         setRepairCenterDetails(data.RepairCenterDetails);
       } catch (error) {
@@ -30,14 +32,11 @@ const RepariCenterDashboard = ({ route }) => {
     <View style={styles.container}>
       <Card style={styles.card}>
         <Card.Content>
-          <Text>Welcome to the user dashboard</Text>
-          {RepairCenterDetails && (
-            <View>
-              <Text>User ID: {RepairCenterDetails.repaircenter_id}</Text>
-              <Text>Username: {RepairCenterDetails.username}</Text>
-              {/* Add more details as needed */}
-            </View>
-          )}
+        {RepairCenterDetails && (
+          <Title style={styles.welcomeText}>
+            Welcome to the customer dashboard, {RepairCenterDetails[0].username}
+          </Title>
+        )}
         </Card.Content>
       </Card>
     </View>
