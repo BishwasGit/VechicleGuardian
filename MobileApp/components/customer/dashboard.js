@@ -2,15 +2,15 @@ import React, { useState, useEffect } from "react";
 import { View, StyleSheet, Text, TouchableOpacity } from "react-native";
 import { Card, Title } from "react-native-paper";
 import Icon from "react-native-vector-icons/MaterialIcons";
+import { useNavigation } from "@react-navigation/native";
 
 const CustomerDashboard = ({ route }) => {
   const [customerDetails, setCustomerDetails] = useState(null);
-
+  const navigation = useNavigation();
   // Fetch customer details based on customer_id when the component mounts
   useEffect(() => {
     const fetchCustomerDetails = async () => {
       const { customer_id } = route.params;
-
       try {
         const response = await fetch(
           `http://localhost:3000/api/customerDetails/${customer_id}`
@@ -29,9 +29,32 @@ const CustomerDashboard = ({ route }) => {
   }, [route.params.customer_id]);
 
   // Function to handle button press
+  console.log(route.params.customer_id)
+
   const handleButtonPress = (buttonType) => {
-    // Implement logic for each button type
-    console.log(`Button pressed: ${buttonType}`);
+    // navigating to respective pages using switch statements 
+
+    switch(buttonType)
+    {
+    case 'addVehicle' : 
+      navigation.navigate('AddVehicle',route.params.customer_id);
+      break;
+
+    case 'listVehicleDetails' : 
+      navigation.navigate('ListVehicleDetails',route.params.customer_id);
+      break;
+
+    case 'viewServiceHistory' : 
+      naivgation.navigate('ViewServiceHistory',route.params.customer_id)
+      break;
+    
+    case 'locateRepairCenters' : 
+      navigation.navigate('LocateRepairCenters',route.params.customer_id)
+      break;
+
+    default : 
+      console.log(`Button Pressed : ${buttonType}`);
+  }
   };
   return (
     <View style={styles.container}>
