@@ -37,19 +37,19 @@ const CustomerDashboard = ({ route }) => {
     switch(buttonType)
     {
     case 'addVehicle' : 
-      navigation.navigate('AddVehicle',route.params.customer_id);
+      navigation.navigate('AddVehicle',{ customer_id: route.params.customer_id });
       break;
 
     case 'listVehicleDetails' : 
-      navigation.navigate('ListVehicleDetails',route.params.customer_id);
+      navigation.navigate('ListVehicleDetails',{ customer_id: route.params.customer_id });
       break;
 
     case 'viewServiceHistory' : 
-      naivgation.navigate('ViewServiceHistory',route.params.customer_id)
+      navigation.navigate('ViewServiceHistory',{ customer_id: route.params.customer_id })
       break;
     
     case 'locateRepairCenters' : 
-      navigation.navigate('LocateRepairCenters',route.params.customer_id)
+      navigation.navigate('LocateRepairCenters',{ customer_id: route.params.customer_id })
       break;
 
     default : 

@@ -23,6 +23,9 @@ app.use('/api', repairCenterLogin);
 const getCustomerDetails = require('./api/customerDetails');
 app.use('/api', getCustomerDetails);
 
+const storeVehicleDetails = require('./api/vehicleDetails');
+app.use('/api', storeVehicleDetails);
+
 const PORT = process.env.PORT || 3000;
 
 app.listen(PORT, () => {

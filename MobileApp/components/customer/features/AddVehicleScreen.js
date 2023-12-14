@@ -1,9 +1,18 @@
 import React, { useState } from "react";
-import { View, Text, TextInput, Picker, Button, Alert, StyleSheet } from "react-native";
+import {
+  View,
+  Text,
+  TextInput,
+  Picker,
+  Button,
+  Alert,
+  StyleSheet,
+} from "react-native";
 import axios from "axios";
 import DateTimePickerModal from "react-native-modal-datetime-picker";
+import SweetAlert from "react-native-sweet-alert";
 
-const AddVehicleScreen = ({ route, navigation }) => {
+const AddVehicleScreen = ({ route }) => {
   const { customer_id } = route.params;
   const [vehicleType, setVehicleType] = useState("Two Wheeler");
   const [vehicleNumber, setVehicleNumber] = useState("");
@@ -16,7 +25,7 @@ const AddVehicleScreen = ({ route, navigation }) => {
   const [contactNumber, setContactNumber] = useState("");
   const [isDatePickerVisible, setDatePickerVisibility] = useState(false);
   const [isExpiryPickerVisible, setExpiryPickerVisibility] = useState(false);
-
+  const [message, setMessage] = useState(null);
   const showDatePicker = () => {
     setDatePickerVisibility(true);
   };
@@ -50,10 +59,8 @@ const AddVehicleScreen = ({ route, navigation }) => {
       !vehicleType ||
       !vehicleNumber ||
       !vehicleLot ||
-      !vehicleCompany||
-      !vehicleModel||
-      !createdDate ||
-      !expiryDate ||
+      !vehicleCompany ||
+      !vehicleModel ||
       !ownerName ||
       !contactNumber
     ) {
@@ -72,12 +79,14 @@ const AddVehicleScreen = ({ route, navigation }) => {
 
       // Send the form data to your server to handle table creation
       const response = await axios.post(
-        "your-server-endpoint",
+        "http://localhost:3000/api/storeVehicleDetails",
         {
           customer_id,
           vehicleType,
           vehicleNumber,
           vehicleLot,
+          vehicleCompany,
+          vehicleModel,
           billBookDetails, // Include the bill book details
         },
         {
@@ -86,26 +95,49 @@ const AddVehicleScreen = ({ route, navigation }) => {
           },
         }
       );
-
-      if (response.ok) {
-        // Handle success, e.g., navigate to another screen
-        navigation.navigate("ListVehicle");
+      if (response.data.message) {
+        // Update the message state for success
+        setMessage(response.data.message);
+        setVehicleType("Two Wheeler");
+        setVehicleNumber("");
+        setVehicleLot("");
+        setVehicleCompany("");
+        setVehicleModel("");
+        setCreatedDate(null);
+        setExpiryDate(null);
+        setOwnerName("");
+        setContactNumber("");
       } else {
-        // Handle server error
-        Alert.alert("Error", "Failed to add vehicle. Please try again.");
+        // Update the message state for error
+        setMessage(response.data.error || "Failed to store vehicle details.");
       }
     } catch (error) {
       console.error("Error adding vehicle:", error);
-      Alert.alert("Error", "Something went wrong. Please try again.");
+      // Update the message state for error
+      setMessage(
+        "Something went wrong. Please try again.Maybe Vehicle Number already exists"
+      );
     }
   };
 
   return (
     <View>
       <Text style={styles.heading}>Add your vehicle details below</Text>
+      {/* Display message */}
+      {message && (
+        <Text
+          style={
+            message.startsWith("Success")
+              ? styles.successMessage
+              : styles.errorMessage
+          }
+        >
+          {message}
+        </Text>
+      )}
       {/* Form for collecting vehicle details */}
-      <View>
-        <Text>Vehicle Details</Text>
+      <View style={styles.container}>
+        <Text style={styles.heading}>Vehicle Details</Text>
         {/* Dropdown for selecting vehicle type */}
         <Picker
           selectedValue={vehicleType}
@@ -129,16 +161,16 @@ const AddVehicleScreen = ({ route, navigation }) => {
         />
         <TextInput
           placeholder="Vehicle Company"
-          value={vehicleLot}
+          value={vehicleCompany}
           onChangeText={(text) => setVehicleCompany(text)}
         />
         <TextInput
           placeholder="Vehicle Model"
-          value={vehicleLot}
+          value={vehicleModel}
           onChangeText={(text) => setVehicleModel(text)}
         />
         {/* Bill Book details */}
-        <Text>Bill Book Details</Text>
+        <Text style={styles.heading}>Bill Book Details</Text>
         <Button title="Select Created Date" onPress={showDatePicker} />
         <DateTimePickerModal
           isVisible={isDatePickerVisible}
@@ -164,16 +196,38 @@ const AddVehicleScreen = ({ route, navigation }) => {
           onChangeText={(text) => setContactNumber(text)}
         />
         {/* Button to submit the form */}
-        <Button title="Add Vehicle" onPress={handleAddVehicle} />
+        <Button
+          title="Add Vehicle"
+          onPress={handleAddVehicle}
+          style={styles.submit}
+          color="#1E6738"
+        />
       </View>
     </View>
   );
 };
 
 const styles = StyleSheet.create({
+  container: {
+    padding: 15,
+    gap: 20,
+  },
   heading: {
     padding: 5,
     textAlign: "center",
+  },
+  submit: {
+    padding: 5,
+    textAlign: "center",
+    backgroundColor: "green",
+  },
+  successMessage: {
+    color: "green",
+    marginVertical: 10,
+  },
+  errorMessage: {
+    color: "red",
+    marginVertical: 10,
   },
 });
 
