@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { View, StyleSheet, Text } from 'react-native';
 import { Card } from 'react-native-paper';
+import { REACT_APP_SERVER_IP, REACT_APP_SERVER_PORT } from '@env';
 
 const RepariCenterDashboard = ({ route }) => {
   const [RepairCenterDetails, setRepairCenterDetails] = useState(null);
@@ -13,7 +14,7 @@ const RepariCenterDashboard = ({ route }) => {
       // Make a request to your server to get customer details based on repaircenter_id
       // Example using fetch:
       try {
-        const response = await fetch(`http://localhost:3000/api/RepairCenterDetails/${repaircenter_id}`);
+        const response = await fetch(`http://${REACT_APP_SERVER_IP}:${REACT_APP_SERVER_PORT}/api/RepairCenterDetails/${repaircenter_id}`);
         const data = await response.json();
 
         setRepairCenterDetails(data.RepairCenterDetails);

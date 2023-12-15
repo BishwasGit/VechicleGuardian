@@ -3,14 +3,13 @@ import {
   View,
   Text,
   TextInput,
-  Picker,
   Button,
   Alert,
   StyleSheet,
 } from "react-native";
+import { Picker } from '@react-native-picker/picker';
 import axios from "axios";
-import DateTimePickerModal from "react-native-modal-datetime-picker";
-import SweetAlert from "react-native-sweet-alert";
+import { REACT_APP_SERVER_IP, REACT_APP_SERVER_PORT } from '@env';
 
 const AddVehicleScreen = ({ route }) => {
   const { customer_id } = route.params;
@@ -19,38 +18,11 @@ const AddVehicleScreen = ({ route }) => {
   const [vehicleLot, setVehicleLot] = useState("");
   const [vehicleCompany, setVehicleCompany] = useState("");
   const [vehicleModel, setVehicleModel] = useState("");
-  const [createdDate, setCreatedDate] = useState(null);
-  const [expiryDate, setExpiryDate] = useState(null);
+  const [createdDate, setCreatedDate] = useState("");
+  const [expiryDate, setExpiryDate] = useState("");
   const [ownerName, setOwnerName] = useState("");
   const [contactNumber, setContactNumber] = useState("");
-  const [isDatePickerVisible, setDatePickerVisibility] = useState(false);
-  const [isExpiryPickerVisible, setExpiryPickerVisibility] = useState(false);
   const [message, setMessage] = useState(null);
-  const showDatePicker = () => {
-    setDatePickerVisibility(true);
-  };
-
-  const hideDatePicker = () => {
-    setDatePickerVisibility(false);
-  };
-
-  const handleDateConfirm = (date) => {
-    setCreatedDate(date);
-    hideDatePicker();
-  };
-
-  const showExpiryPicker = () => {
-    setExpiryPickerVisibility(true);
-  };
-
-  const hideExpiryPicker = () => {
-    setExpiryPickerVisibility(false);
-  };
-
-  const handleExpiryConfirm = (date) => {
-    setExpiryDate(date);
-    hideExpiryPicker();
-  };
 
   const handleAddVehicle = async () => {
     // Validate form data before sending to the server
@@ -68,6 +40,19 @@ const AddVehicleScreen = ({ route }) => {
       return;
     }
 
+    const dateRegex = /^\d{4}-\d{2}-\d{2}$/;
+    if (!dateRegex.test(createdDate) || !dateRegex.test(expiryDate)) {
+      setMessage('Error: Date format should be yyyy-mm-dd');
+      return;
+    }
+  
+    // Validate contactNumber
+    const contactRegex = /^\d{10}$/;
+    if (!contactRegex.test(contactNumber)) {
+      setMessage('Error: Contact number should be 10 digits');
+      return;
+    }
+
     try {
       // Construct the bill book details as a JSON object
       const billBookDetails = {
@@ -79,7 +64,7 @@ const AddVehicleScreen = ({ route }) => {
 
       // Send the form data to your server to handle table creation
       const response = await axios.post(
-        "http://localhost:3000/api/storeVehicleDetails",
+        `http://${REACT_APP_SERVER_IP}:${REACT_APP_SERVER_PORT}/api/storeVehicleDetails`,
         {
           customer_id,
           vehicleType,
@@ -103,8 +88,8 @@ const AddVehicleScreen = ({ route }) => {
         setVehicleLot("");
         setVehicleCompany("");
         setVehicleModel("");
-        setCreatedDate(null);
-        setExpiryDate(null);
+        setCreatedDate("");
+        setExpiryDate("");
         setOwnerName("");
         setContactNumber("");
       } else {
@@ -171,19 +156,16 @@ const AddVehicleScreen = ({ route }) => {
         />
         {/* Bill Book details */}
         <Text style={styles.heading}>Bill Book Details</Text>
-        <Button title="Select Created Date" onPress={showDatePicker} />
-        <DateTimePickerModal
-          isVisible={isDatePickerVisible}
-          mode="date"
-          onConfirm={handleDateConfirm}
-          onCancel={hideDatePicker}
+
+        <TextInput
+          placeholder="yyyy-mm-dd"
+          value={createdDate}
+          onChangeText={(text) => setCreatedDate(text)}
         />
-        <Button title="Select Expiry Date" onPress={showExpiryPicker} />
-        <DateTimePickerModal
-          isVisible={isExpiryPickerVisible}
-          mode="date"
-          onConfirm={handleExpiryConfirm}
-          onCancel={hideExpiryPicker}
+     <TextInput
+          placeholder="yyyy-mm-dd"
+          value={expiryDate}
+          onChangeText={(text) => setExpiryDate(text)}
         />
         <TextInput
           placeholder="Owner Name"

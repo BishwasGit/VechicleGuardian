@@ -1,15 +1,21 @@
 import React, { useState } from "react";
 import { View, StyleSheet ,Text } from "react-native";
 import { TextInput, Button, Card, Title } from "react-native-paper";
+import { Dialog, Portal } from 'react-native-paper';
+import { REACT_APP_SERVER_IP, REACT_APP_SERVER_PORT } from '@env';
 
 const CustomerLogin = ({ navigation }) => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
-  const [message, setMessage] = useState("");
+  const [message, setMessage] = useState(null);
+  const [visible, setVisible] = useState(false);
+
+  const showDialog = () => setVisible(true);
+  const hideDialog = () => setVisible(false);
 
   const handleLogin = async () => {
     try {
-      const response = await fetch("http://localhost:3000/api/login", {
+      const response = await fetch(`http://${REACT_APP_SERVER_IP}:${REACT_APP_SERVER_PORT}/api/login`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -21,6 +27,7 @@ const CustomerLogin = ({ navigation }) => {
 
       if (response.ok) {
         const { customer_id } = data;
+        showDialog();
         navigation.navigate("CustomerDashboard", { customer_id });
         console.log("Login Successful");
       } else {
@@ -29,9 +36,9 @@ const CustomerLogin = ({ navigation }) => {
         console.error("Login failed:", data.error);
         alert(data.error)
       }
-    } catch (error) {
+    }  catch (error) {
       console.error("Error during login:", error);
-      alert(data.error)
+      alert("Login failed. Please try again."); // Provide a generic error message
     }
   };
   const handleRegisterNow = () => {
@@ -63,9 +70,20 @@ const CustomerLogin = ({ navigation }) => {
           <Button onPress={handleRegisterNow} style={styles.registerButton}>
             Register Now
           </Button>
-          {/* {message && <Text style={styles.message}>{message}</Text>} */}
+          {message && <Text style={styles.message}>{message}</Text>}
         </Card.Content>
       </Card>
+      <Portal>
+        <Dialog visible={visible} onDismiss={hideDialog}>
+          <Dialog.Title>Login Successful</Dialog.Title>
+          <Dialog.Content>
+            <Text>Navigating to your dashboard</Text>
+          </Dialog.Content>
+          <Dialog.Actions>
+            <Button onPress={hideDialog}>OK</Button>
+          </Dialog.Actions>
+        </Dialog>
+      </Portal>
     </View>
   );
 };

@@ -14,6 +14,7 @@ router.post('/storeVehicleDetails', async (req, res) => {
       billBookDetails,
     } = req.body;
 
+    console.log(req.body);
     // Check for duplicate vehicle number
     const vehicleNumberExists = await checkDuplicateEntry('vehicle_number', vehicleNumber);
     if (vehicleNumberExists) {

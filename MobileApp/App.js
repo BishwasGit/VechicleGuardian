@@ -3,7 +3,8 @@
 import React from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
-
+import { Provider as PaperProvider } from 'react-native-paper';
+import {StyleSheet} from 'react-native';
 //main screen
 import LoginSelectionScreen from './components/LoginScreen';
 
@@ -24,9 +25,10 @@ const Stack = createStackNavigator();
 
 const App = () => {
   return (
+    <PaperProvider> 
     <NavigationContainer>
       <Stack.Navigator initialRouteName="LoginSelection">
-        <Stack.Screen name="Vechicle Guardian Landing Page" component={LoginSelectionScreen} />
+        <Stack.Screen name="Vechicle Guardian Landing Page" component={LoginSelectionScreen}  options={{ headerShown: false }} />
         <Stack.Screen name="CustomerLogin" component={CustomerLogin} />
         <Stack.Screen name="RepairCenterLogin" component={RepairCenterLogin} />
         <Stack.Screen name="Registration" component={RegistrationScreen} />
@@ -38,7 +40,7 @@ const App = () => {
         <Stack.Screen name="LocateRepairCenters" component={LocateRepairCentersScreen} />
       </Stack.Navigator>
     </NavigationContainer>
+    </PaperProvider> 
   );
 };
-
 export default App;

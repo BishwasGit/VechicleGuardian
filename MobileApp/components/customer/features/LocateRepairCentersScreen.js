@@ -1,7 +1,7 @@
 import React from 'react'
 import { View, Text } from 'react-native'
 
-const locateRepairCentersScreen = ({route, navigation}) => {
+const LocateRepairCentersScreen = ({route, navigation}) => {
   const customer_id = route.params;
   // Check if customer_id is available
   if (!customer_id) {
@@ -16,4 +16,4 @@ const locateRepairCentersScreen = ({route, navigation}) => {
   )
 }
 
-export default locateRepairCentersScreen
+export default LocateRepairCentersScreen

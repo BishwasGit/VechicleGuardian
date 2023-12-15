@@ -3,6 +3,7 @@ import { View, StyleSheet, Text, TouchableOpacity } from "react-native";
 import { Card, Title } from "react-native-paper";
 import Icon from "react-native-vector-icons/MaterialIcons";
 import { useNavigation } from "@react-navigation/native";
+import { REACT_APP_SERVER_IP, REACT_APP_SERVER_PORT } from '@env';
 
 const CustomerDashboard = ({ route }) => {
   const [customerDetails, setCustomerDetails] = useState(null);
@@ -13,7 +14,7 @@ const CustomerDashboard = ({ route }) => {
       const { customer_id } = route.params;
       try {
         const response = await fetch(
-          `http://localhost:3000/api/customerDetails/${customer_id}`
+          `http://${REACT_APP_SERVER_IP}:${REACT_APP_SERVER_PORT}/api/customerDetails/${customer_id}`
         );
         const data = await response.json();
 

@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { View, StyleSheet, Text } from 'react-native';
 import { TextInput, Button, Title, Card } from 'react-native-paper';
 import axios from 'axios';
+import { REACT_APP_SERVER_IP, REACT_APP_SERVER_PORT } from '@env';
 
 const RegistrationScreen = ({ route }) => {
   const { userType } = route.params;
@@ -40,7 +41,7 @@ const RegistrationScreen = ({ route }) => {
 
     if (userType === 'Customer') {
       try {
-        const response = await axios.post('http://localhost:3000/api/register', {
+        const response = await axios.post(`http://${REACT_APP_SERVER_IP}:${REACT_APP_SERVER_PORT}/api/register`, {
           userType,
           username,
           phone,
@@ -59,7 +60,7 @@ const RegistrationScreen = ({ route }) => {
       console.log('Registerting as Customer');
     } else if (userType === 'Repair Center') {
       try {
-        const response = await axios.post('http://localhost:3000/api/registerRepairCenter', {
+        const response = await axios.post(`http://${REACT_APP_SERVER_IP}:${REACT_APP_SERVER_PORT}/api/registerRepairCenter`, {
           userType,
           username,
           phone,

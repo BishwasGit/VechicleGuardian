@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { View, StyleSheet ,Text } from "react-native";
 import { TextInput, Button, Card, Title } from "react-native-paper";
+import { REACT_APP_SERVER_IP, REACT_APP_SERVER_PORT } from '@env';
 
 const RepairCenterLogin = ({ navigation }) => {
   const [username, setUsername] = useState("");
@@ -10,7 +11,7 @@ const RepairCenterLogin = ({ navigation }) => {
   const handleLogin = async () => {
     try {
       const response = await fetch(
-        "http://localhost:3000/api/repairCenterLogin",
+        `http://${REACT_APP_SERVER_IP}:${REACT_APP_SERVER_PORT}/api/repairCenterLogin`,
         {
           method: "POST",
           headers: {
