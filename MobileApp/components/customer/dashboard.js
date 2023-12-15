@@ -42,7 +42,7 @@ const CustomerDashboard = ({ route }) => {
       break;
 
     case 'listVehicleDetails' : 
-      navigation.navigate('ListVehicleDetails',{ customer_id: route.params.customer_id });
+      navigation.navigate('ListVehicle',{ customer_id: route.params.customer_id });
       break;
 
     case 'viewServiceHistory' : 
