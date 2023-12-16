@@ -1,19 +1,57 @@
 import React, { useEffect, useState } from "react";
-import { View, Text, StyleSheet } from "react-native";
-import { DataTable } from "react-native-paper";
+import { View, Text, StyleSheet, TouchableOpacity, Alert } from 'react-native';
+import { DataTable, Modal, Portal, Button } from 'react-native-paper';
 import { REACT_APP_SERVER_IP, REACT_APP_SERVER_PORT } from "@env";
-import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
+import Icon from "react-native-vector-icons/MaterialCommunityIcons";
 
 const ListVehicleScreen = ({ route, navigation }) => {
   const [vehicleData, setVehicleData] = useState([]);
   const { customer_id } = route.params;
+  const [selectedVehicle, setSelectedVehicle] = useState(null);
+  const [visible, setVisible] = useState(false);
 
-  const renderActionCell = () => (
-    <DataTable.Cell style={styles.actionCell}>
-      <Icon name="eye" size={20} color="#000" style={styles.icon} />
-      <Icon name="trash-can-outline" size={20} color="#FF0000" style={styles.icon} />
-    </DataTable.Cell>
-  );
+  const showModal = (vehicleDetails_id) => {
+    const selected = vehicleData.find((vehicle) => vehicle.vehicleDetails_id === vehicleDetails_id);
+    setSelectedVehicle(selected);
+    setVisible(true);
+  };
+
+  const hideModal = () => {
+    setVisible(false);
+  };
+  const handleTrashIconPress = async (vehicleDetails_id) => {
+    try {
+      // Send a request to change the status to 0 for the selected vehicleDetails_id
+      // Assuming you have an API endpoint for updating the status
+      const response = await fetch(
+        `http://${REACT_APP_SERVER_IP}:${REACT_APP_SERVER_PORT}/api/updateVehicleStatus/${vehicleDetails_id}`,
+        {
+          method: 'PUT',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({ status: 0 }),
+        }
+      );
+
+      if (!response.ok) {
+        throw new Error('Network response was not ok');
+      }
+
+      // Update the local state to reflect the change
+      setVehicleData((prevData) =>
+        prevData.map((vehicle) =>
+          vehicle.vehicleDetails_id === vehicleDetails_id ? { ...vehicle, status: 0 } : vehicle
+        )
+      );
+
+      // Show a success message or perform any additional actions
+      Alert.alert('Success', 'Vehicle status updated successfully.');
+    } catch (error) {
+      console.error('Error updating vehicle status:', error);
+      // Handle errors as needed
+    }
+  };
   useEffect(() => {
     // Check if customer_id is available
     if (!customer_id) {
@@ -121,10 +159,45 @@ const ListVehicleScreen = ({ route, navigation }) => {
                 </Text>
               </View>
             </DataTable.Cell>
-            {renderActionCell()}
+            <DataTable.Cell style={styles.iconCell}>
+              <TouchableOpacity
+                onPress={() => showModal(vehicle.vehicleDetails_id)}
+              >
+                <Icon name="eye" size={20} color="#000" style={styles.icon} />
+              </TouchableOpacity>
+              <TouchableOpacity
+                onPress={() => handleTrashIconPress(vehicle.vehicleDetails_id)}
+              >
+                <Icon
+                  name="trash-can-outline"
+                  size={20}
+                  color="#FF0000"
+                  style={styles.icon}
+                />
+              </TouchableOpacity>
+            </DataTable.Cell>
           </DataTable.Row>
         ))}
       </DataTable>
+      {/* Modal */}
+      <Portal>
+        <Modal
+          visible={visible}
+          onDismiss={hideModal}
+          contentContainerStyle={styles.modalContainer}
+        >
+          <Text style={styles.modalTitle}>Vehicle Details</Text>
+          {selectedVehicle && (
+            <View>
+              {/* Display additional details from selectedVehicle */}
+              <Text>Vehicle ID: {selectedVehicle.vehicleDetails_id}</Text>
+              <Text>Type: {selectedVehicle.vehicle_type}</Text>
+              {/* Add more details as needed */}
+            </View>
+          )}
+          <Button onPress={hideModal}>Close</Button>
+        </Modal>
+      </Portal>
     </View>
   );
 };
@@ -146,7 +219,7 @@ const styles = StyleSheet.create({
   billBookText: {
     marginBottom: 5,
     fontSize: 12,
-    textAlign : 'center'
+    textAlign: "center",
   },
   mappedDetailsText: {
     color: "#000",
@@ -154,6 +227,22 @@ const styles = StyleSheet.create({
   },
   icon: {
     marginRight: 10,
+  },
+  iconCell: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+    alignItems: "center",
+  },
+  modalContainer: {
+    backgroundColor: "white",
+    padding: 20,
+    margin: 20,
+    borderRadius: 10,
+  },
+  modalTitle: {
+    fontSize: 18,
+    fontWeight: "bold",
+    marginBottom: 10,
   },
 });
 export default ListVehicleScreen;

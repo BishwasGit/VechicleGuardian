@@ -29,6 +29,9 @@ app.use('/api', storeVehicleDetails);
 const listVehicleDetails = require('./api/listVehicleDetails');
 app.use('/api', listVehicleDetails);
 
+const updateVehicleStatus = require('./api/updateVehicleStatus');
+app.use('/api', updateVehicleStatus);
+
 const PORT = process.env.PORT || 3000;
 
 app.listen(PORT, () => {
