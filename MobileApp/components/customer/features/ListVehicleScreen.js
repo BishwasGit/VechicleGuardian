@@ -100,8 +100,6 @@ const ListVehicleScreen = ({ route, navigation }) => {
           <DataTable.Title>Type</DataTable.Title>
           <DataTable.Title>Number</DataTable.Title>
           <DataTable.Title>LOT</DataTable.Title>
-          <DataTable.Title>Company</DataTable.Title>
-          <DataTable.Title>Model</DataTable.Title>
           <DataTable.Title>Bill Book Details</DataTable.Title>
           <DataTable.Title>Action</DataTable.Title>
         </DataTable.Header>
@@ -129,16 +127,6 @@ const ListVehicleScreen = ({ route, navigation }) => {
             <DataTable.Cell>
               <Text style={styles.mappedDetailsText}>
                 {vehicle.vehicle_lot_number}
-              </Text>
-            </DataTable.Cell>
-            <DataTable.Cell>
-              <Text style={styles.mappedDetailsText}>
-                {vehicle.vehicle_company}
-              </Text>
-            </DataTable.Cell>
-            <DataTable.Cell>
-              <Text style={styles.mappedDetailsText}>
-                {vehicle.vehicle_model}
               </Text>
             </DataTable.Cell>
             <DataTable.Cell style={styles.billBookCell}>
@@ -192,7 +180,15 @@ const ListVehicleScreen = ({ route, navigation }) => {
               {/* Display additional details from selectedVehicle */}
               <Text>Vehicle ID: {selectedVehicle.vehicleDetails_id}</Text>
               <Text>Type: {selectedVehicle.vehicle_type}</Text>
-              {/* Add more details as needed */}
+              <Text>Modal: {selectedVehicle.vehicle_modal}</Text>
+              <Text>Company: {selectedVehicle.vehicle_company}</Text>
+              <Text>Number: {selectedVehicle.vehicle_number}</Text>
+              <Text>Lot: {selectedVehicle.vehicle_lot_number}</Text>
+              <Text style={styles.modalTitle}>Bill Book Details</Text>
+              <Text>{JSON.parse(vehicle.bill_book_details).createdDate}</Text>
+              <Text>{JSON.parse(vehicle.bill_book_details).expiryDate}</Text>
+              <Text>{JSON.parse(vehicle.bill_book_details).ownerName}</Text>
+              <Text>{JSON.parse(vehicle.bill_book_details).contactNumber}</Text>
             </View>
           )}
           <Button onPress={hideModal}>Close</Button>
