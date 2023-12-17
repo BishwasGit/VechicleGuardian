@@ -38,6 +38,9 @@ app.use('/api', updateVehicleStatus);
 const addRepairCenterDetails = require('./api/addRepairCenterDetails');
 app.use('/api', addRepairCenterDetails);
 
+const addRepairCenterList = require('./api/getRepairCenters');
+app.use('/api', addRepairCenterList);
+
 const PORT = process.env.PORT || 3000;
 
 app.listen(PORT, () => {

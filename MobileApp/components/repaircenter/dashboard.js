@@ -46,7 +46,6 @@ const RepariCenterDashboard = ({ route }) => {
 
   const handleAddDetails = async () => {
     const mapBase64 = base64Encode(newDetails.map);
-    const originalMap = base64Decode(mapBase64);
     //console.log(originalMap);
     const contactRegex = /^\d{10}$/;
     if (!contactRegex.test(newDetails.contact)) {
@@ -147,7 +146,7 @@ const RepariCenterDashboard = ({ route }) => {
             <TextInput
               label="Map Link"
               value={newDetails.map}
-              placeholder='<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d14133.370773213124!2d85.2970073554199!3d27.675801300000014!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x39eb19cc9fd319d9%3A0xd6025cc72f25e8bf!2sWashing%20Machine%20Repair%20Center%20in%20lalitpur-Fridge%2FFreeze%2FRefrigrator%20Repair%20in%20lalitpur-PATAN%20MULTI%20COMTRONIX%20%26%20REFRIGERATION!5e0!3m2!1sen!2snp!4v1702791472924!5m2!1sen!2snp" width="400" height="300" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>'
+              placeholder='https://maps.app.goo.gl/boxNWUPhqfcUEGk77'
               onChangeText={(text) =>
                 setNewDetails({ ...newDetails, map: text })
               }
