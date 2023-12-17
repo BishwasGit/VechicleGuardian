@@ -18,7 +18,7 @@ router.post("/repairCenterLogin", async (req, res) => {
       return res.status(401).json({ error: "Invalid username or password" });
     }
 
-    const { customer_id, password: hashedPassword } = result[0];
+    const { repaircenter_id, password: hashedPassword } = result[0];
 
     // Compare the provided password with the hashed password
     bcrypt.compare(password, hashedPassword, (err, passwordMatch) => {
@@ -29,7 +29,7 @@ router.post("/repairCenterLogin", async (req, res) => {
       if (passwordMatch) {
         // Passwords match, login successful
         // console.log(customer_id)
-        res.json({ success: true, message: "Login successful", customer_id });
+        res.json({ success: true, message: "Login successful", repaircenter_id });
       } else {
         // Passwords don't match, login failed
         res.status(401).json({ error: "Invalid username or password" });
