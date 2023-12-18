@@ -16,29 +16,36 @@ const CustomerLogin = ({ navigation }) => {
   const handleLogin = async () => {
     try {
       const response = await fetch(`http://${REACT_APP_SERVER_IP}:${REACT_APP_SERVER_PORT}/api/login`, {
-        method: "POST",
+        method: 'POST',
         headers: {
-          "Content-Type": "application/json",
+          'Content-Type': 'application/json',
         },
         body: JSON.stringify({ username, password }),
       });
-
+  
       const data = await response.json();
-
+  
       if (response.ok) {
-        const { customer_id } = data;
-        showDialog();
-        navigation.navigate("CustomerDashboard", { customer_id });
-        console.log("Login Successful");
+        if (data.customer_id) {
+          // It's a customer, navigate to CustomerDashboard
+          showDialog();
+          navigation.navigate('CustomerDashboard', { customer_id: data.customer_id });
+          console.log('Login Successful');
+        } else if (data.admin_id) {
+          // It's an admin, navigate to AdminDashboard
+          showDialog();
+          navigation.navigate('AdminDashboard', { admin_id: data.admin_id });
+          console.log('Login Successful (Admin)');
+        }
       } else {
         // Login failed, display an error message
         setMessage(data.error);
-        console.error("Login failed:", data.error);
-        alert(data.error)
+        console.error('Login failed:', data.error);
+        alert(data.error);
       }
-    }  catch (error) {
-      console.error("Error during login:", error);
-      alert("Login failed. Please try again."); // Provide a generic error message
+    } catch (error) {
+      console.error('Error during login:', error);
+      alert('Login failed. Please try again.'); // Provide a generic error message
     }
   };
   const handleRegisterNow = () => {
