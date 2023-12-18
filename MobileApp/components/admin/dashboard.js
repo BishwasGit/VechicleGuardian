@@ -1,19 +1,200 @@
-import React from 'react'
-import { View, Text } from 'react-native'
+import React, { useState, useEffect } from 'react';
+import { View, Text, StyleSheet, Alert } from 'react-native';
+import { List, IconButton, Tooltip, Portal, Modal, Button, Searchbar } from 'react-native-paper';
+import { REACT_APP_SERVER_IP, REACT_APP_SERVER_PORT } from '@env';
+import { encode as base64Encode, decode as base64Decode } from 'base-64';
 
-const ViewServiceHistoryScreen = ({route,navigation}) => {
+const AdminDash = ({ route, navigation }) => {
   const admin_id = route.params;
-  // Check if customer_id is available
+  const [repairCenters, setRepairCenters] = useState([]);
+  const [selectedCenter, setSelectedCenter] = useState(null);
+  const [modalVisible, setModalVisible] = useState(false);
+  const [searchQuery, setSearchQuery] = useState('');
+
+  // Check if admin_id is available
   if (!admin_id) {
     // Redirect to the main landing page or any other desired screen
     navigation.navigate('Vechicle Guardian Landing Page');
     return null; // Render nothing if redirecting
   }
-  return (
-    <View>
-      <Text>This is admin dashboard</Text>
-    </View>
-  )
-}
 
-export default ViewServiceHistoryScreen
+  useEffect(() => {
+    // Fetch repair centers when the component mounts
+    fetchRepairCenters();
+  }, []);
+
+  const fetchRepairCenters = async () => {
+    try {
+      // Send a request to the server to get the list of repair centers
+      const response = await fetch(`http://${REACT_APP_SERVER_IP}:${REACT_APP_SERVER_PORT}/api/getUnverifiedRepairCentersList`);
+      const data = await response.json();
+
+      // Update the state with the received repair centers
+      setRepairCenters(data.repairCenters); // Replace 'repairCenters' with the actual key in your response
+    } catch (error) {
+      console.error('Error fetching repair centers:', error);
+      // Handle error as needed
+    }
+  };
+
+  const handleViewDetails = (centerId) => {
+    // Navigate to the details screen for the selected repair center using centerId
+    // You can implement this navigation logic based on your app's structure
+    // Example: navigation.navigate('RepairCenterDetails', { centerId });
+  };
+
+  const handleVerifyCenter = (center) => {
+    setSelectedCenter(center);
+    setModalVisible(true);
+  };
+
+  const handleConfirmVerification = async () => {
+    const repaircenterId = selectedCenter.repaircenters_id;
+  
+    try {
+      // Send a request to the server to update the verification status
+      const response = await fetch(`http://${REACT_APP_SERVER_IP}:${REACT_APP_SERVER_PORT}/api/verifyRepairCenter/${repaircenterId}`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          // Add any additional headers as needed
+        },
+        body: JSON.stringify({ repaircenterId }),
+      });
+  
+      if (response.ok) {
+        // If the server responds with a success status (2xx), you can handle it accordingly
+        // For example, you may want to re-fetch the list of repair centers
+        fetchRepairCenters();
+        setRepairCenters((prevRepairCenters) => prevRepairCenters.filter((center) => center.repaircenters_id !== repaircenterId));
+        // Show an alert indicating verification success
+        Alert.alert('Verification Successful', `Repair center "${selectedCenter.repaircenter_fname}" has been verified.`);
+      } else {
+        // Handle the case where the server responds with an error status
+        console.error('Verification failed:', response.statusText);
+        Alert.alert('Verification Failed', 'Failed to verify the repair center. Please try again.');
+      }
+    } catch (error) {
+      // Handle network errors
+      console.error('Network error during verification:', error);
+      Alert.alert('Network Error', 'An error occurred. Please check your network connection and try again.');
+    }
+  
+    // Close the modal and reset the selectedCenter
+    setModalVisible(false);
+    setSelectedCenter(null);
+  };
+
+  const handleCancelVerification = () => {
+    // Close the modal and reset the selectedCenter
+    setModalVisible(false);
+    setSelectedCenter(null);
+  };
+
+  const handleSearch = (query) => {
+    // Perform search logic here, e.g., filter repair centers based on the query
+    setSearchQuery(query);
+    // You can implement your own search logic based on your data structure
+    // For example, filter repairCenters array based on the 'query' value
+    const filteredCenters = repairCenters.filter((center) =>
+      center.repaircenter_fname.toLowerCase().includes(query.toLowerCase())
+    );
+    setRepairCenters(filteredCenters);
+  };
+
+  return (
+    <View style={styles.container}>
+           <Searchbar
+        placeholder="Search Repair Centers"
+        onChangeText={handleSearch}
+        value={searchQuery}
+        style={styles.searchBar}
+      />
+
+      <List.Section>
+        <List.Subheader style={styles.heading}>Repair Centers List</List.Subheader>
+        {repairCenters.map((center) => (
+          <List.Item
+            key={center.repaircenters_id}
+            title={center.repaircenter_fname}
+            titleStyle={styles.heading}
+            right={() => (
+              <View style={styles.detailsContainer}>
+                <Text style={styles.itemText}>{center.map}</Text>
+                <Text style={styles.itemText}>{center.contact}</Text>
+                {/* Add other details here */}
+                <View style={styles.iconButtonsContainer}>
+                  <Tooltip title="Mark as Verified">
+                    <IconButton
+                      icon="check"
+                      onPress={() => handleVerifyCenter(center)}
+                    />
+                  </Tooltip>
+                  <Tooltip title="View Details">
+                  <IconButton
+                    icon="eye"
+                    onPress={() => handleViewDetails(center.repaircenters_id)}
+                  />
+                  </Tooltip>
+                </View>
+              </View>
+            )}
+            onPress={() => handleViewDetails(center.repaircenters_id)}
+          />
+        ))}
+      </List.Section>
+
+      {/* Verification Modal */}
+      <Portal>
+        <Modal visible={modalVisible} onDismiss={() => setModalVisible(false)}>
+          <View style={styles.modalContainer}>
+            <Text style={styles.modalText}>Are you sure you want to verify this details?</Text>
+            <Button mode="contained" onPress={handleConfirmVerification}>
+              Yes, Verify
+            </Button>
+            <Button onPress={handleCancelVerification}>Cancel</Button>
+          </View>
+        </Modal>
+      </Portal>
+    </View>
+  );
+};
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    padding: 16,
+  },
+  heading: {
+    fontSize: 20,
+    fontWeight: 'bold',
+    marginBottom: 16,
+    color : '#000000'
+  },
+  detailsContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+  },
+  itemText: {
+    marginRight: 16,
+  },
+  iconButtonsContainer: {
+    flexDirection: 'row',
+  },
+  modalContainer: {
+    backgroundColor: 'white',
+    padding: 16,
+    margin: 16,
+    borderRadius: 8,
+  },
+  modalText: {
+    fontSize: 16,
+    marginBottom: 16,
+  },
+  searchBar: {
+    marginVertical: 16,
+  },
+});
+
+export default AdminDash;

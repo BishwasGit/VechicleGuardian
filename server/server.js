@@ -41,6 +41,12 @@ app.use('/api', addRepairCenterDetails);
 const addRepairCenterList = require('./api/getRepairCenters');
 app.use('/api', addRepairCenterList);
 
+const getUnverifiedRepairCentersList = require('./api/getUnverifiedRepairCentersList');
+app.use('/api', getUnverifiedRepairCentersList);
+
+const verifyRepairCenter = require('./api/verifyRepairCenter');
+app.use('/api', verifyRepairCenter);
+
 const PORT = process.env.PORT || 3000;
 
 app.listen(PORT, () => {
