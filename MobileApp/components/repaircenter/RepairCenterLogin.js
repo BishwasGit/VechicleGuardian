@@ -26,7 +26,7 @@ const RepairCenterLogin = ({ navigation }) => {
       if (response.ok) {
         const { repaircenter_id } = data;
         navigation.navigate("RepariCenterDashboard", { repaircenter_id });
-        console.log("Login Successful");
+        console.log("Login Successful", repaircenter_id);
       } else {
         // Login failed, display an error message
         setMessage(data.error);

@@ -21,6 +21,10 @@ import ListVehicleScreen from './components/customer/features/ListVehicleScreen'
 import ViewServiceHistoryScreen from './components/customer/features/ViewServiceHistoryScreen'
 import LocateRepairCentersScreen from './components/customer/features/LocateRepairCentersScreen'
 
+
+//admin 
+import AdminDashboard from './components/admin/dashboard';
+
 const Stack = createStackNavigator();
 
 const App = () => {
@@ -32,6 +36,7 @@ const App = () => {
         <Stack.Screen name="CustomerLogin" component={CustomerLogin} />
         <Stack.Screen name="RepairCenterLogin" component={RepairCenterLogin} />
         <Stack.Screen name="Registration" component={RegistrationScreen} />
+        <Stack.Screen name="AdminDashboard" component={AdminDashboard} />
         <Stack.Screen name="CustomerDashboard" component={CustomerDashboard} />
         <Stack.Screen name="RepariCenterDashboard" component={RepariCenterDashboard} />
         <Stack.Screen name="AddVehicle" component={AddVehicleScreen} />

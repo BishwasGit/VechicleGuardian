@@ -23,6 +23,9 @@ app.use('/api', repairCenterLogin);
 const getCustomerDetails = require('./api/customerDetails');
 app.use('/api', getCustomerDetails);
 
+const getRepairCenterDetails = require('./api/repairCenterDetails');
+app.use('/api', getRepairCenterDetails);
+
 const storeVehicleDetails = require('./api/vehicleDetails');
 app.use('/api', storeVehicleDetails);
 
@@ -31,6 +34,18 @@ app.use('/api', listVehicleDetails);
 
 const updateVehicleStatus = require('./api/updateVehicleStatus');
 app.use('/api', updateVehicleStatus);
+
+const addRepairCenterDetails = require('./api/addRepairCenterDetails');
+app.use('/api', addRepairCenterDetails);
+
+const addRepairCenterList = require('./api/getRepairCenters');
+app.use('/api', addRepairCenterList);
+
+const getUnverifiedRepairCentersList = require('./api/getUnverifiedRepairCentersList');
+app.use('/api', getUnverifiedRepairCentersList);
+
+const verifyRepairCenter = require('./api/verifyRepairCenter');
+app.use('/api', verifyRepairCenter);
 
 const PORT = process.env.PORT || 3000;
 

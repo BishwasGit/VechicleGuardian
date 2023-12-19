@@ -30,7 +30,7 @@ CREATE TABLE `customer_users` (
   `phone` varchar(45) DEFAULT NULL,
   PRIMARY KEY (`customer_id`),
   UNIQUE KEY `customer_id_UNIQUE` (`customer_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -39,7 +39,7 @@ CREATE TABLE `customer_users` (
 
 LOCK TABLES `customer_users` WRITE;
 /*!40000 ALTER TABLE `customer_users` DISABLE KEYS */;
-INSERT INTO `customer_users` VALUES (1,'Bishwas','$2b$10$VGlZFN3avQgRUBjVwijVoex/16IlnCmzCtbRRD1rGfxfUHzYfxC0y','workmail.bishwas@gmail.com','9869133344'),(2,'Anoop','$2b$10$RfDDECZTxWuCT2El7hypWuiCBoz5Svy0l8nJsVEJkMNwOQ0j6pc0e','anoop@gmail.com','9803488071');
+INSERT INTO `customer_users` VALUES (1,'Bishwas','$2b$10$VGlZFN3avQgRUBjVwijVoex/16IlnCmzCtbRRD1rGfxfUHzYfxC0y','workmail.bishwas@gmail.com','9869133344'),(2,'Anoop','$2b$10$RfDDECZTxWuCT2El7hypWuiCBoz5Svy0l8nJsVEJkMNwOQ0j6pc0e','anoop@gmail.com','9803488071'),(3,'sdfds','$2b$10$d6H4HdlPKuO4pd/tFChUk.dtiVP5Gy7lq/DQsyXxnmoH.vlRq0VTG','asdasdasd@gmail.com','9803488077');
 /*!40000 ALTER TABLE `customer_users` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -52,4 +52,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2023-12-16 14:55:22
+-- Dump completed on 2023-12-18 13:20:24
