@@ -2,14 +2,16 @@ import React, { useState } from "react";
 import {
   View,
   Text,
+  ScrollView,
   TextInput,
   Button,
   Alert,
   StyleSheet,
 } from "react-native";
-import { Picker } from '@react-native-picker/picker';
+
+import { Picker } from "@react-native-picker/picker";
 import axios from "axios";
-import { REACT_APP_SERVER_IP, REACT_APP_SERVER_PORT } from '@env';
+import { REACT_APP_SERVER_IP, REACT_APP_SERVER_PORT } from "@env";
 
 const AddVehicleScreen = ({ route }) => {
   const { customer_id } = route.params;
@@ -42,14 +44,14 @@ const AddVehicleScreen = ({ route }) => {
 
     const dateRegex = /^\d{4}-\d{2}-\d{2}$/;
     if (!dateRegex.test(createdDate) || !dateRegex.test(expiryDate)) {
-      setMessage('Error: Date format should be yyyy-mm-dd');
+      setMessage("Error: Date format should be yyyy-mm-dd");
       return;
     }
-  
+
     // Validate contactNumber
     const contactRegex = /^\d{10}$/;
     if (!contactRegex.test(contactNumber)) {
-      setMessage('Error: Contact number should be 10 digits');
+      setMessage("Error: Contact number should be 10 digits");
       return;
     }
 
@@ -106,8 +108,8 @@ const AddVehicleScreen = ({ route }) => {
   };
 
   return (
-    <View>
-      <Text style={styles.heading}>Add your vehicle details below</Text>
+    <ScrollView style={styles.card}>
+      <Text style={styles.heading}>Add your vehicle details</Text>
       {/* Display message */}
       {message && (
         <Text
@@ -122,70 +124,95 @@ const AddVehicleScreen = ({ route }) => {
       )}
       {/* Form for collecting vehicle details */}
       <View style={styles.container}>
-        <Text style={styles.heading}>Vehicle Details</Text>
         {/* Dropdown for selecting vehicle type */}
         <Picker
           selectedValue={vehicleType}
           onValueChange={(itemValue) => setVehicleType(itemValue)}
         >
-          <Picker.Item label="Two Wheeler" value="Two Wheeler" />
-          <Picker.Item label="Four Wheeler" value="Four Wheeler" />
-          <Picker.Item label="Cycle" value="Cycle" />
+          <Picker.Item
+            style={styles.contain}
+            label="Two Wheeler"
+            value="Two Wheeler"
+          />
+          <Picker.Item
+            style={styles.contain}
+            label="Four Wheeler"
+            value="Four Wheeler"
+          />
+          <Picker.Item style={styles.contain} label="Cycle" value="Cycle" />
         </Picker>
-        {/* Input for vehicle number */}
+
+        <Text style={styles.text}>Password :</Text>
         <TextInput
+          style={styles.textinput}
           placeholder="Vehicle Number"
           value={vehicleNumber}
           onChangeText={(text) => setVehicleNumber(text)}
         />
         {/* Input for vehicle lot */}
+        <Text style={styles.text}>Password :</Text>
         <TextInput
+          style={styles.textinput}
           placeholder="Vehicle Lot"
           value={vehicleLot}
           onChangeText={(text) => setVehicleLot(text)}
         />
+        <Text style={styles.text}>Password :</Text>
         <TextInput
+          style={styles.textinput}
           placeholder="Vehicle Company"
           value={vehicleCompany}
           onChangeText={(text) => setVehicleCompany(text)}
         />
+        <Text style={styles.text}>Password :</Text>
         <TextInput
+          style={styles.textinput}
           placeholder="Vehicle Model"
           value={vehicleModel}
           onChangeText={(text) => setVehicleModel(text)}
         />
         {/* Bill Book details */}
-        <Text style={styles.heading}>Bill Book Details</Text>
 
+        <Text style={styles.headingTo}>Bill Book Details</Text>
+        <Text style={styles.text}>Password :</Text>
         <TextInput
+          style={styles.textinput}
           placeholder="yyyy-mm-dd"
           value={createdDate}
           onChangeText={(text) => setCreatedDate(text)}
         />
-     <TextInput
+        <Text style={styles.text}>Password :</Text>
+        <TextInput
+          style={styles.textinput}
           placeholder="yyyy-mm-dd"
           value={expiryDate}
           onChangeText={(text) => setExpiryDate(text)}
         />
+        <Text style={styles.text}>Password :</Text>
         <TextInput
+          style={styles.textinput}
           placeholder="Owner Name"
           value={ownerName}
           onChangeText={(text) => setOwnerName(text)}
         />
+        <Text style={styles.text}>Password :</Text>
         <TextInput
+          style={styles.textinput}
           placeholder="Contact Number"
           value={contactNumber}
           onChangeText={(text) => setContactNumber(text)}
         />
         {/* Button to submit the form */}
+
         <Button
           title="Add Vehicle"
           onPress={handleAddVehicle}
-          style={styles.submit}
-          color="#1E6738"
-        />
+          style={styles.button}
+        >
+          <Text style={{ color: "white" }}> Login as Repair Center</Text>
+        </Button>
       </View>
-    </View>
+    </ScrollView>
   );
 };
 
@@ -193,15 +220,56 @@ const styles = StyleSheet.create({
   container: {
     padding: 15,
     gap: 20,
+    marginBottom: 55,
+  },
+  contain: {
+    color: "#1e6091",
   },
   heading: {
-    padding: 5,
-    textAlign: "center",
+    paddingTop: 30,
+    paddingLeft: 20,
+    color: "#1e6091",
+    fontWeight: "bold",
+    fontSize: 22,
+    marginBottom: 10,
+  },
+  headingTo: {
+    paddingTop: 80,
+    paddingLeft: 20,
+    color: "#1e6091",
+    fontWeight: "bold",
+    fontSize: 22,
+    marginBottom: 10,
+  },
+  card: {
+    flex: 1,
+    padding: 20,
+  },
+  text: {
+    fontWeight: "bold",
+    marginLeft: 20,
+    marginBottom: -25,
+    textAlign: "left",
+  },
+  textinput: {
+    height: 45,
+    backgroundColor: "#dee2e6",
+    marginVertical: 10,
+    textDecoration: "none",
+    borderColor: "#1e6091",
+    borderWidth: 1,
+    borderRadius: 20,
+    borderTopLeftRadius: 20,
+    borderTopRightRadius: 20,
+    width: "100%",
+    marginBottom: 10,
+    paddingLeft: 30,
   },
   submit: {
-    padding: 5,
-    textAlign: "center",
-    backgroundColor: "green",
+    color: "white",
+    alignItems: "center",
+    marginTop: 80,
+    backgroundColor: "#1e6091",
   },
   successMessage: {
     color: "green",
@@ -210,6 +278,16 @@ const styles = StyleSheet.create({
   errorMessage: {
     color: "red",
     marginVertical: 10,
+  },
+  button: {
+    color: "white",
+    alignItems: "center",
+    marginTop: 40,
+    backgroundColor: "green",
+    borderRadius: 20,
+    borderTopLeftRadius: 20,
+    borderTopRightRadius: 20,
+    width: "100%",
   },
 });
 

@@ -16,37 +16,42 @@ const CustomerLogin = ({ navigation }) => {
 
   const handleLogin = async () => {
     try {
-      const response = await fetch(`http://${REACT_APP_SERVER_IP}:${REACT_APP_SERVER_PORT}/api/login`, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ username, password }),
-      });
-  
+      const response = await fetch(
+        `http://${REACT_APP_SERVER_IP}:${REACT_APP_SERVER_PORT}/api/login`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ username, password }),
+        }
+      );
+
       const data = await response.json();
-  
+
       if (response.ok) {
         if (data.customer_id) {
           // It's a customer, navigate to CustomerDashboard
           showDialog();
-          navigation.navigate('CustomerDashboard', { customer_id: data.customer_id });
-          console.log('Login Successful');
+          navigation.navigate("CustomerDashboard", {
+            customer_id: data.customer_id,
+          });
+          console.log("Login Successful");
         } else if (data.admin_id) {
           // It's an admin, navigate to AdminDashboard
           showDialog();
-          navigation.navigate('AdminDashboard', { admin_id: data.admin_id });
-          console.log('Login Successful (Admin)');
+          navigation.navigate("AdminDashboard", { admin_id: data.admin_id });
+          console.log("Login Successful (Admin)");
         }
       } else {
         // Login failed, display an error message
         setMessage(data.error);
-        console.error('Login failed:', data.error);
+        console.error("Login failed:", data.error);
         alert(data.error);
       }
     } catch (error) {
-      console.error('Error during login:', error);
-      alert('Login failed. Please try again.'); // Provide a generic error message
+      console.error("Error during login:", error);
+      alert("Login failed. Please try again."); // Provide a generic error message
     }
   };
   const handleRegisterNow = () => {
@@ -58,54 +63,59 @@ const CustomerLogin = ({ navigation }) => {
         <Title style={styles.firstTitle}>Welcome!</Title>
         <Title style={styles.firstSudTitle}>Login to your account</Title>
       </View>
-      <View style={styles.card}>
-        <Text style={styles.text}>Username :</Text>
-        <TextInput
-          left={<TextInput.Icon icon="eye" />}
-          value={username}
-          onChangeText={(text) => setUsername(text)}
-          style={styles.textinput}
-          underlineColor="transparent"
-        />
 
-        <Text style={styles.text}>Password :</Text>
-        <TextInput
-          left={<TextInput.Icon icon="car" />}
-          value={password}
-          secureTextEntry
-          onChangeText={(text) => setPassword(text)}
-          style={styles.textinput}
-          underlineColor="transparent"
-        />
-        <Button mode="contained" onPress={handleLogin} style={styles.button}>
-          <Text style={{ color: "white" }}> Login as Customer</Text>
-        </Button>
+      <View style={styles.containerTwo}>
+        <View style={styles.card}>
+          <Text style={styles.text}>Username :</Text>
+          <TextInput
+            left={<TextInput.Icon icon="eye" />}
+            value={username}
+            onChangeText={(text) => setUsername(text)}
+            style={styles.textinput}
+            underlineColor="transparent"
+          />
 
-        <Button style={styles.forgotButton}>
-          <Text style={{ color: "black" }}> Forgot your password ?</Text>
-        </Button>
+          <Text style={styles.text}>Password :</Text>
+          <TextInput
+            left={<TextInput.Icon icon="car" />}
+            value={password}
+            secureTextEntry
+            onChangeText={(text) => setPassword(text)}
+            style={styles.textinput}
+            underlineColor="transparent"
+          />
+          <Button mode="contained" onPress={handleLogin} style={styles.button}>
+            <Text style={{ color: "white" }}> Login as Customer</Text>
+          </Button>
 
-        <Button onPress={handleRegisterNow} style={styles.registerButton}>
-          <Text style={{ color: "black" }}>
-            Don't have a Account?{" "}
-            <Text style={{ textDecorationLine: "underline", color: "#bc6c25" }}>
-              Register Now
+          <Button style={styles.forgotButton}>
+            <Text style={{ color: "black" }}> Forgot your password ?</Text>
+          </Button>
+
+          <Button onPress={handleRegisterNow} style={styles.registerButton}>
+            <Text style={{ color: "black" }}>
+              Don't have a Account?{" "}
+              <Text
+                style={{ textDecorationLine: "underline", color: "#bc6c25" }}
+              >
+                Register Now
+              </Text>
             </Text>
-          </Text>
-        </Button>
-        {message && <Text style={styles.message}>{message}</Text>}
+          </Button>
+          {message && <Text style={styles.message}>{message}</Text>}
+        </View>
+        <Portal>
+          <Dialog visible={visible} onDismiss={hideDialog}>
+            <Dialog.Title>Login Successful</Dialog.Title>
+            <Dialog.Content>
+              <Text>Navigating to your dashboard</Text>
+            </Dialog.Content>
+            <Dialog.Actions>
+              <Button onPress={hideDialog}>OK</Button>
+            </Dialog.Actions>
+          </Dialog>
+        </Portal>
       </View>
-      <Portal>
-        <Dialog visible={visible} onDismiss={hideDialog}>
-          <Dialog.Title>Login Successful</Dialog.Title>
-          <Dialog.Content>
-            <Text>Navigating to your dashboard</Text>
-          </Dialog.Content>
-          <Dialog.Actions>
-            <Button onPress={hideDialog}>OK</Button>
-          </Dialog.Actions>
-        </Dialog>
-      </Portal>
     </View>
   );
 };
@@ -113,14 +123,16 @@ const CustomerLogin = ({ navigation }) => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+  },
+  containerTwo: {
     alignItems: "center",
-    padding: 20,
   },
   firstlay: {
     padding: 20,
-    marginBottom: 20,
+
     marginTop: 45,
-    alignItems: "center",
+    paddingLeft: 25,
+    alignItems: "left",
   },
   firstTitle: {
     color: "#bc6c25",
@@ -150,7 +162,7 @@ const styles = StyleSheet.create({
   },
   registerButton: {
     color: "black",
-    marginTop: 110,
+    marginTop: 150,
     alignSelf: "center",
   },
   text: {

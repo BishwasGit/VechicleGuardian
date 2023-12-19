@@ -50,39 +50,43 @@ const RepairCenterLogin = ({ navigation }) => {
         <Title style={styles.firstSudTitle}>Login to your account</Title>
       </View>
 
-      <View style={styles.card}>
-        <Text style={styles.text}>Username :</Text>
-        <TextInput
-          left={<TextInput.Icon icon="eye" />}
-          value={username}
-          onChangeText={(text) => setUsername(text)}
-          style={styles.textinput}
-          underlineColor="transparent"
-        />
-        <Text style={styles.text}>Password :</Text>
-        <TextInput
-          left={<TextInput.Icon icon="eye" />}
-          value={password}
-          secureTextEntry
-          onChangeText={(text) => setPassword(text)}
-          style={styles.textinput}
-          underlineColor="transparent"
-        />
-        <Button mode="contained" onPress={handleLogin} style={styles.button}>
-          <Text style={{ color: "white" }}> Login as Repair Center</Text>
-        </Button>
-        <Button style={styles.forgotButton}>
-          <Text style={{ color: "black" }}> Forgot your password ?</Text>
-        </Button>
+      <View style={styles.containerTwo}>
+        <View style={styles.card}>
+          <Text style={styles.text}>Username :</Text>
+          <TextInput
+            left={<TextInput.Icon icon="eye" />}
+            value={username}
+            onChangeText={(text) => setUsername(text)}
+            style={styles.textinput}
+            underlineColor="transparent"
+          />
+          <Text style={styles.text}>Password :</Text>
+          <TextInput
+            left={<TextInput.Icon icon="eye" />}
+            value={password}
+            secureTextEntry
+            onChangeText={(text) => setPassword(text)}
+            style={styles.textinput}
+            underlineColor="transparent"
+          />
+          <Button mode="contained" onPress={handleLogin} style={styles.button}>
+            <Text style={{ color: "white" }}> Login as Repair Center</Text>
+          </Button>
+          <Button style={styles.forgotButton}>
+            <Text style={{ color: "black" }}> Forgot your password ?</Text>
+          </Button>
 
-        <Button onPress={handleRegisterNow} style={styles.registerButton}>
-          <Text style={{ color: "black" }}>
-            Don't have a Account?{" "}
-            <Text style={{ textDecorationLine: "underline", color: "#bc6c25" }}>
-              Register Now
+          <Button onPress={handleRegisterNow} style={styles.registerButton}>
+            <Text style={{ color: "black" }}>
+              Don't have a Account?{" "}
+              <Text
+                style={{ textDecorationLine: "underline", color: "#1e6091" }}
+              >
+                Register Now
+              </Text>
             </Text>
-          </Text>
-        </Button>
+          </Button>
+        </View>
       </View>
     </View>
   );
@@ -91,17 +95,19 @@ const RepairCenterLogin = ({ navigation }) => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+  },
+  containerTwo: {
     alignItems: "center",
-    padding: 20,
   },
   firstlay: {
     padding: 20,
-    marginBottom: 20,
+
     marginTop: 45,
-    alignItems: "center",
+    paddingLeft: 25,
+    alignItems: "left",
   },
   firstTitle: {
-    color: "#bc6c25",
+    color: "#1e6091",
     fontWeight: "bold",
     fontSize: 35,
     paddingTop: 20,
@@ -121,14 +127,14 @@ const styles = StyleSheet.create({
     color: "white",
     alignItems: "center",
     marginTop: 40,
-    backgroundColor: "#bc6c25",
+    backgroundColor: "#1e6091",
   },
   forgotButton: {
     marginTop: 10,
   },
   registerButton: {
     color: "black",
-    marginTop: 120,
+    marginTop: 150,
     alignSelf: "center",
   },
   text: {
@@ -142,7 +148,7 @@ const styles = StyleSheet.create({
     backgroundColor: "#dee2e6",
     marginVertical: 10,
     textDecoration: "none",
-    borderColor: "#bc6c25",
+    borderColor: "#1e6091",
     borderWidth: 1,
     borderRadius: 20,
     borderTopLeftRadius: 20,
