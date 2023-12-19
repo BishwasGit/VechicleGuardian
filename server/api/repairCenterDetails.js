@@ -12,7 +12,7 @@ router.get('/RepairCenterDetails/:repaircenter_id', async (req, res) => {
     const [repairCenterDetails] = await db.execute('SELECT * FROM repaircenter_users WHERE repaircenter_id = ?', [repariCenterId]);
 
     // Assuming the response structure; modify as per your database schema
-    console.log(repairCenterDetails);
+    //console.log(repairCenterDetails);
     res.json({ repairCenterDetails });
   } catch (error) {
     console.error('Error fetching repair center details:', error);
