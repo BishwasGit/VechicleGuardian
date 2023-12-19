@@ -1,37 +1,44 @@
-import React from 'react';
-import { View, StyleSheet } from 'react-native';
-import { Card, Title, Paragraph, Button } from 'react-native-paper';
+import React from "react";
+import { Text, View, StyleSheet, Dimensions } from "react-native";
+import { Avatar, Card, Title, Paragraph, Button } from "react-native-paper";
+
+const { width, height } = Dimensions.get("window");
 
 const LoginSelectionScreen = ({ navigation }) => {
   return (
     <View style={styles.container}>
-      <Card style={styles.card}>
-        <Card.Content>
-          <Title>Welcome to Vehicle Guardian</Title>
-          <Paragraph>
-            Your one-stop solution for managing vehicle information and repair services.
-          </Paragraph>
-        </Card.Content>
-      </Card>
+      <View style={styles.overlay}>
+        <Avatar.Icon style={styles.icon} size={150} icon="car" />
+        <Title style={styles.subTitle}>VehicleG</Title>
+      </View>
 
-      <Card style={styles.card}>
-        <Card.Content>
-          <Button
-            mode="contained"
-            onPress={() => navigation.navigate('CustomerLogin')}
-            style={styles.button}
-          >
-            Login as Customer
-          </Button>
-          <Button
-            mode = "elevated"
-            onPress={() => navigation.navigate('RepairCenterLogin')}
-            style={styles.button}
-          >
-            Login as Repair Center
-          </Button>
-        </Card.Content>
-      </Card>
+      <View style={styles.card}>
+        <View style={styles.firstlay}>
+          <Title style={styles.firstTitle}>Log in or Sign up</Title>
+          <Title style={styles.firstSudTitle}>Select your login account</Title>
+        </View>
+        <Button
+          style={styles.button}
+          mode="contained"
+          onPress={() => navigation.navigate("CustomerLogin")}
+          labelStyle={styles.buttonText}
+        >
+          Login as Customer
+        </Button>
+        <Button
+          style={styles.button2}
+          onPress={() => navigation.navigate("RepairCenterLogin")}
+          labelStyle={styles.button2Text}
+        >
+          Login as Repair Center
+        </Button>
+      </View>
+      <View style={styles.lay}>
+        <Title style={styles.Title}>
+          By registering this step you agree to
+        </Title>
+        <Title style={styles.sudTitle}>Terms of Services</Title>
+      </View>
     </View>
   );
 };
@@ -39,17 +46,74 @@ const LoginSelectionScreen = ({ navigation }) => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
+    backgroundColor: "#073b4c",
+  },
+  overlay: {
+    marginTop: 200,
+    alignItems: "center",
+  },
+  icon: {
+    backgroundColor: "transparent",
+  },
+  subTitle: {
     padding: 16,
+    color: "white",
+    fontWeight: "bold",
+    fontSize: 38,
   },
   card: {
-    width: '100%',
-    marginBottom: 16,
-    padding: 16,
+    marginTop: height * 0.1,
+    width: "65%",
+    alignSelf: "center",
   },
+  firstlay: {
+    marginBottom: 20,
+    marginTop: 30,
+    alignItems: "center",
+  },
+  firstTitle: {
+    color: "white",
+    fontSize: 20,
+    marginBottom: -7,
+  },
+  firstSudTitle: {
+    fontSize: 13,
+    color: "#adb5bd",
+  },
+
   button: {
     marginVertical: 10,
+    backgroundColor: "#bc6c25",
+  },
+  button2: {
+    marginVertical: 10,
+    backgroundColor: "transparent",
+    borderColor: "#bc6c25",
+    borderWidth: 2,
+  },
+  button2Text: {
+    color: "white",
+    textDecorationLine: "none",
+    textDecorationColor: "transparent",
+  },
+  buttonText: {
+    textDecorationLine: "none",
+    color: "white",
+  },
+  lay: {
+    marginTop: 30,
+    alignItems: "center",
+  },
+  Title: {
+    color: "#adb5bd",
+    fontSize: 13,
+    marginBottom: -10, // Adjust this value to decrease the space below Title
+  },
+  sudTitle: {
+    color: "#adb5bd",
+    fontSize: 13,
+    textDecorationLine: "underline",
+    marginTop: 1, // Adjust this value to decrease the space above sudTitle
   },
 });
 

@@ -1,8 +1,9 @@
 import React, { useState } from "react";
-import { View, StyleSheet ,Text } from "react-native";
+import { View, StyleSheet, Text } from "react-native";
 import { TextInput, Button, Card, Title } from "react-native-paper";
-import { Dialog, Portal } from 'react-native-paper';
-import { REACT_APP_SERVER_IP, REACT_APP_SERVER_PORT } from '@env';
+import { Dialog, Portal } from "react-native-paper";
+import { REACT_APP_SERVER_IP, REACT_APP_SERVER_PORT } from "@env";
+import Icon from "react-native-vector-icons/FontAwesome";
 
 const CustomerLogin = ({ navigation }) => {
   const [username, setUsername] = useState("");
@@ -53,33 +54,47 @@ const CustomerLogin = ({ navigation }) => {
   };
   return (
     <View style={styles.container}>
-      <Card style={styles.card}>
-        <Card.Content>
-          <Title style={styles.title}>Login as Customer</Title>
-          <TextInput
-            label="Username"
-            value={username}
-            onChangeText={(text) => setUsername(text)}
-            style={styles.textinput}
-            mode="outlined"
-          />
-          <TextInput
-            label="Password"
-            value={password}
-            secureTextEntry
-            onChangeText={(text) => setPassword(text)}
-            style={styles.textinput}
-            mode="outlined"
-          />
-          <Button mode="contained" onPress={handleLogin} style={styles.button}>
-            Login
-          </Button>
-          <Button onPress={handleRegisterNow} style={styles.registerButton}>
-            Register Now
-          </Button>
-          {message && <Text style={styles.message}>{message}</Text>}
-        </Card.Content>
-      </Card>
+      <View style={styles.firstlay}>
+        <Title style={styles.firstTitle}>Welcome!</Title>
+        <Title style={styles.firstSudTitle}>Login to your account</Title>
+      </View>
+      <View style={styles.card}>
+        <Text style={styles.text}>Username :</Text>
+        <TextInput
+          left={<TextInput.Icon icon="eye" />}
+          value={username}
+          onChangeText={(text) => setUsername(text)}
+          style={styles.textinput}
+          underlineColor="transparent"
+        />
+
+        <Text style={styles.text}>Password :</Text>
+        <TextInput
+          left={<TextInput.Icon icon="car" />}
+          value={password}
+          secureTextEntry
+          onChangeText={(text) => setPassword(text)}
+          style={styles.textinput}
+          underlineColor="transparent"
+        />
+        <Button mode="contained" onPress={handleLogin} style={styles.button}>
+          <Text style={{ color: "white" }}> Login as Customer</Text>
+        </Button>
+
+        <Button style={styles.forgotButton}>
+          <Text style={{ color: "black" }}> Forgot your password ?</Text>
+        </Button>
+
+        <Button onPress={handleRegisterNow} style={styles.registerButton}>
+          <Text style={{ color: "black" }}>
+            Don't have a Account?{" "}
+            <Text style={{ textDecorationLine: "underline", color: "#bc6c25" }}>
+              Register Now
+            </Text>
+          </Text>
+        </Button>
+        {message && <Text style={styles.message}>{message}</Text>}
+      </View>
       <Portal>
         <Dialog visible={visible} onDismiss={hideDialog}>
           <Dialog.Title>Login Successful</Dialog.Title>
@@ -98,31 +113,70 @@ const CustomerLogin = ({ navigation }) => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: "center",
     alignItems: "center",
     padding: 20,
   },
-  title: {
-    textAlign: "center",
-    marginBottom: 10,
+  firstlay: {
+    padding: 20,
+    marginBottom: 20,
+    marginTop: 45,
+    alignItems: "center",
+  },
+  firstTitle: {
+    color: "#bc6c25",
+    fontWeight: "bold",
+    fontSize: 35,
+    paddingTop: 20,
+    marginBottom: 3,
+  },
+  firstSudTitle: {
+    fontSize: 15,
+    color: "#adb5bd",
   },
   card: {
-    width: "80%",
-    marginVertical: 10,
+    width: "90%",
+    marginVertical: 50,
     padding: "5px",
   },
+
   button: {
-    marginVertical: 10,
+    color: "white",
+    alignItems: "center",
+    marginTop: 40,
+    backgroundColor: "#bc6c25",
+  },
+  forgotButton: {
+    marginTop: 10,
   },
   registerButton: {
-    marginTop: 10,
+    color: "black",
+    marginTop: 110,
     alignSelf: "center",
   },
+  text: {
+    fontWeight: "bold",
+    marginLeft: 10,
+    marginBottom: 5,
+    textAlign: "left",
+  },
   textinput: {
+    height: 50,
+    backgroundColor: "#dee2e6",
     marginVertical: 10,
+    textDecoration: "none",
+    borderWidth: 1,
+    borderColor: "#bc6c25",
+    borderRadius: 20,
+    borderTopLeftRadius: 20,
+    borderTopRightRadius: 20,
+    width: "100%",
+    marginBottom: 20,
   },
   message: {
     color: "red",
+  },
+  label: {
+    color: "black",
   },
 });
 

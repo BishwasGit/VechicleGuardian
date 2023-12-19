@@ -16,6 +16,7 @@
     "axios": "^1.6.2",
     "base-64": "^1.0.0",
     "expo": "~49.0.15",
+    "expo-cli": "^6.3.10",
     "expo-file-system": "~15.4.5",
     "expo-image-picker": "~14.3.2",
     "expo-status-bar": "~1.6.0",
