@@ -12,6 +12,7 @@ import LoginSelectionScreen from './components/LoginScreen';
 import RepairCenterLogin from './components/repaircenter/RepairCenterLogin';
 import RegistrationScreen from './components/RegistrationScreen'; // Create a new component for registration
 import RepariCenterDashboard from './components/repaircenter/dashboard'
+import RepairProcessScreen from './components/repaircenter/features/RepairProcessScreen'
 
 //customer side
 import CustomerDashboard from './components/customer/dashboard'
@@ -43,6 +44,7 @@ const App = () => {
         <Stack.Screen name="ListVehicle" component={ListVehicleScreen} />
         <Stack.Screen name="ViewServiceHistory" component={ViewServiceHistoryScreen} />
         <Stack.Screen name="LocateRepairCenters" component={LocateRepairCentersScreen} />
+        <Stack.Screen name="RepairProcessScreen" component={RepairProcessScreen} />
       </Stack.Navigator>
     </NavigationContainer>
     </PaperProvider> 

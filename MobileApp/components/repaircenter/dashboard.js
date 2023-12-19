@@ -3,12 +3,16 @@ import { View, StyleSheet, Text, TouchableOpacity } from "react-native";
 import { Card, Title, Button, TextInput } from "react-native-paper";
 import { REACT_APP_SERVER_IP, REACT_APP_SERVER_PORT } from "@env";
 import { encode as base64Encode, decode as base64Decode } from 'base-64';
+import { useNavigation } from '@react-navigation/native';
+
 
 const RepariCenterDashboard = ({ route }) => {
   const { repaircenter_id } = route.params;
   const [repairCenterDetails, setRepairCenterDetails] = useState(null);
   const [showForm, setShowForm] = useState(false);
   const [showVacancyForm, setShowVacancyForm] = useState(false);
+  const [isVerified, setIsVerified] = useState(false);
+  const navigation = useNavigation();
   const [newDetails, setNewDetails] = useState({
     // Initialize with default values or leave empty
     fullname : "",
@@ -43,6 +47,24 @@ const RepariCenterDashboard = ({ route }) => {
 
     fetchRepairCenterDetails();
   }, [route.params.repaircenter_id]);
+
+  useEffect(() => {
+    const checkVerificationStatus = async () => {
+      const { repaircenter_id } = route.params;
+      try {
+        const response = await fetch(
+          `http://${REACT_APP_SERVER_IP}:${REACT_APP_SERVER_PORT}/api/checkVerificationStatus/${repaircenter_id}`
+        );
+        const data = await response.json();
+        setIsVerified(Boolean(data.verified));
+      } catch (error) {
+        console.error("Error fetching verification status:", error);
+      }
+    };
+
+    checkVerificationStatus();
+  }, [route.params.repaircenter_id]);
+
 
   const handleAddDetails = async () => {
     const mapBase64 = base64Encode(newDetails.map);
@@ -97,6 +119,18 @@ const RepariCenterDashboard = ({ route }) => {
       console.error("Error adding Repair Center details:", error);
     }
   };
+
+  const handleStartRepairing = () => {
+    console.log("Is Verified:", isVerified);
+    if (isVerified) {
+      // Add logic to navigate to the repair process screen or perform other actions
+      navigation.navigate('RepairProcessScreen',{repaircenter_id : route.params.repaircenter_id});
+    } else {
+      alert("Repair Center Verification Pending");
+    }
+  };
+
+  
   //code to reterive map
   // const decodedIframe = Buffer.from(encodedIframe, 'base64').toString('utf-8');
   return (
@@ -118,7 +152,9 @@ const RepariCenterDashboard = ({ route }) => {
       <TouchableOpacity onPress={() => setShowVacancyForm(true)}>
         <Text style={styles.addButton}>Add Vacancy</Text>
       </TouchableOpacity>
-
+      <Button mode="contained" onPress={handleStartRepairing}>
+        Start Repairing
+      </Button>
       {showForm && (
         <Card style={styles.card}>
           <Card.Content>

@@ -19,7 +19,7 @@ router.post("/repairCenterLogin", async (req, res) => {
     }
 
     const { repaircenter_id, password: hashedPassword } = result[0];
-  
+    // console.log(result[0]);
     // Compare the provided password with the hashed password
     bcrypt.compare(password, hashedPassword, (err, passwordMatch) => {
       if (err) {
