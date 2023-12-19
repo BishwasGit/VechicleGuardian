@@ -1,7 +1,7 @@
-import React, { useState, useEffect } from 'react';
-import { View, StyleSheet, Text } from 'react-native';
-import { Card } from 'react-native-paper';
-import { REACT_APP_SERVER_IP, REACT_APP_SERVER_PORT } from '@env';
+import React, { useState, useEffect } from "react";
+import { View, StyleSheet, Text } from "react-native";
+import { Card } from "react-native-paper";
+import { REACT_APP_SERVER_IP, REACT_APP_SERVER_PORT } from "@env";
 
 const RepariCenterDashboard = ({ route }) => {
   const [RepairCenterDetails, setRepairCenterDetails] = useState(null);
@@ -14,7 +14,9 @@ const RepariCenterDashboard = ({ route }) => {
       // Make a request to your server to get customer details based on repaircenter_id
       // Example using fetch:
       try {
-        const response = await fetch(`http://${REACT_APP_SERVER_IP}:${REACT_APP_SERVER_PORT}/api/RepairCenterDetails/${repaircenter_id}`);
+        const response = await fetch(
+          `http://${REACT_APP_SERVER_IP}:${REACT_APP_SERVER_PORT}/api/RepairCenterDetails/${repaircenter_id}`
+        );
         const data = await response.json();
 
         setRepairCenterDetails(data.RepairCenterDetails);
@@ -22,7 +24,7 @@ const RepariCenterDashboard = ({ route }) => {
         // Assuming the server response contains customer details
         setRepairCenterDetails(data.RepairCenterDetails);
       } catch (error) {
-        console.error('Error fetching customer details:', error);
+        console.error("Error fetching customer details:", error);
       }
     };
 
@@ -33,11 +35,12 @@ const RepariCenterDashboard = ({ route }) => {
     <View style={styles.container}>
       <Card style={styles.card}>
         <Card.Content>
-        {RepairCenterDetails && (
-          <Title style={styles.welcomeText}>
-            Welcome to the customer dashboard, {RepairCenterDetails[0].username}
-          </Title>
-        )}
+          {RepairCenterDetails && (
+            <Title style={styles.welcomeText}>
+              Welcome to the customer dashboard,{" "}
+              {RepairCenterDetails[0].username}
+            </Title>
+          )}
         </Card.Content>
       </Card>
     </View>
@@ -47,14 +50,14 @@ const RepariCenterDashboard = ({ route }) => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
+    justifyContent: "center",
+    alignItems: "center",
     padding: 20,
   },
   card: {
-    width: '80%',
+    width: "80%",
     marginVertical: 10,
-    padding: '5px',
+    padding: "5px",
   },
 });
 
