@@ -8,14 +8,9 @@ import {
 } from "react-native";
 import { Card, Title, Button, TextInput } from "react-native-paper";
 import { REACT_APP_SERVER_IP, REACT_APP_SERVER_PORT } from "@env";
-<<<<<<< HEAD
-import Icon from "react-native-vector-icons/MaterialIcons";
-import { encode as base64Encode, decode as base64Decode } from "base-64";
-=======
 import { encode as base64Encode, decode as base64Decode } from 'base-64';
 import { useNavigation } from '@react-navigation/native';
 
->>>>>>> dbd86c80d47af607adec7602378a29dd4bfcb4c4
 
 const RepariCenterDashboard = ({ route }) => {
   const { repaircenter_id } = route.params;
@@ -157,125 +152,6 @@ const RepariCenterDashboard = ({ route }) => {
         )}
       </View>
 
-<<<<<<< HEAD
-      <View style={styles.containerTwo}>
-        <View style={styles.head}>
-          <Title style={{ fontSize: 20, color: "#073b4c" }}>
-            Welcome!{"\n"}
-            <Title style={{ fontSize: 14, color: "#073b4c" }}>
-              Let's get started with our services.
-            </Title>
-          </Title>
-        </View>
-
-        <View style={styles.gridContainer}>
-          <View style={styles.headTwo}>
-            <Title style={{ fontSize: 14, color: "#073b4c" }}>
-              Let's get started with our services.
-            </Title>
-          </View>
-
-          <TouchableOpacity
-            style={styles.gridItem}
-            onPress={() => setShowForm(true)}
-          >
-            <Icon name="directions-car" size={30} color="#1e6091" />
-            <Text style={styles.addButton}>Add Repair Center Details</Text>
-          </TouchableOpacity>
-          <TouchableOpacity
-            style={styles.gridItem}
-            onPress={() => setShowVacancyForm(true)}
-          >
-            <Icon name="format-list-bulleted" size={30} color="#1e6091" />
-            <Text style={styles.addButton}>Add Vacancy</Text>
-          </TouchableOpacity>
-        </View>
-        {showForm && (
-          <Card style={styles.card}>
-            <Card.Content>
-              <TextInput
-                style={styles.field}
-                label="Full name"
-                value={newDetails.fullname}
-                onChangeText={(text) =>
-                  setNewDetails({ ...newDetails, fullname: text })
-                }
-              />
-              <TextInput
-                style={styles.field}
-                label="Address"
-                value={newDetails.address}
-                onChangeText={(text) =>
-                  setNewDetails({ ...newDetails, address: text })
-                }
-              />
-              <TextInput
-                style={styles.field}
-                label="Contact"
-                value={newDetails.contact}
-                onChangeText={(text) =>
-                  setNewDetails({ ...newDetails, contact: text })
-                }
-              />
-              <TextInput
-                style={styles.field}
-                label="Map Link"
-                value={newDetails.map}
-                placeholder="https://maps.app.goo.gl/boxNWUPhqfcUEGk77"
-                onChangeText={(text) =>
-                  setNewDetails({ ...newDetails, map: text })
-                }
-              />
-              <Button mode="contained" onPress={handleAddDetails}>
-                Add Details
-              </Button>
-
-              {showVacancyForm && (
-                <Card style={styles.card}>
-                  <Card.Content>
-                    <TextInput
-                      style={styles.field}
-                      label="Position"
-                      value={vacancyDetails.position}
-                      onChangeText={(text) =>
-                        setNewVacancyDetails({
-                          ...vacancyDetails,
-                          position: text,
-                        })
-                      }
-                    />
-                    <TextInput
-                      style={styles.field}
-                      label="Number of person"
-                      value={vacancyDetails.noOfPerson}
-                      onChangeText={(text) =>
-                        setNewVacancyDetails({
-                          ...vacancyDetails,
-                          noOfPerson: text,
-                        })
-                      }
-                    />
-                    <TextInput
-                      style={styles.field}
-                      label="Salary"
-                      value={vacancyDetails.salary}
-                      placeholder="10k-20k"
-                      onChangeText={(text) =>
-                        setNewVacancyDetails({
-                          ...vacancyDetails,
-                          salary: text,
-                        })
-                      }
-                    />
-                  </Card.Content>
-                </Card>
-              )}
-            </Card.Content>
-          </Card>
-        )}
-      </View>
-    </ScrollView>
-=======
       <TouchableOpacity onPress={() => setShowForm(true)}>
         <Text style={styles.addButton}>Add Repair Center Details</Text>
       </TouchableOpacity>
@@ -358,8 +234,7 @@ const RepariCenterDashboard = ({ route }) => {
           </Card.Content>
         </Card>
       )}
-    </View>
->>>>>>> dbd86c80d47af607adec7602378a29dd4bfcb4c4
+      </ScrollView>
   );
 };
 
