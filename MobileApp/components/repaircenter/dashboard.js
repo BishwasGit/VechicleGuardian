@@ -188,7 +188,7 @@ const RepariCenterDashboard = ({ route }) => {
             <TextInput
               label="Map Link"
               value={newDetails.map}
-              placeholder='https://maps.app.goo.gl/boxNWUPhqfcUEGk77'
+              placeholder='27.68899461302774, 85.28788243117607'
               onChangeText={(text) =>
                 setNewDetails({ ...newDetails, map: text })
               }
