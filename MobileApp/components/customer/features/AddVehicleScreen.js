@@ -4,9 +4,8 @@ import {
   Text,
   ScrollView,
   TextInput,
-  Button,
-  Alert,
   StyleSheet,
+  TouchableOpacity,
 } from "react-native";
 
 import { Picker } from "@react-native-picker/picker";
@@ -38,7 +37,7 @@ const AddVehicleScreen = ({ route }) => {
       !ownerName ||
       !contactNumber
     ) {
-      Alert.alert("Error", "Please fill in all the details.");
+      alert("Error", "Please fill in all the details.");
       return;
     }
 
@@ -204,13 +203,14 @@ const AddVehicleScreen = ({ route }) => {
         />
         {/* Button to submit the form */}
 
-        <Button
-          title="Add Vehicle"
+        <TouchableOpacity
           onPress={handleAddVehicle}
-          style={styles.button}
+          style={{ backgroundColor: "#118F06", padding: 10, borderRadius: 20 }}
         >
-          <Text style={{ color: "white" }}> Login as Repair Center</Text>
-        </Button>
+          <Text style={{ color: "white", textAlign: "center" }}>
+            Add Vehicle
+          </Text>
+        </TouchableOpacity>
       </View>
     </ScrollView>
   );
@@ -283,7 +283,6 @@ const styles = StyleSheet.create({
     color: "white",
     alignItems: "center",
     marginTop: 40,
-    backgroundColor: "green",
     borderRadius: 20,
     borderTopLeftRadius: 20,
     borderTopRightRadius: 20,
