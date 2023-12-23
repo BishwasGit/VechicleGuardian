@@ -9,6 +9,9 @@
     "web": "expo start --web"
   },
   "dependencies": {
+    "@expo/config-plugins": "~7.2.2",
+    "@expo/metro-config": "~0.10.0",
+    "@expo/prebuild-config": "~6.2.4",
     "@expo/webpack-config": "^19.0.0",
     "@react-native-community/datetimepicker": "^7.6.2",
     "@react-native-picker/picker": "^2.6.1",
@@ -17,9 +20,9 @@
     "axios": "^1.6.2",
     "base-64": "^1.0.0",
     "expo": "~49.0.15",
-    "expo-cli": "^6.3.10",
     "expo-file-system": "^15.6.0",
     "expo-image-picker": "^14.5.0",
+    "expo-modules-autolinking": "~1.5.0",
     "expo-status-bar": "^1.7.1",
     "expo-updates": "~0.18.18",
     "gotham-fonts": "^1.0.3",

@@ -1,0 +1,225 @@
+[33mcommit d97897980b6cbf82db82f166999852b7fbe5d2d8[m[33m ([m[1;36mHEAD -> [m[1;32mmaster[m[33m, [m[1;31morigin/master[m[33m)[m
+Author: Justbishwas <b15hw45@gmail.com>
+Date:   Sat Dec 23 11:57:30 2023 +0545
+
+    proper input label / add vehicle
+
+[33mcommit 02a90a6ee4f4b2dd22853460a9ba42d92e25f731[m
+Author: Justbishwas <b15hw45@gmail.com>
+Date:   Fri Dec 22 14:40:02 2023 +0545
+
+    start repair screen / backend / completed time generated
+
+[33mcommit a18a3c06adf49d3b1093523c70d41b7a909ea456[m
+Author: Justbishwas <b15hw45@gmail.com>
+Date:   Fri Dec 22 14:39:22 2023 +0545
+
+    start repair screen / backend / completed time generated
+
+[33mcommit 25f80dc09b41e67e25c8287f08c449ad0a1d0e05[m
+Author: Justbishwas <b15hw45@gmail.com>
+Date:   Fri Dec 22 11:12:32 2023 +0545
+
+    add vehicle blank alert fix / button color
+
+[33mcommit b11e206e5addefa1dfa28057de9e5a6a349e2b62[m
+Author: Justbishwas <b15hw45@gmail.com>
+Date:   Thu Dec 21 15:11:36 2023 +0545
+
+    outdated packages fixes / implemented maps still incomplete / locate repair centers
+
+[33mcommit 09f3af1ca405ac0106706c1c462ade90c4fa93b0[m
+Author: Justbishwas <b15hw45@gmail.com>
+Date:   Wed Dec 20 15:22:23 2023 +0545
+
+    start repair screen
+
+[33mcommit 0dea54510d593c3a275ff22abd1a29d40deb6376[m
+Author: Justbishwas <b15hw45@gmail.com>
+Date:   Wed Dec 20 14:39:22 2023 +0545
+
+    merged error fix
+
+[33mcommit 39ffabe29b915459a80b4c152a500f0ed11b928b[m
+Merge: 2928b01 dbd86c8
+Author: Jayanti Bhandari <112817289+jayantibhandari@users.noreply.github.com>
+Date:   Tue Dec 19 19:51:27 2023 +0545
+
+    dashboard / features
+
+[33mcommit 2928b01f1063cfd66477ba8345d654f5979643a2[m
+Author: Jayanti Bhandari <112817289+jayantibhandari@users.noreply.github.com>
+Date:   Tue Dec 19 19:47:08 2023 +0545
+
+    dashboard / features
+
+[33mcommit dbd86c80d47af607adec7602378a29dd4bfcb4c4[m
+Author: Justbishwas <b15hw45@gmail.com>
+Date:   Tue Dec 19 17:49:54 2023 +0545
+
+    repair center verification / start repair screen
+
+[33mcommit e146838e49d8cd76ed9e05e36cdeb3404b247c88[m
+Merge: 949f62c c227dd7
+Author: Justbishwas <b15hw45@gmail.com>
+Date:   Tue Dec 19 14:17:10 2023 +0545
+
+    merged
+
+[33mcommit 949f62c1141d671872ff446bb387465aabc17142[m
+Author: Justbishwas <b15hw45@gmail.com>
+Date:   Tue Dec 19 14:09:52 2023 +0545
+
+    pacakge fix
+
+[33mcommit c227dd761faa07d224375895129bff317c01ff2a[m
+Merge: b5bc9be 56ce628
+Author: Jayanti Bhandari <112817289+jayantibhandari@users.noreply.github.com>
+Date:   Tue Dec 19 14:04:09 2023 +0545
+
+    merged
+
+[33mcommit b5bc9be72bf0a38292b68c8cf0b73ab8c1a793d6[m
+Author: Jayanti Bhandari <112817289+jayantibhandari@users.noreply.github.com>
+Date:   Tue Dec 19 13:55:48 2023 +0545
+
+    3 days commit / main / login register / dashboard
+
+[33mcommit 56ce628e83a93c1805d18e42595d2582d38fa7ad[m
+Author: Justbishwas <b15hw45@gmail.com>
+Date:   Mon Dec 18 13:20:49 2023 +0545
+
+    added admin login / verify details
+
+[33mcommit 9a35c09195427627d36782669ff47d420fa8687f[m
+Author: Justbishwas <b15hw45@gmail.com>
+Date:   Mon Dec 18 11:15:19 2023 +0545
+
+    admin login / admin dashboard
+
+[33mcommit fd7a767588f45f4dc8d5b837fe5fac23865e99f0[m
+Author: Justbishwas <b15hw45@gmail.com>
+Date:   Sun Dec 17 14:47:43 2023 +0545
+
+    list repair centers
+
+[33mcommit 7a2fdf43e0b318f94342fa03e3c0d603693f95d0[m
+Author: Justbishwas <b15hw45@gmail.com>
+Date:   Sun Dec 17 12:40:45 2023 +0545
+
+    add repair center details
+
+[33mcommit fc516984b4edcc7f57799860403bce0908f3ee73[m
+Author: Justbishwas <b15hw45@gmail.com>
+Date:   Sat Dec 16 15:02:07 2023 +0545
+
+    db files added
+
+[33mcommit 3d1b0aeb0db2344f26a6b8a88d1c48defc99398e[m
+Author: Justbishwas <b15hw45@gmail.com>
+Date:   Sat Dec 16 14:10:55 2023 +0545
+
+    added details to modal
+
+[33mcommit 160a9640a07b8e63681e91dbe566122ef7217b3d[m
+Author: Justbishwas <b15hw45@gmail.com>
+Date:   Sat Dec 16 14:05:51 2023 +0545
+
+    list vehicle view details and delete done
+
+[33mcommit 91137ac8a9937094a76599111e23a86445413676[m
+Author: Justbishwas <b15hw45@gmail.com>
+Date:   Fri Dec 15 16:15:51 2023 +0545
+
+    vehicle list done
+
+[33mcommit e1ac17c69ba809e0689bfc0aab63a222062f3f17[m
+Author: Justbishwas <b15hw45@gmail.com>
+Date:   Fri Dec 15 13:06:53 2023 +0545
+
+    packages by npm backedup
+
+[33mcommit 7103274ee9f4e63cff3a9e9b80f5994a2ee0f968[m
+Author: Justbishwas <b15hw45@gmail.com>
+Date:   Fri Dec 15 13:04:49 2023 +0545
+
+    using only Yarn / .env file setup / fix expo go mysql connection / vehicle details storing
+
+[33mcommit e7bb7519c8de98122bdb90c749fe2717105b9ded[m
+Author: Justbishwas <b15hw45@gmail.com>
+Date:   Thu Dec 14 18:03:59 2023 +0545
+
+    successfully stored vehicle Details / error alerts
+
+[33mcommit f11a0a3391b457613a7816296b793fece348a35e[m
+Author: Justbishwas <b15hw45@gmail.com>
+Date:   Wed Dec 13 20:59:49 2023 +0545
+
+    add vehicle form / removed add files packages and buttons for now
+
+[33mcommit 6a67e83a51fdcc460ae542fa29f59f803f74bb05[m
+Author: Justbishwas <b15hw45@gmail.com>
+Date:   Sun Dec 10 14:25:22 2023 +0545
+
+    expo update / added expo builds
+
+[33mcommit e318d034316b0095590b8c0fc492c3fa5f2e2426[m
+Author: Justbishwas <b15hw45@gmail.com>
+Date:   Sun Dec 10 13:24:52 2023 +0545
+
+    expo packages update
+
+[33mcommit 019ab2e8614f6b55938565f43ce25f3e17ce5c89[m
+Author: Justbishwas <b15hw45@gmail.com>
+Date:   Sun Dec 10 13:04:56 2023 +0545
+
+    Added button
+
+[33mcommit 62c4b0fca1ed02d681729a0079c2a0b287a6eecb[m
+Author: Justbishwas <b15hw45@gmail.com>
+Date:   Thu Dec 7 13:43:20 2023 +0545
+
+    fetch user data
+
+[33mcommit a16aee9113c76e7206ce992b1ee11e3fc8e8ddd4[m
+Author: Justbishwas <b15hw45@gmail.com>
+Date:   Wed Dec 6 11:05:36 2023 +0545
+
+    router.use fix
+
+[33mcommit 87149310ca1fd5784409501011bc75f81290b31d[m
+Author: Justbishwas <b15hw45@gmail.com>
+Date:   Tue Dec 5 12:34:58 2023 +0545
+
+    Hashing / login / dashboard created
+
+[33mcommit ee7132ba13ba66b3cd64eb9abd5c16311392fa57[m
+Author: Justbishwas <b15hw45@gmail.com>
+Date:   Mon Dec 4 15:16:48 2023 +0545
+
+    MYSQL2 Promise working / Registration / Validations / Desing changes
+
+[33mcommit 3e5f364708f9211803c1f06dd4f3f06c95a803a0[m
+Merge: 9c3b268 a0cd160
+Author: Justbishwas <b15hw45@gmail.com>
+Date:   Sun Dec 3 13:29:51 2023 +0545
+
+    Merge branch 'master' of https://github.com/BishwasGit/VechicleGuardian
+
+[33mcommit 9c3b268fc9feedc39873239996a66570ed77e51a[m
+Author: Justbishwas <b15hw45@gmail.com>
+Date:   Sun Dec 3 13:28:06 2023 +0545
+
+    Registration API / Validations for both
+
+[33mcommit a0cd1609e00281c1f71485a3e3c5eaeabb2da070[m
+Author: Bishwas Shrestha <62104347+BishwasGit@users.noreply.github.com>
+Date:   Thu Nov 30 14:17:23 2023 +0545
+
+    Create README.md
+
+[33mcommit d9158d39db6ddb5d01ff949aced366b54c9228cd[m
+Author: Justbishwas <b15hw45@gmail.com>
+Date:   Thu Nov 30 14:16:45 2023 +0545
+
+    Navigation / Designing / Database Connection / Login Forms
