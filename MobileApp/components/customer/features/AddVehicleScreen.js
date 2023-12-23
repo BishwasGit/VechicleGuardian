@@ -141,7 +141,7 @@ const AddVehicleScreen = ({ route }) => {
           <Picker.Item style={styles.contain} label="Cycle" value="Cycle" />
         </Picker>
 
-        <Text style={styles.text}>Password :</Text>
+        <Text style={styles.text}>Vehicle Number :</Text>
         <TextInput
           style={styles.textinput}
           placeholder="Vehicle Number"
@@ -149,21 +149,21 @@ const AddVehicleScreen = ({ route }) => {
           onChangeText={(text) => setVehicleNumber(text)}
         />
         {/* Input for vehicle lot */}
-        <Text style={styles.text}>Password :</Text>
+        <Text style={styles.text}>Vehicle Lot :</Text>
         <TextInput
           style={styles.textinput}
           placeholder="Vehicle Lot"
           value={vehicleLot}
           onChangeText={(text) => setVehicleLot(text)}
         />
-        <Text style={styles.text}>Password :</Text>
+        <Text style={styles.text}>Vehicle Company :</Text>
         <TextInput
           style={styles.textinput}
           placeholder="Vehicle Company"
           value={vehicleCompany}
           onChangeText={(text) => setVehicleCompany(text)}
         />
-        <Text style={styles.text}>Password :</Text>
+        <Text style={styles.text}>Vehicle Model :</Text>
         <TextInput
           style={styles.textinput}
           placeholder="Vehicle Model"
@@ -173,28 +173,28 @@ const AddVehicleScreen = ({ route }) => {
         {/* Bill Book details */}
 
         <Text style={styles.headingTo}>Bill Book Details</Text>
-        <Text style={styles.text}>Password :</Text>
+        <Text style={styles.text}>Created Date :</Text>
         <TextInput
           style={styles.textinput}
           placeholder="yyyy-mm-dd"
           value={createdDate}
           onChangeText={(text) => setCreatedDate(text)}
         />
-        <Text style={styles.text}>Password :</Text>
+        <Text style={styles.text}>Expiry Date :</Text>
         <TextInput
           style={styles.textinput}
           placeholder="yyyy-mm-dd"
           value={expiryDate}
           onChangeText={(text) => setExpiryDate(text)}
         />
-        <Text style={styles.text}>Password :</Text>
+        <Text style={styles.text}>Owner Name :</Text>
         <TextInput
           style={styles.textinput}
           placeholder="Owner Name"
           value={ownerName}
           onChangeText={(text) => setOwnerName(text)}
         />
-        <Text style={styles.text}>Password :</Text>
+        <Text style={styles.text}>Contact Number :</Text>
         <TextInput
           style={styles.textinput}
           placeholder="Contact Number"
