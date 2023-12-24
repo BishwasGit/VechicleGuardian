@@ -104,69 +104,82 @@ const ListVehicleScreen = ({ route, navigation }) => {
     <View style={styles.container}>
       <Text style={styles.firstTitle}> Vechile List</Text>
       <DataTable style={styles.table}>
-        <DataTable.Header style={styles.tableHeader}>
-          <DataTable.Title>Vehicle ID</DataTable.Title>
-          <DataTable.Title>Type</DataTable.Title>
-          <DataTable.Title>Number</DataTable.Title>
-          <DataTable.Title>LOT</DataTable.Title>
-          <DataTable.Title>Bill Book Details</DataTable.Title>
-          <DataTable.Title>Action</DataTable.Title>
-        </DataTable.Header>
-        <List.Section>
-          <List.Accordion
-            title="Controlled Accordion"
-            left={(props) => <List.Icon {...props} icon="folder" />}
-            expanded={expanded}
-            onPress={handlePress}
-          >
-            <List.Item title="First item" />
-            <List.Item title="Second item" />
-          </List.Accordion>
-        </List.Section>
-
         {vehicleData.map((vehicle) => (
-          <DataTable.Row
-            key={vehicle.vehicleDetails_id}
-            style={styles.tableRow}
-          >
-            <DataTable.Cell>
-              <DataTable.Title>Vehicle ID :</DataTable.Title>
-              <Text style={styles.mappedDetailsText}>
-                {vehicle.vehicleDetails_id}
-              </Text>
-            </DataTable.Cell>
-            <DataTable.Cell>
-              <Text style={styles.mappedDetailsText}>
-                {vehicle.vehicle_type}
-              </Text>
-            </DataTable.Cell>
-            <DataTable.Cell>
-              <Text style={styles.mappedDetailsText}>
-                {vehicle.vehicle_number}
-              </Text>
-            </DataTable.Cell>
-            <DataTable.Cell>
-              <Text style={styles.mappedDetailsText}>
-                {vehicle.vehicle_lot_number}
-              </Text>
-            </DataTable.Cell>
-            <DataTable.Cell style={styles.billBookCell}>
-              <View>
-                <Text style={styles.billBookText}>
-                  Created On:{JSON.parse(vehicle.bill_book_details).createdDate}
-                </Text>
-                <Text style={styles.billBookText}>
-                  Expired On:{JSON.parse(vehicle.bill_book_details).expiryDate}
-                </Text>
-                <Text style={styles.billBookText}>
-                  Owner Name:{JSON.parse(vehicle.bill_book_details).ownerName}
-                </Text>
-                <Text style={styles.billBookText}>
-                  Contact Number:
-                  {JSON.parse(vehicle.bill_book_details).contactNumber}
-                </Text>
-              </View>
-            </DataTable.Cell>
+          <DataTable.Row key={vehicle.vehicleDetails_id}>
+            <List.Section style={styles.accordian}>
+              <List.Accordion
+                style={styles.accordian}
+                title={`${vehicle.vehicle_number}, ${
+                  JSON.parse(vehicle.bill_book_details).ownerName
+                }`}
+                left={(props) => <List.Icon {...props} icon="folder" />}
+                expanded={expanded[vehicle.vehicleDetails_id]}
+                onPress={handlePress}
+              >
+                <View>
+                  <Text style={styles.mappedDetailsText}>
+                    Vehicle ID :
+                    <Text style={{ paddingLeft: 20 }}>
+                      {vehicle.vehicleDetails_id}
+                    </Text>
+                  </Text>
+                </View>
+
+                <View>
+                  <Text style={styles.mappedDetailsText}>
+                    Vehicle Type :
+                    <Text style={{ paddingLeft: 20 }}>
+                      {vehicle.vehicle_type}
+                    </Text>
+                  </Text>
+                </View>
+                <View>
+                  <Text style={styles.mappedDetailsText}>
+                    Vehicle Number :{" "}
+                    <Text style={{ paddingLeft: 20 }}>
+                      {vehicle.vehicle_number}
+                    </Text>
+                  </Text>
+                </View>
+                <View>
+                  <Text style={styles.mappedDetailsText}>
+                    Vehicle Lot Number :{" "}
+                    <Text style={{ paddingLeft: 20 }}>
+                      {vehicle.vehicle_lot_number}
+                    </Text>
+                  </Text>
+                </View>
+
+                <View>
+                  <Text style={styles.mappedDetailsText}>
+                    Created On:{" "}
+                    <Text style={{ paddingLeft: 20 }}>
+                      {JSON.parse(vehicle.bill_book_details).createdDate}
+                    </Text>
+                  </Text>
+                  <Text style={styles.mappedDetailsText}>
+                    Expired On:{" "}
+                    <Text style={{ paddingLeft: 20 }}>
+                      {JSON.parse(vehicle.bill_book_details).expiryDate}
+                    </Text>
+                  </Text>
+                  <Text style={styles.mappedDetailsText}>
+                    Owner Name:{" "}
+                    <Text style={{ paddingLeft: 20 }}>
+                      {" "}
+                      {JSON.parse(vehicle.bill_book_details).ownerName}
+                    </Text>
+                  </Text>
+                  <Text style={styles.mappedDetailsText}>
+                    Contact Number:{" "}
+                    <Text style={{ paddingLeft: 20 }}>
+                      {JSON.parse(vehicle.bill_book_details).contactNumber}
+                    </Text>
+                  </Text>
+                </View>
+              </List.Accordion>
+            </List.Section>
+
             <DataTable.Cell style={styles.iconCell}>
               <TouchableOpacity
                 onPress={() => showModal(vehicle.vehicleDetails_id)}
@@ -235,10 +248,7 @@ const styles = StyleSheet.create({
   tableHeader: {
     backgroundColor: "#1e6091", // Adjust the color to your liking
   },
-  tableRow: {
-    borderBottomWidth: 1,
-    borderBottomColor: "#1C0744",
-  },
+
   billBookCell: {
     flex: 2, // Adjust the flex to control the width of the cell
   },
@@ -248,9 +258,12 @@ const styles = StyleSheet.create({
     textAlign: "center",
   },
   mappedDetailsText: {
-    color: "red",
-    textAlign: "center",
+    width: "100%",
+    color: "black",
+    padding: 10,
+    textAlign: "Left",
   },
+
   icon: {
     marginRight: 10,
   },
@@ -269,6 +282,11 @@ const styles = StyleSheet.create({
     fontSize: 18,
     fontWeight: "bold",
     marginBottom: 10,
+  },
+  accordian: {
+    width: "100%",
+    color: "white",
+    backgroundColor: "#bc6c25",
   },
 });
 export default ListVehicleScreen;
