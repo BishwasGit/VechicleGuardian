@@ -53,6 +53,9 @@ app.use('/api', checkVerificationStatus);
 const fetchVehicleList = require('./api/fetchVehicleList');
 app.use('/api', fetchVehicleList);
 
+const startRepairData = require('./api/startRepairData');
+app.use('/api', startRepairData);
+
 const PORT = process.env.PORT || 3000;
 
 app.listen(PORT, () => {

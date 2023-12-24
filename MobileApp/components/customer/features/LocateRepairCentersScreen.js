@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { View, Text, StyleSheet, FlatList } from 'react-native';
 import { REACT_APP_SERVER_IP, REACT_APP_SERVER_PORT } from '@env';
 import { encode as base64Encode, decode as base64Decode } from 'base-64';
-
+import { WebView } from "react-native-webview";
 
 const LocateRepairCentersScreen = ({ route, navigation }) => {
   const customer_id = route.params;
@@ -37,6 +37,37 @@ const LocateRepairCentersScreen = ({ route, navigation }) => {
     navigation.navigate('Vechicle Guardian Landing Page');
     return null; // Render nothing if redirecting
   }
+ 
+
+  const renderMap = (repairCenters) => {
+    const latitude = parseFloat(repairCenters.map.split(",")[0]);
+    const longitude = parseFloat(repairCenters.map.split(",")[1]);
+    const mapUrl = `https://www.google.com/maps/embed/v1/view?center=${latitude},${longitude}&zoom=15`;
+    return(
+      <>
+       <WebView source={{ uri: mapUrl }} style={{ flex: 1 }} />
+      </>
+    )
+  }
+  const renderVacancy = (repairCenters) => {
+    if (repairCenters.vacancy) {
+      return (
+        <>
+          <Text style={styles.itemText}>
+            {JSON.parse(repairCenters.vacancy).position}
+          </Text>
+          <Text style={styles.itemText}>
+            {JSON.parse(repairCenters.vacancy).noOfPerson}
+          </Text>
+          <Text style={styles.itemText}>
+            {JSON.parse(repairCenters.vacancy).salary}
+          </Text>
+        </>
+      );
+    } else {
+      return <></>;
+    }
+  };
   return (
     <View style={styles.container}>
       <FlatList
@@ -45,13 +76,11 @@ const LocateRepairCentersScreen = ({ route, navigation }) => {
         renderItem={({ item }) => (
           <View style={styles.itemContainer}>
             <Text style={styles.itemText}>{item.address}</Text>
-            <Text style={styles.itemText}>{base64Decode(item.map)}</Text>
+            {renderMap(item)}
             <Text style={styles.itemText}>{item.contact}</Text>
-            <Text style={styles.itemText}>{JSON.parse(item.vacancy).position}</Text>
-            <Text style={styles.itemText}>{JSON.parse(item.vacancy).noOfPerson}</Text>
-            <Text style={styles.itemText}>{JSON.parse(item.vacancy).salary}</Text>
+            {renderVacancy(item)}
           </View>
-        )}
+       )}
       />
     </View>
   );
