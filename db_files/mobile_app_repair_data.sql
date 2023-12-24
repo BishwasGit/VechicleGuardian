@@ -16,21 +16,22 @@
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
--- Table structure for table `customer_users`
+-- Table structure for table `repair_data`
 --
 
-DROP TABLE IF EXISTS `customer_users`;
+DROP TABLE IF EXISTS `repair_data`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `customer_users` (
-  `customer_id` int NOT NULL AUTO_INCREMENT,
-  `username` varchar(45) DEFAULT NULL,
-  `password` varchar(512) DEFAULT NULL,
-  `email` varchar(45) DEFAULT NULL,
-  `phone` varchar(45) DEFAULT NULL,
-  PRIMARY KEY (`customer_id`),
-  UNIQUE KEY `customer_id_UNIQUE` (`customer_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+CREATE TABLE `repair_data` (
+  `repairData_id` int NOT NULL AUTO_INCREMENT,
+  `vehicleDetails_id` int DEFAULT NULL,
+  `repair_date` varchar(45) DEFAULT NULL,
+  `total_cost` varchar(45) DEFAULT NULL,
+  `total_estimatedtime` varchar(45) DEFAULT NULL,
+  `changes_made` text,
+  `completed_time` varchar(45) DEFAULT NULL,
+  PRIMARY KEY (`repairData_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
@@ -42,4 +43,4 @@ CREATE TABLE `customer_users` (
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2023-12-24 13:06:58
+-- Dump completed on 2023-12-24 13:06:59

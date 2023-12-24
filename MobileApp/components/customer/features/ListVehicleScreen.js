@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
-import { View, Text, StyleSheet, TouchableOpacity, Alert } from 'react-native';
-import { DataTable, Modal, Portal, Button } from 'react-native-paper';
+import { View, Text, StyleSheet, TouchableOpacity, Alert } from "react-native";
+import { DataTable, Modal, Portal, Button } from "react-native-paper";
 import { REACT_APP_SERVER_IP, REACT_APP_SERVER_PORT } from "@env";
 import Icon from "react-native-vector-icons/MaterialCommunityIcons";
 
@@ -11,7 +11,9 @@ const ListVehicleScreen = ({ route, navigation }) => {
   const [visible, setVisible] = useState(false);
 
   const showModal = (vehicleDetails_id) => {
-    const selected = vehicleData.find((vehicle) => vehicle.vehicleDetails_id === vehicleDetails_id);
+    const selected = vehicleData.find(
+      (vehicle) => vehicle.vehicleDetails_id === vehicleDetails_id
+    );
     setSelectedVehicle(selected);
     setVisible(true);
   };
@@ -26,29 +28,31 @@ const ListVehicleScreen = ({ route, navigation }) => {
       const response = await fetch(
         `http://${REACT_APP_SERVER_IP}:${REACT_APP_SERVER_PORT}/api/updateVehicleStatus/${vehicleDetails_id}`,
         {
-          method: 'PUT',
+          method: "PUT",
           headers: {
-            'Content-Type': 'application/json',
+            "Content-Type": "application/json",
           },
           body: JSON.stringify({ status: 0 }),
         }
       );
 
       if (!response.ok) {
-        throw new Error('Network response was not ok');
+        throw new Error("Network response was not ok");
       }
 
       // Update the local state to reflect the change
       setVehicleData((prevData) =>
         prevData.map((vehicle) =>
-          vehicle.vehicleDetails_id === vehicleDetails_id ? { ...vehicle, status: 0 } : vehicle
+          vehicle.vehicleDetails_id === vehicleDetails_id
+            ? { ...vehicle, status: 0 }
+            : vehicle
         )
       );
 
       // Show a success message or perform any additional actions
-      Alert.alert('Success', 'Vehicle status updated successfully.');
+      Alert.alert("Success", "Vehicle status updated successfully.");
     } catch (error) {
-      console.error('Error updating vehicle status:', error);
+      console.error("Error updating vehicle status:", error);
       // Handle errors as needed
     }
   };
@@ -185,10 +189,18 @@ const ListVehicleScreen = ({ route, navigation }) => {
               <Text>Number: {selectedVehicle.vehicle_number}</Text>
               <Text>Lot: {selectedVehicle.vehicle_lot_number}</Text>
               <Text style={styles.modalTitle}>Bill Book Details</Text>
-              <Text>{JSON.parse(vehicle.bill_book_details).createdDate}</Text>
-              <Text>{JSON.parse(vehicle.bill_book_details).expiryDate}</Text>
-              <Text>{JSON.parse(vehicle.bill_book_details).ownerName}</Text>
-              <Text>{JSON.parse(vehicle.bill_book_details).contactNumber}</Text>
+              <Text>
+                {JSON.parse(selectedVehicle.bill_book_details).createdDate}
+              </Text>
+              <Text>
+                {JSON.parse(selectedVehicle.bill_book_details).expiryDate}
+              </Text>
+              <Text>
+                {JSON.parse(selectedVehicle.bill_book_details).ownerName}
+              </Text>
+              <Text>
+                {JSON.parse(selectedVehicle.bill_book_details).contactNumber}
+              </Text>
             </View>
           )}
           <Button onPress={hideModal}>Close</Button>

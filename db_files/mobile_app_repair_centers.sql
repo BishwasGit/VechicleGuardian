@@ -24,7 +24,7 @@ DROP TABLE IF EXISTS `repair_centers`;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `repair_centers` (
   `repaircenters_id` int NOT NULL AUTO_INCREMENT,
-  `repaircenter_id` int DEFAULT NULL,
+  `repaircenter_id` int unsigned DEFAULT NULL,
   `repaircenter_fname` varchar(200) DEFAULT NULL,
   `address` varchar(100) DEFAULT NULL,
   `map` varchar(255) DEFAULT NULL,
@@ -33,18 +33,8 @@ CREATE TABLE `repair_centers` (
   `status` int DEFAULT '1',
   `verification` varchar(45) DEFAULT 'NotVerified',
   PRIMARY KEY (`repaircenters_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `repair_centers`
---
-
-LOCK TABLES `repair_centers` WRITE;
-/*!40000 ALTER TABLE `repair_centers` DISABLE KEYS */;
-INSERT INTO `repair_centers` VALUES (1,1,'Bullet Repair Center','Kathmandu','https://maps.app.goo.gl/35w1WZ2iP6u5QrGMA','9803488091','',1,'NotVerified');
-/*!40000 ALTER TABLE `repair_centers` ENABLE KEYS */;
-UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
@@ -55,4 +45,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2023-12-18 13:20:23
+-- Dump completed on 2023-12-24 13:06:58
