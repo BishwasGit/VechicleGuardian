@@ -56,6 +56,9 @@ app.use('/api', fetchVehicleList);
 const startRepairData = require('./api/startRepairData');
 app.use('/api', startRepairData);
 
+const getRepairHistory = require('./api/getRepairHistory');
+app.use('/api', getRepairHistory);
+
 const PORT = process.env.PORT || 3000;
 
 app.listen(PORT, () => {

@@ -31,16 +31,6 @@ CREATE TABLE `repaircenter_users` (
   PRIMARY KEY (`repaircenter_id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `repaircenter_users`
---
-
-LOCK TABLES `repaircenter_users` WRITE;
-/*!40000 ALTER TABLE `repaircenter_users` DISABLE KEYS */;
-INSERT INTO `repaircenter_users` VALUES (1,'Anoop','$2b$10$rnks86l2G7blsKGZycuLROKNd49O.6ukgomDICdThhKwO00k4jzki','anoop@gmail.com','9803488071');
-/*!40000 ALTER TABLE `repaircenter_users` ENABLE KEYS */;
-UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
@@ -51,4 +41,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2023-12-18 13:20:24
+-- Dump completed on 2023-12-24 13:06:59

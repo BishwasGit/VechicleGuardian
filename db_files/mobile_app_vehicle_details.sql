@@ -33,18 +33,8 @@ CREATE TABLE `vehicle_details` (
   `bill_book_details` text,
   `status` int DEFAULT '1',
   PRIMARY KEY (`vehicleDetails_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `vehicle_details`
---
-
-LOCK TABLES `vehicle_details` WRITE;
-/*!40000 ALTER TABLE `vehicle_details` DISABLE KEYS */;
-INSERT INTO `vehicle_details` VALUES (1,1,'Two Wheeler','1234',12,'asdasd','asdasdasd','{\"createdDate\":\"asdasdasd\",\"expiryDate\":\"asdasdasd\",\"ownerName\":\"asdasda\",\"contactNumber\":\"asdasdasd\"}',0);
-/*!40000 ALTER TABLE `vehicle_details` ENABLE KEYS */;
-UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
@@ -55,4 +45,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2023-12-18 13:20:25
+-- Dump completed on 2023-12-24 13:06:58

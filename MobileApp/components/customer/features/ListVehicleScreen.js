@@ -218,10 +218,18 @@ const ListVehicleScreen = ({ route, navigation }) => {
               <Text>Number: {selectedVehicle.vehicle_number}</Text>
               <Text>Lot: {selectedVehicle.vehicle_lot_number}</Text>
               <Text style={styles.modalTitle}>Bill Book Details</Text>
-              <Text>{JSON.parse(vehicle.bill_book_details).createdDate}</Text>
-              <Text>{JSON.parse(vehicle.bill_book_details).expiryDate}</Text>
-              <Text>{JSON.parse(vehicle.bill_book_details).ownerName}</Text>
-              <Text>{JSON.parse(vehicle.bill_book_details).contactNumber}</Text>
+              <Text>
+                {JSON.parse(selectedVehicle.bill_book_details).createdDate}
+              </Text>
+              <Text>
+                {JSON.parse(selectedVehicle.bill_book_details).expiryDate}
+              </Text>
+              <Text>
+                {JSON.parse(selectedVehicle.bill_book_details).ownerName}
+              </Text>
+              <Text>
+                {JSON.parse(selectedVehicle.bill_book_details).contactNumber}
+              </Text>
             </View>
           )}
           <Button onPress={hideModal}>Close</Button>
