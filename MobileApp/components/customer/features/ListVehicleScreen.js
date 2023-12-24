@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from "react";
-import { View, Text, StyleSheet, TouchableOpacity, Alert } from 'react-native';
-import { DataTable, Modal, Portal, Button } from 'react-native-paper';
+import { View, Text, StyleSheet, TouchableOpacity, Alert } from "react-native";
+import { DataTable, Modal, Portal, Button } from "react-native-paper";
 import { REACT_APP_SERVER_IP, REACT_APP_SERVER_PORT } from "@env";
+import { List } from "react-native-paper";
 import Icon from "react-native-vector-icons/MaterialCommunityIcons";
 
 const ListVehicleScreen = ({ route, navigation }) => {
@@ -11,7 +12,9 @@ const ListVehicleScreen = ({ route, navigation }) => {
   const [visible, setVisible] = useState(false);
 
   const showModal = (vehicleDetails_id) => {
-    const selected = vehicleData.find((vehicle) => vehicle.vehicleDetails_id === vehicleDetails_id);
+    const selected = vehicleData.find(
+      (vehicle) => vehicle.vehicleDetails_id === vehicleDetails_id
+    );
     setSelectedVehicle(selected);
     setVisible(true);
   };
@@ -26,29 +29,31 @@ const ListVehicleScreen = ({ route, navigation }) => {
       const response = await fetch(
         `http://${REACT_APP_SERVER_IP}:${REACT_APP_SERVER_PORT}/api/updateVehicleStatus/${vehicleDetails_id}`,
         {
-          method: 'PUT',
+          method: "PUT",
           headers: {
-            'Content-Type': 'application/json',
+            "Content-Type": "application/json",
           },
           body: JSON.stringify({ status: 0 }),
         }
       );
 
       if (!response.ok) {
-        throw new Error('Network response was not ok');
+        throw new Error("Network response was not ok");
       }
 
       // Update the local state to reflect the change
       setVehicleData((prevData) =>
         prevData.map((vehicle) =>
-          vehicle.vehicleDetails_id === vehicleDetails_id ? { ...vehicle, status: 0 } : vehicle
+          vehicle.vehicleDetails_id === vehicleDetails_id
+            ? { ...vehicle, status: 0 }
+            : vehicle
         )
       );
 
       // Show a success message or perform any additional actions
-      Alert.alert('Success', 'Vehicle status updated successfully.');
+      Alert.alert("Success", "Vehicle status updated successfully.");
     } catch (error) {
-      console.error('Error updating vehicle status:', error);
+      console.error("Error updating vehicle status:", error);
       // Handle errors as needed
     }
   };
@@ -92,9 +97,13 @@ const ListVehicleScreen = ({ route, navigation }) => {
     fetchData();
   }, [customer_id, navigation]);
 
+  const [expanded, setExpanded] = React.useState(true);
+
+  const handlePress = () => setExpanded(!expanded);
   return (
     <View style={styles.container}>
-      <DataTable>
+      <Text style={styles.firstTitle}> Vechile List</Text>
+      <DataTable style={styles.table}>
         <DataTable.Header style={styles.tableHeader}>
           <DataTable.Title>Vehicle ID</DataTable.Title>
           <DataTable.Title>Type</DataTable.Title>
@@ -103,6 +112,17 @@ const ListVehicleScreen = ({ route, navigation }) => {
           <DataTable.Title>Bill Book Details</DataTable.Title>
           <DataTable.Title>Action</DataTable.Title>
         </DataTable.Header>
+        <List.Section>
+          <List.Accordion
+            title="Controlled Accordion"
+            left={(props) => <List.Icon {...props} icon="folder" />}
+            expanded={expanded}
+            onPress={handlePress}
+          >
+            <List.Item title="First item" />
+            <List.Item title="Second item" />
+          </List.Accordion>
+        </List.Section>
 
         {vehicleData.map((vehicle) => (
           <DataTable.Row
@@ -110,6 +130,7 @@ const ListVehicleScreen = ({ route, navigation }) => {
             style={styles.tableRow}
           >
             <DataTable.Cell>
+              <DataTable.Title>Vehicle ID :</DataTable.Title>
               <Text style={styles.mappedDetailsText}>
                 {vehicle.vehicleDetails_id}
               </Text>
@@ -132,17 +153,16 @@ const ListVehicleScreen = ({ route, navigation }) => {
             <DataTable.Cell style={styles.billBookCell}>
               <View>
                 <Text style={styles.billBookText}>
-                  Created On:{" "}
-                  {JSON.parse(vehicle.bill_book_details).createdDate}
+                  Created On:{JSON.parse(vehicle.bill_book_details).createdDate}
                 </Text>
                 <Text style={styles.billBookText}>
-                  Expired On: {JSON.parse(vehicle.bill_book_details).expiryDate}
+                  Expired On:{JSON.parse(vehicle.bill_book_details).expiryDate}
                 </Text>
                 <Text style={styles.billBookText}>
-                  Owner Name: {JSON.parse(vehicle.bill_book_details).ownerName}
+                  Owner Name:{JSON.parse(vehicle.bill_book_details).ownerName}
                 </Text>
                 <Text style={styles.billBookText}>
-                  Contact Number:{" "}
+                  Contact Number:
                   {JSON.parse(vehicle.bill_book_details).contactNumber}
                 </Text>
               </View>
@@ -202,8 +222,18 @@ const styles = StyleSheet.create({
     flex: 1,
     padding: 16,
   },
+  firstTitle: {
+    paddingTop: 10,
+    color: "#bc6c25",
+    fontWeight: "bold",
+    fontSize: 30,
+    marginBottom: 0,
+  },
+  table: {
+    paddingTop: 30,
+  },
   tableHeader: {
-    backgroundColor: "#D672F4", // Adjust the color to your liking
+    backgroundColor: "#1e6091", // Adjust the color to your liking
   },
   tableRow: {
     borderBottomWidth: 1,
@@ -218,7 +248,7 @@ const styles = StyleSheet.create({
     textAlign: "center",
   },
   mappedDetailsText: {
-    color: "#000",
+    color: "red",
     textAlign: "center",
   },
   icon: {

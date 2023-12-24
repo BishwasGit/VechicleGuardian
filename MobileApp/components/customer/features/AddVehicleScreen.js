@@ -142,7 +142,7 @@ const AddVehicleScreen = ({ route }) => {
           <Picker.Item style={styles.contain} label="Cycle" value="Cycle" />
         </Picker>
 
-        <Text style={styles.text}>Password :</Text>
+        <Text style={styles.text}>Vehicle Number :</Text>
         <TextInput
           style={styles.textinput}
           placeholder="Vehicle Number"
@@ -150,21 +150,21 @@ const AddVehicleScreen = ({ route }) => {
           onChangeText={(text) => setVehicleNumber(text)}
         />
         {/* Input for vehicle lot */}
-        <Text style={styles.text}>Password :</Text>
+        <Text style={styles.text}>Vehicle Lot :</Text>
         <TextInput
           style={styles.textinput}
           placeholder="Vehicle Lot"
           value={vehicleLot}
           onChangeText={(text) => setVehicleLot(text)}
         />
-        <Text style={styles.text}>Password :</Text>
+        <Text style={styles.text}>Vehicle Company :</Text>
         <TextInput
           style={styles.textinput}
-          placeholder="Vehicle Company"
+          placeholder="vehicle Company"
           value={vehicleCompany}
           onChangeText={(text) => setVehicleCompany(text)}
         />
-        <Text style={styles.text}>Password :</Text>
+        <Text style={styles.text}>Vehicle Model :</Text>
         <TextInput
           style={styles.textinput}
           placeholder="Vehicle Model"
@@ -174,35 +174,35 @@ const AddVehicleScreen = ({ route }) => {
         {/* Bill Book details */}
 
         <Text style={styles.headingTo}>Bill Book Details</Text>
-        <Text style={styles.text}>Password :</Text>
+        <Text style={styles.text}>Created Date :</Text>
+
         <TextInput
           style={styles.textinput}
           placeholder="yyyy-mm-dd"
           value={createdDate}
           onChangeText={(text) => setCreatedDate(text)}
         />
-        <Text style={styles.text}>Password :</Text>
+        <Text style={styles.text}>Expiry Date :</Text>
         <TextInput
           style={styles.textinput}
           placeholder="yyyy-mm-dd"
           value={expiryDate}
           onChangeText={(text) => setExpiryDate(text)}
         />
-        <Text style={styles.text}>Password :</Text>
+        <Text style={styles.text}>Owner Name :</Text>
         <TextInput
           style={styles.textinput}
           placeholder="Owner Name"
           value={ownerName}
           onChangeText={(text) => setOwnerName(text)}
         />
-        <Text style={styles.text}>Password :</Text>
+        <Text style={styles.text}>Contact Number :</Text>
         <TextInput
           style={styles.textinput}
           placeholder="Contact Number"
           value={contactNumber}
           onChangeText={(text) => setContactNumber(text)}
         />
-        {/* Button to submit the form */}
 
         <Button
           title="Add Vehicle"
@@ -223,7 +223,7 @@ const styles = StyleSheet.create({
     marginBottom: 55,
   },
   contain: {
-    color: "#1e6091",
+    color: "black",
   },
   heading: {
     paddingTop: 30,
@@ -255,7 +255,6 @@ const styles = StyleSheet.create({
     height: 45,
     backgroundColor: "#dee2e6",
     marginVertical: 10,
-    textDecoration: "none",
     borderColor: "#1e6091",
     borderWidth: 1,
     borderRadius: 20,
@@ -269,7 +268,7 @@ const styles = StyleSheet.create({
     color: "white",
     alignItems: "center",
     marginTop: 80,
-    backgroundColor: "#1e6091",
+    backgroundColor: "black",
   },
   successMessage: {
     color: "green",
@@ -279,16 +278,7 @@ const styles = StyleSheet.create({
     color: "red",
     marginVertical: 10,
   },
-  button: {
-    color: "white",
-    alignItems: "center",
-    marginTop: 40,
-    backgroundColor: "green",
-    borderRadius: 20,
-    borderTopLeftRadius: 20,
-    borderTopRightRadius: 20,
-    width: "100%",
-  },
+  button: { backgroundColor: "white", marginTop: 50 },
 });
 
 export default AddVehicleScreen;
