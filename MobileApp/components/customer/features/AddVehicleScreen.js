@@ -126,6 +126,8 @@ const AddVehicleScreen = ({ route }) => {
         {/* Dropdown for selecting vehicle type */}
         <Picker
           selectedValue={vehicleType}
+          label="vehicleType"
+          style={styles.pickerContain}
           onValueChange={(itemValue) => setVehicleType(itemValue)}
         >
           <Picker.Item
@@ -204,7 +206,12 @@ const AddVehicleScreen = ({ route }) => {
 
         <TouchableOpacity
           onPress={handleAddVehicle}
-          style={{ backgroundColor: "#118F06", padding: 10, borderRadius: 20 }}
+          style={{
+            backgroundColor: "#1e6091",
+            marginTop: 40,
+            padding: 10,
+            borderRadius: 20,
+          }}
         >
           <Text style={{ color: "white", textAlign: "center" }}>
             Add Vehicle
@@ -221,7 +228,17 @@ const styles = StyleSheet.create({
     gap: 20,
     marginBottom: 55,
   },
+  pickerContain: {
+    padding: 10,
+    paddingLeft: 20,
+    paddingRight: 60,
+    color: "black",
+    borderRadius: 10,
+    borderTopLeftRadius: 10,
+    borderTopRightRadius: 10,
+  },
   contain: {
+    padding: 40,
     color: "black",
   },
   heading: {
@@ -280,10 +297,11 @@ const styles = StyleSheet.create({
   button: {
     color: "white",
     alignItems: "center",
-    marginTop: 40,
+    marginTop: 60,
     borderRadius: 20,
     borderTopLeftRadius: 20,
     borderTopRightRadius: 20,
+    backgroundColor: "red",
     width: "100%",
   },
 });
