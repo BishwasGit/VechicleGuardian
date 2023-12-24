@@ -159,7 +159,7 @@ const AddVehicleScreen = ({ route }) => {
         <Text style={styles.text}>Vehicle Company :</Text>
         <TextInput
           style={styles.textinput}
-          placeholder="Vehicle Company"
+          placeholder="vehicle Company"
           value={vehicleCompany}
           onChangeText={(text) => setVehicleCompany(text)}
         />
@@ -201,7 +201,6 @@ const AddVehicleScreen = ({ route }) => {
           value={contactNumber}
           onChangeText={(text) => setContactNumber(text)}
         />
-        {/* Button to submit the form */}
 
         <TouchableOpacity
           onPress={handleAddVehicle}
@@ -223,7 +222,7 @@ const styles = StyleSheet.create({
     marginBottom: 55,
   },
   contain: {
-    color: "#1e6091",
+    color: "black",
   },
   heading: {
     paddingTop: 30,
@@ -255,7 +254,6 @@ const styles = StyleSheet.create({
     height: 45,
     backgroundColor: "#dee2e6",
     marginVertical: 10,
-    textDecoration: "none",
     borderColor: "#1e6091",
     borderWidth: 1,
     borderRadius: 20,
@@ -269,7 +267,7 @@ const styles = StyleSheet.create({
     color: "white",
     alignItems: "center",
     marginTop: 80,
-    backgroundColor: "#1e6091",
+    backgroundColor: "black",
   },
   successMessage: {
     color: "green",
