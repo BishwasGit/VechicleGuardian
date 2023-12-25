@@ -1,92 +1,114 @@
-import React, { useState, useEffect } from 'react';
-import { View, Text, FlatList, StyleSheet } from 'react-native';
+import React, { useState, useEffect } from "react";
+import { View, ScrollView, FlatList } from "react-native";
+import { Button, Card, Title, Paragraph } from "react-native-paper";
 import { REACT_APP_SERVER_IP, REACT_APP_SERVER_PORT } from "@env";
 
 const ViewServiceHistoryScreen = ({ route, navigation }) => {
-  const {customer_id} = route.params;
-  console.log(customer_id)
-  // State to store repair history data
-  const [repairHistory, setRepairHistory] = useState([]);
+  const { customer_id } = route.params;
+
+  const [vehicleList, setVehicleList] = useState([]);
+  const [selectedVehicleData, setSelectedVehicleData] = useState(null);
 
   useEffect(() => {
-    // Function to fetch repair history data for the given customer_id
-    const fetchRepairHistory = async () => {
+    const fetchVehicleList = async () => {
       try {
         const response = await fetch(
-          `http://${REACT_APP_SERVER_IP}:${REACT_APP_SERVER_PORT}/api/getRepairHistory/${customer_id}`
+          `http://${REACT_APP_SERVER_IP}:${REACT_APP_SERVER_PORT}/api/vehicleDetails/${customer_id}`
         );
         const data = await response.json();
-        console.log(data);        // Set the fetched repair history data to the state
-        setRepairHistory(data);
+        setVehicleList(data);
       } catch (error) {
-        console.error('Error fetching repair history:', error);
+        console.error("Error fetching vehicle list:", error);
       }
     };
 
-    // Call the fetch function
-    fetchRepairHistory();
-  }, [customer_id]); // Trigger the fetch when customer_id changes
+    fetchVehicleList();
+  }, [customer_id]);
 
-  // Render each item in the repair history
-// Assuming item.changes_made is a JSON string representing an array like ["Brake Oil Changed", "Mobil Changed"]
-const renderRepairItem = ({ item }) => (
-  <View style={styles.itemContainer}>
-    <Text>{`Vehicle ID : ${item.vehicleDetails_id}`}</Text>
-    <Text>{`Date: ${item.repair_date}`}</Text>
-    <Text>{`Total Cost: ${item.total_cost} Rupees`}</Text>
-    <Text>{`Total Time: ${item.total_estimatedtime} Minutes`}</Text>
-    <Text>{`Completed Date and Time: ${item.completed_time}`}</Text>
-    
-    {/* Changes made as a list */}
-    <View style={styles.changeItemContainer}>
-      <Text style={styles.changeItemLabel}>Changes Made:</Text>
-      {JSON.parse(item.changes_made).map((change, index) => (
-        <Text key={index}>{`- ${change}`}</Text>
-      ))}
-    </View>
-  </View>
-);
+  const handleVehiclePress = async (vehicleId) => {
+    try {
+      const response = await fetch(
+        `http://${REACT_APP_SERVER_IP}:${REACT_APP_SERVER_PORT}/api/getCustomerRepairHistory/${vehicleId}`
+      );
+      const data = await response.json();
+      setSelectedVehicleData(data);
+    } catch (error) {
+      console.error("Error fetching repair history:", error);
+    }
+  };
 
+  const renderVehicleItem = ({ item }) => (
+    <Card
+      style={{
+        margin: 8,
+        flex: 1,
+        flexDirection: "column",
+        justifyContent: "space-between",
+      }}
+    >
+      <Card.Content>
+        <Title>{`Vehicle ID: ${item.vehicleDetails_id}`}</Title>
+        <Paragraph>{`Number: ${item.vehicle_number}`}</Paragraph>
+        <Paragraph>{`Model: ${item.vehicle_model}`}</Paragraph>
+        <Paragraph>{`Lot Number : ${item.vehicle_lot_number}`}</Paragraph>
+      </Card.Content>
+      <Button onPress={() => handleVehiclePress(item.vehicleDetails_id)}>
+        View Repair History
+      </Button>
+    </Card>
+  );
 
   return (
-    <View style={styles.container}>
-      <Text style={styles.heading}>Repair History</Text>
+    <View style={{ flex: 1, padding: 16 }}>
+      <Title
+        style={{
+          fontSize: 20,
+          fontWeight: "bold",
+          marginBottom: 16,
+          color: "#000000",
+        }}
+      >
+        Vehicle List
+      </Title>
       <FlatList
-        data={repairHistory}
-        keyExtractor={(item) => item.repairData_id}
-        renderItem={renderRepairItem}
+        data={vehicleList}
+        keyExtractor={(item) => item.vehicleDetails_id.toString()}
+        renderItem={renderVehicleItem}
+        numColumns={2} // Set the number of columns based on your layout preference
       />
+      {selectedVehicleData && (
+        <ScrollView>
+          <Title
+            style={{
+              fontSize: 20,
+              fontWeight: "bold",
+              marginBottom: 16,
+              color: "#000000",
+            }}
+          >
+            Repair History
+          </Title>
+          {selectedVehicleData.map((repairItem) => (
+            <Card key={repairItem.repairData_id} style={{ margin: 8 }}>
+              <Card.Content>
+                <Title style={{ fontWeight: "bold", marginBottom: 4 }}>{`Vehicle ID : ${repairItem.vehicleDetails_id}`}</Title>
+                <Paragraph>{`Date: ${repairItem.repair_date}`}</Paragraph>
+                <Paragraph>{`Total Cost: ${repairItem.total_cost} Rupees`}</Paragraph>
+                <Paragraph>{`Total Time: ${repairItem.total_estimatedtime} Minutes`}</Paragraph>
+                <Paragraph>{`Completed Time: ${repairItem.completed_time}`}</Paragraph>
+                <Title style={{ fontWeight: "bold", marginBottom: 4 }}>
+                  Changes Made:
+                </Title>
+                {JSON.parse(repairItem.changes_made).map((change, index) => (
+                  <Paragraph key={index}>{change}</Paragraph>
+                ))}
+              </Card.Content>
+            </Card>
+          ))}
+        </ScrollView>
+      )}
     </View>
   );
 };
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    padding: 16,
-  },
-  heading: {
-    fontSize: 20,
-    fontWeight: 'bold',
-    marginBottom: 16,
-  },
-  itemContainer: {
-    borderWidth: 1,
-    borderColor: 'gray',
-    padding: 16,
-    marginBottom: 8,
-    borderRadius: 8,
-  },
-  
-  changeItemContainer: {
-    marginTop: 8,
-  },
-
-  changeItemLabel: {
-    fontWeight: 'bold',
-    marginBottom: 4,
-  },
-});
-
 
 export default ViewServiceHistoryScreen;

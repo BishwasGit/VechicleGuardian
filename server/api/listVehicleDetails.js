@@ -13,7 +13,7 @@ router.get("/vehicleDetails/:customer_id", async (req, res) => {
       [customerId]
     );
 
-    console.log(vehicleDetails);
+    //console.log(vehicleDetails);
     // Assuming the response structure; modify as per your database schema
     res.json(vehicleDetails);
   } catch (error) {
