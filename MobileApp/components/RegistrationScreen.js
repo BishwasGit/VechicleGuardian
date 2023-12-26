@@ -1,8 +1,9 @@
 import React, { useState } from "react";
-import { View, StyleSheet, Text } from "react-native";
+import { ScrollView, View, StyleSheet, Text } from "react-native";
 import { TextInput, Button, Title, Card } from "react-native-paper";
 import axios from "axios";
 import { REACT_APP_SERVER_IP, REACT_APP_SERVER_PORT } from "@env";
+import Icon from "react-native-vector-icons/MaterialIcons";
 
 const RegistrationScreen = ({ route }) => {
   const { userType } = route.params;
@@ -86,75 +87,81 @@ const RegistrationScreen = ({ route }) => {
   };
 
   return (
-    <View style={styles.container}>
-      <View style={styles.firstlay}>
-        <Title style={styles.firstTitle}>Register!</Title>
-        <Title style={styles.firstSudTitle}>As {userType}</Title>
+    <ScrollView style={styles.container}>
+      <View style={styles.containerTwo}>
+        <View style={styles.firstlay}>
+          <Title style={styles.firstTitle}>Register!</Title>
+          <Title style={styles.firstSudTitle}>As {userType}</Title>
+        </View>
+
+        <View style={styles.card}>
+          <TextInput
+            mode="outlined" // You can customize the mode as needed
+            label="Enter your Username"
+            value={username}
+            onChangeText={(text) => setUsername(text)}
+            left={(props) => <TextInput.Icon {...props} icon="account" />} // Adjust the icon name as needed
+            style={styles.textinput}
+          />
+          <Text style={styles.errorText}>{usernameError}</Text>
+
+          <TextInput
+            mode="outlined"
+            label="Enter your Phone Number"
+            value={phone}
+            onChangeText={(text) => setPhone(text)}
+            keyboardType="numeric"
+            style={styles.textinput}
+            underlineColor="transparent"
+          />
+          <Text style={styles.errorText}>{phoneError}</Text>
+
+          <TextInput
+            mode="outlined"
+            label="Enter your Email"
+            value={email}
+            onChangeText={(text) => setEmail(text)}
+            style={styles.textinput}
+            underlineColor="transparent"
+          />
+          <Text style={styles.errorText}>{emailError}</Text>
+
+          <TextInput
+            mode="outlined"
+            label="Enter your Password"
+            value={password}
+            secureTextEntry
+            onChangeText={(text) => setPassword(text)}
+            style={styles.textinput}
+            underlineColor="transparent"
+          />
+          <Button onPress={handleRegistration} style={styles.button}>
+            <Text style={{ color: "white" }}> Register as Repair Center</Text>
+          </Button>
+          {registrationStatus && <Text>{registrationStatus}</Text>}
+        </View>
+        <View style={styles.lay}>
+          <Title style={styles.Title}>
+            By registering this step you agree to
+          </Title>
+          <Title style={styles.sudTitle}>Terms of Services</Title>
+        </View>
       </View>
-
-      <View style={styles.card}>
-        <Text style={styles.text}>Username :</Text>
-        <TextInput
-          left={<TextInput.Icon icon="eye" />}
-          value={username}
-          onChangeText={(text) => setUsername(text)}
-          style={styles.textinput}
-          underlineColor="transparent"
-        />
-        <Text style={styles.errorText}>{usernameError}</Text>
-
-        <Text style={styles.text}>Phone :</Text>
-        <TextInput
-          left={<TextInput.Icon icon="eye" />}
-          value={phone}
-          onChangeText={(text) => setPhone(text)}
-          keyboardType="numeric"
-          style={styles.textinput}
-          underlineColor="transparent"
-        />
-        <Text style={styles.errorText}>{phoneError}</Text>
-
-        <Text style={styles.text}>Email :</Text>
-        <TextInput
-          left={<TextInput.Icon icon="eye" />}
-          value={email}
-          onChangeText={(text) => setEmail(text)}
-          style={styles.textinput}
-          underlineColor="transparent"
-        />
-        <Text style={styles.errorText}>{emailError}</Text>
-
-        <Text style={styles.text}>Password :</Text>
-        <TextInput
-          left={<TextInput.Icon icon="eye" />}
-          value={password}
-          secureTextEntry
-          onChangeText={(text) => setPassword(text)}
-          style={styles.textinput}
-          underlineColor="transparent"
-        />
-        <Button onPress={handleRegistration} style={styles.button}>
-          <Text style={{ color: "white" }}> Register as Repair Center</Text>
-        </Button>
-        {registrationStatus && <Text>{registrationStatus}</Text>}
-      </View>
-      <View style={styles.lay}>
-        <Title style={styles.Title}>
-          By registering this step you agree to
-        </Title>
-        <Title style={styles.sudTitle}>Terms of Services</Title>
-      </View>
-    </View>
+    </ScrollView>
   );
 };
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-
+    padding: 16,
+  },
+  containerTwo: {
+    flex: 1,
     alignItems: "center",
     padding: 16,
   },
+
   firstlay: {
     marginBottom: 0,
     marginTop: 20,
@@ -189,11 +196,7 @@ const styles = StyleSheet.create({
     backgroundColor: "#dee2e6",
     marginVertical: 10,
     textDecoration: "none",
-    borderColor: "#bc6c25",
-    borderWidth: 1,
-    borderRadius: 20,
-    borderTopLeftRadius: 20,
-    borderTopRightRadius: 20,
+    color: "grey",
     width: "100%",
     marginBottom: 10,
   },
@@ -210,14 +213,14 @@ const styles = StyleSheet.create({
     marginBottom: 5,
   },
   lay: {
-    marginTop: -40,
+    marginTop: -25,
     alignItems: "center",
   },
   Title: {
     width: "60%",
     color: "#adb5bd",
     fontSize: 13,
-    marginBottom: -40, // Adjust this value to decrease the space below Title
+    marginBottom: -37, // Adjust this value to decrease the space below Title
   },
   sudTitle: {
     color: "#adb5bd",

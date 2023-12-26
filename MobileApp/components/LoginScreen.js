@@ -1,7 +1,7 @@
 import React from "react";
 import { Text, View, StyleSheet, Dimensions } from "react-native";
 import { Avatar, Card, Title, Paragraph, Button } from "react-native-paper";
-
+import Icon from "react-native-vector-icons/MaterialIcons";
 const { width, height } = Dimensions.get("window");
 
 const LoginSelectionScreen = ({ navigation }) => {

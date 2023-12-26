@@ -3,7 +3,13 @@ import { View, StyleSheet, Text } from "react-native";
 import { Dialog, Portal } from "react-native-paper";
 import { REACT_APP_SERVER_IP, REACT_APP_SERVER_PORT } from "@env";
 import Icon from "react-native-vector-icons/FontAwesome";
-import { TextInput, Button, Card, Title, ActivityIndicator } from "react-native-paper";
+import {
+  TextInput,
+  Button,
+  Card,
+  Title,
+  ActivityIndicator,
+} from "react-native-paper";
 import LoadingScreen from "../LoadingScreen"; // Import the LoadingScreen component
 
 const CustomerLogin = ({ navigation }) => {
@@ -76,18 +82,18 @@ const CustomerLogin = ({ navigation }) => {
 
       <View style={styles.containerTwo}>
         <View style={styles.card}>
-          <Text style={styles.text}>Username :</Text>
           <TextInput
-            left={<TextInput.Icon icon="eye" />}
+            mode="outlined" // You can customize the mode as needed
+            label="Enter your Username"
             value={username}
             onChangeText={(text) => setUsername(text)}
             style={styles.textinput}
             underlineColor="transparent"
           />
 
-          <Text style={styles.text}>Password :</Text>
           <TextInput
-            left={<TextInput.Icon icon="car" />}
+            mode="outlined"
+            label="Enter your Password"
             value={password}
             secureTextEntry
             onChangeText={(text) => setPassword(text)}
@@ -157,7 +163,7 @@ const styles = StyleSheet.create({
   },
   card: {
     width: "90%",
-    marginVertical: 50,
+    marginVertical: 70,
     padding: "5px",
   },
 
@@ -185,12 +191,9 @@ const styles = StyleSheet.create({
     height: 50,
     backgroundColor: "#dee2e6",
     marginVertical: 10,
-    textDecoration: "none",
-    borderWidth: 1,
+
     borderColor: "#bc6c25",
-    borderRadius: 20,
-    borderTopLeftRadius: 20,
-    borderTopRightRadius: 20,
+
     width: "100%",
     marginBottom: 20,
   },

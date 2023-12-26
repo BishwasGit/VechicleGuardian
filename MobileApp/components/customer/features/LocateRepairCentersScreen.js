@@ -1,7 +1,7 @@
-import React, { useEffect, useState } from 'react';
-import { View, Text, StyleSheet, FlatList } from 'react-native';
-import { REACT_APP_SERVER_IP, REACT_APP_SERVER_PORT } from '@env';
-import { encode as base64Encode, decode as base64Decode } from 'base-64';
+import React, { useEffect, useState } from "react";
+import { View, Text, StyleSheet, FlatList } from "react-native";
+import { REACT_APP_SERVER_IP, REACT_APP_SERVER_PORT } from "@env";
+import { encode as base64Encode, decode as base64Decode } from "base-64";
 import { WebView } from "react-native-webview";
 
 const LocateRepairCentersScreen = ({ route, navigation }) => {
@@ -17,38 +17,37 @@ const LocateRepairCentersScreen = ({ route, navigation }) => {
         );
 
         if (!response.ok) {
-          throw new Error('Network response was not ok');
+          throw new Error("Network response was not ok");
         }
 
         const data = await response.json();
         setRepairCenters(data.repairCenters);
       } catch (error) {
-        console.error('Error fetching repair centers:', error);
+        console.error("Error fetching repair centers:", error);
         // Handle errors as needed
       }
     };
 
     fetchRepairCenters();
   }, []);
-  
+
   // Check if customer_id is available
   if (!customer_id) {
     // Redirect to the main landing page or any other desired screen
-    navigation.navigate('Vechicle Guardian Landing Page');
+    navigation.navigate("Vechicle Guardian Landing Page");
     return null; // Render nothing if redirecting
   }
- 
 
   const renderMap = (repairCenters) => {
     const latitude = parseFloat(repairCenters.map.split(",")[0]);
     const longitude = parseFloat(repairCenters.map.split(",")[1]);
     const mapUrl = `https://www.google.com/maps/embed/v1/view?center=${latitude},${longitude}&zoom=15`;
-    return(
+    return (
       <>
-       <WebView source={{ uri: mapUrl }} style={{ flex: 1 }} />
+        <WebView source={{ uri: mapUrl }} style={{ flex: 1 }} />
       </>
-    )
-  }
+    );
+  };
   const renderVacancy = (repairCenters) => {
     if (repairCenters.vacancy) {
       return (
@@ -70,6 +69,7 @@ const LocateRepairCentersScreen = ({ route, navigation }) => {
   };
   return (
     <View style={styles.container}>
+      <Text style={styles.firstTitle}> Repair Center Lists</Text>
       <FlatList
         data={repairCenters}
         keyExtractor={(item) => item.repaircenters_id.toString()}
@@ -80,7 +80,7 @@ const LocateRepairCentersScreen = ({ route, navigation }) => {
             <Text style={styles.itemText}>{item.contact}</Text>
             {renderVacancy(item)}
           </View>
-       )}
+        )}
       />
     </View>
   );
@@ -91,14 +91,19 @@ const styles = StyleSheet.create({
     flex: 1,
     padding: 16,
   },
+  firstTitle: {
+    paddingTop: 10,
+    color: "#bc6c25",
+    fontWeight: "bold",
+    fontSize: 25,
+    marginBottom: 0,
+  },
   itemContainer: {
-    borderBottomWidth: 1,
-    borderBottomColor: '#1C0744',
     paddingVertical: 10,
   },
   itemText: {
     fontSize: 16,
-    color: '#000',
+    color: "#000",
   },
 });
 

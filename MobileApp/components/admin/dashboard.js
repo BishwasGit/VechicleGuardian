@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { View, Text, StyleSheet, Alert } from "react-native";
+import { ScrollView, View, Text, StyleSheet, Alert } from "react-native";
 import {
   List,
   IconButton,
@@ -18,6 +18,9 @@ const AdminDash = ({ route, navigation }) => {
   const [selectedCenter, setSelectedCenter] = useState(null);
   const [modalVisible, setModalVisible] = useState(false);
   const [searchQuery, setSearchQuery] = useState("");
+  const [expanded, setExpanded] = React.useState(true);
+
+  const handlePress = () => setExpanded(!expanded);
 
   // Check if admin_id is available
   if (!admin_id) {
@@ -128,7 +131,7 @@ const AdminDash = ({ route, navigation }) => {
     setRepairCenters(filteredCenters);
   };
   return (
-    <View style={styles.container}>
+    <ScrollView style={styles.container}>
       <Searchbar
         placeholder="Search Repair Centers"
         onChangeText={handleSearch}
@@ -146,35 +149,45 @@ const AdminDash = ({ route, navigation }) => {
           const mapUrl = `https://www.google.com/maps/embed/v1/view?center=${latitude},${longitude}&zoom=15`;
 
           return (
-            <List.Item
+            <List.Accordion
               key={center.repaircenters_id}
+              style={styles.accordian}
               title={center.repaircenter_fname}
-              titleStyle={styles.heading}
-              right={() => (
-                <View style={styles.detailsContainer}>
-                  <WebView source={{ uri: mapUrl }} style={{ flex: 1 }} />
-                  <Text style={styles.itemText}>{center.map}</Text>
-                  <Text style={styles.itemText}>{center.contact}</Text>
-                  <View style={styles.iconButtonsContainer}>
-                    <Tooltip title="Mark as Verified">
-                      <IconButton
-                        icon="check"
-                        onPress={() => handleVerifyCenter(center)}
-                      />
-                    </Tooltip>
-                    <Tooltip title="View Details">
-                      <IconButton
-                        icon="eye"
-                        onPress={() =>
-                          handleViewDetails(center.repaircenters_id)
-                        }
-                      />
-                    </Tooltip>
-                  </View>
+              titleStyle={styles.accordianTitle}
+              expanded={expanded[center.repaircenters_id]}
+              left={(props) => <List.Icon {...props} icon="folder" />}
+              onPress={() => handlePress(center.repaircenters_id)} // Update this line
+            >
+              {/* Display vehicle details */}
+              {[
+                "repaircenters_id",
+                "repaircenter_fname",
+                "address",
+                "map",
+                "contact",
+              ].map((detail) => (
+                <View key={detail}>
+                  <Text style={styles.mappedDetailsText}>
+                    {detail.replace(/_/g, " ")}:{" "}
+                    <Text style={{ paddingLeft: 20 }}>{center[detail]}</Text>
+                  </Text>
                 </View>
-              )}
-              onPress={() => handleViewDetails(center.repaircenters_id)}
-            />
+              ))}
+              <View style={styles.iconButtonsContainer}>
+                <Tooltip title="Mark as Verified" style={styles.iconButtons}>
+                  <IconButton
+                    icon="check"
+                    onPress={() => handleVerifyCenter(center)}
+                  />
+                </Tooltip>
+                <Tooltip title="View Details" style={styles.iconButtons}>
+                  <IconButton
+                    icon="eye"
+                    onPress={() => handleViewDetails(center.repaircenters_id)}
+                  />
+                </Tooltip>
+              </View>
+            </List.Accordion>
           );
         })}
       </List.Section>
@@ -193,7 +206,7 @@ const AdminDash = ({ route, navigation }) => {
           </View>
         </Modal>
       </Portal>
-    </View>
+    </ScrollView>
   );
 };
 
@@ -209,25 +222,47 @@ const styles = StyleSheet.create({
     color: "#000000",
   },
   detailsContainer: {
-    flexDirection: "row",
     alignItems: "center",
-    justifyContent: "space-between",
+    backgroundColor: "#e6ccb2",
   },
   itemText: {
     marginRight: 16,
+    backgroundColor: "#e6ccb2",
   },
   iconButtonsContainer: {
     flexDirection: "row",
+    margin: 5,
+    alignItems: "center",
+  },
+  iconButtons: {
+    backgroundColor: "#e6ccb2",
+    padding: 5,
   },
   modalContainer: {
-    backgroundColor: "white",
     padding: 16,
+    backgroundColor: "#e6ccb2",
     margin: 16,
     borderRadius: 8,
   },
   modalText: {
     fontSize: 16,
     marginBottom: 16,
+  },
+  accordian: {
+    width: "100%",
+    color: "white",
+    backgroundColor: "#ddb892",
+    padding: 10,
+    paddingBottom: 10,
+  },
+  accordianTitle: {
+    fontSize: 16, // Adjust the font size if necessary
+  },
+  mappedDetailsText: {
+    width: "100%",
+    color: "black",
+    padding: 5,
+    textAlign: "Left",
   },
   searchBar: {
     marginVertical: 16,

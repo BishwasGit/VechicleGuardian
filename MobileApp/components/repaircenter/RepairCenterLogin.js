@@ -4,7 +4,6 @@ import { TextInput, Button, Card, Title } from "react-native-paper";
 import { REACT_APP_SERVER_IP, REACT_APP_SERVER_PORT } from "@env";
 import LoadingScreen from "../LoadingScreen";
 
-
 const RepairCenterLogin = ({ navigation }) => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
@@ -58,17 +57,18 @@ const RepairCenterLogin = ({ navigation }) => {
 
       <View style={styles.containerTwo}>
         <View style={styles.card}>
-          <Text style={styles.text}>Username :</Text>
           <TextInput
-            left={<TextInput.Icon icon="eye" />}
+            mode="outlined" // You can customize the mode as needed
+            label="Enter your Username"
             value={username}
             onChangeText={(text) => setUsername(text)}
             style={[styles.textinput, { color: "black" }]}
             underlineColor="transparent"
           />
-          <Text style={styles.text}>Password :</Text>
+
           <TextInput
-            left={<TextInput.Icon icon="eye" />}
+            mode="outlined"
+            label="Enter your Password"
             value={password}
             secureTextEntry
             onChangeText={(text) => setPassword(text)}
@@ -126,7 +126,7 @@ const styles = StyleSheet.create({
   },
   card: {
     width: "90%",
-    marginVertical: 50,
+    marginVertical: 70,
     padding: "5px",
   },
 
@@ -157,10 +157,7 @@ const styles = StyleSheet.create({
     marginVertical: 10,
     textDecoration: "none",
     borderColor: "#1e6091",
-    borderWidth: 1,
-    borderRadius: 20,
-    borderTopLeftRadius: 20,
-    borderTopRightRadius: 20,
+
     width: "100%",
     marginBottom: 20,
     placeholderTextColor: "black",
