@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { View, Text, StyleSheet, Alert } from "react-native";
+import { ScrollView, View, Text, StyleSheet, Alert } from "react-native";
 import { DataTable, Button, List } from "react-native-paper";
 import Icon from "react-native-vector-icons/MaterialCommunityIcons";
 import { REACT_APP_SERVER_IP, REACT_APP_SERVER_PORT } from "@env";
@@ -68,78 +68,78 @@ const ListVehicleScreen = ({ route, navigation }) => {
   };
 
   return (
-    <View style={styles.container}>
-      <Text style={styles.firstTitle}> Vehicle List</Text>
+    <ScrollView style={styles.container}>
+      <Text style={styles.firstTitle}> Vehicle Lists</Text>
       <DataTable style={styles.table}>
         {vehicleData.map((vehicle) => (
-          <DataTable.Row key={vehicle.vehicleDetails_id}>
-            <List.Section style={styles.accordian}>
-              <List.Accordion
-                style={styles.accordian}
-                title={`${vehicle.vehicle_number}, ${
-                  JSON.parse(vehicle.bill_book_details).ownerName
-                }`}
-                left={(props) => <List.Icon {...props} icon="folder" />}
-                expanded={expanded[vehicle.vehicleDetails_id]}
-                onPress={() => handlePress(vehicle.vehicleDetails_id)} // Update this line
-              >
-                {/* Display vehicle details */}
-                {[
-                  "vehicleDetails_id",
-                  "vehicle_type",
-                  "vehicle_model",
-                  "vehicle_company",
-                  "vehicle_number",
-                  "vehicle_lot_number",
-                ].map((detail) => (
-                  <View key={detail}>
-                    <Text style={styles.mappedDetailsText}>
-                      {detail.replace(/_/g, " ")}:{" "}
-                      <Text style={{ paddingLeft: 20 }}>{vehicle[detail]}</Text>
-                    </Text>
-                  </View>
-                ))}
-
-                {/* Display bill book details */}
-                <View>
-                  {[
-                    "createdDate",
-                    "expiryDate",
-                    "ownerName",
-                    "contactNumber",
-                  ].map((detail) => (
-                    <Text key={detail} style={styles.mappedDetailsText}>
-                      {detail.replace(/([A-Z])/g, " $1").trim()}:{" "}
-                      <Text style={{ paddingLeft: 20 }}>
-                        {JSON.parse(vehicle.bill_book_details)[detail]}
-                      </Text>
-                    </Text>
-                  ))}
+          <List.Section
+            style={styles.accordian}
+            key={vehicle.vehicleDetails_id}
+          >
+            <List.Accordion
+              style={styles.accordian}
+              title={`${vehicle.vehicle_number}, ${
+                JSON.parse(vehicle.bill_book_details).ownerName
+              }`}
+              titleStyle={styles.accordianTitle}
+              left={(props) => <List.Icon {...props} icon="folder" />}
+              expanded={expanded[vehicle.vehicleDetails_id]}
+              onPress={() => handlePress(vehicle.vehicleDetails_id)} // Update this line
+            >
+              {/* Display vehicle details */}
+              {[
+                "vehicleDetails_id",
+                "vehicle_type",
+                "vehicle_model",
+                "vehicle_company",
+                "vehicle_number",
+                "vehicle_lot_number",
+              ].map((detail) => (
+                <View key={detail}>
+                  <Text style={styles.mappedDetailsText}>
+                    {detail.replace(/_/g, " ")}:{" "}
+                    <Text style={{ paddingLeft: 20 }}>{vehicle[detail]}</Text>
+                  </Text>
                 </View>
+              ))}
 
-                <Button
-                  mode="contained"
-                  onPress={() =>
-                    handleTrashIconPress(vehicle.vehicleDetails_id)
-                  }
-                  style={[styles.button, { backgroundColor: "#FF0000" }]}
-                  icon={() => (
-                    <Icon
-                      name="trash-can-outline"
-                      size={20}
-                      color="#FFFFFF"
-                      style={styles.icon}
-                    />
-                  )}
-                >
-                  Delete
-                </Button>
-              </List.Accordion>
-            </List.Section>
-          </DataTable.Row>
+              {/* Display bill book details */}
+              <View>
+                {[
+                  "createdDate",
+                  "expiryDate",
+                  "ownerName",
+                  "contactNumber",
+                ].map((detail) => (
+                  <Text key={detail} style={styles.mappedDetailsText}>
+                    {detail.replace(/([A-Z])/g, " $1").trim()}:{" "}
+                    <Text style={{ paddingLeft: 20 }}>
+                      {JSON.parse(vehicle.bill_book_details)[detail]}
+                    </Text>
+                  </Text>
+                ))}
+              </View>
+
+              <Button
+                mode="contained"
+                onPress={() => handleTrashIconPress(vehicle.vehicleDetails_id)}
+                style={[styles.button, { backgroundColor: "black" }]}
+                icon={() => (
+                  <Icon
+                    name="trash-can-outline"
+                    size={20}
+                    color="#FFFFFF"
+                    style={styles.icon}
+                  />
+                )}
+              >
+                Delete
+              </Button>
+            </List.Accordion>
+          </List.Section>
         ))}
       </DataTable>
-    </View>
+    </ScrollView>
   );
 };
 
@@ -147,6 +147,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     padding: 16,
+    marginBottom: 25,
   },
   firstTitle: {
     paddingTop: 10,
@@ -158,22 +159,11 @@ const styles = StyleSheet.create({
   table: {
     paddingTop: 30,
   },
-  tableHeader: {
-    backgroundColor: "#1e6091", // Adjust the color to your liking
-  },
 
-  billBookCell: {
-    flex: 2, // Adjust the flex to control the width of the cell
-  },
-  billBookText: {
-    marginBottom: 5,
-    fontSize: 12,
-    textAlign: "center",
-  },
   mappedDetailsText: {
     width: "100%",
     color: "black",
-    padding: 10,
+    padding: 20,
     textAlign: "Left",
   },
 
@@ -185,28 +175,20 @@ const styles = StyleSheet.create({
     justifyContent: "space-between",
     alignItems: "center",
   },
-  modalContainer: {
-    backgroundColor: "white",
-    padding: 20,
-    margin: 20,
-    borderRadius: 10,
-  },
-  modalTitle: {
-    fontSize: 18,
-    fontWeight: "bold",
-    marginBottom: 10,
-  },
+
   accordian: {
     width: "100%",
     color: "white",
-    backgroundColor: "#bc6c25",
+    backgroundColor: "#ddb892",
+    padding: 10,
+    paddingBottom: 10,
+  },
+  accordianTitle: {
+    fontSize: 16, // Adjust the font size if necessary
   },
   button: {
     margin: 8,
     padding: 8,
-  },
-  icon: {
-    marginRight: 8,
   },
 });
 export default ListVehicleScreen;
