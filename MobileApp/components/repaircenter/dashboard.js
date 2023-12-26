@@ -8,9 +8,9 @@ import {
 } from "react-native";
 import { Card, Title, Button, TextInput } from "react-native-paper";
 import { REACT_APP_SERVER_IP, REACT_APP_SERVER_PORT } from "@env";
-import { encode as base64Encode, decode as base64Decode } from 'base-64';
-import { useNavigation } from '@react-navigation/native';
-
+import { encode as base64Encode, decode as base64Decode } from "base-64";
+import { useNavigation } from "@react-navigation/native";
+import Icon from "react-native-vector-icons/MaterialIcons";
 
 const RepariCenterDashboard = ({ route }) => {
   const { repaircenter_id } = route.params;
@@ -71,7 +71,6 @@ const RepariCenterDashboard = ({ route }) => {
     checkVerificationStatus();
   }, [route.params.repaircenter_id]);
 
-
   const handleAddDetails = async () => {
     const mapBase64 = base64Encode(newDetails.map);
     //console.log(originalMap);
@@ -130,13 +129,14 @@ const RepariCenterDashboard = ({ route }) => {
     console.log("Is Verified:", isVerified);
     if (isVerified) {
       // Add logic to navigate to the repair process screen or perform other actions
-      navigation.navigate('RepairProcessScreen',{repaircenter_id : route.params.repaircenter_id});
+      navigation.navigate("RepairProcessScreen", {
+        repaircenter_id: route.params.repaircenter_id,
+      });
     } else {
       alert("Repair Center Verification Pending");
     }
   };
 
-  
   //code to reterive map
   // const decodedIframe = Buffer.from(encodedIframe, 'base64').toString('utf-8');
   return (
@@ -151,56 +151,87 @@ const RepariCenterDashboard = ({ route }) => {
           </Title>
         )}
       </View>
+      <View style={styles.gridContainer}>
+        <TouchableOpacity
+          style={styles.gridItemActive}
+          onPress={() => setShowForm(true)}
+        >
+          <Icon name="directions-car" size={30} color="white" />
+          <Text style={{ color: "white", padding: 10 }}>
+            Add Repair Center Details
+          </Text>
+        </TouchableOpacity>
 
-      <TouchableOpacity onPress={() => setShowForm(true)}>
-        <Text style={styles.addButton}>Add Repair Center Details</Text>
-      </TouchableOpacity>
-      <TouchableOpacity onPress={() => setShowVacancyForm(true)}>
-        <Text style={styles.addButton}>Add Vacancy</Text>
-      </TouchableOpacity>
-      <Button mode="contained" onPress={handleStartRepairing}>
-        Start Repairing
+        <TouchableOpacity
+          style={styles.gridItemActive}
+          onPress={() => setShowVacancyForm(true)}
+        >
+          <Icon name="directions-car" size={30} color="white" />
+          <Text style={{ color: "white", padding: 10 }}>Add Vacancy</Text>
+        </TouchableOpacity>
+      </View>
+
+      <Button
+        style={styles.addButton}
+        mode="contained"
+        onPress={handleStartRepairing}
+      >
+        <Text style={{ color: "white" }}>Start Repairing </Text>
       </Button>
       {showForm && (
         <Card style={styles.card}>
           <Card.Content>
-          <TextInput
+            <TextInput
+              style={styles.field}
               label="Full name"
+              underlineColor="transparent"
               value={newDetails.fullname}
               onChangeText={(text) =>
                 setNewDetails({ ...newDetails, fullname: text })
               }
             />
             <TextInput
+              style={styles.field}
               label="Address"
+              underlineColor="transparent"
               value={newDetails.address}
               onChangeText={(text) =>
                 setNewDetails({ ...newDetails, address: text })
               }
             />
             <TextInput
+              style={styles.field}
               label="Contact"
+              underlineColor="transparent"
               value={newDetails.contact}
               onChangeText={(text) =>
                 setNewDetails({ ...newDetails, contact: text })
               }
             />
             <TextInput
+              style={styles.field}
               label="Map Link"
+              underlineColor="transparent"
               value={newDetails.map}
-              placeholder='27.68899461302774, 85.28788243117607'
+              placeholder="27.68899461302774, 85.28788243117607"
               onChangeText={(text) =>
                 setNewDetails({ ...newDetails, map: text })
               }
             />
-            <Button mode="contained" onPress={handleAddDetails}>
-              Add Details
+            <Button
+              style={styles.addButton}
+              mode="contained"
+              onPress={handleAddDetails}
+            >
+              <Text style={{ color: "white" }}>Add Details </Text>
             </Button>
             {showVacancyForm && (
               <Card style={styles.card}>
                 <Card.Content>
                   <TextInput
+                    style={styles.field}
                     label="Position"
+                    underlineColor="transparent"
                     value={vacancyDetails.position}
                     onChangeText={(text) =>
                       setNewVacancyDetails({
@@ -210,7 +241,9 @@ const RepariCenterDashboard = ({ route }) => {
                     }
                   />
                   <TextInput
+                    style={styles.field}
                     label="Number of person"
+                    underlineColor="transparent"
                     value={vacancyDetails.noOfPerson}
                     onChangeText={(text) =>
                       setNewVacancyDetails({
@@ -220,7 +253,9 @@ const RepariCenterDashboard = ({ route }) => {
                     }
                   />
                   <TextInput
+                    style={styles.field}
                     label="Salary"
+                    underlineColor="transparent"
                     value={vacancyDetails.salary}
                     placeholder="10k-20k"
                     onChangeText={(text) =>
@@ -234,7 +269,7 @@ const RepariCenterDashboard = ({ route }) => {
           </Card.Content>
         </Card>
       )}
-      </ScrollView>
+    </ScrollView>
   );
 };
 
@@ -269,15 +304,7 @@ const styles = StyleSheet.create({
     borderTopRightRadius: 20,
   },
 
-  gridContainer: {
-    padding: 20,
-    paddingTop: 35,
-    flexDirection: "row",
-    flexWrap: "wrap",
-    justifyContent: "space-between",
-  },
-
-  gridItem: {
+  gridItemActive: {
     width: "45%",
     marginBottom: 40,
     paddingTop: 25,
@@ -285,16 +312,26 @@ const styles = StyleSheet.create({
     paddingLeft: 10,
     paddingRight: 10,
     alignItems: "center",
-    borderColor: "#1e6091",
-    borderWidth: 2,
+    backgroundColor: "#1e6091",
     borderRadius: 20,
     borderTopLeftRadius: 20,
     borderTopRightRadius: 20,
   },
+
+  gridContainer: {
+    padding: 20,
+    paddingTop: 35,
+    flexDirection: "row",
+    flexWrap: "wrap",
+    justifyContent: "space-between",
+  },
   card: {
-    width: "95%",
+    width: "100%",
     padding: 15,
-    paddingBottom: 155,
+    paddingBottom: 15,
+    position: "absolute",
+    top: 1,
+    backgroundColor: "#e9edc9",
   },
   field: {
     marginBottom: 20,
@@ -302,13 +339,16 @@ const styles = StyleSheet.create({
     borderRadius: 20,
     borderTopLeftRadius: 20,
     borderTopRightRadius: 20,
-    borderColor: "#bc6c25",
+    borderColor: "#1e6091",
     marginVertical: 10,
     textDecoration: "none",
+    backgroundColor: "#003049",
   },
   addButton: {
     fontWeight: "bold",
     padding: 10,
+    color: "white",
+    backgroundColor: "#003049",
   },
 });
 
