@@ -1,21 +1,24 @@
 import React, { useState } from "react";
 import { View, StyleSheet, Text } from "react-native";
-import { TextInput, Button, Card, Title } from "react-native-paper";
 import { Dialog, Portal } from "react-native-paper";
 import { REACT_APP_SERVER_IP, REACT_APP_SERVER_PORT } from "@env";
 import Icon from "react-native-vector-icons/FontAwesome";
+import { TextInput, Button, Card, Title, ActivityIndicator } from "react-native-paper";
+import LoadingScreen from "../LoadingScreen"; // Import the LoadingScreen component
 
 const CustomerLogin = ({ navigation }) => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [message, setMessage] = useState(null);
   const [visible, setVisible] = useState(false);
+  const [loading, setLoading] = useState(false);
 
   const showDialog = () => setVisible(true);
   const hideDialog = () => setVisible(false);
 
   const handleLogin = async () => {
     try {
+      setLoading(true);
       const response = await fetch(
         `http://${REACT_APP_SERVER_IP}:${REACT_APP_SERVER_PORT}/api/login`,
         {
@@ -32,16 +35,23 @@ const CustomerLogin = ({ navigation }) => {
       if (response.ok) {
         if (data.customer_id) {
           // It's a customer, navigate to CustomerDashboard
-          showDialog();
-          navigation.navigate("CustomerDashboard", {
-            customer_id: data.customer_id,
-          });
-          console.log("Login Successful");
+          setTimeout(() => {
+            hideDialog();
+            setLoading(false);
+            navigation.navigate("CustomerDashboard", {
+              customer_id: data.customer_id,
+            });
+            console.log("Login Successful");
+          }, 5000);
         } else if (data.admin_id) {
           // It's an admin, navigate to AdminDashboard
           showDialog();
-          navigation.navigate("AdminDashboard", { admin_id: data.admin_id });
-          console.log("Login Successful (Admin)");
+          setTimeout(() => {
+            hideDialog();
+            setLoading(false);
+            navigation.navigate("AdminDashboard", { admin_id: data.admin_id });
+            console.log("Login Successful (Admin)");
+          }, 5000);
         }
       } else {
         // Login failed, display an error message
@@ -87,7 +97,7 @@ const CustomerLogin = ({ navigation }) => {
           <Button mode="contained" onPress={handleLogin} style={styles.button}>
             <Text style={{ color: "white" }}> Login as Customer</Text>
           </Button>
-
+          {loading && <LoadingScreen />}
           <Button style={styles.forgotButton}>
             <Text style={{ color: "black" }}> Forgot your password ?</Text>
           </Button>

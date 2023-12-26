@@ -2,11 +2,14 @@ import React, { useState } from "react";
 import { View, StyleSheet, Text } from "react-native";
 import { TextInput, Button, Card, Title } from "react-native-paper";
 import { REACT_APP_SERVER_IP, REACT_APP_SERVER_PORT } from "@env";
+import LoadingScreen from "../LoadingScreen";
+
 
 const RepairCenterLogin = ({ navigation }) => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [message, setMessage] = useState("");
+  const [loading, setLoading] = useState(false);
 
   const handleLogin = async () => {
     try {
@@ -25,17 +28,20 @@ const RepairCenterLogin = ({ navigation }) => {
 
       if (response.ok) {
         const { repaircenter_id } = data;
+        setLoading(false);
         navigation.navigate("RepariCenterDashboard", { repaircenter_id });
         console.log("Login Successful", repaircenter_id);
       } else {
         // Login failed, display an error message
         setMessage(data.error);
         alert(data.error);
+        setLoading(false);
         console.error("Login failed:", data.error);
       }
     } catch (error) {
       alert(data.error);
       console.error("Error during login:", error);
+      setLoading(false);
     }
   };
 
@@ -72,6 +78,7 @@ const RepairCenterLogin = ({ navigation }) => {
           <Button mode="contained" onPress={handleLogin} style={styles.button}>
             <Text style={{ color: "white" }}> Login as Repair Center</Text>
           </Button>
+          {loading && <LoadingScreen />}
           <Button style={styles.forgotButton}>
             <Text style={{ color: "black" }}> Forgot your password ?</Text>
           </Button>
