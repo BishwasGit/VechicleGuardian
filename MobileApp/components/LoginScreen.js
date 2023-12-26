@@ -15,7 +15,7 @@ const LoginSelectionScreen = ({ navigation }) => {
       <View style={styles.card}>
         <View style={styles.firstlay}>
           <Title style={styles.firstTitle}>Log in or Sign up</Title>
-          <Title style={styles.firstSudTitle}>Select your login account</Title>
+          <Title style={styles.firstSudTitle}>Select your login type</Title>
         </View>
         <Button
           style={styles.button}

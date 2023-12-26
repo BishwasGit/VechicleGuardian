@@ -76,7 +76,7 @@ const LocateRepairCentersScreen = ({ route, navigation }) => {
         renderItem={({ item }) => (
           <View style={styles.itemContainer}>
             <Text style={styles.itemText}>{item.address}</Text>
-            {renderMap(item)}
+            {/* {renderMap(item)} */}
             <Text style={styles.itemText}>{item.contact}</Text>
             {renderVacancy(item)}
           </View>
