@@ -57,7 +57,7 @@ const RepairCenterLogin = ({ navigation }) => {
             left={<TextInput.Icon icon="eye" />}
             value={username}
             onChangeText={(text) => setUsername(text)}
-            style={styles.textinput}
+            style={[styles.textinput, { color: "black" }]}
             underlineColor="transparent"
           />
           <Text style={styles.text}>Password :</Text>
@@ -66,7 +66,7 @@ const RepairCenterLogin = ({ navigation }) => {
             value={password}
             secureTextEntry
             onChangeText={(text) => setPassword(text)}
-            style={styles.textinput}
+            style={[styles.textinput, { color: "black" }]}
             underlineColor="transparent"
           />
           <Button mode="contained" onPress={handleLogin} style={styles.button}>
@@ -142,6 +142,7 @@ const styles = StyleSheet.create({
     marginLeft: 10,
     marginBottom: 5,
     textAlign: "left",
+    color: "black",
   },
   textinput: {
     height: 50,
@@ -155,7 +156,10 @@ const styles = StyleSheet.create({
     borderTopRightRadius: 20,
     width: "100%",
     marginBottom: 20,
+    placeholderTextColor: "black",
+    color: "black", // Set the text color to black
   },
+
   message: {
     color: "red",
   },
