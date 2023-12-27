@@ -100,13 +100,6 @@ const RepariCenterDashboard = ({ route }) => {
       alert("Invalid contact number. Please enter a 10-digit number.");
       return;
     }
-
-    // Validation for noOfPerson field
-    const noOfPersonRegex = /^\d+$/;
-    if (!noOfPersonRegex.test(vacancyDetails.noOfPerson)) {
-      alert("Invalid number of persons. Please enter a valid number.");
-      return;
-    }
     try {
       const response = await fetch(
         `http://${REACT_APP_SERVER_IP}:${REACT_APP_SERVER_PORT}/api/addRepairCenterDetails`,
@@ -121,6 +114,43 @@ const RepariCenterDashboard = ({ route }) => {
             address: newDetails.address,
             map: mapBase64,
             contact: newDetails.contact,
+          }),
+        }
+      );
+
+      const data = await response.json();
+      if (data.success) {
+        // Show success alert
+        alert(data.message);
+      } else {
+        // Show error alert
+        alert(`Error: ${data.message}`);
+      }
+      if (!response.ok) {
+        throw new Error("Network response was not ok");
+      }
+    } catch (error) {
+      console.error("Error adding Repair Center details:", error);
+    }
+  };
+  const handleAddVacancyDetails = async () => {
+    const { repaircenter_id } = route.params;
+    // Validation for noOfPerson field
+    const noOfPersonRegex = /^\d+$/;
+    if (!noOfPersonRegex.test(vacancyDetails.noOfPerson)) {
+      alert("Invalid number of persons. Please enter a valid number.");
+      return;
+    }
+    try {
+      const response = await fetch(
+        `http://${REACT_APP_SERVER_IP}:${REACT_APP_SERVER_PORT}/api/addVacancyDetails}`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            repaircenter_id: repaircenter_id,
             vacancy: {
               position: vacancyDetails.position,
               noOfPerson: vacancyDetails.noOfPerson,
@@ -142,7 +172,7 @@ const RepariCenterDashboard = ({ route }) => {
         throw new Error("Network response was not ok");
       }
     } catch (error) {
-      console.error("Error adding Repair Center details:", error);
+      console.error("Error adding Vacancy details:", error);
     }
   };
 
@@ -319,9 +349,9 @@ const RepariCenterDashboard = ({ route }) => {
             <Button
               style={styles.addButton}
               mode="contained"
-              onPress={handleAddDetails}
+              onPress={handleAddVacancyDetails}
             >
-              <Text style={{ color: "white" }}>Add Details </Text>
+              <Text style={{ color: "white" }}>Add Vacancy</Text>
             </Button>
 
             {/* Add more TextInput components for additional fields */}
