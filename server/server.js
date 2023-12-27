@@ -68,6 +68,9 @@ app.use('/api', getCustomerRepairHistory);
 const addVacancyDetails = require('./api/addVacancyDetails');
 app.use('/api', addVacancyDetails);
 
+const getUsersRepairCenters = require('./api/getUsersRepairCenters');
+app.use('/api', getUsersRepairCenters);
+
 const PORT = process.env.PORT || 3000;
 
 app.listen(PORT, () => {
