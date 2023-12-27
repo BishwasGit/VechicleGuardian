@@ -11,7 +11,7 @@ import LoginSelectionScreen from './components/LoginScreen';
 //repair center side
 import RepairCenterLogin from './components/repaircenter/RepairCenterLogin';
 import RegistrationScreen from './components/RegistrationScreen'; // Create a new component for registration
-import RepariCenterDashboard from './components/repaircenter/dashboard'
+import RepairCenterDashboard from './components/repaircenter/dashboard'
 import RepairProcessScreen from './components/repaircenter/features/RepairProcessScreen'
 
 //customer side
@@ -39,7 +39,7 @@ const App = () => {
         <Stack.Screen name="Registration" component={RegistrationScreen} />
         <Stack.Screen name="AdminDashboard" component={AdminDashboard} />
         <Stack.Screen name="CustomerDashboard" component={CustomerDashboard} />
-        <Stack.Screen name="RepariCenterDashboard" component={RepariCenterDashboard} />
+        <Stack.Screen name="RepairCenterDashboard" component={RepairCenterDashboard} />
         <Stack.Screen name="AddVehicle" component={AddVehicleScreen} />
         <Stack.Screen name="ListVehicle" component={ListVehicleScreen} />
         <Stack.Screen name="ViewServiceHistory" component={ViewServiceHistoryScreen} />

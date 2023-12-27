@@ -13,7 +13,7 @@ import { encode as base64Encode, decode as base64Decode } from "base-64";
 import { useNavigation } from "@react-navigation/native";
 import Icon from "react-native-vector-icons/MaterialIcons";
 
-const RepariCenterDashboard = ({ route }) => {
+const RepairCenterDashboard = ({ route }) => {
   const { repaircenter_id } = route.params;
   const [repairCenterDetails, setRepairCenterDetails] = useState(null);
   const [showForm, setShowForm] = useState(false);
@@ -443,4 +443,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default RepariCenterDashboard;
+export default RepairCenterDashboard;
