@@ -30,6 +30,7 @@ import AdminDashboard from './components/admin/dashboard';
 
 //workers 
 import WorkerLoginScreen from './components/workers/login';
+import WorkerDashboard from './components/workers/dashboard';
 
 const Stack = createStackNavigator();
 
@@ -53,6 +54,7 @@ const App = () => {
         <Stack.Screen name="PartsManagement" component={PartsManagementPage} />
         <Stack.Screen name="AddWorkersScreen" component={AddWorkersScreen} />
         <Stack.Screen name="WorkerLoginScreen" component={WorkerLoginScreen} />
+        <Stack.Screen name="WorkerDashboard" component={WorkerDashboard} />
       </Stack.Navigator>
     </NavigationContainer>
     </PaperProvider> 

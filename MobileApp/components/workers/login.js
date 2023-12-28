@@ -36,8 +36,7 @@ const Login = () => {
 
       if (result.success) {
         // Authentication successful, navigate to the worker's dashboard
-        alert('matched')
-        // navigation.navigate('WorkersDashboard');
+        navigation.navigate('WorkerDashboard', { workerId: result.workerId });
       } else {
         // Authentication failed, show an error message
         alert('Invalid credentials. Please try again.');

@@ -1,4 +1,5 @@
 const express = require('express');
+const bcrypt = require('bcrypt');
 const router = express.Router();
 const { db } = require('../../db');
 
@@ -14,10 +15,19 @@ router.post('/addWorkers', async (req, res) => {
       emailAddress,
     } = req.body;
 
-    // Process and store the Worker details in your database
+    // Process validations
+    const duplicateCheckQuery = 'SELECT * FROM repaircenter_workers WHERE phone_number = ? OR email_address = ? OR user_name = ?';
+    const [duplicateCheckResults] = await db.execute(duplicateCheckQuery, [phoneNumber, emailAddress, userName]);
 
+    if (duplicateCheckResults.length > 0) {
+      return res.status(400).json({ success: false, message: 'Phone number, email address, or username already exists.' });
+    }
 
-    // here repaircenters_id keeps track for which repaircenter the worker works for
+    // Hash the password before storing
+    const saltRounds = 10;
+    const hashedPassword = await bcrypt.hash(password, saltRounds);
+
+    // Store the hashed password in the database
     const addWorkerQuery = `
       INSERT INTO repaircenter_workers
       (repaircenters_id, user_name, worker_name, password, phone_number, email_address)
@@ -28,7 +38,7 @@ router.post('/addWorkers', async (req, res) => {
       repaircenter_id,
       userName,
       workerName,
-      password,
+      hashedPassword, // Use the hashed password
       phoneNumber,
       emailAddress,
     ]);

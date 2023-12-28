@@ -17,7 +17,11 @@ const AddWorkerScreen = ({ route }) => {
         alert('Please fill in all fields');
         return;
       }
-  
+      const phoneRegex = /^\d{10}$/;
+      if (!phoneRegex.test(phoneNumber)) {
+        alert('Phone number must be 10 digits');
+        return;
+      }
       // Prepare the data to be submitted
       const formData = {
         repaircenter_id: repaircenter_id,
@@ -39,13 +43,16 @@ const AddWorkerScreen = ({ route }) => {
             body: JSON.stringify(formData),
           }
         );
-  
         if (!response.ok) {
-          // Handle non-successful response (e.g., show an error message)
-          console.error('Failed to add worker:', response.status);
+          const responseData = await response.json();
+          if (responseData.message && responseData.message.toLowerCase().includes('exists')) {
+            alert('Phone number, email address, or username already exists.');
+          } else {
+            console.error('Failed to add worker:', response.status);
+          }
           return;
         }
-  
+
         // Optionally, you can handle the successful response (e.g., show a success message)
         console.log('Worker added successfully!');
   
