@@ -61,6 +61,8 @@ const addWorkers = require('./api/workers/addWorkers');
 app.use('/api', addWorkers);
 const workerLogin = require('./api/workers/workerLogin');
 app.use('/api', workerLogin);
+const getWorkerDetails = require('./api/workers/getWorkerDetails');
+app.use('/api', getWorkerDetails);
 
 
 const PORT = process.env.PORT || 3000;

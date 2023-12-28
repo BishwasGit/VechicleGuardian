@@ -12,7 +12,6 @@ import LoginSelectionScreen from './components/LoginScreen';
 import RepairCenterLogin from './components/repaircenter/RepairCenterLogin';
 import RegistrationScreen from './components/RegistrationScreen'; // Create a new component for registration
 import RepairCenterDashboard from './components/repaircenter/dashboard'
-import RepairProcessScreen from './components/repaircenter/features/RepairProcessScreen'
 import AddWorkersScreen from './components/repaircenter/features/AddWorkers'
 import PartsManagementPage from './components/repaircenter/features/PartsManagement';
 
@@ -31,6 +30,7 @@ import AdminDashboard from './components/admin/dashboard';
 //workers 
 import WorkerLoginScreen from './components/workers/login';
 import WorkerDashboard from './components/workers/dashboard';
+import RepairProcessScreen from './components/workers/features/RepairProcessScreen'
 
 const Stack = createStackNavigator();
 

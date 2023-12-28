@@ -14,7 +14,7 @@ import { Picker } from "@react-native-picker/picker";
 import { REACT_APP_SERVER_IP, REACT_APP_SERVER_PORT } from "@env";
 
 const RepairProcessScreen = ({ route, navigation }) => {
-  const repaircenter_id = route.params;
+  const workerId = route.params;
   const [vehicleList, setVehicleList] = useState(null);
   const [selectedVehicleId, setSelectedVehicleId] = useState("");
   const [selectedDate, setSelectedDate] = useState(new Date());
@@ -136,8 +136,9 @@ const RepairProcessScreen = ({ route, navigation }) => {
     // Combine all input data for submission
     // Set the time zone to Nepal (UTC+5:45)
     const selectedDate = new Date().toLocaleString('en-US', { timeZone: 'Asia/Kathmandu' });
-
+    const workerId = route.params;
     const formData = {
+      repaircetner_workers_id : workerId,
       vehicleId: selectedVehicleId,
       date: selectedDate,
       totalCost,
