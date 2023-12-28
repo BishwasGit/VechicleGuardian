@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const { db } = require('../db');
+const { db } = require('../../db');
 const moment = require('moment-timezone');
 
 router.post('/startRepairData', async (req, res) => {

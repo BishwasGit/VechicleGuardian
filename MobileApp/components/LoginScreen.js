@@ -1,10 +1,13 @@
 import React from "react";
-import { Text, View, StyleSheet, Dimensions } from "react-native";
+import { Text, View, StyleSheet, Dimensions, TouchableOpacity } from "react-native";
 import { Avatar, Card, Title, Paragraph, Button } from "react-native-paper";
 import Icon from "react-native-vector-icons/MaterialIcons";
 const { width, height } = Dimensions.get("window");
 
 const LoginSelectionScreen = ({ navigation }) => {
+   const handleNavigateToWorkerLogin = () => {
+    navigation.navigate('WorkerLoginScreen');
+  };
   return (
     <View style={styles.container}>
       <View style={styles.overlay}>
@@ -35,9 +38,11 @@ const LoginSelectionScreen = ({ navigation }) => {
       </View>
       <View style={styles.lay}>
         <Title style={styles.Title}>
-          By registering this step you agree to
+         Are you working for a repair Center ? 
         </Title>
-        <Title style={styles.sudTitle}>Terms of Services</Title>
+        <TouchableOpacity onPress={handleNavigateToWorkerLogin}>
+        <Title style={styles.sudTitle}>Click here</Title>
+      </TouchableOpacity>
       </View>
     </View>
   );

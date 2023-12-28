@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const { db } = require('../db'); // Assuming you have a database connection setup
+const { db } = require('../../db'); // Assuming you have a database connection setup
 
 // In your server-side code (e.g., getCustomerRepairHistory.js)
 router.get('/getCustomerRepairHistory/:vehicleId', async (req, res) => {

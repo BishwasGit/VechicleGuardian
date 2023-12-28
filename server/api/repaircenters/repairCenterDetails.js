@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const bcrypt = require('bcrypt');
-const { db } = require('../db');
+const { db } = require('../../db');
 
 router.get('/RepairCenterDetails/:repaircenter_id', async (req, res) => {
   try {

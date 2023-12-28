@@ -78,9 +78,9 @@ const RepairCenterDashboard = ({ route }) => {
     } catch (error) { console.error("Error adding Vacancy details:", error); }
   };
 
-  const handleStartRepairing = () => {
-    if (isVerified) { navigation.navigate("RepairProcessScreen", { repaircenter_id }); } else { alert("Repair Center Verification Pending"); }
-  };
+  // const handleStartRepairing = () => {
+  //   if (isVerified) { navigation.navigate("RepairProcessScreen", { repaircenter_id }); } else { alert("Repair Center Verification Pending"); }
+  // };
 
   return (
     <ScrollView style={styles.container}>
@@ -109,9 +109,16 @@ const RepairCenterDashboard = ({ route }) => {
       >
         <Text style={{ color: 'white' }}>Parts Management </Text>
       </Button>
-      <Button style={styles.addButton} mode="contained" onPress={handleStartRepairing}>
-        <Text style={{ color: "white" }}>Start Repairing </Text>
+      <Button
+        style={styles.addButton}
+        mode="contained"
+        onPress={() => navigation.navigate('AddWorkersScreen', { repaircenter_id })}
+      >
+        <Text style={{ color: 'white' }}>Add Workers</Text>
       </Button>
+      {/* <Button style={styles.addButton} mode="contained" onPress={handleStartRepairing}>
+        <Text style={{ color: "white" }}>Start Repairing </Text>
+      </Button> */}
       {showForm && (
         <Card style={styles.card}>
           <Title style={{ fontWeight: "normal", fontSize: 17, paddingTop: 20, paddingBottom: 20 }}>Repair Center Form</Title>

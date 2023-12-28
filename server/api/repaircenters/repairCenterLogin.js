@@ -2,7 +2,7 @@
 const express = require("express");
 const router = express.Router();
 const bcrypt = require("bcrypt");
-const { db } = require("../db");
+const { db } = require('../../db');
 
 router.post("/repairCenterLogin", async (req, res) => {
   const { username, password } = req.body;

@@ -13,6 +13,7 @@ import RepairCenterLogin from './components/repaircenter/RepairCenterLogin';
 import RegistrationScreen from './components/RegistrationScreen'; // Create a new component for registration
 import RepairCenterDashboard from './components/repaircenter/dashboard'
 import RepairProcessScreen from './components/repaircenter/features/RepairProcessScreen'
+import AddWorkersScreen from './components/repaircenter/features/AddWorkers'
 import PartsManagementPage from './components/repaircenter/features/PartsManagement';
 
 //customer side
@@ -26,6 +27,9 @@ import LocateRepairCentersScreen from './components/customer/features/LocateRepa
 
 //admin 
 import AdminDashboard from './components/admin/dashboard';
+
+//workers 
+import WorkerLoginScreen from './components/workers/login';
 
 const Stack = createStackNavigator();
 
@@ -47,6 +51,8 @@ const App = () => {
         <Stack.Screen name="LocateRepairCenters" component={LocateRepairCentersScreen} />
         <Stack.Screen name="RepairProcessScreen" component={RepairProcessScreen} />
         <Stack.Screen name="PartsManagement" component={PartsManagementPage} />
+        <Stack.Screen name="AddWorkersScreen" component={AddWorkersScreen} />
+        <Stack.Screen name="WorkerLoginScreen" component={WorkerLoginScreen} />
       </Stack.Navigator>
     </NavigationContainer>
     </PaperProvider> 

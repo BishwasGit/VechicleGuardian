@@ -8,68 +8,60 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cors());
 
-const registerRoute = require('./api/register');
+
+//customer Side
+const registerRoute = require('./api/customers/register');
 app.use('/api', registerRoute);
-
-const registerRouteRepairCenter = require('./api/registerRepairCenter');
-app.use('/api', registerRouteRepairCenter);
-
-const customerLogin = require('./api/login');
+const customerLogin = require('./api/customers/login');
 app.use('/api', customerLogin);
-
-const repairCenterLogin = require('./api/repairCenterLogin');
-app.use('/api', repairCenterLogin);
-
-const getCustomerDetails = require('./api/customerDetails');
+const getCustomerDetails = require('./api/customers/customerDetails');
 app.use('/api', getCustomerDetails);
-
-const getRepairCenterDetails = require('./api/repairCenterDetails');
-app.use('/api', getRepairCenterDetails);
-
-const storeVehicleDetails = require('./api/vehicleDetails');
+const storeVehicleDetails = require('./api/customers/vehicleDetails');
 app.use('/api', storeVehicleDetails);
-
-const listVehicleDetails = require('./api/listVehicleDetails');
+const updateVehicleStatus = require('./api/customers/updateVehicleStatus');
+app.use('/api', updateVehicleStatus);
+const addRepairCenterList = require('./api/customers/getRepairCenters');
+app.use('/api', addRepairCenterList);
+const getCustomerRepairHistory = require('./api/customers/getCustomerRepairHistory');
+app.use('/api', getCustomerRepairHistory);
+const listVehicleDetails = require('./api/customers/listVehicleDetails');
 app.use('/api', listVehicleDetails);
 
-const updateVehicleStatus = require('./api/updateVehicleStatus');
-app.use('/api', updateVehicleStatus);
 
-const addRepairCenterDetails = require('./api/addRepairCenterDetails');
+//repair centers side
+
+const registerRouteRepairCenter = require('./api/repaircenters/registerRepairCenter');
+app.use('/api', registerRouteRepairCenter);
+const repairCenterLogin = require('./api/repaircenters/repairCenterLogin');
+app.use('/api', repairCenterLogin);
+const getRepairCenterDetails = require('./api/repaircenters/repairCenterDetails');
+app.use('/api', getRepairCenterDetails);
+const addRepairCenterDetails = require('./api/repaircenters/addRepairCenterDetails');
 app.use('/api', addRepairCenterDetails);
+const checkVerificationStatus = require('./api/repaircenters/checkVerificationStatus');
+app.use('/api', checkVerificationStatus);
+const fetchVehicleList = require('./api/repaircenters/fetchVehicleList');
+app.use('/api', fetchVehicleList);
+const startRepairData = require('./api/repaircenters/startRepairData');
+app.use('/api', startRepairData);
+const addVacancyDetails = require('./api/repaircenters/addVacancyDetails');
+app.use('/api', addVacancyDetails);
+const getUsersRepairCenters = require('./api/repaircenters/getUsersRepairCenters');
+app.use('/api', getUsersRepairCenters);
 
-const addRepairCenterList = require('./api/getRepairCenters');
-app.use('/api', addRepairCenterList);
-
-const getUnverifiedRepairCentersList = require('./api/getUnverifiedRepairCentersList');
+//admin side
+const getUnverifiedRepairCentersList = require('./api/admin/getUnverifiedRepairCentersList');
 app.use('/api', getUnverifiedRepairCentersList);
-
-const verifyRepairCenter = require('./api/verifyRepairCenter');
+const verifyRepairCenter = require('./api/admin/verifyRepairCenter');
 app.use('/api', verifyRepairCenter);
 
-const checkVerificationStatus = require('./api/checkVerificationStatus');
-app.use('/api', checkVerificationStatus);
 
-const fetchVehicleList = require('./api/fetchVehicleList');
-app.use('/api', fetchVehicleList);
+//workers side
+const addWorkers = require('./api/workers/addWorkers');
+app.use('/api', addWorkers);
+const workerLogin = require('./api/workers/workerLogin');
+app.use('/api', workerLogin);
 
-const startRepairData = require('./api/startRepairData');
-app.use('/api', startRepairData);
-
-const getRepairHistory = require('./api/getRepairHistory');
-app.use('/api', getRepairHistory);
-
-const getVehicleDetails = require('./api/getVehicleDetails');
-app.use('/api', getVehicleDetails);
-
-const getCustomerRepairHistory = require('./api/getCustomerRepairHistory');
-app.use('/api', getCustomerRepairHistory);
-
-const addVacancyDetails = require('./api/addVacancyDetails');
-app.use('/api', addVacancyDetails);
-
-const getUsersRepairCenters = require('./api/getUsersRepairCenters');
-app.use('/api', getUsersRepairCenters);
 
 const PORT = process.env.PORT || 3000;
 

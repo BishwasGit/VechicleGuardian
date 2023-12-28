@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const { db } = require('../db');
+const { db } = require('../../db');
 
 // In your server-side code (e.g., repairCenterRoutes.js)
 router.get('/fetchVehicleList', async (req, res) => {
