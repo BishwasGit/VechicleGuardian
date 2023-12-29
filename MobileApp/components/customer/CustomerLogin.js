@@ -48,7 +48,7 @@ const CustomerLogin = ({ navigation }) => {
               customer_id: data.customer_id,
             });
             console.log("Login Successful");
-          }, 5000);
+          }, 1000);
         } else if (data.admin_id) {
           // It's an admin, navigate to AdminDashboard
           showDialog();
@@ -57,7 +57,7 @@ const CustomerLogin = ({ navigation }) => {
             setLoading(false);
             navigation.navigate("AdminDashboard", { admin_id: data.admin_id });
             console.log("Login Successful (Admin)");
-          }, 5000);
+          }, 1000);
         }
       } else {
         // Login failed, display an error message

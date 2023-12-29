@@ -14,6 +14,7 @@ import RegistrationScreen from './components/RegistrationScreen'; // Create a ne
 import RepairCenterDashboard from './components/repaircenter/dashboard'
 import AddWorkersScreen from './components/repaircenter/features/AddWorkers'
 import PartsManagementPage from './components/repaircenter/features/PartsManagement';
+import RepairHistoryScreen from './components/repaircenter/features/RepairHistory';
 
 //customer side
 import CustomerDashboard from './components/customer/dashboard'
@@ -51,6 +52,7 @@ const App = () => {
         <Stack.Screen name="ViewServiceHistory" component={ViewServiceHistoryScreen} />
         <Stack.Screen name="LocateRepairCenters" component={LocateRepairCentersScreen} />
         <Stack.Screen name="RepairProcessScreen" component={RepairProcessScreen} />
+        <Stack.Screen name="RepairHistoryScreen" component={RepairHistoryScreen} />
         <Stack.Screen name="PartsManagement" component={PartsManagementPage} />
         <Stack.Screen name="AddWorkersScreen" component={AddWorkersScreen} />
         <Stack.Screen name="WorkerLoginScreen" component={WorkerLoginScreen} />

@@ -138,7 +138,7 @@ const RepairProcessScreen = ({ route, navigation }) => {
     const selectedDate = new Date().toLocaleString('en-US', { timeZone: 'Asia/Kathmandu' });
     const workerId = route.params;
     const formData = {
-      repaircetner_workers_id : workerId,
+      repaircenter_workers_id : workerId,
       vehicleId: selectedVehicleId,
       date: selectedDate,
       totalCost,

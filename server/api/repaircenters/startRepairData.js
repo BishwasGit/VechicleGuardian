@@ -21,7 +21,7 @@ router.post('/startRepairData', async (req, res) => {
 
     // Process and store the repair data in your database
     // Note: Adjust the database query as per your schema
-    const repairDataQuery = 'INSERT INTO repair_data (vehicleDetails_id, repaircetner_workers_id, repair_date, total_cost, total_estimatedtime, changes_made, completed_time) VALUES (?, ?, ?, ?, ?, ?)';
+    const repairDataQuery = 'INSERT INTO repair_data (vehicleDetails_id, repaircenter_workers_id, repair_date, total_cost, total_estimatedtime, changes_made, completed_time) VALUES (?, ?, ?, ?, ?, ?)';
     await db.execute(repairDataQuery, [vehicleId, workerId, date, totalCost, totalEstimatedTime, changesMade, formattedCompletedTime]);
 
     res.status(200).json({ success: true, message: 'Repair data added successfully' });

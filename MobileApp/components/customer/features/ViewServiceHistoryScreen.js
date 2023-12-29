@@ -36,6 +36,7 @@ const ViewServiceHistoryScreen = ({ route, navigation }) => {
       console.error("Error fetching repair history:", error);
     }
   };
+  
 
   const renderVehicleItem = ({ item }) => (
     <Card style={styles.card}>
@@ -76,6 +77,7 @@ const ViewServiceHistoryScreen = ({ route, navigation }) => {
                 <Paragraph>{`Total Cost: ${repairItem.total_cost} Rupees`}</Paragraph>
                 <Paragraph>{`Total Time: ${repairItem.total_estimatedtime} Minutes`}</Paragraph>
                 <Paragraph>{`Completed Time: ${repairItem.completed_time}`}</Paragraph>
+                <Paragraph>{`Repair Done By: ${repairItem.worker_name}`}</Paragraph>
                 <Title style={{ fontWeight: "bold", marginBottom: 4 }}>
                   Changes Made:
                 </Title>

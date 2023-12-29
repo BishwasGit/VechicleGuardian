@@ -25,7 +25,7 @@ DROP TABLE IF EXISTS `repair_data`;
 CREATE TABLE `repair_data` (
   `repairData_id` int NOT NULL AUTO_INCREMENT,
   `vehicleDetails_id` int DEFAULT NULL,
-  `repaircetner_workers_id` int DEFAULT NULL,
+  `repaircenter_workers_id` int DEFAULT NULL,
   `repair_date` varchar(45) DEFAULT NULL,
   `total_cost` varchar(45) DEFAULT NULL,
   `total_estimatedtime` varchar(45) DEFAULT NULL,
