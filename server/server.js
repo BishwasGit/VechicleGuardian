@@ -48,6 +48,8 @@ const addVacancyDetails = require('./api/repaircenters/addVacancyDetails');
 app.use('/api', addVacancyDetails);
 const getUsersRepairCenters = require('./api/repaircenters/getUsersRepairCenters');
 app.use('/api', getUsersRepairCenters);
+const addRepairParts = require('./api/repaircenters/addRepairParts');
+app.use('/api', addRepairParts);
 
 //admin side
 const getUnverifiedRepairCentersList = require('./api/admin/getUnverifiedRepairCentersList');

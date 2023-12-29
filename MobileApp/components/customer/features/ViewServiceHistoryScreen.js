@@ -31,7 +31,12 @@ const ViewServiceHistoryScreen = ({ route, navigation }) => {
         `http://${REACT_APP_SERVER_IP}:${REACT_APP_SERVER_PORT}/api/getCustomerRepairHistory/${vehicleId}`
       );
       const data = await response.json();
-      setSelectedVehicleData(data);
+      if (data.length === 0) {
+        alert('No repair history found!');
+      } else {
+        console.log(data);
+        setSelectedVehicleData(data);
+      }
     } catch (error) {
       console.error("Error fetching repair history:", error);
     }
