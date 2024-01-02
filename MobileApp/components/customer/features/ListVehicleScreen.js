@@ -82,9 +82,12 @@ const ListVehicleScreen = ({ route, navigation }) => {
                 JSON.parse(vehicle.bill_book_details).ownerName
               }`}
               titleStyle={styles.accordianTitle}
-              left={(props) => <List.Icon {...props} icon="folder" />}
+              left={(props) => (
+                <List.Icon {...props} icon="folder" color="#c1121f" />
+              )}
               expanded={expanded[vehicle.vehicleDetails_id]}
               onPress={() => handlePress(vehicle.vehicleDetails_id)} // Update this line
+              color="white"
             >
               {/* Display vehicle details */}
               {[
@@ -123,7 +126,7 @@ const ListVehicleScreen = ({ route, navigation }) => {
               <Button
                 mode="contained"
                 onPress={() => handleTrashIconPress(vehicle.vehicleDetails_id)}
-                style={[styles.button, { backgroundColor: "black" }]}
+                style={styles.button}
                 icon={() => (
                   <Icon
                     name="trash-can-outline"
@@ -150,25 +153,25 @@ const styles = StyleSheet.create({
     marginBottom: 25,
   },
   firstTitle: {
-    paddingTop: 10,
-    color: "#bc6c25",
+    marginTop: "10%",
+    color: "#c1121f",
     fontWeight: "bold",
-    fontSize: 30,
-    marginBottom: 0,
+    fontSize: 25,
   },
   table: {
-    paddingTop: 30,
+    marginTop: "10%",
   },
 
   mappedDetailsText: {
     width: "100%",
-    color: "black",
+    color: "white",
     padding: 20,
     textAlign: "Left",
   },
 
   icon: {
     marginRight: 10,
+    color: "white",
   },
   iconCell: {
     flexDirection: "row",
@@ -179,16 +182,21 @@ const styles = StyleSheet.create({
   accordian: {
     width: "100%",
     color: "white",
-    backgroundColor: "#ddb892",
+    backgroundColor: "#0d5563",
     padding: 10,
     paddingBottom: 10,
   },
   accordianTitle: {
+    color: "white",
     fontSize: 16, // Adjust the font size if necessary
   },
   button: {
-    margin: 8,
-    padding: 8,
+    margin: 20,
+    padding: 5,
+    color: "white",
+    alignItems: "center",
+    marginTop: 40,
+    backgroundColor: "#c1121f",
   },
 });
 export default ListVehicleScreen;

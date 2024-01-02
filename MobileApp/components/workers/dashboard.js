@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from "react";
-import { View, Text } from "react-native";
+import { View, StyleSheet, Text, TouchableOpacity } from "react-native";
+import { Card, Title } from "react-native-paper";
 import { REACT_APP_SERVER_IP, REACT_APP_SERVER_PORT } from "@env";
 import { useNavigation } from "@react-navigation/native";
-import { Button, Card, Title, ActivityIndicator } from "react-native-paper";
+import { Button, ActivityIndicator } from "react-native-paper";
 
 const WorkerDashboard = ({ route }) => {
   const { workerId } = route.params;
@@ -48,26 +49,37 @@ const WorkerDashboard = ({ route }) => {
   };
 
   return (
-    <View style={{ padding: 16 }}>
-      <Card>
-        <Card.Content>
-          <Title>Worker Dashboard</Title>
-          {loading ? (
-            <ActivityIndicator animating={true} />
-          ) : workerDetails ? (
-            <>
-              <Text style={{ marginTop: 10 }}>Worker Name: {workerDetails.worker_name}</Text>
-              <Text style={{ marginTop: 5 }}>Contact Number: {workerDetails.phone_number}</Text>
-              {/* Add other worker details here */}
-            </>
-          ) : (
-            <Text>No worker details found</Text>
-          )}
-        </Card.Content>
-      </Card>
+    <View style={styles.container}>
+      <Title style={styles.welcomeText}>Worker Dashboard</Title>
+      <View style={styles.head}>
+        {loading ? (
+          <ActivityIndicator animating={true} />
+        ) : workerDetails ? (
+          <>
+            <Text style={{ fontSize: 20, color: "#c1121f" }}>
+              Welcome! {workerDetails.worker_name}
+            </Text>
+            <Text style={{ marginTop: 5 }}>
+              Contact Number: {workerDetails.phone_number}
+            </Text>
+            <Text style={{ marginTop: 5 }}>
+              Email Address: {workerDetails.email_address}
+            </Text>
+            {/* Add other worker details here */}
+          </>
+        ) : (
+          <Text>No worker details found</Text>
+        )}
+      </View>
+
       <Button
-        style={{ marginTop: 20 }}
-        mode="contained"
+        style={{
+          width: "90%",
+          padding: 15,
+          alignItems: "center",
+          marginTop: 50,
+          backgroundColor: "#0d5563",
+        }}
         onPress={handleStartRepairing}
         labelStyle={{ color: "white" }}
       >
@@ -77,4 +89,27 @@ const WorkerDashboard = ({ route }) => {
   );
 };
 
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: "#f5f1e9",
+    alignItems: "center",
+  },
+  welcomeText: {
+    paddingTop: 50,
+    fontWeight: "bold",
+    color: "#c1121f",
+    paddingBottom: 50,
+    fontSize: 25,
+  },
+  head: {
+    width: "90%",
+    padding: 40,
+    borderColor: "#0d5563",
+    borderWidth: 2,
+    borderRadius: 20,
+    borderTopLeftRadius: 20,
+    borderTopRightRadius: 20,
+  },
+});
 export default WorkerDashboard;

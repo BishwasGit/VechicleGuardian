@@ -3,11 +3,10 @@ import {
   View,
   Text,
   ScrollView,
-  TextInput,
   StyleSheet,
   TouchableOpacity,
 } from "react-native";
-
+import { Button, TextInput } from "react-native-paper";
 import { Picker } from "@react-native-picker/picker";
 import axios from "axios";
 import { REACT_APP_SERVER_IP, REACT_APP_SERVER_PORT } from "@env";
@@ -143,63 +142,77 @@ const AddVehicleScreen = ({ route }) => {
           <Picker.Item style={styles.contain} label="Cycle" value="Cycle" />
         </Picker>
 
-        <Text style={styles.text}>Vehicle Number :</Text>
         <TextInput
           style={styles.textinput}
-          placeholder="Vehicle Number"
+          mode="outlined"
+          underlineColor="transparent"
+          label="Vehicle Number"
           value={vehicleNumber}
           onChangeText={(text) => setVehicleNumber(text)}
         />
-        {/* Input for vehicle lot */}
-        <Text style={styles.text}>Vehicle Lot :</Text>
+
         <TextInput
           style={styles.textinput}
-          placeholder="Vehicle Lot"
+          mode="outlined"
+          underlineColor="transparent"
+          label="Vehicle Lot"
           value={vehicleLot}
           onChangeText={(text) => setVehicleLot(text)}
         />
-        <Text style={styles.text}>Vehicle Company :</Text>
+
         <TextInput
           style={styles.textinput}
-          placeholder="vehicle Company"
+          mode="outlined"
+          underlineColor="transparent"
+          label="vehicle Company"
           value={vehicleCompany}
           onChangeText={(text) => setVehicleCompany(text)}
         />
-        <Text style={styles.text}>Vehicle Model :</Text>
+
         <TextInput
           style={styles.textinput}
-          placeholder="Vehicle Model"
+          mode="outlined"
+          underlineColor="transparent"
+          label="Vehicle Model"
           value={vehicleModel}
           onChangeText={(text) => setVehicleModel(text)}
         />
         {/* Bill Book details */}
 
         <Text style={styles.headingTo}>Bill Book Details</Text>
-        <Text style={styles.text}>Created Date :</Text>
+
         <TextInput
           style={styles.textinput}
-          placeholder="yyyy-mm-dd"
+          mode="outlined"
+          underlineColor="transparent"
+          label="Created Date : yyyy-mm-dd"
           value={createdDate}
           onChangeText={(text) => setCreatedDate(text)}
         />
-        <Text style={styles.text}>Expiry Date :</Text>
+
         <TextInput
           style={styles.textinput}
-          placeholder="yyyy-mm-dd"
+          mode="outlined"
+          underlineColor="transparent"
+          label="Expiry Date : yyyy-mm-dd"
           value={expiryDate}
           onChangeText={(text) => setExpiryDate(text)}
         />
-        <Text style={styles.text}>Owner Name :</Text>
+
         <TextInput
           style={styles.textinput}
-          placeholder="Owner Name"
+          mode="outlined"
+          underlineColor="transparent"
+          label="Owner Name"
           value={ownerName}
           onChangeText={(text) => setOwnerName(text)}
         />
-        <Text style={styles.text}>Contact Number :</Text>
+
         <TextInput
           style={styles.textinput}
-          placeholder="Contact Number"
+          mode="outlined"
+          underlineColor="transparent"
+          label="Contact Number"
           value={contactNumber}
           onChangeText={(text) => setContactNumber(text)}
         />
@@ -207,14 +220,14 @@ const AddVehicleScreen = ({ route }) => {
         <TouchableOpacity
           onPress={handleAddVehicle}
           style={{
-            backgroundColor: "#1e6091",
-            marginTop: 40,
-            padding: 10,
-            borderRadius: 20,
+            padding: 15,
+            alignItems: "center",
+            marginTop: 20,
+            backgroundColor: "#0d5563",
           }}
         >
-          <Text style={{ color: "white", textAlign: "center" }}>
-            Add Vehicle
+          <Text style={{ color: "white", fontSize: 16, fontWeight: "bold" }}>
+            Login as Customer
           </Text>
         </TouchableOpacity>
       </View>
@@ -223,8 +236,12 @@ const AddVehicleScreen = ({ route }) => {
 };
 
 const styles = StyleSheet.create({
+  card: {
+    flex: 1,
+    backgroundColor: "#f5f1e9",
+  },
   container: {
-    padding: 15,
+    padding: 35,
     gap: 20,
     marginBottom: 55,
   },
@@ -232,60 +249,36 @@ const styles = StyleSheet.create({
     padding: 10,
     paddingLeft: 20,
     paddingRight: 60,
-    color: "black",
-    borderRadius: 10,
-    borderTopLeftRadius: 10,
-    borderTopRightRadius: 10,
+    color: "white",
+    backgroundColor: "#0d5563",
   },
   contain: {
     padding: 40,
     color: "black",
   },
   heading: {
-    paddingTop: 30,
-    paddingLeft: 20,
-    color: "#1e6091",
+    marginTop: "10%",
+    paddingLeft: "10%",
+    alignItems: "left",
+    color: "#c1121f",
     fontWeight: "bold",
     fontSize: 22,
-    marginBottom: 10,
   },
   headingTo: {
-    paddingTop: 80,
-    paddingLeft: 20,
-    color: "#1e6091",
+    marginTop: "10%",
+    alignItems: "left",
+    color: "#c1121f",
     fontWeight: "bold",
-    fontSize: 22,
-    marginBottom: 10,
+    fontSize: 20,
   },
-  card: {
-    flex: 1,
-    padding: 20,
-  },
-  text: {
-    fontWeight: "bold",
-    marginLeft: 20,
-    marginBottom: -25,
-    textAlign: "left",
-  },
+
   textinput: {
-    height: 45,
-    backgroundColor: "#dee2e6",
-    marginVertical: 10,
-    borderColor: "#1e6091",
-    borderWidth: 1,
-    borderRadius: 20,
-    borderTopLeftRadius: 20,
-    borderTopRightRadius: 20,
+    height: 50,
+    backgroundColor: "#edf2f4",
     width: "100%",
     marginBottom: 10,
-    paddingLeft: 30,
   },
-  submit: {
-    color: "white",
-    alignItems: "center",
-    marginTop: 80,
-    backgroundColor: "black",
-  },
+
   successMessage: {
     color: "green",
     marginVertical: 10,
@@ -293,16 +286,6 @@ const styles = StyleSheet.create({
   errorMessage: {
     color: "red",
     marginVertical: 10,
-  },
-  button: {
-    color: "white",
-    alignItems: "center",
-    marginTop: 60,
-    borderRadius: 20,
-    borderTopLeftRadius: 20,
-    borderTopRightRadius: 20,
-    backgroundColor: "red",
-    width: "100%",
   },
 });
 

@@ -100,7 +100,7 @@ const RegistrationScreen = ({ route }) => {
             label="Enter your Username"
             value={username}
             onChangeText={(text) => setUsername(text)}
-            left={(props) => <TextInput.Icon {...props} icon="account" />} // Adjust the icon name as needed
+            left={<TextInput.Icon name="account" />}
             style={styles.textinput}
           />
           <Text style={styles.errorText}>{usernameError}</Text>
@@ -112,6 +112,7 @@ const RegistrationScreen = ({ route }) => {
             onChangeText={(text) => setPhone(text)}
             keyboardType="numeric"
             style={styles.textinput}
+            left={<TextInput.Icon name="account" />}
             underlineColor="transparent"
           />
           <Text style={styles.errorText}>{phoneError}</Text>
@@ -122,6 +123,7 @@ const RegistrationScreen = ({ route }) => {
             value={email}
             onChangeText={(text) => setEmail(text)}
             style={styles.textinput}
+            left={<TextInput.Icon name="account" />}
             underlineColor="transparent"
           />
           <Text style={styles.errorText}>{emailError}</Text>
@@ -133,10 +135,14 @@ const RegistrationScreen = ({ route }) => {
             secureTextEntry
             onChangeText={(text) => setPassword(text)}
             style={styles.textinput}
+            left={<TextInput.Icon name="account" />}
             underlineColor="transparent"
           />
           <Button onPress={handleRegistration} style={styles.button}>
-            <Text style={{ color: "white" }}> Register as Repair Center</Text>
+            <Text style={{ color: "white", fontSize: 15, fontWeight: "bold" }}>
+              {" "}
+              Register as Repair Center
+            </Text>
           </Button>
           {registrationStatus && <Text>{registrationStatus}</Text>}
         </View>
@@ -154,58 +160,52 @@ const RegistrationScreen = ({ route }) => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    padding: 16,
+
+    backgroundColor: "#f5f1e9",
   },
   containerTwo: {
     flex: 1,
     alignItems: "center",
-    padding: 16,
   },
 
   firstlay: {
-    marginBottom: 0,
-    marginTop: 20,
+    marginTop: "15%",
     alignItems: "center",
   },
   firstTitle: {
     paddingTop: 10,
-    color: "#bc6c25",
+    color: "#c1121f",
     fontWeight: "bold",
     fontSize: 30,
-    marginBottom: 0,
   },
   firstSudTitle: {
     fontSize: 15,
-    color: "#6c757d",
+    color: "grey",
   },
 
   card: {
-    width: "90%",
-    marginVertical: 50,
-    padding: "5px",
+    width: "80%",
+    marginTop: "10%",
   },
   text: {
     fontWeight: "bold",
     marginLeft: 10,
-    marginBottom: 1,
+    marginBottom: 5,
     textAlign: "left",
   },
 
   textinput: {
-    height: 45,
-    backgroundColor: "#dee2e6",
-    marginVertical: 10,
-    textDecoration: "none",
-    color: "grey",
+    height: 60,
+    backgroundColor: "#edf2f4",
     width: "100%",
-    marginBottom: 10,
   },
 
   button: {
+    padding: 5,
     color: "white",
     alignItems: "center",
-    marginTop: 50,
-    backgroundColor: "#bc6c25",
+    marginTop: "18%",
+    backgroundColor: "#c1121f",
   },
 
   errorText: {
@@ -213,20 +213,19 @@ const styles = StyleSheet.create({
     marginBottom: 5,
   },
   lay: {
-    marginTop: -25,
+    marginTop: "4%",
     alignItems: "center",
   },
   Title: {
     width: "60%",
-    color: "#adb5bd",
+    color: "grey",
     fontSize: 13,
-    marginBottom: -37, // Adjust this value to decrease the space below Title
+    marginBottom: -10,
   },
   sudTitle: {
-    color: "#adb5bd",
+    color: "grey",
     fontSize: 13,
     textDecorationLine: "underline",
-    marginTop: 1, // Adjust this value to decrease the space above sudTitle
   },
 });
 

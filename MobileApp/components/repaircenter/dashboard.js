@@ -175,57 +175,68 @@ const RepairCenterDashboard = ({ route }) => {
         )}
       </View>
       <View style={styles.gridContainer}>
-  <TouchableOpacity
-    style={styles.gridItemActive}
-    onPress={() => setShowForm(true)}
-  >
-    <Icon name="directions-car" size={30} color="white" style={styles.icon} />
-    <Text style={{ color: "white", padding: 10 }}>
-      Add Repair Center Details
-    </Text>
-  </TouchableOpacity>
+        <TouchableOpacity
+          style={styles.gridItemActive}
+          onPress={() => setShowForm(true)}
+        >
+          <Icon
+            name="directions-car"
+            size={30}
+            color="white"
+            style={styles.icon}
+          />
+          <Text style={{ color: "white", padding: 10 }}>
+            Add Repair Center Details
+          </Text>
+        </TouchableOpacity>
 
-  <TouchableOpacity
-    style={styles.gridItemActive}
-    onPress={() => setShowVacancyForm(true)}
-  >
-    <Icon name="directions-car" size={30} color="white" style={styles.icon} />
-    <Text style={{ color: "white", padding: 10 }}>Add Vacancy</Text>
-  </TouchableOpacity>
+        <TouchableOpacity
+          style={styles.gridItemActive}
+          onPress={() => setShowVacancyForm(true)}
+        >
+          <Icon
+            name="directions-car"
+            size={30}
+            color="white"
+            style={styles.icon}
+          />
+          <Text style={{ color: "white", padding: 10 }}>Add Vacancy</Text>
+        </TouchableOpacity>
 
-  <TouchableOpacity
-    style={styles.gridItemActive}
-    onPress={handleRepairHistory}
-  >
-    <Icon name="history" size={30} color="white" style={styles.icon} />
-    <Text style={{ color: "white", padding: 10 }}>Repair History</Text>
-  </TouchableOpacity>
+        <TouchableOpacity
+          style={styles.gridItemActive}
+          onPress={handleRepairHistory}
+        >
+          <Icon name="history" size={30} color="white" style={styles.icon} />
+          <Text style={{ color: "white", padding: 10 }}>Repair History</Text>
+        </TouchableOpacity>
 
-  <TouchableOpacity
-    style={styles.gridItemActive}
-    onPress={() =>
-      navigation.navigate("PartsManagement", { repaircenter_id })
-    }
-  >
-    <Icon name="build" size={30} color="white" style={styles.icon} />
-    <Text style={{ color: "white", padding: 10 }}>Parts Management</Text>
-  </TouchableOpacity>
+        <TouchableOpacity
+          style={styles.gridItemActive}
+          onPress={() =>
+            navigation.navigate("PartsManagement", { repaircenter_id })
+          }
+        >
+          <Icon name="build" size={30} color="white" style={styles.icon} />
+          <Text style={{ color: "white", padding: 10 }}>Parts Management</Text>
+        </TouchableOpacity>
 
-  <TouchableOpacity
-    style={styles.gridItemActive}
-    onPress={handleStartRepairing}
-  >
-    <Icon name="people" size={30} color="white" style={styles.icon} />
-    <Text style={{ color: "white", padding: 10 }}>Add Workers</Text>
-  </TouchableOpacity>
-</View>
+        <TouchableOpacity
+          style={styles.gridItemActive}
+          onPress={handleStartRepairing}
+        >
+          <Icon name="people" size={30} color="white" style={styles.icon} />
+          <Text style={{ color: "white", padding: 10 }}>Add Workers</Text>
+        </TouchableOpacity>
+      </View>
       {showForm && (
         <Card style={styles.card}>
           <Title
             style={{
               fontWeight: "normal",
               fontSize: 17,
-              paddingTop: 20,
+              paddingTop: 130,
+              paddingLeft: 20,
               paddingBottom: 20,
             }}
           >
@@ -288,7 +299,8 @@ const RepairCenterDashboard = ({ route }) => {
             style={{
               fontWeight: "normal",
               fontSize: 17,
-              paddingTop: 20,
+              paddingTop: 130,
+              paddingLeft: 20,
               paddingBottom: 20,
             }}
           >
@@ -301,43 +313,42 @@ const RepairCenterDashboard = ({ route }) => {
             style={styles.closeIcon}
             onPress={handleCloseVacancyForm}
           />
-          <Card.Content>
-            <TextInput
-              style={styles.field}
-              label="Position"
-              underlineColor="transparent"
-              value={vacancyDetails.position}
-              onChangeText={(text) =>
-                setNewVacancyDetails({ ...vacancyDetails, position: text })
-              }
-            />
-            <TextInput
-              style={styles.field}
-              label="Number of person"
-              underlineColor="transparent"
-              value={vacancyDetails.noOfPerson}
-              onChangeText={(text) =>
-                setNewVacancyDetails({ ...vacancyDetails, noOfPerson: text })
-              }
-            />
-            <TextInput
-              style={styles.field}
-              label="Salary"
-              underlineColor="transparent"
-              value={vacancyDetails.salary}
-              placeholder="10k-20k"
-              onChangeText={(text) =>
-                setNewVacancyDetails({ ...vacancyDetails, salary: text })
-              }
-            />
-            <Button
-              style={styles.addButton}
-              mode="contained"
-              onPress={handleAddVacancyDetails}
-            >
-              <Text style={{ color: "white" }}>Add Vacancy</Text>
-            </Button>
-          </Card.Content>
+
+          <TextInput
+            style={styles.field}
+            label="Position"
+            underlineColor="transparent"
+            value={vacancyDetails.position}
+            onChangeText={(text) =>
+              setNewVacancyDetails({ ...vacancyDetails, position: text })
+            }
+          />
+          <TextInput
+            style={styles.field}
+            label="Number of person"
+            underlineColor="transparent"
+            value={vacancyDetails.noOfPerson}
+            onChangeText={(text) =>
+              setNewVacancyDetails({ ...vacancyDetails, noOfPerson: text })
+            }
+          />
+          <TextInput
+            style={styles.field}
+            label="Salary"
+            underlineColor="transparent"
+            value={vacancyDetails.salary}
+            placeholder="10k-20k"
+            onChangeText={(text) =>
+              setNewVacancyDetails({ ...vacancyDetails, salary: text })
+            }
+          />
+          <Button
+            style={styles.addButton}
+            mode="contained"
+            onPress={handleAddVacancyDetails}
+          >
+            <Text style={{ color: "white" }}>Add Vacancy</Text>
+          </Button>
         </Card>
       )}
     </ScrollView>
@@ -347,16 +358,17 @@ const RepairCenterDashboard = ({ route }) => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    flexDirection: 'column',
+    flexDirection: "column",
+    backgroundColor: "#f5f1e9",
   },
   heading: {
     paddingTop: 30,
-    paddingLeft: 25,
+    paddingLeft: 45,
     alignItems: "left",
   },
   welcomeText: {
     fontWeight: "bold",
-    color: "#1e6091",
+    color: "#c1121f",
     marginVertical: 20,
     fontSize: 25,
     paddingBottom: -60,
@@ -364,35 +376,36 @@ const styles = StyleSheet.create({
   gridItemActive: {
     width: "100%",
     marginBottom: 20,
-    paddingTop: 25,
-    paddingBottom: 25,
+    paddingTop: 20,
+    paddingBottom: 20,
     paddingLeft: 10,
-    paddingRight: 10,
+    paddingRight: 50,
     alignItems: "center",
-    backgroundColor: "#1e6091",
+    backgroundColor: "#0d5563",
     borderRadius: 20,
     borderTopLeftRadius: 20,
     borderTopRightRadius: 20,
-    flexDirection: 'row', // Align icon and text horizontally
+    flexDirection: "row", // Align icon and text horizontally
   },
   icon: {
-    marginRight: 10, // Space between icon and text
+    marginLeft: 30, // Space between icon and text
+    marginRight: 20,
   },
   gridContainer: {
-    padding: 20,
+    padding: 30,
     paddingTop: 20,
     flexDirection: "column",
     alignItems: "stretch",
     justifyContent: "flex-start",
   },
   card: {
+    height: "100%",
     justifyContent: "center",
     width: "100%",
     padding: 30,
-    paddingTop: 50,
     position: "absolute",
     top: 1,
-    backgroundColor: "#e6ccb2",
+    backgroundColor: "#f5f1e9",
   },
   field: {
     marginBottom: 15,
@@ -403,16 +416,14 @@ const styles = StyleSheet.create({
     borderColor: "#1e6091",
     marginVertical: 10,
     textDecoration: "none",
-    backgroundColor: "#ede0d4",
+    backgroundColor: "#edf2f4",
   },
   addButton: {
-    padding: 10,
-    width: "80%",
-    fontWeight: "bold",
-    marginLeft: "10%",
-    marginTop: 20,
+    padding: 5,
     color: "white",
-    backgroundColor: "#1e6091",
+    alignItems: "center",
+    marginTop: "13%",
+    backgroundColor: "#c1121f",
   },
   closeIcon: {
     position: "absolute",

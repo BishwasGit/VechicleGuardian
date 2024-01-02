@@ -92,13 +92,13 @@ const styles = StyleSheet.create({
     padding: 16,
   },
   firstTitle: {
-    paddingTop: 10,
-    color: "#bc6c25",
+    marginTop: "10%",
+    color: "#c1121f",
     fontWeight: "bold",
     fontSize: 25,
-    marginBottom: 0,
   },
   itemContainer: {
+    marginTop: "10%",
     paddingVertical: 10,
   },
   itemText: {

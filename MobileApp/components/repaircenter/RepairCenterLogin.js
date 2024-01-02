@@ -76,7 +76,10 @@ const RepairCenterLogin = ({ navigation }) => {
             underlineColor="transparent"
           />
           <Button mode="contained" onPress={handleLogin} style={styles.button}>
-            <Text style={{ color: "white" }}> Login as Repair Center</Text>
+            <Text style={{ color: "white", fontSize: 16, fontWeight: "bold" }}>
+              {" "}
+              Login as Repair Center
+            </Text>
           </Button>
           {loading && <LoadingScreen />}
           <Button style={styles.forgotButton}>
@@ -87,7 +90,11 @@ const RepairCenterLogin = ({ navigation }) => {
             <Text style={{ color: "black" }}>
               Don't have a Account?{" "}
               <Text
-                style={{ textDecorationLine: "underline", color: "#1e6091" }}
+                style={{
+                  textDecorationLine: "underline",
+                  fontWeight: "bold",
+                  color: "#c1121f",
+                }}
               >
                 Register Now
               </Text>
@@ -102,39 +109,38 @@ const RepairCenterLogin = ({ navigation }) => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    backgroundColor: "#f5f1e9",
   },
   containerTwo: {
     alignItems: "center",
   },
   firstlay: {
-    padding: 20,
-
-    marginTop: 45,
-    paddingLeft: 25,
+    marginTop: "20%",
+    paddingLeft: "12%",
     alignItems: "left",
   },
   firstTitle: {
-    color: "#1e6091",
+    color: "#c1121f",
     fontWeight: "bold",
     fontSize: 35,
     paddingTop: 20,
-    marginBottom: 3,
   },
   firstSudTitle: {
     fontSize: 15,
-    color: "#adb5bd",
+    color: "grey",
   },
   card: {
-    width: "90%",
-    marginVertical: 70,
-    padding: "5px",
+    width: "80%",
+    marginTop: "25%",
   },
 
   button: {
+    fontSize: 20,
+    padding: 5,
     color: "white",
     alignItems: "center",
     marginTop: 40,
-    backgroundColor: "#1e6091",
+    backgroundColor: "#c1121f",
   },
   forgotButton: {
     marginTop: 10,
@@ -149,19 +155,12 @@ const styles = StyleSheet.create({
     marginLeft: 10,
     marginBottom: 5,
     textAlign: "left",
-    color: "black",
   },
   textinput: {
-    height: 50,
-    backgroundColor: "#dee2e6",
-    marginVertical: 10,
-    textDecoration: "none",
-    borderColor: "#1e6091",
-
+    height: 70,
+    backgroundColor: "#edf2f4",
     width: "100%",
-    marginBottom: 20,
-    placeholderTextColor: "black",
-    color: "black", // Set the text color to black
+    marginBottom: 10,
   },
 
   message: {

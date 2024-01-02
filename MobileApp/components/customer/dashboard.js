@@ -88,8 +88,10 @@ const CustomerDashboard = ({ route }) => {
 
         <View style={styles.gridContainer}>
           <View style={styles.headTwo}>
-            <Title style={{ fontSize: 14, color: "#073b4c" }}>
-              Let's get started with our services.
+            <Title
+              style={{ fontSize: 18, fontWeight: "bold", color: "#073b4c" }}
+            >
+              Our Services :
             </Title>
           </View>
           <TouchableOpacity
@@ -104,7 +106,7 @@ const CustomerDashboard = ({ route }) => {
             style={styles.gridItem}
             onPress={() => handleButtonPress("listVehicleDetails")}
           >
-            <Icon name="format-list-bulleted" size={30} color="#bc6c25" />
+            <Icon name="format-list-bulleted" size={30} color="#0d5563" />
             <Text style={styles.buttonText}>List Vehicle</Text>
           </TouchableOpacity>
 
@@ -112,14 +114,14 @@ const CustomerDashboard = ({ route }) => {
             style={styles.gridItem}
             onPress={() => handleButtonPress("viewServiceHistory")}
           >
-            <Icon name="history" size={30} color="#bc6c25" />
+            <Icon name="history" size={30} color="#0d5563" />
             <Text style={styles.buttonText}>View Service History</Text>
           </TouchableOpacity>
           <TouchableOpacity
             style={styles.gridItem}
             onPress={() => handleButtonPress("locateRepairCenters")}
           >
-            <Icon name="location-pin" size={30} color="#bc6c25" />
+            <Icon name="location-pin" size={30} color="#0d5563" />
             <Text style={styles.buttonText}>Locate Repair Centers</Text>
           </TouchableOpacity>
         </View>
@@ -131,6 +133,7 @@ const CustomerDashboard = ({ route }) => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    backgroundColor: "#f5f1e9",
   },
   containerTwo: {
     alignItems: "center",
@@ -143,7 +146,7 @@ const styles = StyleSheet.create({
   },
   welcomeText: {
     fontWeight: "bold",
-    color: "#bc6c25",
+    color: "#c1121f",
     marginVertical: 20,
     fontSize: 25,
     paddingBottom: -60,
@@ -152,7 +155,7 @@ const styles = StyleSheet.create({
     width: "90%",
     marginVertical: 10,
     padding: 20,
-    borderColor: "#bc6c25",
+    borderColor: "#c1121f",
     borderWidth: 2,
     borderRadius: 20,
     borderTopLeftRadius: 20,
@@ -161,7 +164,7 @@ const styles = StyleSheet.create({
   headTwo: {
     width: "90%",
     paddingLeft: 10,
-    paddingBottom: 10,
+    paddingBottom: 15,
   },
 
   gridItemActive: {
@@ -172,7 +175,7 @@ const styles = StyleSheet.create({
     paddingLeft: 10,
     paddingRight: 10,
     alignItems: "center",
-    backgroundColor: "#bc6c25",
+    backgroundColor: "#0d5563",
     borderRadius: 20,
     borderTopLeftRadius: 20,
     borderTopRightRadius: 20,
@@ -194,7 +197,7 @@ const styles = StyleSheet.create({
     paddingLeft: 10,
     paddingRight: 10,
     alignItems: "center",
-    borderColor: "#bc6c25",
+    borderColor: "#c1121f",
     borderWidth: 2,
     borderRadius: 20,
     borderTopLeftRadius: 20,

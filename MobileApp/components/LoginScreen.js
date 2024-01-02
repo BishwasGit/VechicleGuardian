@@ -1,12 +1,18 @@
 import React from "react";
-import { Text, View, StyleSheet, Dimensions, TouchableOpacity } from "react-native";
+import {
+  Text,
+  View,
+  StyleSheet,
+  Dimensions,
+  TouchableOpacity,
+} from "react-native";
 import { Avatar, Card, Title, Paragraph, Button } from "react-native-paper";
 import Icon from "react-native-vector-icons/MaterialIcons";
 const { width, height } = Dimensions.get("window");
 
 const LoginSelectionScreen = ({ navigation }) => {
-   const handleNavigateToWorkerLogin = () => {
-    navigation.navigate('WorkerLoginScreen');
+  const handleNavigateToWorkerLogin = () => {
+    navigation.navigate("WorkerLoginScreen");
   };
   return (
     <View style={styles.container}>
@@ -17,8 +23,9 @@ const LoginSelectionScreen = ({ navigation }) => {
 
       <View style={styles.card}>
         <View style={styles.firstlay}>
-          <Title style={styles.firstTitle}>Log in or Sign up</Title>
-          <Title style={styles.firstSudTitle}>Select your login type</Title>
+          <Title style={styles.firstTitle}>
+            Log in (Select your login type)
+          </Title>
         </View>
         <Button
           style={styles.button}
@@ -38,11 +45,11 @@ const LoginSelectionScreen = ({ navigation }) => {
       </View>
       <View style={styles.lay}>
         <Title style={styles.Title}>
-         Are you working for a repair Center ? 
+          Are you working for a repair Center ?
         </Title>
         <TouchableOpacity onPress={handleNavigateToWorkerLogin}>
-        <Title style={styles.sudTitle}>Click here</Title>
-      </TouchableOpacity>
+          <Title style={styles.sudTitle}>Login as Worker</Title>
+        </TouchableOpacity>
       </View>
     </View>
   );
@@ -51,7 +58,7 @@ const LoginSelectionScreen = ({ navigation }) => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#073b4c",
+    backgroundColor: "#064957",
   },
   overlay: {
     marginTop: 200,
@@ -67,42 +74,38 @@ const styles = StyleSheet.create({
     fontSize: 38,
   },
   card: {
-    marginTop: height * 0.1,
+    marginTop: height * 0.2,
     width: "65%",
     alignSelf: "center",
   },
   firstlay: {
-    marginBottom: 20,
-    marginTop: 30,
+    marginBottom: 5,
     alignItems: "center",
   },
   firstTitle: {
     color: "white",
-    fontSize: 20,
-    marginBottom: -7,
+    fontSize: 16,
+    color: "#adb5bd",
   },
   firstSudTitle: {
-    fontSize: 13,
+    fontSize: 15,
     color: "#adb5bd",
   },
 
   button: {
     marginVertical: 10,
-    backgroundColor: "#bc6c25",
+    backgroundColor: "#c1121f",
   },
   button2: {
     marginVertical: 10,
     backgroundColor: "transparent",
-    borderColor: "#bc6c25",
+    borderColor: "#c1121f",
     borderWidth: 2,
   },
   button2Text: {
     color: "white",
-    textDecorationLine: "none",
-    textDecorationColor: "transparent",
   },
   buttonText: {
-    textDecorationLine: "none",
     color: "white",
   },
   lay: {
@@ -110,14 +113,17 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
   Title: {
-    color: "#adb5bd",
+    color: "white",
     fontSize: 13,
-    marginBottom: -10, // Adjust this value to decrease the space below Title
+    marginBottom: -5, // Adjust this value to decrease the space below Title
   },
   sudTitle: {
-    color: "#adb5bd",
-    fontSize: 13,
+    color: "white",
+    fontSize: 15,
+    fontWeight: "bold",
     textDecorationLine: "underline",
+    textDecorationLineColor: "#c1121f",
+
     marginTop: 1, // Adjust this value to decrease the space above sudTitle
   },
 });

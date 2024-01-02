@@ -3,13 +3,8 @@ import { View, StyleSheet, Text } from "react-native";
 import { Dialog, Portal } from "react-native-paper";
 import { REACT_APP_SERVER_IP, REACT_APP_SERVER_PORT } from "@env";
 import Icon from "react-native-vector-icons/FontAwesome";
-import {
-  TextInput,
-  Button,
-  Card,
-  Title,
-  ActivityIndicator,
-} from "react-native-paper";
+import { TextInput } from "react-native-paper";
+import { Button, Card, Title, ActivityIndicator } from "react-native-paper";
 import LoadingScreen from "../LoadingScreen"; // Import the LoadingScreen component
 
 const CustomerLogin = ({ navigation }) => {
@@ -87,21 +82,26 @@ const CustomerLogin = ({ navigation }) => {
             label="Enter your Username"
             value={username}
             onChangeText={(text) => setUsername(text)}
+            left={<TextInput.Icon name="account" />}
             style={styles.textinput}
             underlineColor="transparent"
           />
 
           <TextInput
             mode="outlined"
+            left={<TextInput.Icon name="account" />}
+            style={styles.textinput}
+            underlineColor="transparent"
             label="Enter your Password"
             value={password}
             secureTextEntry
             onChangeText={(text) => setPassword(text)}
-            style={styles.textinput}
-            underlineColor="transparent"
+            
           />
-          <Button mode="contained" onPress={handleLogin} style={styles.button}>
-            <Text style={{ color: "white" }}> Login as Customer</Text>
+          <Button onPress={handleLogin} style={styles.button}>
+            <Text style={{ color: "white", fontSize: 16, fontWeight: "bold" }}>
+              Login as Customer
+            </Text>
           </Button>
           {loading && <LoadingScreen />}
           <Button style={styles.forgotButton}>
@@ -110,9 +110,13 @@ const CustomerLogin = ({ navigation }) => {
 
           <Button onPress={handleRegisterNow} style={styles.registerButton}>
             <Text style={{ color: "black" }}>
-              Don't have a Account?{" "}
+              Don't have a Account?
               <Text
-                style={{ textDecorationLine: "underline", color: "#bc6c25" }}
+                style={{
+                  textDecorationLine: "underline",
+                  fontWeight: "bold",
+                  color: "#c1121f",
+                }}
               >
                 Register Now
               </Text>
@@ -139,39 +143,38 @@ const CustomerLogin = ({ navigation }) => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    backgroundColor: "#f5f1e9",
   },
   containerTwo: {
     alignItems: "center",
   },
   firstlay: {
-    padding: 20,
-
-    marginTop: 45,
-    paddingLeft: 25,
+    marginTop: "20%",
+    paddingLeft: "12%",
     alignItems: "left",
   },
   firstTitle: {
-    color: "#bc6c25",
+    color: "#c1121f",
     fontWeight: "bold",
     fontSize: 35,
     paddingTop: 20,
-    marginBottom: 3,
   },
   firstSudTitle: {
     fontSize: 15,
-    color: "#adb5bd",
+    color: "grey",
   },
   card: {
-    width: "90%",
-    marginVertical: 70,
-    padding: "5px",
+    width: "80%",
+    marginTop: "25%",
   },
 
   button: {
+    fontSize: 20,
+    padding: 5,
     color: "white",
     alignItems: "center",
     marginTop: 40,
-    backgroundColor: "#bc6c25",
+    backgroundColor: "#c1121f",
   },
   forgotButton: {
     marginTop: 10,
@@ -188,14 +191,10 @@ const styles = StyleSheet.create({
     textAlign: "left",
   },
   textinput: {
-    height: 50,
-    backgroundColor: "#dee2e6",
-    marginVertical: 10,
-
-    borderColor: "#bc6c25",
-
+    height: 70,
+    backgroundColor: "#edf2f4",
     width: "100%",
-    marginBottom: 20,
+    marginBottom: 10,
   },
   message: {
     color: "red",

@@ -32,7 +32,7 @@ const ViewServiceHistoryScreen = ({ route, navigation }) => {
       );
       const data = await response.json();
       if (data.length === 0) {
-        alert('No repair history found!');
+        alert("No repair history found!");
       } else {
         console.log(data);
         setSelectedVehicleData(data);
@@ -41,18 +41,19 @@ const ViewServiceHistoryScreen = ({ route, navigation }) => {
       console.error("Error fetching repair history:", error);
     }
   };
-  
 
   const renderVehicleItem = ({ item }) => (
     <Card style={styles.card}>
       <Card.Content>
-        <Title>{`Vehicle ID: ${item.vehicleDetails_id}`}</Title>
+        <Title
+          style={{ color: "#0d5563", fontWeight: "bold" }}
+        >{`Vehicle ID: ${item.vehicleDetails_id}`}</Title>
         <Paragraph>{`Number: ${item.vehicle_number}`}</Paragraph>
         <Paragraph>{`Model: ${item.vehicle_model}`}</Paragraph>
         <Paragraph>{`Lot Number : ${item.vehicle_lot_number}`}</Paragraph>
       </Card.Content>
       <Button onPress={() => handleVehiclePress(item.vehicleDetails_id)}>
-        <Text style={{ color: "#bc6c25", fontWeight: "bold" }}>
+        <Text style={{ color: "#c1121f", fontWeight: "bold" }}>
           {" "}
           View Repair History
         </Text>
@@ -101,17 +102,16 @@ const ViewServiceHistoryScreen = ({ route, navigation }) => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    padding: 16,
-    marginBottom: 25,
+    backgroundColor: "#f5f1e9",
   },
   firstTitle: {
-    paddingTop: 10,
-    color: "#bc6c25",
+    marginTop: "10%",
+    color: "#c1121f",
     fontWeight: "bold",
-    fontSize: 30,
-    marginBottom: 30,
+    fontSize: 25,
   },
   card: {
+    marginTop: "10%",
     padding: 10,
     fontSize: 20,
     fontWeight: "bold",
