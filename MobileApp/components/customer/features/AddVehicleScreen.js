@@ -227,7 +227,7 @@ const AddVehicleScreen = ({ route }) => {
           }}
         >
           <Text style={{ color: "white", fontSize: 16, fontWeight: "bold" }}>
-            Login as Customer
+            Add Vehicle Details
           </Text>
         </TouchableOpacity>
       </View>
