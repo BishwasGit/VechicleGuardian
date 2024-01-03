@@ -159,7 +159,7 @@ const RepairCenterDashboard = ({ route }) => {
   };
 
   const handleRepairHistory = () => {
-    navigation.navigate("RepairHistory", { repaircenter_id });
+    navigation.navigate("RepairHistoryScreen", { repaircenter_id });
   };
 
   return (

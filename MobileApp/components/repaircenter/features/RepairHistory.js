@@ -16,7 +16,7 @@ const RepairHistory = () => {
     const fetchRepairHistory = async () => {
       try {
         // Make API call or fetch data based on repaircenter_id
-        const response = await fetch(`http://${REACT_APP_SERVER_IP}:${REACT_APP_SERVER_PORT}/api/repair-history/${repaircenter_id}`);
+        const response = await fetch(`http://${REACT_APP_SERVER_IP}:${REACT_APP_SERVER_PORT}/api/getRepairHistory/${repaircenter_id}`);
         const data = await response.json();
         console.log(data);
         setRepairHistory(data);
