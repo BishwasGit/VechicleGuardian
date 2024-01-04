@@ -16,30 +16,32 @@
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
--- Table structure for table `repaircenter_users`
+-- Table structure for table `repair_parts`
 --
 
-DROP TABLE IF EXISTS `repaircenter_users`;
+DROP TABLE IF EXISTS `repair_parts`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `repaircenter_users` (
-  `repaircenter_id` int NOT NULL AUTO_INCREMENT,
-  `username` varchar(45) DEFAULT NULL,
-  `password` varchar(512) DEFAULT NULL,
-  `email` varchar(45) DEFAULT NULL,
-  `phone` varchar(45) DEFAULT NULL,
-  PRIMARY KEY (`repaircenter_id`)
+CREATE TABLE `repair_parts` (
+  `repair_parts_id` int NOT NULL AUTO_INCREMENT,
+  `repaircenter_id` int DEFAULT NULL,
+  `repaircenters_id` int DEFAULT NULL,
+  `parts_name` varchar(45) DEFAULT NULL,
+  `parts_image` varchar(255) DEFAULT NULL,
+  `parts_number` varchar(45) DEFAULT NULL,
+  `parts_quantity` bigint DEFAULT NULL,
+  PRIMARY KEY (`repair_parts_id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `repaircenter_users`
+-- Dumping data for table `repair_parts`
 --
 
-LOCK TABLES `repaircenter_users` WRITE;
-/*!40000 ALTER TABLE `repaircenter_users` DISABLE KEYS */;
-INSERT INTO `repaircenter_users` VALUES (1,'Bishwas','$2b$10$4n4f.gdlCIidenwSrCVPNuSm8vp0.Yg375Nmw3v4fqwFY7KBmY79W','workmail.bishwas@gmail.com','9869133344');
-/*!40000 ALTER TABLE `repaircenter_users` ENABLE KEYS */;
+LOCK TABLES `repair_parts` WRITE;
+/*!40000 ALTER TABLE `repair_parts` DISABLE KEYS */;
+INSERT INTO `repair_parts` VALUES (1,1,1,'Disk','https://bikeadvice.in/wp-content/uploads/2010/10/Disc-brake-6.jpg','Disk1123',12);
+/*!40000 ALTER TABLE `repair_parts` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
@@ -51,4 +53,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2024-01-04 14:56:07
+-- Dump completed on 2024-01-04 14:56:08

@@ -30,8 +30,18 @@ CREATE TABLE `customer_users` (
   `phone` varchar(45) DEFAULT NULL,
   PRIMARY KEY (`customer_id`),
   UNIQUE KEY `customer_id_UNIQUE` (`customer_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `customer_users`
+--
+
+LOCK TABLES `customer_users` WRITE;
+/*!40000 ALTER TABLE `customer_users` DISABLE KEYS */;
+INSERT INTO `customer_users` VALUES (1,'Bishwas','$2b$10$4n4f.gdlCIidenwSrCVPNuSm8vp0.Yg375Nmw3v4fqwFY7KBmY79W','workmail.bishwas@gmail.com','9869133344');
+/*!40000 ALTER TABLE `customer_users` ENABLE KEYS */;
+UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
@@ -42,4 +52,4 @@ CREATE TABLE `customer_users` (
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2023-12-28 15:36:02
+-- Dump completed on 2024-01-04 14:56:06
