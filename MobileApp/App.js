@@ -1,16 +1,19 @@
 //react-native-paper modules
-
 import React from "react";
 import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
 import { Provider as PaperProvider } from "react-native-paper";
 import { StyleSheet, HeaderStyle } from "react-native";
+
 //main screen
 import LoginSelectionScreen from "./components/LoginScreen";
 
+//login & registration
+import Login from "./components/Login";
+import RegistrationScreen from "./components/RegistrationScreen";
+
 //repair center side
 import RepairCenterLogin from "./components/repaircenter/RepairCenterLogin";
-import RegistrationScreen from "./components/RegistrationScreen"; // Create a new component for registration
 import RepairCenterDashboard from "./components/repaircenter/dashboard";
 import AddWorkersScreen from "./components/repaircenter/features/AddWorkers";
 import PartsManagementPage from "./components/repaircenter/features/PartsManagement";
@@ -18,7 +21,7 @@ import RepairHistoryScreen from "./components/repaircenter/features/RepairHistor
 
 //customer side
 import CustomerDashboard from "./components/customer/dashboard";
-import CustomerLogin from "./components/customer/CustomerLogin";
+
 import AddVehicleScreen from "./components/customer/features/AddVehicleScreen";
 import ListVehicleScreen from "./components/customer/features/ListVehicleScreen";
 import ViewServiceHistoryScreen from "./components/customer/features/ViewServiceHistoryScreen";
@@ -45,8 +48,8 @@ const App = () => {
             options={{ headerShown: false }}
           />
           <Stack.Screen
-            name="CustomerLogin"
-            component={CustomerLogin}
+            name="Login"
+            component={Login}
             options={headerStyle}
           />
           <Stack.Screen

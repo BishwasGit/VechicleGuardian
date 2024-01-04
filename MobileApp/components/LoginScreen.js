@@ -24,23 +24,23 @@ const LoginSelectionScreen = ({ navigation }) => {
       <View style={styles.card}>
         <View style={styles.firstlay}>
           <Title style={styles.firstTitle}>
-            Log in (Select your login type)
+            Log in or Reigster
           </Title>
         </View>
         <Button
           style={styles.button}
           mode="contained"
-          onPress={() => navigation.navigate("CustomerLogin")}
+          onPress={() => navigation.navigate("Login")}
           labelStyle={styles.buttonText}
         >
-          Login as Customer
+          Login
         </Button>
         <Button
           style={styles.button2}
-          onPress={() => navigation.navigate("RepairCenterLogin")}
+          onPress={() => navigation.navigate("Registration")}
           labelStyle={styles.button2Text}
         >
-          Login as Repair Center
+          Register
         </Button>
       </View>
       <View style={styles.lay}>

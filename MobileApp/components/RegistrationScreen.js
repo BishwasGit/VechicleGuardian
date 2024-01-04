@@ -1,24 +1,49 @@
 import React, { useState } from "react";
 import { ScrollView, View, StyleSheet, Text } from "react-native";
-import { TextInput, Button, Title, Card } from "react-native-paper";
+import { TextInput, Button, Title, Card, Checkbox, Snackbar } from "react-native-paper";
 import axios from "axios";
 import { REACT_APP_SERVER_IP, REACT_APP_SERVER_PORT } from "@env";
 import Icon from "react-native-vector-icons/MaterialIcons";
 
 const RegistrationScreen = ({ route }) => {
-  const { userType } = route.params;
   const [username, setUsername] = useState("");
   const [phone, setPhone] = useState("");
   const [email, setEmail] = useState("");
+  const [userTypes, setUserTypes] = useState([]);
   const [password, setPassword] = useState("");
   const [usernameError, setUsernameError] = useState("");
   const [phoneError, setPhoneError] = useState("");
   const [emailError, setEmailError] = useState("");
   const [registrationStatus, setRegistrationStatus] = useState(null);
+  const [snackbarVisible, setSnackbarVisible] = useState(false);
+  const [snackbarMessage, setSnackbarMessage] = useState("");
 
+
+  const toggleUserType = (type) => {
+    // Check if the userType is already selected, if yes, remove it; otherwise, add it
+    setUserTypes((prevTypes) =>
+      prevTypes.includes(type)
+        ? prevTypes.filter((prevType) => prevType !== type)
+        : [...prevTypes, type]
+    );
+  };
+  const handleSnackbarDismiss = () => {
+    setSnackbarVisible(false);
+  };
+
+  const showSnackbar = (message) => {
+    setSnackbarMessage(message);
+    setSnackbarVisible(true);
+  }
   const handleRegistration = async () => {
+    if (userTypes.length === 0) {
+      // No user type selected, show an error message or take appropriate action
+      showSnackbar("At least one user type should be selected");
+      return;
+    }
     if (username.length < 3) {
       setUsernameError("Username must be at least 3 characters");
+      showSnackbar("Username must be at least 3 characters");
       return;
     } else {
       setUsernameError("");
@@ -26,6 +51,7 @@ const RegistrationScreen = ({ route }) => {
 
     if (!/^\d+$/.test(phone)) {
       setPhoneError("Phone must be a valid number");
+      showSnackbar("Phone must be a valid number");
       return;
     } else {
       setPhoneError("");
@@ -33,56 +59,40 @@ const RegistrationScreen = ({ route }) => {
 
     if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
       setEmailError("Invalid email address");
+      showSnackbar("Invalid email address");
       return;
     } else {
       setEmailError("");
     }
 
-    if (userType === "Customer") {
-      try {
-        const response = await axios.post(
-          `http://${REACT_APP_SERVER_IP}:${REACT_APP_SERVER_PORT}/api/register`,
-          {
-            userType,
-            username,
-            phone,
-            email,
-            password,
-          }
-        );
+    const formData = {
+      userTypes,
+      username,
+      phone,
+      email,
+      password,
+    };
+    console.log(formData);
+    try {
+      const response = await axios.post(
+        `http://${REACT_APP_SERVER_IP}:${REACT_APP_SERVER_PORT}/api/register`,
+        {
+          userTypes,
+          username,
+          phone,
+          email,
+          password,
+        }
+      );
 
-        console.log(response.data); // Log the response from the server
-        setRegistrationStatus(`Registered as ${userType}`);
-        // You can add logic here to handle the response, like showing a success message or redirecting to the login page
-      } catch (error) {
-        console.error("Error registering:", error);
-        console.error("Error registering:", error.response.data.error);
-        setRegistrationStatus(
-          `Registration failed: ${error.response.data.error}`
-        );
-      }
-      console.log("Registerting as Customer");
-    } else if (userType === "Repair Center") {
-      try {
-        const response = await axios.post(
-          `http://${REACT_APP_SERVER_IP}:${REACT_APP_SERVER_PORT}/api/registerRepairCenter`,
-          {
-            userType,
-            username,
-            phone,
-            email,
-            password,
-          }
-        );
-
-        console.log(response.data); // Log the response from the server
-        setRegistrationStatus(`Registered as ${userType}`);
-        // You can add logic here to handle the response, like showing a success message or redirecting to the login page
-      } catch (error) {
-        console.error("Error registering:", error);
-        console.error("Error registering:", error.response.data.error);
-      }
-      console.log("Registering as Repair Center");
+      console.log(response.data);
+      setRegistrationStatus(`Registered as ${userTypes.join(", ")}`);
+    } catch (error) {
+      console.error("Error registering:", error);
+      console.error("Error registering:", error.response.data.error);
+      setRegistrationStatus(
+        `Registration failed: ${error.response.data.error}`
+      );
     }
   };
 
@@ -91,9 +101,38 @@ const RegistrationScreen = ({ route }) => {
       <View style={styles.containerTwo}>
         <View style={styles.firstlay}>
           <Title style={styles.firstTitle}>Register!</Title>
-          <Title style={styles.firstSudTitle}>As {userType}</Title>
+          <Title style={styles.firstSudTitle}>Select User Types</Title>
+          <View style={styles.checkboxContainer}>
+            <Checkbox.Item
+              label="Customer"
+              status={userTypes.includes("Customer") ? "checked" : "unchecked"}
+              onPress={() => toggleUserType("Customer")}
+            />
+            <Checkbox.Item
+              label="Repair Center"
+              status={
+                userTypes.includes("Repair Center") ? "checked" : "unchecked"
+              }
+              onPress={() => toggleUserType("Repair Center")}
+            />
+            <Checkbox.Item
+              label="Repair Parts Seller"
+              status={
+                userTypes.includes("Repair Parts Seller")
+                  ? "checked"
+                  : "unchecked"
+              }
+              onPress={() => toggleUserType("Repair Parts Seller")}
+            />
+          </View>
         </View>
-
+        <Snackbar
+          visible={snackbarVisible}
+          onDismiss={handleSnackbarDismiss}
+          duration={3000} // Adjust duration as needed
+        >
+          {snackbarMessage}
+        </Snackbar>
         <View style={styles.card}>
           <TextInput
             mode="outlined" // You can customize the mode as needed
@@ -226,6 +265,16 @@ const styles = StyleSheet.create({
     color: "grey",
     fontSize: 13,
     textDecorationLine: "underline",
+  },
+  checkboxContainer: {
+    display: 'flex',
+    flexDirection: "row",
+    flexWrap: "wrap",
+    alignItems: "center",
+    marginTop: 10,
+  },
+  checkbox: {
+    flexBasis: "45%",
   },
 });
 

@@ -8,12 +8,14 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cors());
 
+//register & login 
+const registerRoute = require('./api/register');
+app.use('/api', registerRoute);
+const Login = require('./api/login');
+app.use('/api', Login);
+
 
 //customer Side
-const registerRoute = require('./api/customers/register');
-app.use('/api', registerRoute);
-const customerLogin = require('./api/customers/login');
-app.use('/api', customerLogin);
 const getCustomerDetails = require('./api/customers/customerDetails');
 app.use('/api', getCustomerDetails);
 const storeVehicleDetails = require('./api/customers/vehicleDetails');

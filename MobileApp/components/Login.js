@@ -5,9 +5,9 @@ import { REACT_APP_SERVER_IP, REACT_APP_SERVER_PORT } from "@env";
 import Icon from "react-native-vector-icons/FontAwesome";
 import { TextInput } from "react-native-paper";
 import { Button, Card, Title, ActivityIndicator } from "react-native-paper";
-import LoadingScreen from "../LoadingScreen"; // Import the LoadingScreen component
+import LoadingScreen from "./LoadingScreen"; // Import the LoadingScreen component
 
-const CustomerLogin = ({ navigation }) => {
+const Login = ({ navigation }) => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [message, setMessage] = useState(null);
@@ -204,4 +204,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default CustomerLogin;
+export default Login;
