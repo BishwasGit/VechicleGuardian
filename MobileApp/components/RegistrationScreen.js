@@ -87,12 +87,14 @@ const RegistrationScreen = ({ route }) => {
 
       console.log(response.data);
       setRegistrationStatus(`Registered as ${userTypes.join(", ")}`);
+      showSnackbar(`Registered as ${userTypes.join(", ")}`)
     } catch (error) {
       console.error("Error registering:", error);
       console.error("Error registering:", error.response.data.error);
       setRegistrationStatus(
         `Registration failed: ${error.response.data.error}`
       );
+      showSnackbar(`Registration failed: ${error.response.data.error}`)
     }
   };
 
