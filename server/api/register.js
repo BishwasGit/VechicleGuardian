@@ -8,11 +8,12 @@ router.post('/register', async (req, res) => {
   const saltRounds = 10; // Number of salt rounds
 
   try {
+    const lowercaseUsername = username.toLowerCase();
     for (const userType of userTypes) {
       const existingTable = getTableName(userType);
       if (existingTable) {
         const countQuery = `SELECT COUNT(*) AS count FROM ${existingTable} WHERE username = ? OR email = ?`;
-        if (await isEntryPresent(countQuery, [username, email])) {
+        if (await isEntryPresent(countQuery, [lowercaseUsername, email])) {
           return res.status(400).json({ error: `User already exists as ${userType}` });
         }
       }
@@ -27,7 +28,7 @@ router.post('/register', async (req, res) => {
     // Proceed with the registration
     for (const userType of userTypes) {
       const insertQuery = `INSERT INTO ${getTableName(userType)} (username, phone, email, password) VALUES (?, ?, ?, ?)`;
-      await db.execute(insertQuery, [username, phone, email, hashed_password]);
+      await db.execute(insertQuery, [lowercaseUsername, phone, email, hashed_password]);
     }
 
     res.json({ success: true, message: `Registered as ${userTypes.join(', ')}` });

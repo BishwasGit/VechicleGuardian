@@ -34,7 +34,16 @@ const Login = ({ navigation }) => {
       const data = await response.json();
 
       if (response.ok) {
-        if (data.customer_id) {
+        if (data.admin_id) {
+          // It's an admin, navigate to AdminDashboard
+          showDialog();
+          setTimeout(() => {
+            hideDialog();
+            setLoading(false);
+            navigation.navigate("AdminDashboard", { admin_id: data.admin_id });
+            console.log("Login Successful as Admin");
+          }, 1000);
+        } else if (data.customer_id) {
           // It's a customer, navigate to CustomerDashboard
           setTimeout(() => {
             hideDialog();
@@ -42,16 +51,29 @@ const Login = ({ navigation }) => {
             navigation.navigate("CustomerDashboard", {
               customer_id: data.customer_id,
             });
-            console.log("Login Successful");
+            console.log("Login Successful as Customer");
           }, 1000);
-        } else if (data.admin_id) {
-          // It's an admin, navigate to AdminDashboard
+        } else if (data.repair_parts_seller_id) {
+          // It's a repair parts seller, navigate to RepairPartsSellerDashboard
           showDialog();
           setTimeout(() => {
             hideDialog();
             setLoading(false);
-            navigation.navigate("AdminDashboard", { admin_id: data.admin_id });
-            console.log("Login Successful (Admin)");
+            navigation.navigate("RepairPartsSellerDashboard", {
+              repair_parts_seller_id: data.repair_parts_seller_id,
+            });
+            console.log("Login Successful as Repair Parts Seller");
+          }, 1000);
+        } else if (data.repair_center_id) {
+          // It's a repair center, navigate to RepairCenterDashboard
+          showDialog();
+          setTimeout(() => {
+            hideDialog();
+            setLoading(false);
+            navigation.navigate("RepairCenterDashboard", {
+              repair_center_id: data.repair_center_id,
+            });
+            console.log("Login Successful as Repair Center");
           }, 1000);
         }
       } else {
@@ -96,7 +118,6 @@ const Login = ({ navigation }) => {
             value={password}
             secureTextEntry
             onChangeText={(text) => setPassword(text)}
-            
           />
           <Button onPress={handleLogin} style={styles.button}>
             <Text style={{ color: "white", fontSize: 16, fontWeight: "bold" }}>
