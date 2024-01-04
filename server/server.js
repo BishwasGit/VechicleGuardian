@@ -70,6 +70,11 @@ app.use('/api', workerLogin);
 const getWorkerDetails = require('./api/workers/getWorkerDetails');
 app.use('/api', getWorkerDetails);
 
+//check switch profile logic
+const checkRepairCenterUsername = require('./api/checkSwitchProfile/checkRepairCenterUsername');
+app.use('/api', checkRepairCenterUsername);
+const checkRepairCenterSellerUsername = require('./api/checkSwitchProfile/checkRepairCenterSellerUsername');
+app.use('/api', checkRepairCenterSellerUsername);
 
 const PORT = process.env.PORT || 3000;
 

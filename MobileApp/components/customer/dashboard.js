@@ -1,14 +1,16 @@
 import React, { useState, useEffect } from "react";
-import { View, StyleSheet, Text, TouchableOpacity } from "react-native";
-import { Card, Title } from "react-native-paper";
+import { View, StyleSheet, Text, TouchableOpacity, ScrollView } from "react-native";
+import { Title } from "react-native-paper";
 import Icon from "react-native-vector-icons/MaterialIcons";
 import { useNavigation } from "@react-navigation/native";
 import { REACT_APP_SERVER_IP, REACT_APP_SERVER_PORT } from "@env";
 
 const CustomerDashboard = ({ route }) => {
   const [customerDetails, setCustomerDetails] = useState(null);
+  const [repairCenterProfile, setRepairCenterProfile] = useState(null);
+  const [repairCenterSellerProfile, setRepairCenterSellerProfile] = useState(null);
   const navigation = useNavigation();
-  // Fetch customer details based on customer_id when the component mounts
+
   useEffect(() => {
     const fetchCustomerDetails = async () => {
       const { customer_id } = route.params;
@@ -19,21 +21,39 @@ const CustomerDashboard = ({ route }) => {
         const data = await response.json();
 
         setCustomerDetails(data.customerDetails);
-        console.log("Customer Details:", data.customerDetails);
+
+        const repairCenterCheckResponse = await fetch(
+          `http://${REACT_APP_SERVER_IP}:${REACT_APP_SERVER_PORT}/api/checkRepairCenterUsername/${data.customerDetails[0].username}`
+        );
+        const repairCenterCheckData = await repairCenterCheckResponse.json();
+
+        if (repairCenterCheckData.exists) {
+          setRepairCenterProfile({
+            repaircenter_id: repairCenterCheckData.repaircenter_id,
+          });
+        }
+
+        console.log(repairCenterProfile);
+        const repairCenterSellerCheckResponse = await fetch(
+          `http://${REACT_APP_SERVER_IP}:${REACT_APP_SERVER_PORT}/api/checkRepairCenterSellerUsername/${data.customerDetails[0].username}`
+        );
+        const repairCenterSellerCheckData = await repairCenterSellerCheckResponse.json();
+
+        if (repairCenterSellerCheckData.exists) {
+          setRepairCenterSellerProfile({
+            repair_parts_seller_users_id: repairCenterSellerCheckData.repair_parts_seller_users_id,
+          });
+        }
+
       } catch (error) {
-        console.error("Error fetching customer details:", error);
+        // console.error("Error fetching customer details:", error);
       }
     };
 
     fetchCustomerDetails();
   }, [route.params.customer_id]);
 
-  // Function to handle button press
-  console.log(route.params.customer_id);
-
   const handleButtonPress = (buttonType) => {
-    // navigating to respective pages using switch statements
-
     switch (buttonType) {
       case "addVehicle":
         navigation.navigate("AddVehicle", {
@@ -59,12 +79,24 @@ const CustomerDashboard = ({ route }) => {
         });
         break;
 
+      case "switchToRepairCenterProfile":
+        navigation.navigate("RepairCenterDashboard", {
+          repaircenter_id: repairCenterProfile.repaircenter_id,
+        });
+        break;
+      case "switchToRepairCenterSellerProfile":
+        navigation.navigate("RepairCenterPartsSeller", {
+          repaircenter_id: repairCenterSellerProfile.repair_parts_seller_users_id,
+        });
+        break;
+
       default:
         console.log(`Button Pressed : ${buttonType}`);
     }
   };
+
   return (
-    <View style={styles.container}>
+    <ScrollView contentContainerStyle={styles.container}>
       <View style={styles.heading}>
         {customerDetails && (
           <Title style={styles.welcomeText}>
@@ -75,7 +107,6 @@ const CustomerDashboard = ({ route }) => {
           </Title>
         )}
       </View>
-
       <View style={styles.containerTwo}>
         <View style={styles.head}>
           <Title style={{ fontSize: 20, color: "#073b4c" }}>
@@ -85,7 +116,27 @@ const CustomerDashboard = ({ route }) => {
             </Title>
           </Title>
         </View>
-
+        <View style={styles.gridContainer}>
+          {repairCenterProfile && (
+            <TouchableOpacity
+              style={[styles.gridItem, styles.switchButton]}
+              onPress={() => handleButtonPress("switchToRepairCenterProfile")}
+            >
+              <Icon name="build" size={30} color="#0d5563" />
+              <Text style={styles.buttonText}>Switch to Repair Center Profile</Text>
+            </TouchableOpacity>
+          )}
+          {repairCenterSellerProfile && (
+            <TouchableOpacity
+              style={[styles.gridItem, styles.switchButton]}
+              onPress={() => handleButtonPress("switchToRepairCenterSellerProfile")}
+            >
+              <Icon name="sell" size={30} color="#0d5563" />
+              <Text style={styles.buttonText}>Switch to Seller Profile</Text>
+            </TouchableOpacity>
+          )}
+          {/* Other service buttons */}
+        </View>
         <View style={styles.gridContainer}>
           <View style={styles.headTwo}>
             <Title
@@ -126,13 +177,13 @@ const CustomerDashboard = ({ route }) => {
           </TouchableOpacity>
         </View>
       </View>
-    </View>
+    </ScrollView>
   );
 };
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
+    flexGrow: 1,
     backgroundColor: "#f5f1e9",
   },
   containerTwo: {
@@ -166,7 +217,6 @@ const styles = StyleSheet.create({
     paddingLeft: 10,
     paddingBottom: 15,
   },
-
   gridItemActive: {
     width: "45%",
     marginBottom: 40,
@@ -180,15 +230,13 @@ const styles = StyleSheet.create({
     borderTopLeftRadius: 20,
     borderTopRightRadius: 20,
   },
-
   gridContainer: {
-    padding: 20,
-    paddingTop: 35,
+    paddingVertical: 5,
+    paddingHorizontal : 20,
     flexDirection: "row",
     flexWrap: "wrap",
     justifyContent: "space-between",
   },
-
   gridItem: {
     width: "45%",
     marginBottom: 40,
@@ -203,10 +251,13 @@ const styles = StyleSheet.create({
     borderTopLeftRadius: 20,
     borderTopRightRadius: 20,
   },
-
   buttonText: {
     fontWeight: "bold",
     padding: 10,
   },
+  switchButton:{
+    marginHorizontal : 5
+  }
 });
+
 export default CustomerDashboard;
