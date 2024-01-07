@@ -76,6 +76,13 @@ app.use('/api', checkRepairCenterUsername);
 const checkRepairCenterSellerUsername = require('./api/checkSwitchProfile/checkRepairCenterSellerUsername');
 app.use('/api', checkRepairCenterSellerUsername);
 
+
+//imageupload 
+const vehicleImageupload = require('./api/imageUpload/vehicleImageupload');
+app.use('/api',vehicleImageupload);
+const billBookImage = require('./api/imageUpload/billBookImage');
+app.use('/api',billBookImage);
+
 const PORT = process.env.PORT || 3000;
 
 app.listen(PORT, () => {

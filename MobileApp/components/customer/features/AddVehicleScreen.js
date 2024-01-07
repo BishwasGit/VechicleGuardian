@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import {
   View,
   Text,
@@ -6,10 +6,12 @@ import {
   StyleSheet,
   TouchableOpacity,
 } from "react-native";
-import { Button, TextInput } from "react-native-paper";
+import { TextInput } from "react-native-paper";
 import { Picker } from "@react-native-picker/picker";
 import axios from "axios";
 import { REACT_APP_SERVER_IP, REACT_APP_SERVER_PORT } from "@env";
+import * as ImagePicker from 'expo-image-picker';
+
 
 const AddVehicleScreen = ({ route }) => {
   const { customer_id } = route.params;
@@ -23,6 +25,45 @@ const AddVehicleScreen = ({ route }) => {
   const [ownerName, setOwnerName] = useState("");
   const [contactNumber, setContactNumber] = useState("");
   const [message, setMessage] = useState(null);
+  const [vehicleImage, setVehicleImage] = useState(null);
+  const [billBookImage, setBillBookImage] = useState(null);
+
+
+  
+  const handleVehicleImageUpload = async () => {
+    try {
+      const result = await ImagePicker.launchImageLibraryAsync({
+        mediaTypes: ImagePicker.MediaTypeOptions.Images,
+        allowsEditing: true,
+        aspect: [4, 3],
+        quality: 1,
+      });
+  
+      if (!result.cancelled) {
+        setVehicleImage(result.uri);
+      }
+    } catch (error) {
+      console.error('Error handling vehicle image upload:', error);
+    }
+  };
+  
+  const handleBillBookImageUpload = async () => {
+    try {
+      const result = await ImagePicker.launchImageLibraryAsync({
+        mediaTypes: ImagePicker.MediaTypeOptions.Images,
+        allowsEditing: true,
+        aspect: [4, 3],
+        quality: 1,
+      });
+  
+      if (!result.cancelled) {
+        setBillBookImage(result.uri);
+      }
+    } catch (error) {
+      console.error('Error handling bill book image upload:', error);
+    }
+  };
+
 
   const handleAddVehicle = async () => {
     // Validate form data before sending to the server
@@ -61,8 +102,10 @@ const AddVehicleScreen = ({ route }) => {
         ownerName,
         contactNumber,
       };
-
-      // Send the form data to your server to handle table creation
+      const images = {
+        vehicleImage,
+        billBookImage,
+      };
       const response = await axios.post(
         `http://${REACT_APP_SERVER_IP}:${REACT_APP_SERVER_PORT}/api/storeVehicleDetails`,
         {
@@ -73,6 +116,7 @@ const AddVehicleScreen = ({ route }) => {
           vehicleCompany,
           vehicleModel,
           billBookDetails, // Include the bill book details
+          images,
         },
         {
           headers: {
@@ -216,7 +260,33 @@ const AddVehicleScreen = ({ route }) => {
           value={contactNumber}
           onChangeText={(text) => setContactNumber(text)}
         />
+        <TouchableOpacity
+          onPress={handleVehicleImageUpload}
+          style={{
+            padding: 15,
+            alignItems: "center",
+            marginTop: 20,
+            backgroundColor: "#0d5563",
+          }}
+        >
+          <Text style={{ color: "white", fontSize: 16, fontWeight: "bold" }}>
+            Upload Vehicle Image
+          </Text>
+        </TouchableOpacity>
 
+        <TouchableOpacity
+          onPress={handleBillBookImageUpload}
+          style={{
+            padding: 15,
+            alignItems: "center",
+            marginTop: 20,
+            backgroundColor: "#0d5563",
+          }}
+        >
+          <Text style={{ color: "white", fontSize: 16, fontWeight: "bold" }}>
+            Upload Bill Book Image
+          </Text>
+        </TouchableOpacity>
         <TouchableOpacity
           onPress={handleAddVehicle}
           style={{
@@ -231,6 +301,23 @@ const AddVehicleScreen = ({ route }) => {
           </Text>
         </TouchableOpacity>
       </View>
+
+      {/* Upload buttons */}
+
+      {/* Display uploaded images */}
+      {vehicleImage && (
+          <Image
+            source={{ uri: vehicleImage }}
+            style={{ width: 100, height: 100 }}
+          />
+        )}
+
+        {billBookImage && (
+          <Image
+            source={{ uri: billBookImage }}
+            style={{ width: 100, height: 100 }}
+          />
+        )}
     </ScrollView>
   );
 };
