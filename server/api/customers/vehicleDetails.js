@@ -3,6 +3,7 @@ const router = express.Router();
 const { db } = require('../../db');
 
 router.post("/storeVehicleDetails", async (req, res) => {
+  console.log('hello');
   try {
     const {
       customer_id,
