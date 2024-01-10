@@ -64,14 +64,14 @@ const Login = ({ navigation }) => {
             });
             console.log("Login Successful as Repair Parts Seller");
           }, 1000);
-        } else if (data.repair_center_id) {
+        } else if (data.repaircenter_id) {
           // It's a repair center, navigate to RepairCenterDashboard
           showDialog();
           setTimeout(() => {
             hideDialog();
             setLoading(false);
             navigation.navigate("RepairCenterDashboard", {
-              repair_center_id: data.repair_center_id,
+              repaircenter_id: data.repaircenter_id,
             });
             console.log("Login Successful as Repair Center");
           }, 1000);
@@ -121,7 +121,7 @@ const Login = ({ navigation }) => {
           />
           <Button onPress={handleLogin} style={styles.button}>
             <Text style={{ color: "white", fontSize: 16, fontWeight: "bold" }}>
-              Login as Customer
+              Login
             </Text>
           </Button>
           {loading && <LoadingScreen />}
