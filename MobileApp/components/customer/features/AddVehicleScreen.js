@@ -7,12 +7,11 @@ import {
   TouchableOpacity,
   Image,
 } from "react-native";
-import { TextInput } from "react-native-paper";
+import { TextInput, Checkbox } from "react-native-paper";
 import { Picker } from "@react-native-picker/picker";
 import axios from "axios";
 import { REACT_APP_SERVER_IP, REACT_APP_SERVER_PORT } from "@env";
-import * as ImagePicker from 'expo-image-picker';
-
+import * as ImagePicker from "expo-image-picker";
 
 const AddVehicleScreen = ({ route }) => {
   const { customer_id } = route.params;
@@ -28,9 +27,8 @@ const AddVehicleScreen = ({ route }) => {
   const [message, setMessage] = useState(null);
   const [vehicleImage, setVehicleImage] = useState(null);
   const [billBookImage, setBillBookImage] = useState(null);
+  const [isVehicleUsedForIncome, setIsVehicleUsedForIncome] = useState(false);
 
-
-  
   const handleVehicleImageUpload = async () => {
     try {
       const result = await ImagePicker.launchImageLibraryAsync({
@@ -39,43 +37,43 @@ const AddVehicleScreen = ({ route }) => {
         aspect: [4, 3],
         quality: 1,
       });
-  
+
       if (!result.cancelled) {
         // Create a FormData object
         const formData = new FormData();
-  
+
         // Append the image file to the FormData object
-        formData.append('image', {
+        formData.append("image", {
           uri: result.uri,
-          type: 'image/jpeg', // Adjust the type based on the image type
-          name: 'vehicle_image.jpg', // Adjust the name as needed
+          type: "image/jpeg", // Adjust the type based on the image type
+          name: "vehicle_image.jpg", // Adjust the name as needed
         });
-  
+
         // Send the FormData object to the server using fetch or axios
-        const response = await fetch(`http://${REACT_APP_SERVER_IP}:${REACT_APP_SERVER_PORT}/api/vehicleImageupload`, {
-          method: 'POST',
-          body: formData,
-          headers: {
-            'Content-Type': 'multipart/form-data',
-          }          
-        });
-  
+        const response = await fetch(
+          `http://${REACT_APP_SERVER_IP}:${REACT_APP_SERVER_PORT}/api/vehicleImageupload`,
+          {
+            method: "POST",
+            body: formData,
+            headers: {
+              "Content-Type": "multipart/form-data",
+            },
+          }
+        );
+
         // Parse the response
         const responseData = await response.json();
-  
+
         // Log the Cloudinary response
-        console.log('Cloudinary response:', responseData);
-  
+        console.log("Cloudinary response:", responseData);
+
         // If you want to store the Cloudinary URL in the state
         setVehicleImage(responseData.secure_url);
       }
     } catch (error) {
-      console.error('Error handling vehicle image upload:', error);
+      console.error("Error handling vehicle image upload:", error);
     }
   };
-
-
-
 
   const handleBillBookImageUpload = async () => {
     try {
@@ -85,41 +83,43 @@ const AddVehicleScreen = ({ route }) => {
         aspect: [4, 3],
         quality: 1,
       });
-  
+
       if (!result.cancelled) {
         // Create a FormData object
         const formData = new FormData();
-  
+
         // Append the image file to the FormData object
-        formData.append('image', {
+        formData.append("image", {
           uri: result.uri,
-          type: 'image/jpeg', // Adjust the type based on the image type
-          name: 'bill_book_image.jpg', // Adjust the name as needed
+          type: "image/jpeg", // Adjust the type based on the image type
+          name: "bill_book_image.jpg", // Adjust the name as needed
         });
-  
+
         // Send the FormData object to the server using fetch or axios
-        const response = await fetch(`http://${REACT_APP_SERVER_IP}:${REACT_APP_SERVER_PORT}/api/billBookImage`, {
-          method: 'POST',
-          body: formData,
-          headers: {
-            'Content-Type': 'multipart/form-data',
-          }          
-        });
-  
+        const response = await fetch(
+          `http://${REACT_APP_SERVER_IP}:${REACT_APP_SERVER_PORT}/api/billBookImage`,
+          {
+            method: "POST",
+            body: formData,
+            headers: {
+              "Content-Type": "multipart/form-data",
+            },
+          }
+        );
+
         // Parse the response
         const responseData = await response.json();
-  
+
         // Log the Cloudinary response
-        console.log('Cloudinary response for Bill Book Image:', responseData);
-  
+        console.log("Cloudinary response for Bill Book Image:", responseData);
+
         // If you want to store the Cloudinary URL in the state
         setBillBookImage(responseData.secure_url);
       }
     } catch (error) {
-      console.error('Error handling bill book image upload:', error);
+      console.error("Error handling bill book image upload:", error);
     }
   };
-  
 
   const handleAddVehicle = async () => {
     // Validate form data before sending to the server
@@ -173,6 +173,7 @@ const AddVehicleScreen = ({ route }) => {
           vehicleModel,
           billBookDetails, // Include the bill book details
           images,
+          isVehicleUsedForIncome: isVehicleUsedForIncome ? 1 : 0,
         },
         {
           headers: {
@@ -180,7 +181,7 @@ const AddVehicleScreen = ({ route }) => {
           },
         }
       );
-      console.log('Server Response:', response.data);
+      console.log("Server Response:", response.data);
       if (response.data.message) {
         // Update the message state for success
         setMessage(response.data.message);
@@ -357,24 +358,31 @@ const AddVehicleScreen = ({ route }) => {
             Add Vehicle Details
           </Text>
         </TouchableOpacity>
+        <Checkbox.Item
+          label="Is vehicle used for income?"
+          status={isVehicleUsedForIncome ? "checked" : "unchecked"}
+          onPress={() => setIsVehicleUsedForIncome(!isVehicleUsedForIncome)}
+          color="#0d5563" // Set the checkbox color
+          labelStyle={{ color: "#0d5563" }} // Set the label color
+        />
       </View>
 
       {/* Upload buttons */}
 
       {/* Display uploaded images */}
       {vehicleImage && (
-          <Image
-            source={{ uri: vehicleImage }}
-            style={{ width: 100, height: 100 }}
-          />
-        )}
+        <Image
+          source={{ uri: vehicleImage }}
+          style={{ width: 100, height: 100 }}
+        />
+      )}
 
-        {billBookImage && (
-          <Image
-            source={{ uri: billBookImage }}
-            style={{ width: 100, height: 100 }}
-          />
-        )}
+      {billBookImage && (
+        <Image
+          source={{ uri: billBookImage }}
+          style={{ width: 100, height: 100 }}
+        />
+      )}
     </ScrollView>
   );
 };
