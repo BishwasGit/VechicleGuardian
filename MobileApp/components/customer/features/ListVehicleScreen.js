@@ -97,6 +97,7 @@ const ListVehicleScreen = ({ route, navigation }) => {
                 "vehicle_company",
                 "vehicle_number",
                 "vehicle_lot_number",
+                "vehicle_for_income"
               ].map((detail) => (
                 <View key={detail}>
                   <Text style={styles.mappedDetailsText}>
@@ -122,7 +123,28 @@ const ListVehicleScreen = ({ route, navigation }) => {
                   </Text>
                 ))}
               </View>
-
+              {parseInt(vehicle.vehicle_for_income) === 1 && (
+                <Button
+                  mode="contained"
+                  onPress={() => {
+                    // navigation.navigate('ManageExpensesScreen', {
+                    //   vehicleDetailsId: vehicle.vehicleDetails_id,
+                    // });
+                  }}
+                  style={styles.button}
+                  icon={() => (
+                    <Icon
+                      name="plus"
+                      size={20}
+                      color="#FFFFFF"
+                      style={styles.icon}
+                    />
+                    )}
+                    labelStyle={{ color: "#FFFFFF" }}
+                >
+                  Manage Expenses
+                </Button>
+              )}
               <Button
                 mode="contained"
                 onPress={() => handleTrashIconPress(vehicle.vehicleDetails_id)}
@@ -135,8 +157,9 @@ const ListVehicleScreen = ({ route, navigation }) => {
                     style={styles.icon}
                   />
                 )}
+                labelStyle={{ color: "#FFFFFF" }}
               >
-                Delete
+                Delete Vehicle
               </Button>
             </List.Accordion>
           </List.Section>
