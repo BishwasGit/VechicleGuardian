@@ -50,82 +50,98 @@ const App = () => {
           <Stack.Screen
             name="Login"
             component={Login}
-            options={headerStyle}
+          
+            options={{ headerShown: false }}
           />
           <Stack.Screen
             name="RepairCenterLogin"
             component={RepairCenterLogin}
-            options={headerStyle}
+          
+            options={{ headerShown: false }}
           />
           <Stack.Screen
             name="Registration"
             component={RegistrationScreen}
-            options={headerStyle}
+          
+            options={{ headerShown: false }}
           />
           <Stack.Screen
             name="AdminDashboard"
             component={AdminDashboard}
-            options={headerStyle}
+          
+            options={{ headerShown: false }}
           />
           <Stack.Screen
             name="CustomerDashboard"
             component={CustomerDashboard}
+          
             options={headerStyle}
           />
           <Stack.Screen
             name="RepairCenterDashboard"
             component={RepairCenterDashboard}
-            options={headerStyle}
+          
+            options={{ headerShown: false }}
           />
           <Stack.Screen
             name="AddVehicle"
             component={AddVehicleScreen}
-            options={headerStyle}
+          
+            options={{ headerShown: false }}
           />
           <Stack.Screen
             name="ListVehicle"
             component={ListVehicleScreen}
-            options={headerStyle}
+          
+            options={{ headerShown: false }}
           />
           <Stack.Screen
             name="ViewServiceHistory"
             component={ViewServiceHistoryScreen}
-            options={headerStyle}
+          
+            options={{ headerShown: false }}
           />
           <Stack.Screen
             name="LocateRepairCenters"
             component={LocateRepairCentersScreen}
-            options={headerStyle}
+          
+            options={{ headerShown: false }}
           />
           <Stack.Screen
             name="RepairProcessScreen"
             component={RepairProcessScreen}
-            options={headerStyle}
+          
+            options={{ headerShown: false }}
           />
           <Stack.Screen
             name="RepairHistoryScreen"
             component={RepairHistoryScreen}
-            options={headerStyle}
+          
+            options={{ headerShown: false }}
           />
           <Stack.Screen
             name="PartsManagement"
             component={PartsManagementPage}
-            options={headerStyle}
+          
+            options={{ headerShown: false }}
           />
           <Stack.Screen
             name="AddWorkersScreen"
             component={AddWorkersScreen}
-            options={headerStyle}
+          
+            options={{ headerShown: false }}
           />
           <Stack.Screen
             name="WorkerLoginScreen"
             component={WorkerLoginScreen}
-            options={headerStyle}
+          
+            options={{ headerShown: false }}
           />
           <Stack.Screen
             name="WorkerDashboard"
             component={WorkerDashboard}
-            options={headerStyle}
+          
+            options={{ headerShown: false }}
           />
         </Stack.Navigator>
       </NavigationContainer>

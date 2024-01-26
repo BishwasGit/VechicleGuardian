@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { View, StyleSheet, Text } from "react-native";
+import { TouchableOpacity, View, StyleSheet, Text } from "react-native";
 import { Dialog, Portal } from "react-native-paper";
 import { REACT_APP_SERVER_IP, REACT_APP_SERVER_PORT } from "@env";
 import Icon from "react-native-vector-icons/FontAwesome";
@@ -48,9 +48,7 @@ const Login = ({ navigation }) => {
           setTimeout(() => {
             hideDialog();
             setLoading(false);
-            navigation.navigate("CustomerDashboard", {
-              customer_id: data.customer_id,
-            });
+            navigation.navigate("CustomerDashboard", {customer_id: data.customer_id });
             console.log("Login Successful as Customer");
           }, 1000);
         } else if (data.repair_parts_seller_id) {
@@ -60,7 +58,7 @@ const Login = ({ navigation }) => {
             hideDialog();
             setLoading(false);
             navigation.navigate("RepairPartsSellerDashboard", {
-              repair_parts_seller_id: data.repair_parts_seller_id,
+              repair_parts_seller_id: data.repair_parts_seller_id
             });
             console.log("Login Successful as Repair Parts Seller");
           }, 1000);
@@ -87,66 +85,74 @@ const Login = ({ navigation }) => {
       alert("Login failed. Please try again."); // Provide a generic error message
     }
   };
+  const image = {uri: 'https://i.pinimg.com/originals/58/f5/b9/58f5b934eb2318d1ba20966ec3bb5f56.jpg'};
+  
   const handleRegisterNow = () => {
     navigation.navigate("Registration", { userType: "Customer" });
   };
   return (
+
+   
     <View style={styles.container}>
-      <View style={styles.firstlay}>
-        <Title style={styles.firstTitle}>Welcome!</Title>
-        <Title style={styles.firstSudTitle}>Login to your account</Title>
-      </View>
+      
+     
+     <Button style={styles.title}>
+            <Title style={{ color: "white" ,paddingTop: 80,fontWeight: "bold", fontSize: 24,}}> LOG-IN</Title>
+          </Button>
 
       <View style={styles.containerTwo}>
         <View style={styles.card}>
+       
           <TextInput
-            mode="outlined" // You can customize the mode as needed
-            label="Enter your Username"
+             placeholder="Username"
             value={username}
             onChangeText={(text) => setUsername(text)}
-            left={<TextInput.Icon name="account" />}
             style={styles.textinput}
-            underlineColor="transparent"
+            left={<TextInput.Icon icon="account" />}
+            
           />
 
           <TextInput
-            mode="outlined"
-            left={<TextInput.Icon name="account" />}
             style={styles.textinput}
-            underlineColor="transparent"
-            label="Enter your Password"
+            placeholder="Password"
             value={password}
             secureTextEntry
             onChangeText={(text) => setPassword(text)}
+            left={<TextInput.Icon icon="key" />}
           />
+            <Button style={styles.forgotButton}>
+            <Text style={{ color: "black", alignSelf: "center" }}> Forgot your password ?</Text>
+          </Button>
           <Button onPress={handleLogin} style={styles.button}>
-            <Text style={{ color: "white", fontSize: 16, fontWeight: "bold" }}>
-              Login
+            <Text style={{ color: "white", fontSize: 17, fontWeight: "bold" }}>
+              Login 
             </Text>
           </Button>
           {loading && <LoadingScreen />}
-          <Button style={styles.forgotButton}>
-            <Text style={{ color: "black" }}> Forgot your password ?</Text>
-          </Button>
+        
 
-          <Button onPress={handleRegisterNow} style={styles.registerButton}>
-            <Text style={{ color: "black" }}>
-              Don't have a Account?
-              <Text
-                style={{
-                  textDecorationLine: "underline",
-                  fontWeight: "bold",
-                  color: "#c1121f",
-                }}
-              >
-                Register Now
-              </Text>
+        <View style={styles.registerButton}>
+        <Text style={{ color: "black" }}>
+          Don't have an account?&nbsp;&nbsp;
+          <TouchableOpacity onPress={handleRegisterNow}>
+            <Text
+              style={{
+                textDecorationLine: "underline",
+                fontWeight: "bold",
+                color: "#cca01d",
+                fontSize: 18,
+              }}
+            >
+              Register
             </Text>
-          </Button>
+          </TouchableOpacity>
+        </Text>
+      </View>
+         
           {message && <Text style={styles.message}>{message}</Text>}
         </View>
-        <Portal>
-          <Dialog visible={visible} onDismiss={hideDialog}>
+        
+        <Dialog visible={visible} onDismiss={hideDialog}>
             <Dialog.Title>Login Successful</Dialog.Title>
             <Dialog.Content>
               <Text>Navigating to your dashboard</Text>
@@ -154,75 +160,78 @@ const Login = ({ navigation }) => {
             <Dialog.Actions>
               <Button onPress={hideDialog}>OK</Button>
             </Dialog.Actions>
-          </Dialog>
-        </Portal>
+            </Dialog>
       </View>
+    
     </View>
+  
   );
 };
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#f5f1e9",
+    backgroundColor:'#354230',
   },
   containerTwo: {
+    marginTop: "15%",
+    backgroundColor:'white',
+    borderTopRightRadius:65,
+    borderTopLeftRadius:65,
     alignItems: "center",
   },
-  firstlay: {
-    marginTop: "20%",
-    paddingLeft: "12%",
-    alignItems: "left",
-  },
-  firstTitle: {
-    color: "#c1121f",
-    fontWeight: "bold",
-    fontSize: 35,
-    paddingTop: 20,
-  },
-  firstSudTitle: {
-    fontSize: 15,
-    color: "grey",
-  },
   card: {
-    width: "80%",
-    marginTop: "25%",
+   
+    marginTop: "30%",
+    width: "75%",
+    
   },
-
   button: {
     fontSize: 20,
     padding: 5,
     color: "white",
-    alignItems: "center",
-    marginTop: 40,
-    backgroundColor: "#c1121f",
+    marginTop: 30,
+    backgroundColor: "#e1ad21",
+    borderTopRightRadius:25,
+    borderTopLeftRadius:25,
+    borderBottomRightRadius:25,
+    borderBottomLeftRadius:25,
+  
   },
   forgotButton: {
-    marginTop: 10,
+    marginTop: 30,
+    alignSelf: "right",
+
+  },
+  title:{
+    marginTop: 20,
+    paddingTop: 80,
+    alignSelf: "right",
+  
+
   },
   registerButton: {
     color: "black",
-    marginTop: 150,
+    marginTop: 190,
     alignSelf: "center",
   },
-  text: {
-    fontWeight: "bold",
-    marginLeft: 10,
-    marginBottom: 5,
-    textAlign: "left",
-  },
+ 
   textinput: {
-    height: 70,
-    backgroundColor: "#edf2f4",
+    height:45,
+    backgroundColor: "transparent",
     width: "100%",
     marginBottom: 10,
+    borderTopRightRadius:25,
+    borderTopLeftRadius:25,
+    borderBottomRightRadius:25,
+    borderBottomLeftRadius:25,
+    paddingLeft:30,
+    marginTop: 25,
   },
   message: {
     color: "red",
   },
-  label: {
-    color: "black",
-  },
+  
 });
 
 export default Login;

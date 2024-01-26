@@ -131,7 +131,7 @@ const CustomerDashboard = ({ route }) => {
               style={[styles.gridItem, styles.switchButton]}
               onPress={() => handleButtonPress("switchToRepairCenterSellerProfile")}
             >
-              <Icon name="sell" size={30} color="#0d5563" />
+             
               <Text style={styles.buttonText}>Switch to Seller Profile</Text>
             </TouchableOpacity>
           )}

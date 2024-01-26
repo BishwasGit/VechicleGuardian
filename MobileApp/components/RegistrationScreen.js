@@ -100,11 +100,15 @@ const RegistrationScreen = ({ route }) => {
 
   return (
     <ScrollView style={styles.container}>
+        
+     <Button style={styles.title}>
+            <Title style={{ color: "white" ,paddingTop: 80,fontWeight: "bold", fontSize: 24,}}>REGISTER</Title>
+          </Button>
+
       <View style={styles.containerTwo}>
-        <View style={styles.firstlay}>
-          <Title style={styles.firstTitle}>Register!</Title>
-          <Title style={styles.firstSudTitle}>Select User Types</Title>
-          <View style={styles.checkboxContainer}>
+    
+         
+          <View style={styles.checkboxContainer,styles.card}>
             <Checkbox.Item
               label="Customer"
               status={userTypes.includes("Customer") ? "checked" : "unchecked"}
@@ -126,7 +130,7 @@ const RegistrationScreen = ({ route }) => {
               }
               onPress={() => toggleUserType("Repair Parts Seller")}
             />
-          </View>
+        
         </View>
         <Snackbar
           visible={snackbarVisible}
@@ -137,62 +141,56 @@ const RegistrationScreen = ({ route }) => {
         </Snackbar>
         <View style={styles.card}>
           <TextInput
-            mode="outlined" // You can customize the mode as needed
-            label="Enter your Username"
+           placeholder="Username"
             value={username}
             onChangeText={(text) => setUsername(text)}
-            left={<TextInput.Icon name="account" />}
+           
             style={styles.textinput}
+            left={<TextInput.Icon icon="account" />}
           />
           <Text style={styles.errorText}>{usernameError}</Text>
 
           <TextInput
-            mode="outlined"
-            label="Enter your Phone Number"
+           placeholder="Phone Number"
             value={phone}
             onChangeText={(text) => setPhone(text)}
             keyboardType="numeric"
             style={styles.textinput}
-            left={<TextInput.Icon name="account" />}
-            underlineColor="transparent"
+            left={<TextInput.Icon icon="phone" />}
+
           />
           <Text style={styles.errorText}>{phoneError}</Text>
 
           <TextInput
-            mode="outlined"
-            label="Enter your Email"
+          
+           placeholder="Email"
             value={email}
             onChangeText={(text) => setEmail(text)}
             style={styles.textinput}
-            left={<TextInput.Icon name="account" />}
-            underlineColor="transparent"
+            left={<TextInput.Icon icon="email" />}
+
           />
           <Text style={styles.errorText}>{emailError}</Text>
 
           <TextInput
-            mode="outlined"
-            label="Enter your Password"
+          
+           placeholder="Password"
             value={password}
             secureTextEntry
             onChangeText={(text) => setPassword(text)}
             style={styles.textinput}
-            left={<TextInput.Icon name="account" />}
-            underlineColor="transparent"
+            left={<TextInput.Icon icon="key" />}
+
           />
           <Button onPress={handleRegistration} style={styles.button}>
-            <Text style={{ color: "white", fontSize: 15, fontWeight: "bold" }}>
+            <Text style={{ color: "white", fontSize: 17, fontWeight: "bold" }}>
               {" "}
-              Register as Repair Center
+              Register 
             </Text>
           </Button>
           {registrationStatus && <Text>{registrationStatus}</Text>}
         </View>
-        <View style={styles.lay}>
-          <Title style={styles.Title}>
-            By registering this step you agree to
-          </Title>
-          <Title style={styles.sudTitle}>Terms of Services</Title>
-        </View>
+       
       </View>
     </ScrollView>
   );
@@ -201,83 +199,73 @@ const RegistrationScreen = ({ route }) => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-
-    backgroundColor: "#f5f1e9",
+    backgroundColor:'#354230',
   },
   containerTwo: {
     flex: 1,
-    alignItems: "center",
-  },
-
-  firstlay: {
+    paddingTop:30,
     marginTop: "15%",
+    backgroundColor:'white',
+    borderTopRightRadius:65,
+    borderTopLeftRadius:65,
     alignItems: "center",
   },
-  firstTitle: {
-    paddingTop: 10,
-    color: "#c1121f",
-    fontWeight: "bold",
-    fontSize: 30,
+  checkboxContainer: {
+   
+    display: 'flex',
+    flexDirection: "row",
+    flexWrap: "wrap",
+    alignItems: "center",
   },
-  firstSudTitle: {
-    fontSize: 15,
-    color: "grey",
+  checkbox: {
+    flexBasis: "65%",
   },
-
   card: {
-    width: "80%",
-    marginTop: "10%",
+    flex: 1,
+    marginTop: "5%",
+    width: "75%",
+    marginBottom: "5%",
+    
   },
-  text: {
-    fontWeight: "bold",
-    marginLeft: 10,
-    marginBottom: 5,
-    textAlign: "left",
-  },
-
-  textinput: {
-    height: 60,
-    backgroundColor: "#edf2f4",
-    width: "100%",
-  },
-
   button: {
+    fontSize: 20,
     padding: 5,
     color: "white",
-    alignItems: "center",
-    marginTop: "18%",
-    backgroundColor: "#c1121f",
+    backgroundColor: "#e1ad21",
+    borderTopRightRadius:25,
+    borderTopLeftRadius:25,
+    borderBottomRightRadius:25,
+    borderBottomLeftRadius:25,
+    marginTop: "20%",
+    marginBottom: "10%",
+  
+  },
+ 
+  title:{
+    marginTop: 20,
+    paddingTop: 80,
+    alignSelf: "right",
+  
+
+  },
+  textinput: {
+    height:45,
+    backgroundColor: "transparent",
+    width: "100%",
+    borderTopRightRadius:25,
+    borderTopLeftRadius:25,
+    borderBottomRightRadius:25,
+    borderBottomLeftRadius:25,
+    paddingLeft:30,
+    marginTop: 10,
   },
 
   errorText: {
     color: "red",
     marginBottom: 5,
   },
-  lay: {
-    marginTop: "4%",
-    alignItems: "center",
-  },
-  Title: {
-    width: "60%",
-    color: "grey",
-    fontSize: 13,
-    marginBottom: -10,
-  },
-  sudTitle: {
-    color: "grey",
-    fontSize: 13,
-    textDecorationLine: "underline",
-  },
-  checkboxContainer: {
-    display: 'flex',
-    flexDirection: "row",
-    flexWrap: "wrap",
-    alignItems: "center",
-    marginTop: 10,
-  },
-  checkbox: {
-    flexBasis: "45%",
-  },
+ 
+ 
 });
 
 export default RegistrationScreen;

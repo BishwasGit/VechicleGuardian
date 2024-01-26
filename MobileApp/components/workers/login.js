@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Text, View, StyleSheet } from "react-native";
+import {  TouchableOpacity,Text, View, StyleSheet } from "react-native";
 import { TextInput, Button, Card, Title } from "react-native-paper";
 import { REACT_APP_SERVER_IP, REACT_APP_SERVER_PORT } from "@env";
 import { useNavigation } from "@react-navigation/native";
@@ -50,57 +50,69 @@ const Login = () => {
     setWorkerUserName("");
     setPassword("");
   };
-
+  const handleRegisterNow = () => {
+    navigation.navigate("Registration", { userType: "Customer" });
+  };
   return (
     <View style={styles.container}>
-      <View style={styles.firstlay}>
-        <Title style={styles.firstTitle}>Welcome!</Title>
-      </View>
+       <Button style={styles.title}>
+            <Title style={{ color: "white" ,paddingTop: 80,fontWeight: "bold", fontSize: 24,}}> Login as Worker</Title>
+          </Button>
+     
 
       <View style={styles.containerTwo}>
         <View style={styles.card}>
-          <Title style={styles.firstSudTitle}>
-            Login using details provided by your repair center.
-          </Title>
+         
           <TextInput
-            mode="outlined"
-            label="Worker Username"
+           
+            placeholder="Worker Username"
             value={workerUserName}
-            left={<TextInput.Icon name="account" />}
+           
             onChangeText={(text) => setWorkerUserName(text)}
             style={styles.textinput}
-            underlineColor="transparent"
+            left={<TextInput.Icon icon="account" />}
+           
           />
           <TextInput
-            mode="outlined"
-            label="Your Password"
+           
+            placeholder="Your Password"
             value={password}
             secureTextEntry
-            left={<TextInput.Icon name="account" />}
+           
             onChangeText={(text) => setPassword(text)}
-            underlineColor="transparent"
+           
             style={styles.textinput}
+            left={<TextInput.Icon icon="key" />}
           />
-          <Button mode="contained" onPress={handleLogin} style={styles.button}>
-            Login as Worker
-          </Button>
-          <Button style={styles.forgotButton}>
+            <Button style={styles.forgotButton}>
             <Text style={{ color: "black" }}> Forgot your password ?</Text>
           </Button>
-          <Button style={styles.registerButton}>
-            <Text style={{ color: "black" }}>
-              Don't have a Account?
-              <Text
-                style={{
-                  textDecorationLine: "underline",
-                  fontWeight: "bold",
-                  color: "#c1121f",
-                }}
-              >
-                Register Now
-              </Text>
+          <Button mode="contained" onPress={handleLogin} style={styles.button}>
+          <Text style={{ color: "white", fontSize: 17, fontWeight: "bold" }}>
+              Login as Worker 
             </Text>
           </Button>
+          <Title style={styles.firstSudTitle}>
+            Consult your repair center.
+          </Title>
+        
+          <View style={styles.registerButton}>
+        <Text style={{ color: "black" }}>
+          Don't have an account?&nbsp;&nbsp;
+          <TouchableOpacity onPress={handleRegisterNow}>
+            <Text
+              style={{
+                textDecorationLine: "underline",
+                fontWeight: "bold",
+                color: "#cca01d",
+                fontSize: 18,
+              }}
+            >
+              Register
+            </Text>
+          </TouchableOpacity>
+        </Text>
+      </View>
         </View>
       </View>
     </View>
@@ -110,58 +122,68 @@ const Login = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#f5f1e9",
+    backgroundColor:'#354230',
   },
   containerTwo: {
+    flex: 1,
+    marginTop: "15%",
+    backgroundColor:'white',
+    borderTopRightRadius:65,
+    borderTopLeftRadius:65,
     alignItems: "center",
   },
-  firstlay: {
-    marginTop: "20%",
-    paddingLeft: "11%",
-    alignItems: "left",
-  },
-  firstTitle: {
-    color: "#c1121f",
-    fontWeight: "bold",
-    fontSize: 35,
-    paddingTop: 20,
-  },
-  firstSudTitle: {
-    fontSize: 13.8,
-    color: "grey",
-    marginBottom: 5,
-  },
   card: {
-    width: "80%",
-    marginTop: "25%",
+    marginTop: "30%",
+    width: "75%",
+    alignItems: "center",
+    
+  },
+  firstSudTitle:{
+    fontSize:15,
+    marginTop: "3%",
+    color:'gray',
   },
   button: {
     fontSize: 20,
     padding: 5,
     color: "white",
-    alignItems: "center",
-    marginTop: 40,
-    backgroundColor: "#c1121f",
+    marginTop: 30,
+    backgroundColor: "#e1ad21",
+    borderTopRightRadius:25,
+    borderTopLeftRadius:25,
+    borderBottomRightRadius:25,
+    borderBottomLeftRadius:25,
+    width: "100%",
+  
   },
   forgotButton: {
-    marginTop: 10,
+    marginTop: 30,
+    alignSelf: "right",
+
+  },
+  title:{
+    marginTop: 20,
+    paddingTop: 80,
+    alignSelf: "right",
+  
+
   },
   registerButton: {
     color: "black",
-    marginTop: 150,
+    marginTop: 140,
     alignSelf: "center",
   },
-  text: {
-    fontWeight: "bold",
-    marginLeft: 10,
-    marginBottom: 5,
-    textAlign: "left",
-  },
   textinput: {
-    height: 70,
-    backgroundColor: "#edf2f4",
+    height:45,
+    backgroundColor: "transparent",
     width: "100%",
     marginBottom: 10,
+    borderTopRightRadius:25,
+    borderTopLeftRadius:25,
+    borderBottomRightRadius:25,
+    borderBottomLeftRadius:25,
+    paddingLeft:30,
+    marginTop: 25,
   },
 });
 

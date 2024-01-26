@@ -1,8 +1,8 @@
 const mysql = require('mysql2/promise');
 const db = mysql.createPool({
   host: 'localhost',
-  user: 'Bishwas',
-  password: 'Bishwas@1',
+  user: 'root',
+  password: 'Root@123',
   database: 'mobile_app',
   port: 3306,
 });
