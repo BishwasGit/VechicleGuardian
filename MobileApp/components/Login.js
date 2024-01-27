@@ -86,13 +86,12 @@ const Login = ({ navigation }) => {
     }
   };
   const image = {uri: 'https://i.pinimg.com/originals/58/f5/b9/58f5b934eb2318d1ba20966ec3bb5f56.jpg'};
-  
+  const _goBack = () => console.log('Went back');
   const handleRegisterNow = () => {
     navigation.navigate("Registration", { userType: "Customer" });
   };
   return (
 
-   
     <View style={styles.container}>
       
      
@@ -174,6 +173,7 @@ const styles = StyleSheet.create({
     backgroundColor:'#354230',
   },
   containerTwo: {
+    flex: 1,
     marginTop: "15%",
     backgroundColor:'white',
     borderTopRightRadius:65,

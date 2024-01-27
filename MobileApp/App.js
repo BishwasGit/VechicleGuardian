@@ -75,7 +75,7 @@ const App = () => {
             name="CustomerDashboard"
             component={CustomerDashboard}
           
-            options={headerStyle}
+            options={{ headerShown: false }}
           />
           <Stack.Screen
             name="RepairCenterDashboard"
