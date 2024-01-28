@@ -18,13 +18,6 @@ const LoginSelectionScreen = ({ navigation }) => {
     navigation.navigate("WorkerLoginScreen");
   };
   return (
-
-
-
-                  // main screeennnnnnnnnnnnnnnnnnnnn
-
-
-
     <View style={styles.container}>
       <ImageBackground source={image} resizeMode="cover" style={styles.image}>
       

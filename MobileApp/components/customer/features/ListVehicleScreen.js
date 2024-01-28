@@ -97,7 +97,6 @@ const ListVehicleScreen = ({ route, navigation }) => {
                 "vehicle_company",
                 "vehicle_number",
                 "vehicle_lot_number",
-                "vehicle_for_income"
               ].map((detail) => (
                 <View key={detail}>
                   <Text style={styles.mappedDetailsText}>

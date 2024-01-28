@@ -106,9 +106,7 @@ const RegistrationScreen = ({ route }) => {
           </Button>
 
       <View style={styles.containerTwo}>
-    
-         
-          <View style={styles.checkboxContainer,styles.card}>
+          <View style={styles.checkboxContainer}>
             <Checkbox.Item
               label="Customer"
               status={userTypes.includes("Customer") ? "checked" : "unchecked"}
