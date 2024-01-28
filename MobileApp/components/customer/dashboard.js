@@ -1,16 +1,22 @@
 import React, { useState, useEffect } from "react";
-import { View, StyleSheet, Text, TouchableOpacity, ScrollView } from "react-native";
-import { Title } from "react-native-paper";
+import { ImageBackground,View, StyleSheet, Text, TouchableOpacity, ScrollView } from "react-native";
+import { Button,Title } from "react-native-paper";
 import Icon from "react-native-vector-icons/MaterialIcons";
 import { useNavigation } from "@react-navigation/native";
 import { REACT_APP_SERVER_IP, REACT_APP_SERVER_PORT } from "@env";
+import { Appbar } from 'react-native-paper';
+import { CommonActions } from '@react-navigation/native';
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import { BottomNavigation } from 'react-native-paper';
 
+const Tab = createBottomTabNavigator();
 const CustomerDashboard = ({ route }) => {
   const [customerDetails, setCustomerDetails] = useState(null);
   const [repairCenterProfile, setRepairCenterProfile] = useState(null);
   const [repairCenterSellerProfile, setRepairCenterSellerProfile] = useState(null);
   const navigation = useNavigation();
 
+ 
   useEffect(() => {
     const fetchCustomerDetails = async () => {
       const { customer_id } = route.params;
@@ -94,10 +100,133 @@ const CustomerDashboard = ({ route }) => {
         console.log(`Button Pressed : ${buttonType}`);
     }
   };
+  const Login= () => {
+    navigation.navigate("Login", { userType: "Customer" });
+  };
+
+
+
 
   return (
-    <ScrollView contentContainerStyle={styles.container}>
-      <View style={styles.heading}>
+    <ScrollView contentContainerStyle={styles.container}>      
+      <Tab.Navigator
+      
+      screenOptions={{
+        headerShown: false,
+      }}
+      tabBar={({ navigation, state, descriptors, insets }) => (
+        <BottomNavigation.Bar
+        style={styles.navigation}
+          navigationState={state}
+         safeAreaInsets={insets}
+          onTabPress={({ route, preventDefault }) => {
+            const event = navigation.emit({
+              type: 'tabPress',
+              target: route.key,
+              canPreventDefault: true,
+            });
+
+            if (event.defaultPrevented) {
+              preventDefault();
+            } else {
+             navigation.dispatch({
+                ...CommonActions.navigate(route.name, route.params),
+                target: state.key,
+              });
+            }
+          }}
+          renderIcon={({ route, focused, color }) => {
+            const { options } = descriptors[route.key];
+            const iconColor = focused ? "red" : color;
+            if (options.tabBarIcon) {
+              return options.tabBarIcon({ focused, color: iconColor });
+            }
+
+            return null;
+          }}
+          
+        />
+      )}
+    >
+ 
+ <Tab.Screen
+  name="Home"
+  style={styles.navigationTitle}
+  component={() => <HomeScreen customerDetails={customerDetails} />}
+  options={{
+    tabBarIcon: ({ color, size }) => {
+      return <Icon name="home" size={30} color='white' />;
+    },
+  }}
+>
+ 
+</Tab.Screen>
+
+
+      <Tab.Screen
+        name="Settings"
+        style={styles.navigationTitle}
+        component= {() => 
+          <SettingsScreen
+            repairCenterProfile={repairCenterProfile}
+            repairCenterSellerProfile={repairCenterSellerProfile}
+            handleButtonPress={handleButtonPress}
+          />
+        }
+        options={{
+         
+          tabBarIcon: ({ color, size }) => {
+            return <Icon name="apps"  size={30} color='white' />;
+          },
+        }}
+        >  
+        </Tab.Screen>
+
+       <Tab.Screen
+        name="Account"
+        style={styles.navigationTitle}
+        component={() => <ProfileScreen customerDetails={customerDetails} />}
+        options={{
+         
+          tabBarIcon: ({ color, size }) => {
+            return <Icon name="person"  size={30} color='white' />;
+          },
+        }}
+        > 
+        </Tab.Screen>
+    </Tab.Navigator>
+    </ScrollView>
+    
+  );
+};
+
+const image = {uri: 'https://i.pinimg.com/originals/2a/7c/be/2a7cbe76cee6e04e2c9b577c412d7ca1.jpg'};
+
+
+function HomeScreen({ customerDetails }) {
+  return (
+    <View style={styles.containerHome}>
+        
+      <ImageBackground source={image} resizeMode="cover" style={styles.image} >
+        
+      <View style={styles.purpleOverlay}>
+          {/* Purple transparent background */}
+        </View>
+
+       <View style={styles.containerHomeTwo}> 
+        <View style={{ paddingTop:90, alignItems: "center", }}>
+      
+      <Title style={{ fontWeight:'bold', fontSize: 28,color:'white', }}>
+       Get Best Servcies {"\n"}
+        <Title style={{ fontWeight: "normal",paddingLeft:80, fontSize: 17,color:'white',alignItems: "center",  }}>
+          Good Morning sdsjda sjdadj
+        </Title>
+      </Title>
+   
+  </View></View>
+
+      <View style={styles.containerTwo}>
+         <View style={styles.heading}>
         {customerDetails && (
           <Title style={styles.welcomeText}>
             Hi {customerDetails[0].username}!{"\n"}
@@ -107,7 +236,18 @@ const CustomerDashboard = ({ route }) => {
           </Title>
         )}
       </View>
-      <View style={styles.containerTwo}>
+      </View>
+      </ImageBackground>
+    </View>
+  );
+};
+
+
+
+function SettingsScreen({ repairCenterProfile, repairCenterSellerProfile, handleButtonPress}) {
+  return (
+    <View style={styles.container}>
+     <View style={styles.containerTwo}>
         <View style={styles.head}>
           <Title style={{ fontSize: 20, color: "#073b4c" }}>
             Welcome!{"\n"}
@@ -137,6 +277,7 @@ const CustomerDashboard = ({ route }) => {
           )}
           {/* Other service buttons */}
         </View>
+        
         <View style={styles.gridContainer}>
           <View style={styles.headTwo}>
             <Title
@@ -145,10 +286,14 @@ const CustomerDashboard = ({ route }) => {
               Our Services :
             </Title>
           </View>
+      
           <TouchableOpacity
+          elevation={4}
             style={styles.gridItemActive}
             onPress={() => handleButtonPress("addVehicle")}
           >
+            
+            
             <Icon name="directions-car" size={30} color="white" />
             <Text style={{ color: "white", padding: 10 }}>Add Vehicle</Text>
           </TouchableOpacity>
@@ -176,19 +321,71 @@ const CustomerDashboard = ({ route }) => {
             <Text style={styles.buttonText}>Locate Repair Centers</Text>
           </TouchableOpacity>
         </View>
+       
       </View>
-    </ScrollView>
+    </View>
   );
-};
-
+}
+function ProfileScreen({ customerDetails }) {
+  return (
+    <View style={styles.container}>
+      <View style={styles.heading}>
+        {customerDetails && (
+          <Title style={styles.welcomeText}>
+            Hi {customerDetails[0].username}!{"\n"}
+            <Title style={{ fontWeight: "normal", fontSize: 17 }}>
+              Good Morning
+            </Title>
+          </Title>
+        )}
+      </View>
+    </View>
+  );
+}
 const styles = StyleSheet.create({
   container: {
     flexGrow: 1,
-    backgroundColor: "#f5f1e9",
+  },
+  containerHome:{
+    flexGrow: 1,
+    backgroundColor:'white',
+     
   },
   containerTwo: {
+    flex: 1,
+    paddingTop:50,
+    marginTop: "17%",
+    backgroundColor:'white',
+    borderTopRightRadius:65,
+    borderTopLeftRadius:65,
+   
+  },
+  containerHomeTwo:{
     alignItems: "center",
-    paddingTop: 20,
+  },
+  image: {
+    height:'60%',
+    justifyContent: 'center',
+  },
+  purpleOverlay: {
+    ...StyleSheet.absoluteFillObject,
+    backgroundColor: 'rgba(34, 51, 59,0.6)', // Purple transparent background
+  },
+  title:{
+    
+    alignSelf: "right",
+  },
+  navigation:{
+    backgroundColor:'#354230',
+    // borderTopRightRadius:20,
+    // borderTopLeftRadius:20,
+    width:'100%',
+    height:65,
+    paddingTop:3,
+    alignItems: "center",
+  },
+  navigationTitle:{
+    backgroundColor: "black",
   },
   heading: {
     paddingTop: 30,
@@ -197,7 +394,7 @@ const styles = StyleSheet.create({
   },
   welcomeText: {
     fontWeight: "bold",
-    color: "#c1121f",
+    color: "#e1ad21",
     marginVertical: 20,
     fontSize: 25,
     paddingBottom: -60,
@@ -206,7 +403,7 @@ const styles = StyleSheet.create({
     width: "90%",
     marginVertical: 10,
     padding: 20,
-    borderColor: "#c1121f",
+    borderColor: "#354230",
     borderWidth: 2,
     borderRadius: 20,
     borderTopLeftRadius: 20,
@@ -225,7 +422,7 @@ const styles = StyleSheet.create({
     paddingLeft: 10,
     paddingRight: 10,
     alignItems: "center",
-    backgroundColor: "#0d5563",
+    backgroundColor: "#354230",
     borderRadius: 20,
     borderTopLeftRadius: 20,
     borderTopRightRadius: 20,
@@ -261,3 +458,4 @@ const styles = StyleSheet.create({
 });
 
 export default CustomerDashboard;
+

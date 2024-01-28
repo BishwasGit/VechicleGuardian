@@ -137,8 +137,7 @@ const styles = StyleSheet.create({
     color: "#e1ad21",
     fontSize: 15,
     fontWeight: "bold",
-    textDecorationLine: "underline",
-    textDecorationLineColor: "#c1121f",
+    
 
     marginTop: 1, // Adjust this value to decrease the space above sudTitle
   },
