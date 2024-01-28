@@ -1,0 +1,6 @@
+/*# sourceMappingURL=custom.min.css.map */
+tr.draggable-row td:first-child
+{
+    background-color:var(--vz-light);
+    cursor: move;
+}

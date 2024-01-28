@@ -6,6 +6,7 @@ import Icon from "react-native-vector-icons/FontAwesome";
 import { TextInput } from "react-native-paper";
 import { Button, Card, Title, ActivityIndicator } from "react-native-paper";
 import LoadingScreen from "./LoadingScreen"; // Import the LoadingScreen component
+import { Divider } from 'react-native-paper';
 
 const Login = ({ navigation }) => {
   const [username, setUsername] = useState("");
@@ -85,8 +86,6 @@ const Login = ({ navigation }) => {
       alert("Login failed. Please try again."); // Provide a generic error message
     }
   };
-  const image = {uri: 'https://i.pinimg.com/originals/58/f5/b9/58f5b934eb2318d1ba20966ec3bb5f56.jpg'};
-  const _goBack = () => console.log('Went back');
   const handleRegisterNow = () => {
     navigation.navigate("Registration", { userType: "Customer" });
   };
@@ -132,20 +131,20 @@ const Login = ({ navigation }) => {
 
         <View style={styles.registerButton}>
         <Text style={{ color: "black" }}>
-          Don't have an account?&nbsp;&nbsp;
+          Don't have an account?
+          </Text>
+          <Divider />
           <TouchableOpacity onPress={handleRegisterNow}>
             <Text
               style={{
-                textDecorationLine: "underline",
                 fontWeight: "bold",
                 color: "#cca01d",
-                fontSize: 18,
+                textAlign : "center",
               }}
             >
-              Register
+              Register Here
             </Text>
           </TouchableOpacity>
-        </Text>
       </View>
          
           {message && <Text style={styles.message}>{message}</Text>}
@@ -212,7 +211,7 @@ const styles = StyleSheet.create({
   },
   registerButton: {
     color: "black",
-    marginTop: 190,
+    marginTop: 100,
     alignSelf: "center",
   },
  
@@ -231,6 +230,7 @@ const styles = StyleSheet.create({
   message: {
     color: "red",
   },
+  
   
 });
 
