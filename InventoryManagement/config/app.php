@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Facade;
 use Illuminate\Support\ServiceProvider;
 
 return [
-
+    'site_title' => env('SITE_TITLE', 'Inventory Management System'),
     /*
     |--------------------------------------------------------------------------
     | Application Name
