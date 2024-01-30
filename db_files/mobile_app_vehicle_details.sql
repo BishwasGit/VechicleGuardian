@@ -31,10 +31,11 @@ CREATE TABLE `vehicle_details` (
   `vehicle_company` varchar(45) DEFAULT NULL,
   `vehicle_model` varchar(45) DEFAULT NULL,
   `bill_book_details` text,
+  `images` text,
   `status` int DEFAULT '1',
-  `vehicle_for_income` int DEFAULT '1',
+  `vehicle_for_income` int DEFAULT '0',
   PRIMARY KEY (`vehicleDetails_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -43,6 +44,7 @@ CREATE TABLE `vehicle_details` (
 
 LOCK TABLES `vehicle_details` WRITE;
 /*!40000 ALTER TABLE `vehicle_details` DISABLE KEYS */;
+INSERT INTO `vehicle_details` VALUES (1,1,'Two Wheeler','0525',60,'Suzuki','Breeza1200','{\"createdDate\":\"2023-03-02\",\"expiryDate\":\"2025-04-12\",\"ownerName\":\"Raju shrestha\",\"contactNumber\":\"9869133344\"}','{\"vehicleImage\":\"file:///data/user/0/host.exp.exponent/cache/ExperienceData/%2540bishwasexpo%252FMobileApp/ImagePicker/aac3c3d7-b0b3-4e47-b75b-6bea57d3dd10.jpeg\",\"billBookImage\":\"file:///data/user/0/host.exp.exponent/cache/ExperienceData/%2540bishwasexpo%252FMobileApp/ImagePicker/9784db59-d7ab-4716-a634-828272bb820d.jpeg\"}',1,1),(2,1,'Four Wheeler','8777',77,'Gghuuh','Vghthv','{\"createdDate\":\"3223-44-44\",\"expiryDate\":\"2222-55-44\",\"ownerName\":\"Sdghhhuu\",\"contactNumber\":\"9879466655\"}','{\"vehicleImage\":\"https://res.cloudinary.com/dpftkbsu6/image/upload/v1704621787/bill_book_image_9e0905e5-e51f-4382-9cac-a82c7b8ce453.jpg\",\"billBookImage\":\"https://res.cloudinary.com/dpftkbsu6/image/upload/v1704621814/bill_book_image_8bcad5bd-42eb-43ed-a07b-beff863fd26b.jpg\"}',1,1);
 /*!40000 ALTER TABLE `vehicle_details` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -55,4 +57,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2024-01-04 14:56:06
+-- Dump completed on 2024-01-30 12:29:47
