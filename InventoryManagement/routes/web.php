@@ -1,7 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-
+use Illuminate\Http\Request;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -13,6 +13,16 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('repairpartseller.welcome');
+Route::get('/dashboard', function () {
+    return view('repairpartseller.dashboard');
 });
+
+Route::get('/', function () {
+    return view('login');
+})->name('main.login');
+
+Route::get('/register', function () {
+    return view('register');
+})->name('main.register');
+
+require __DIR__ . '/registration.php';

@@ -1,9 +1,8 @@
 //react-native-paper modules
-import React from "react";
+import React, { useState, useEffect } from 'react';
 import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
 import { Provider as PaperProvider } from "react-native-paper";
-import { StyleSheet, HeaderStyle } from "react-native";
 
 //main screen
 import LoginSelectionScreen from "./components/LoginScreen";
@@ -35,13 +34,38 @@ import WorkerLoginScreen from "./components/workers/login";
 import WorkerDashboard from "./components/workers/dashboard";
 import RepairProcessScreen from "./components/workers/features/RepairProcessScreen";
 
+//secure storage
+import * as SecureStore from 'expo-secure-store';
+
 const Stack = createStackNavigator();
 
 const App = () => {
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const [initialRoute, setInitialRoute] = useState("LoginSelection");
+  const [initialParams, setInitialParams] = useState(null);
+  
+  useEffect(() => {
+    const checkLoginStatus = async () => {
+      const userInfoString = await SecureStore.getItemAsync('userInfo');
+      if (userInfoString) {
+        const userInfo = JSON.parse(userInfoString);
+        const routeMap = {
+          'admin': "AdminDashboard",
+          'customer': "CustomerDashboard",
+          'repair center': "RepairCenterDashboard",
+        };
+        setInitialRoute(routeMap[userInfo.userType] || "LoginSelection");
+        setInitialParams({ userId: userInfo.userId });
+      }
+    };
+
+    checkLoginStatus();
+  }, []);
+
   return (
     <PaperProvider>
       <NavigationContainer>
-        <Stack.Navigator initialRouteName="LoginSelection">
+      <Stack.Navigator initialRouteName={initialRoute}>
           <Stack.Screen
             name="Vechicle Guardian Landing Page"
             component={LoginSelectionScreen}

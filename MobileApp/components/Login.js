@@ -7,8 +7,14 @@ import { TextInput } from "react-native-paper";
 import { Button, Card, Title, ActivityIndicator } from "react-native-paper";
 import LoadingScreen from "./LoadingScreen"; // Import the LoadingScreen component
 import { Divider } from 'react-native-paper';
+import * as SecureStore from 'expo-secure-store';
 
 const Login = ({ navigation }) => {
+  
+  const saveTokenToStorage = async (token) => {
+    await SecureStore.setItemAsync('userToken', token);
+  };
+
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [message, setMessage] = useState(null);
@@ -31,12 +37,21 @@ const Login = ({ navigation }) => {
           body: JSON.stringify({ username, password }),
         }
       );
+      
+      const saveUserInfoToStorage = async (userInfo) => {
+        await SecureStore.setItemAsync('userInfo', JSON.stringify(userInfo));
+      };
 
       const data = await response.json();
-
       if (response.ok) {
+        let userInfo = {
+          token: data.token,
+          userType: '', // Set this based on the response
+          userId: data.admin_id || data.customer_id || data.repair_parts_seller_id || data.repaircenter_id
+        };
         if (data.admin_id) {
           // It's an admin, navigate to AdminDashboard
+          userInfo.userType = 'admin';
           showDialog();
           setTimeout(() => {
             hideDialog();
@@ -46,6 +61,7 @@ const Login = ({ navigation }) => {
           }, 1000);
         } else if (data.customer_id) {
           // It's a customer, navigate to CustomerDashboard
+          userInfo.userType = 'customer'
           setTimeout(() => {
             hideDialog();
             setLoading(false);
@@ -54,6 +70,7 @@ const Login = ({ navigation }) => {
           }, 1000);
         } else if (data.repair_parts_seller_id) {
           // It's a repair parts seller, navigate to RepairPartsSellerDashboard
+          userInfo.userType = 'repair parts seller'
           showDialog();
           setTimeout(() => {
             hideDialog();
@@ -65,6 +82,7 @@ const Login = ({ navigation }) => {
           }, 1000);
         } else if (data.repaircenter_id) {
           // It's a repair center, navigate to RepairCenterDashboard
+          userInfo.userType = 'repair center'
           showDialog();
           setTimeout(() => {
             hideDialog();
@@ -75,6 +93,7 @@ const Login = ({ navigation }) => {
             console.log("Login Successful as Repair Center");
           }, 1000);
         }
+        await saveUserInfoToStorage(userInfo);
       } else {
         // Login failed, display an error message
         setMessage(data.error);
