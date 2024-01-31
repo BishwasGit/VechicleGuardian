@@ -2,6 +2,7 @@ const express = require('express');
 const router = express.Router();
 const bcrypt = require('bcrypt');
 const { db } = require('../db');
+const jwt = require('jsonwebtoken')
 
 router.post('/login', async (req, res) => {
   const { username, password } = req.body;
@@ -35,24 +36,27 @@ router.post('/login', async (req, res) => {
 
       if (passwordMatch) {
         let payload = {};
+        let message = '';
+        
         // Passwords match, login successful
         if (customer_id) {
           payload = { userId: customer_id, userType: 'customer' };
-          res.json({ success: true, message: 'Customer login successful', customer_id });
+          message = 'Customer login successful';
         } else if (repaircenter_id) {
           payload = { userId: repaircenter_id, userType: 'repaircenter' };
-          res.json({ success: true, message: 'Repair Center login successful', repaircenter_id });
+          message = 'Repair Center login successful';
         } else if (seller_id) {
           payload = { userId: seller_id, userType: 'seller' };
-          res.json({ success: true, message: 'Repair Parts Seller login successful', seller_id });
+          message = 'Repair Parts Seller login successful';
         } else if (admin_id) {
           payload = { userId: admin_id, userType: 'admin' };
-          res.json({ success: true, message: 'Admin login successful', admin_id });
+          message = 'Admin login successful';
         }
         // Generate a token
-      const token = jwt.sign(payload, SECRET_KEY, { expiresIn: '24h' });
-
-      res.json({ success: true, token });
+        const token = jwt.sign(payload, SECRET_KEY, { expiresIn: '24h' });
+          
+        res.json({ success: true, message, token, userId: payload.userId, userType: payload.userType });
+        console.log([payload.userId,payload.userType]);
       } else {
         // Passwords don't match, login failed
         res.status(401).json({ error: 'Invalid username or password' });

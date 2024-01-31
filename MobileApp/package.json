@@ -24,7 +24,7 @@
     "expo-file-system": "~15.4.5",
     "expo-image-picker": "~14.3.2",
     "expo-modules-autolinking": "~1.5.0",
-    "expo-secure-store": "^12.8.1",
+    "expo-secure-store": "~12.3.1",
     "expo-status-bar": "~1.6.0",
     "expo-updates": "~0.18.19",
     "gotham-fonts": "^1.0.3",

@@ -8,14 +8,10 @@ import { Button, Card, Title, ActivityIndicator } from "react-native-paper";
 import LoadingScreen from "./LoadingScreen"; // Import the LoadingScreen component
 import { Divider } from 'react-native-paper';
 import * as SecureStore from 'expo-secure-store';
+import { Platform } from 'react-native';
 
 const Login = ({ navigation }) => {
-  
-  const saveTokenToStorage = async (token) => {
-    await SecureStore.setItemAsync('userToken', token);
-  };
-
-  const [username, setUsername] = useState("");
+    const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [message, setMessage] = useState(null);
   const [visible, setVisible] = useState(false);
@@ -23,6 +19,14 @@ const Login = ({ navigation }) => {
 
   const showDialog = () => setVisible(true);
   const hideDialog = () => setVisible(false);
+
+  const saveUserInfoToStorage = async (userInfo) => {
+    if (Platform.OS === 'web') {
+      localStorage.setItem('userInfo', JSON.stringify(userInfo));
+    } else {
+     SecureStore.setItemAsync('userInfo', JSON.stringify(userInfo));
+    }
+  };
 
   const handleLogin = async () => {
     try {
@@ -37,63 +41,58 @@ const Login = ({ navigation }) => {
           body: JSON.stringify({ username, password }),
         }
       );
-      
-      const saveUserInfoToStorage = async (userInfo) => {
-        await SecureStore.setItemAsync('userInfo', JSON.stringify(userInfo));
-      };
-
       const data = await response.json();
+      
+      console.log('server response :' , data.userType);
+
       if (response.ok) {
-        let userInfo = {
+
+        const userInfo = {
           token: data.token,
-          userType: '', // Set this based on the response
-          userId: data.admin_id || data.customer_id || data.repair_parts_seller_id || data.repaircenter_id
+          userType: data.userType, // Set this based on the response
+          userId: data.userId
         };
-        if (data.admin_id) {
-          // It's an admin, navigate to AdminDashboard
-          userInfo.userType = 'admin';
+
+        saveUserInfoToStorage(userInfo);
+
+        console.log('userinfo :',userInfo.userType);
+
+        if(data.userType==='admin') {
           showDialog();
           setTimeout(() => {
             hideDialog();
             setLoading(false);
-            navigation.navigate("AdminDashboard", { admin_id: data.admin_id });
+            navigation.navigate("AdminDashboard", { admin_id: data.userId });
             console.log("Login Successful as Admin");
           }, 1000);
-        } else if (data.customer_id) {
-          // It's a customer, navigate to CustomerDashboard
-          userInfo.userType = 'customer'
+        } else if(data.userType==='customer') {
           setTimeout(() => {
             hideDialog();
             setLoading(false);
-            navigation.navigate("CustomerDashboard", {customer_id: data.customer_id });
+            navigation.navigate("CustomerDashboard", {customer_id: data.userId });
             console.log("Login Successful as Customer");
           }, 1000);
-        } else if (data.repair_parts_seller_id) {
-          // It's a repair parts seller, navigate to RepairPartsSellerDashboard
-          userInfo.userType = 'repair parts seller'
+        } else if(data.userType==='seller') {
           showDialog();
           setTimeout(() => {
             hideDialog();
             setLoading(false);
             navigation.navigate("RepairPartsSellerDashboard", {
-              repair_parts_seller_id: data.repair_parts_seller_id
+              repair_parts_seller_id: data.userId
             });
             console.log("Login Successful as Repair Parts Seller");
           }, 1000);
-        } else if (data.repaircenter_id) {
-          // It's a repair center, navigate to RepairCenterDashboard
-          userInfo.userType = 'repair center'
+        } else if(data.userType==='repaircenter') {
           showDialog();
           setTimeout(() => {
             hideDialog();
             setLoading(false);
             navigation.navigate("RepairCenterDashboard", {
-              repaircenter_id: data.repaircenter_id,
+              repaircenter_id: data.userId,
             });
             console.log("Login Successful as Repair Center");
           }, 1000);
         }
-        await saveUserInfoToStorage(userInfo);
       } else {
         // Login failed, display an error message
         setMessage(data.error);
@@ -103,6 +102,9 @@ const Login = ({ navigation }) => {
     } catch (error) {
       console.error("Error during login:", error);
       alert("Login failed. Please try again."); // Provide a generic error message
+    }
+    finally {
+      setLoading(false); // Ensure loading is turned off
     }
   };
   const handleRegisterNow = () => {
