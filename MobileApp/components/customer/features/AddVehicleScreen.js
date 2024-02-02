@@ -38,7 +38,7 @@ const AddVehicleScreen = ({ route }) => {
         quality: 1,
       });
 
-      if (!result.cancelled) {
+      if (!result.canceled) {
         // Create a FormData object
         const formData = new FormData();
 
@@ -84,7 +84,7 @@ const AddVehicleScreen = ({ route }) => {
         quality: 1,
       });
 
-      if (!result.cancelled) {
+      if (!result.canceled) {
         // Create a FormData object
         const formData = new FormData();
 
@@ -181,7 +181,7 @@ const AddVehicleScreen = ({ route }) => {
           },
         }
       );
-      console.log("Server Response:", response.data);
+      // console.log("Server Response:", response.data);
       if (response.data.message) {
         // Update the message state for success
         setMessage(response.data.message);

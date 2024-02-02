@@ -14,6 +14,7 @@ const DashboardScreen = () => {
 };
 
 const CustomerDashboard = ({ route }) => {
+  const { customer_id } = route.params;
   const [customerDetails, setCustomerDetails] = useState(null);
   const [repairCenterProfile, setRepairCenterProfile] = useState(null);
   const [repairCenterSellerProfile, setRepairCenterSellerProfile] =
@@ -22,7 +23,10 @@ const CustomerDashboard = ({ route }) => {
 
   useEffect(() => {
     const fetchCustomerDetails = async () => {
-      const { customer_id } = route.params;
+      if (!customer_id) {
+        console.error("customer_id is undefined");
+        return;
+      }
       try {
         const response = await fetch(
           `http://${REACT_APP_SERVER_IP}:${REACT_APP_SERVER_PORT}/api/customerDetails/${customer_id}`
@@ -59,7 +63,7 @@ const CustomerDashboard = ({ route }) => {
     };
 
     fetchCustomerDetails();
-  }, [route.params.customer_id]);
+  }, [customer_id]);
 
   const handleButtonPress = (buttonType) => {
     switch (buttonType) {
@@ -75,6 +79,9 @@ const CustomerDashboard = ({ route }) => {
         });
         break;
     }
+  };
+  const handleMenuNavigation = (screen) => {
+    navigation.navigate(screen, customer_id);
   };
   return (
     <Tab.Navigator
@@ -98,7 +105,9 @@ const CustomerDashboard = ({ route }) => {
       />
       <Tab.Screen
         name="Menus"
-        component={MenusScreen}
+        children={() => (
+          <MenusScreen handleMenuNavigation={handleMenuNavigation} />
+        )}
         options={{
           tabBarIcon: ({ color, size }) => (
             <Icon name="menu" size={size} color={color} />
@@ -133,50 +142,30 @@ const CustomerDashboard = ({ route }) => {
   );
 };
 
-function MenusScreen({ navigation, route }) {
-  const handleNavigation = (screen, params) => {
-    navigation.navigate(screen, params);
-  };
-
+function MenusScreen({ handleMenuNavigation }) {
   return (
     <View style={styles.menuContainer}>
       <TouchableOpacity
         style={styles.button}
-        onPress={() =>
-          handleNavigation("AddVehicle", {
-            customer_id: route.params.customer_id,
-          })
-        }
+        onPress={() => handleMenuNavigation("AddVehicle")}
       >
         <Text style={styles.buttonText}>Add Vehicle</Text>
       </TouchableOpacity>
       <TouchableOpacity
         style={styles.button}
-        onPress={() =>
-          handleNavigation("ListVehicle", {
-            customer_id: route.params.customer_id,
-          })
-        }
+        onPress={() => handleMenuNavigation("ListVehicle")}
       >
         <Text style={styles.buttonText}>List Vehicle Details</Text>
       </TouchableOpacity>
       <TouchableOpacity
         style={styles.button}
-        onPress={() =>
-          handleNavigation("ViewServiceHistory", {
-            customer_id: route.params.customer_id,
-          })
-        }
+        onPress={() => handleMenuNavigation("ViewServiceHistory")}
       >
         <Text style={styles.buttonText}>View Service History</Text>
       </TouchableOpacity>
       <TouchableOpacity
         style={styles.button}
-        onPress={() =>
-          handleNavigation("LocateRepairCenters", {
-            customer_id: route.params.customer_id,
-          })
-        }
+        onPress={() => handleMenuNavigation("LocateRepairCenters")}
       >
         <Text style={styles.buttonText}>Locate Repair Centers</Text>
       </TouchableOpacity>

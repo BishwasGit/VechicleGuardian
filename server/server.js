@@ -82,6 +82,8 @@ const vehicleImageupload = require('./api/imageUpload/vehicleImageupload');
 app.use('/api',vehicleImageupload);
 const billBookImage = require('./api/imageUpload/billBookImage');
 app.use('/api',billBookImage);
+const repaircenterDocuments = require('./api/repaircenters/repaircenterDocuments');
+app.use('/api',repaircenterDocuments);
 
 const PORT = process.env.PORT || 3000;
 

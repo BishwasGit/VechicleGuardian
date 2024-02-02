@@ -12,6 +12,7 @@ import { REACT_APP_SERVER_IP, REACT_APP_SERVER_PORT } from "@env";
 import { encode as base64Encode } from "base-64";
 import { useNavigation } from "@react-navigation/native";
 import Icon from "react-native-vector-icons/MaterialIcons";
+import * as ImagePicker from "expo-image-picker";
 
 const RepairCenterDashboard = ({ route }) => {
   const { repaircenter_id } = route.params;
@@ -20,6 +21,7 @@ const RepairCenterDashboard = ({ route }) => {
   const [showVacancyForm, setShowVacancyForm] = useState(false);
   const [isVerified, setIsVerified] = useState(false);
   const navigation = useNavigation();
+  const [documentsImage, setDocumentsImage] = useState(null);
 
   const [newDetails, setNewDetails] = useState({
     fullname: "",
@@ -41,7 +43,54 @@ const RepairCenterDashboard = ({ route }) => {
     setShowVacancyForm(false);
     setNewVacancyDetails({ position: "", noOfPerson: "", salary: "" });
   };
+  const handleDocumentsImageUpload = async () => {
+    try {
+      const result = await ImagePicker.launchImageLibraryAsync({
+        mediaTypes: ImagePicker.MediaTypeOptions.Images,
+        allowsEditing: true,
+        aspect: [4, 3],
+        quality: 1,
+      });
 
+      console.log(result);
+
+      if (!result.canceled) {
+        // Create a FormData object
+        const formData = new FormData();
+
+        // Append the image file to the FormData object
+        formData.append("documents", {
+          uri: result.assets[0].uri,
+          type: "image/jpeg",
+          name: "documents.jpg",
+        });
+
+        console.log(formData);
+        // Send the FormData object to the server using fetch or axios
+        const response = await fetch(
+          `http://${REACT_APP_SERVER_IP}:${REACT_APP_SERVER_PORT}/api/repaircenterDocuments`,
+          {
+            method: "POST",
+            body: formData,
+            headers: {
+              "Content-Type": "multipart/form-data",
+            },
+          }
+        );
+
+        // Parse the response
+        const responseData = await response.json();
+
+        // Log the Cloudinary response
+        console.log("Cloudinary response for Documents Image:", responseData);
+
+        // If you want to store the Cloudinary URL in the state
+        setDocumentsImage(responseData.secure_url);
+      }
+    } catch (error) {
+      console.error("Error handling Documents image upload:", error);
+    }
+  };
   useEffect(() => {
     const fetchRepairCenterDetails = async () => {
       try {
@@ -94,6 +143,7 @@ const RepairCenterDashboard = ({ route }) => {
             address: newDetails.address,
             map: mapBase64,
             contact: newDetails.contact,
+            documents: documentsImage,
           }),
         }
       );
@@ -121,7 +171,7 @@ const RepairCenterDashboard = ({ route }) => {
 
     try {
       const response = await fetch(
-        `http://${REACT_APP_SERVER_IP}:${REACT_APP_SERVER_PORT}/api/addVacancyDetails}`,
+        `http://${REACT_APP_SERVER_IP}:${REACT_APP_SERVER_PORT}/api/addVacancyDetails`,
         {
           method: "POST",
           headers: { "Content-Type": "application/json" },
@@ -287,6 +337,27 @@ const RepairCenterDashboard = ({ route }) => {
                 setNewDetails({ ...newDetails, map: text })
               }
             />
+            <TouchableOpacity
+              onPress={handleDocumentsImageUpload}
+              style={{
+                padding: 15,
+                alignItems: "center",
+                marginTop: 20,
+                backgroundColor: "#0d5563",
+              }}
+            >
+              <Text
+                style={{ color: "white", fontSize: 16, fontWeight: "bold" }}
+              >
+                Upload Document Image
+              </Text>
+            </TouchableOpacity>
+            {documentsImage && (
+              <Image
+                source={{ uri: documentsImage }}
+                style={{ width: 100, height: 100 }}
+              />
+            )}
             <Button style={styles.addButton} onPress={handleAddDetails}>
               <Text style={{ color: "white" }}>Add Details </Text>
             </Button>

@@ -26,7 +26,7 @@ router.post('/vehicleImageupload', upload.single('image'), async (req, res) => {
 
     // Create a stream from the buffer
     const stream = cloudinary.uploader.upload_stream(
-      { public_id: `bill_book_image_${uniqueIdentifier}` },
+      { public_id: `vehicle_image_${uniqueIdentifier}` },
       (error, result) => {
         if (error) {
           console.error('Error uploading bill book image to Cloudinary:', error);
