@@ -1,94 +1,100 @@
-import React, { useState, useEffect } from "react";
+import React, {useState, useEffect} from 'react';
 import {
   ScrollView,
   View,
   StyleSheet,
   Text,
   TouchableOpacity,
-} from "react-native";
-import { IconButton } from "react-native-paper";
-import { Card, Title, Button, TextInput } from "react-native-paper";
-import { REACT_APP_SERVER_IP, REACT_APP_SERVER_PORT } from "@env";
-import { encode as base64Encode } from "base-64";
-import { useNavigation } from "@react-navigation/native";
-import Icon from "react-native-vector-icons/MaterialIcons";
+} from 'react-native';
+import {IconButton} from 'react-native-paper';
+import {Card, Title, Button, TextInput} from 'react-native-paper';
+import {REACT_APP_SERVER_IP, REACT_APP_SERVER_PORT} from '@env';
+import {encode as base64Encode} from 'base-64';
+import {useNavigation} from '@react-navigation/native';
+import Icon from 'react-native-vector-icons/MaterialIcons';
 
-const RepairCenterDashboard = ({ route }) => {
-  const { repaircenter_id } = route.params;
-  const [repairCenterDetails, setRepairCenterDetails] = useState(null);
-  const [showForm, setShowForm] = useState(false);
-  const [showVacancyForm, setShowVacancyForm] = useState(false);
-  const [isVerified, setIsVerified] = useState(false);
-  const navigation = useNavigation();
+const RepairCenterDashboard = ({route}) => {
+  const {repaircenter_id} = route.params;
+  const [repairCenterDetails, setRepairCenterDetails] = useState (null);
+  const [showForm, setShowForm] = useState (false);
+  const [showVacancyForm, setShowVacancyForm] = useState (false);
+  const [isVerified, setIsVerified] = useState (false);
+  const navigation = useNavigation ();
 
-  const [newDetails, setNewDetails] = useState({
-    fullname: "",
-    address: "",
-    contact: "",
-    map: "",
+  const [newDetails, setNewDetails] = useState ({
+    fullname: '',
+    address: '',
+    contact: '',
+    map: '',
   });
-  const [vacancyDetails, setNewVacancyDetails] = useState({
-    position: "",
-    noOfPerson: "",
-    salary: "",
+  const [vacancyDetails, setNewVacancyDetails] = useState ({
+    position: '',
+    noOfPerson: '',
+    salary: '',
   });
 
   const handleCloseForm = () => {
-    setShowForm(false);
-    setNewDetails({ fullname: "", address: "", contact: "", map: "" });
+    setShowForm (false);
+    setNewDetails ({fullname: '', address: '', contact: '', map: ''});
   };
   const handleCloseVacancyForm = () => {
-    setShowVacancyForm(false);
-    setNewVacancyDetails({ position: "", noOfPerson: "", salary: "" });
+    setShowVacancyForm (false);
+    setNewVacancyDetails ({position: '', noOfPerson: '', salary: ''});
   };
 
-  useEffect(() => {
-    const fetchRepairCenterDetails = async () => {
-      try {
-        const response = await fetch(
-          `http://${REACT_APP_SERVER_IP}:${REACT_APP_SERVER_PORT}/api/RepairCenterDetails/${repaircenter_id}`
-        );
-        const data = await response.json();
-        setRepairCenterDetails(data.repairCenterDetails);
-      } catch (error) {
-        console.error("Error fetching Repair Center details:", error);
-      }
-    };
+  useEffect (
+    () => {
+      const fetchRepairCenterDetails = async () => {
+        try {
+          const response = await fetch (
+            `http://${REACT_APP_SERVER_IP}:${REACT_APP_SERVER_PORT}/api/RepairCenterDetails/${repaircenter_id}`
+          );
+          const data = await response.json ();
+          setRepairCenterDetails (data.repairCenterDetails);
+        } catch (error) {
+          console.error ('Error fetching Repair Center details:', error);
+        }
+      };
 
-    fetchRepairCenterDetails();
-  }, [route.params.repaircenter_id]);
+      fetchRepairCenterDetails ();
+    },
+    [route.params.repaircenter_id]
+  );
 
-  useEffect(() => {
-    const checkVerificationStatus = async () => {
-      try {
-        const response = await fetch(
-          `http://${REACT_APP_SERVER_IP}:${REACT_APP_SERVER_PORT}/api/checkVerificationStatus/${repaircenter_id}`
-        );
-        const data = await response.json();
-        setIsVerified(Boolean(data.verified));
-      } catch (error) {
-        console.error("Error fetching verification status:", error);
-      }
-    };
+  useEffect (
+    () => {
+      const checkVerificationStatus = async () => {
+        try {
+          const response = await fetch (
+            `http://${REACT_APP_SERVER_IP}:${REACT_APP_SERVER_PORT}/api/checkVerificationStatus/${repaircenter_id}`
+          );
+          const data = await response.json ();
+          setIsVerified (Boolean (data.verified));
+        } catch (error) {
+          console.error ('Error fetching verification status:', error);
+        }
+      };
 
-    checkVerificationStatus();
-  }, [route.params.repaircenter_id]);
+      checkVerificationStatus ();
+    },
+    [route.params.repaircenter_id]
+  );
 
   const handleAddDetails = async () => {
-    const mapBase64 = base64Encode(newDetails.map);
+    const mapBase64 = base64Encode (newDetails.map);
     const contactRegex = /^\d{10}$/;
-    if (!contactRegex.test(newDetails.contact)) {
-      alert("Invalid contact number. Please enter a 10-digit number.");
+    if (!contactRegex.test (newDetails.contact)) {
+      alert ('Invalid contact number. Please enter a 10-digit number.');
       return;
     }
 
     try {
-      const response = await fetch(
+      const response = await fetch (
         `http://${REACT_APP_SERVER_IP}:${REACT_APP_SERVER_PORT}/api/addRepairCenterDetails`,
         {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({
+          method: 'POST',
+          headers: {'Content-Type': 'application/json'},
+          body: JSON.stringify ({
             repaircenter_id,
             fname: newDetails.fullname,
             address: newDetails.address,
@@ -98,34 +104,34 @@ const RepairCenterDashboard = ({ route }) => {
         }
       );
 
-      const data = await response.json();
+      const data = await response.json ();
       if (data.success) {
-        alert(data.message);
+        alert (data.message);
       } else {
-        alert(`Error: ${data.message}`);
+        alert (`Error: ${data.message}`);
       }
       if (!response.ok) {
-        throw new Error("Network response was not ok");
+        throw new Error ('Network response was not ok');
       }
     } catch (error) {
-      console.error("Error adding Repair Center details:", error);
+      console.error ('Error adding Repair Center details:', error);
     }
   };
 
   const handleAddVacancyDetails = async () => {
     const noOfPersonRegex = /^\d+$/;
-    if (!noOfPersonRegex.test(vacancyDetails.noOfPerson)) {
-      alert("Invalid number of persons. Please enter a valid number.");
+    if (!noOfPersonRegex.test (vacancyDetails.noOfPerson)) {
+      alert ('Invalid number of persons. Please enter a valid number.');
       return;
     }
 
     try {
-      const response = await fetch(
+      const response = await fetch (
         `http://${REACT_APP_SERVER_IP}:${REACT_APP_SERVER_PORT}/api/addVacancyDetails}`,
         {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({
+          method: 'POST',
+          headers: {'Content-Type': 'application/json'},
+          body: JSON.stringify ({
             repaircenter_id,
             vacancy: {
               position: vacancyDetails.position,
@@ -136,48 +142,47 @@ const RepairCenterDashboard = ({ route }) => {
         }
       );
 
-      const data = await response.json();
+      const data = await response.json ();
       if (data.success) {
-        alert(data.message);
+        alert (data.message);
       } else {
-        alert(`Error: ${data.message}`);
+        alert (`Error: ${data.message}`);
       }
       if (!response.ok) {
-        throw new Error("Network response was not ok");
+        throw new Error ('Network response was not ok');
       }
     } catch (error) {
-      console.error("Error adding Vacancy details:", error);
+      console.error ('Error adding Vacancy details:', error);
     }
   };
 
   const handleStartRepairing = () => {
     if (isVerified) {
-      navigation.navigate("AddWorkersScreen", { repaircenter_id });
+      navigation.navigate ('AddWorkersScreen', {repaircenter_id});
     } else {
-      alert("Repair Center Verification Pending");
+      alert ('Repair Center Verification Pending');
     }
   };
 
   const handleRepairHistory = () => {
-    navigation.navigate("RepairHistoryScreen", { repaircenter_id });
+    navigation.navigate ('RepairHistoryScreen', {repaircenter_id});
   };
 
   return (
     <ScrollView style={styles.container}>
       <View style={styles.heading}>
-        {repairCenterDetails && (
+        {repairCenterDetails &&
           <Title style={styles.welcomeText}>
-            Hi {repairCenterDetails[0].username}!{"\n"}
-            <Title style={{ fontWeight: "normal", fontSize: 17 }}>
+            Hi {repairCenterDetails[0].username}!{'\n'}
+            <Title style={{fontWeight: 'normal', fontSize: 17}}>
               Good Morning
             </Title>
-          </Title>
-        )}
+          </Title>}
       </View>
       <View style={styles.gridContainer}>
         <TouchableOpacity
           style={styles.gridItemActive}
-          onPress={() => setShowForm(true)}
+          onPress={() => setShowForm (true)}
         >
           <Icon
             name="directions-car"
@@ -185,14 +190,14 @@ const RepairCenterDashboard = ({ route }) => {
             color="white"
             style={styles.icon}
           />
-          <Text style={{ color: "white", padding: 10 }}>
+          <Text style={{color: 'white', padding: 10}}>
             Add Repair Center Details
           </Text>
         </TouchableOpacity>
 
         <TouchableOpacity
           style={styles.gridItemActive}
-          onPress={() => setShowVacancyForm(true)}
+          onPress={() => setShowVacancyForm (true)}
         >
           <Icon
             name="directions-car"
@@ -200,7 +205,7 @@ const RepairCenterDashboard = ({ route }) => {
             color="white"
             style={styles.icon}
           />
-          <Text style={{ color: "white", padding: 10 }}>Add Vacancy</Text>
+          <Text style={{color: 'white', padding: 10}}>Add Vacancy</Text>
         </TouchableOpacity>
 
         <TouchableOpacity
@@ -208,17 +213,16 @@ const RepairCenterDashboard = ({ route }) => {
           onPress={handleRepairHistory}
         >
           <Icon name="history" size={30} color="white" style={styles.icon} />
-          <Text style={{ color: "white", padding: 10 }}>Repair History</Text>
+          <Text style={{color: 'white', padding: 10}}>Repair History</Text>
         </TouchableOpacity>
 
         <TouchableOpacity
           style={styles.gridItemActive}
           onPress={() =>
-            navigation.navigate("PartsManagement", { repaircenter_id })
-          }
+            navigation.navigate ('PartsManagement', {repaircenter_id})}
         >
           <Icon name="build" size={30} color="white" style={styles.icon} />
-          <Text style={{ color: "white", padding: 10 }}>Parts Management</Text>
+          <Text style={{color: 'white', padding: 10}}>Parts Management</Text>
         </TouchableOpacity>
 
         <TouchableOpacity
@@ -226,14 +230,14 @@ const RepairCenterDashboard = ({ route }) => {
           onPress={handleStartRepairing}
         >
           <Icon name="people" size={30} color="white" style={styles.icon} />
-          <Text style={{ color: "white", padding: 10 }}>Add Workers</Text>
+          <Text style={{color: 'white', padding: 10}}>Add Workers</Text>
         </TouchableOpacity>
       </View>
-      {showForm && (
+      {showForm &&
         <Card style={styles.card}>
           <Title
             style={{
-              fontWeight: "normal",
+              fontWeight: 'normal',
               fontSize: 17,
               paddingTop: 130,
               paddingLeft: 20,
@@ -255,27 +259,24 @@ const RepairCenterDashboard = ({ route }) => {
               label="Full name"
               underlineColor="transparent"
               value={newDetails.fullname}
-              onChangeText={(text) =>
-                setNewDetails({ ...newDetails, fullname: text })
-              }
+              onChangeText={text =>
+                setNewDetails ({...newDetails, fullname: text})}
             />
             <TextInput
               style={styles.field}
               label="Address"
               underlineColor="transparent"
               value={newDetails.address}
-              onChangeText={(text) =>
-                setNewDetails({ ...newDetails, address: text })
-              }
+              onChangeText={text =>
+                setNewDetails ({...newDetails, address: text})}
             />
             <TextInput
               style={styles.field}
               label="Contact"
               underlineColor="transparent"
               value={newDetails.contact}
-              onChangeText={(text) =>
-                setNewDetails({ ...newDetails, contact: text })
-              }
+              onChangeText={text =>
+                setNewDetails ({...newDetails, contact: text})}
             />
             <TextInput
               style={styles.field}
@@ -283,21 +284,18 @@ const RepairCenterDashboard = ({ route }) => {
               underlineColor="transparent"
               value={newDetails.map}
               placeholder="27.68899461302774, 85.28788243117607"
-              onChangeText={(text) =>
-                setNewDetails({ ...newDetails, map: text })
-              }
+              onChangeText={text => setNewDetails ({...newDetails, map: text})}
             />
             <Button style={styles.addButton} onPress={handleAddDetails}>
-              <Text style={{ color: "white" }}>Add Details </Text>
+              <Text style={{color: 'white'}}>Add Details </Text>
             </Button>
           </Card.Content>
-        </Card>
-      )}
-      {showVacancyForm && (
+        </Card>}
+      {showVacancyForm &&
         <Card style={styles.card}>
           <Title
             style={{
-              fontWeight: "normal",
+              fontWeight: 'normal',
               fontSize: 17,
               paddingTop: 130,
               paddingLeft: 20,
@@ -319,18 +317,16 @@ const RepairCenterDashboard = ({ route }) => {
             label="Position"
             underlineColor="transparent"
             value={vacancyDetails.position}
-            onChangeText={(text) =>
-              setNewVacancyDetails({ ...vacancyDetails, position: text })
-            }
+            onChangeText={text =>
+              setNewVacancyDetails ({...vacancyDetails, position: text})}
           />
           <TextInput
             style={styles.field}
             label="Number of person"
             underlineColor="transparent"
             value={vacancyDetails.noOfPerson}
-            onChangeText={(text) =>
-              setNewVacancyDetails({ ...vacancyDetails, noOfPerson: text })
-            }
+            onChangeText={text =>
+              setNewVacancyDetails ({...vacancyDetails, noOfPerson: text})}
           />
           <TextInput
             style={styles.field}
@@ -338,54 +334,52 @@ const RepairCenterDashboard = ({ route }) => {
             underlineColor="transparent"
             value={vacancyDetails.salary}
             placeholder="10k-20k"
-            onChangeText={(text) =>
-              setNewVacancyDetails({ ...vacancyDetails, salary: text })
-            }
+            onChangeText={text =>
+              setNewVacancyDetails ({...vacancyDetails, salary: text})}
           />
           <Button
             style={styles.addButton}
             mode="contained"
             onPress={handleAddVacancyDetails}
           >
-            <Text style={{ color: "white" }}>Add Vacancy</Text>
+            <Text style={{color: 'white'}}>Add Vacancy</Text>
           </Button>
-        </Card>
-      )}
+        </Card>}
     </ScrollView>
   );
 };
 
-const styles = StyleSheet.create({
+const styles = StyleSheet.create ({
   container: {
     flex: 1,
-    flexDirection: "column",
-    backgroundColor: "#f5f1e9",
+    flexDirection: 'column',
+    backgroundColor: '#f5f1e9',
   },
   heading: {
     paddingTop: 30,
     paddingLeft: 45,
-    alignItems: "left",
+    alignItems: 'left',
   },
   welcomeText: {
-    fontWeight: "bold",
-    color: "#c1121f",
+    fontWeight: 'bold',
+    color: '#c1121f',
     marginVertical: 20,
     fontSize: 25,
     paddingBottom: -60,
   },
   gridItemActive: {
-    width: "100%",
+    width: '100%',
     marginBottom: 20,
     paddingTop: 20,
     paddingBottom: 20,
     paddingLeft: 10,
     paddingRight: 50,
-    alignItems: "center",
-    backgroundColor: "#0d5563",
+    alignItems: 'center',
+    backgroundColor: '#0d5563',
     borderRadius: 20,
     borderTopLeftRadius: 20,
     borderTopRightRadius: 20,
-    flexDirection: "row", // Align icon and text horizontally
+    flexDirection: 'row', // Align icon and text horizontally
   },
   icon: {
     marginLeft: 30, // Space between icon and text
@@ -394,18 +388,18 @@ const styles = StyleSheet.create({
   gridContainer: {
     padding: 30,
     paddingTop: 20,
-    flexDirection: "column",
-    alignItems: "stretch",
-    justifyContent: "flex-start",
+    flexDirection: 'column',
+    alignItems: 'stretch',
+    justifyContent: 'flex-start',
   },
   card: {
-    height: "100%",
-    justifyContent: "center",
-    width: "100%",
+    height: '100%',
+    justifyContent: 'center',
+    width: '100%',
     padding: 30,
-    position: "absolute",
+    position: 'absolute',
     top: 1,
-    backgroundColor: "#f5f1e9",
+    backgroundColor: '#f5f1e9',
   },
   field: {
     marginBottom: 15,
@@ -413,20 +407,20 @@ const styles = StyleSheet.create({
     borderRadius: 20,
     borderTopLeftRadius: 20,
     borderTopRightRadius: 20,
-    borderColor: "#1e6091",
+    borderColor: '#1e6091',
     marginVertical: 10,
-    textDecoration: "none",
-    backgroundColor: "#edf2f4",
+    textDecoration: 'none',
+    backgroundColor: '#edf2f4',
   },
   addButton: {
     padding: 5,
-    color: "white",
-    alignItems: "center",
-    marginTop: "13%",
-    backgroundColor: "#c1121f",
+    color: 'white',
+    alignItems: 'center',
+    marginTop: '13%',
+    backgroundColor: '#c1121f',
   },
   closeIcon: {
-    position: "absolute",
+    position: 'absolute',
     top: -30,
     right: -20,
     zIndex: 1,

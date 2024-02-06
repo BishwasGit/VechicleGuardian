@@ -1,5 +1,5 @@
 import React from "react";
-import { View, Text, StyleSheet, Image, ScrollView } from "react-native";
+import { Title,View, Text, StyleSheet, Image, ScrollView } from "react-native";
 import { Card } from "react-native-paper";
 import MyCarousel from "./MyCarousel";
 import MyStatistics from "./MyStatistics";
@@ -9,14 +9,14 @@ const DashboardContent = () => {
     <ScrollView style={styles.scrollView}>
       <View style={styles.container}>
         {/* Pie Chart Section */}
-        <Card style={styles.card}>
-          <Card.Content>
+        <View style={styles.statisticsContainer}>
             <MyStatistics />
-          </Card.Content>
-        </Card>
+            </View>
 
         {/* Carousel Section */}
         <View style={styles.carouselContainer}>
+      
+        <Text style={{ fontSize: 14, marginBottom: 15,marginLeft: 15, }}>Nearby Repair Centers</Text>
           <MyCarousel />
         </View>
 
@@ -43,12 +43,24 @@ const DashboardContent = () => {
 const styles = StyleSheet.create({
   scrollView: {
     flex: 1,
+    paddingTop:40,
+  
   },
   container: {
     padding: 10,
+   
+   
+   
+  },
+  overlay: {
+    marginTop: 50,
+    alignItems: "center",
+  },
+  statisticsContainer:{
+    marginBottom: 30,
+    padding : 15,
   },
   carouselContainer: {
-    height: 200,
     marginBottom: 20,
   },
   carouselItem: {

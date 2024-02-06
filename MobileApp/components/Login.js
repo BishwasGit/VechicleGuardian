@@ -159,7 +159,7 @@ const Login = ({ navigation }) => {
             <Text
               style={{
                 fontWeight: "bold",
-                color: "#cca01d",
+                color: "#808000",
                 textAlign : "center",
               }}
             >
@@ -190,7 +190,7 @@ const Login = ({ navigation }) => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor:'#354230',
+    backgroundColor:'#253529',
   },
   containerTwo: {
     flex: 1,
@@ -211,7 +211,7 @@ const styles = StyleSheet.create({
     padding: 5,
     color: "white",
     marginTop: 30,
-    backgroundColor: "#e1ad21",
+    backgroundColor: "#808000",
     borderTopRightRadius:25,
     borderTopLeftRadius:25,
     borderBottomRightRadius:25,

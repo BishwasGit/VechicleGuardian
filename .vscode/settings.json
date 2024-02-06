@@ -1,3 +1,8 @@
 {
-    "git.ignoreLimitWarning": true
+    "git.ignoreLimitWarning": true,
+    "reactSnippets.settings.prettierEnabled": true,
+    "prettier.requireConfig": true,
+    "prettier.withNodeModules": true,
+    "prettier.vueIndentScriptAndStyle": true,
+    "editor.defaultFoldingRangeProvider": "esbenp.prettier-vscode"
 }

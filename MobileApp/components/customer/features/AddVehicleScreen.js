@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, {useState, useEffect} from 'react';
 import {
   View,
   Text,
@@ -6,32 +6,44 @@ import {
   StyleSheet,
   TouchableOpacity,
   Image,
-} from "react-native";
-import { TextInput, Checkbox } from "react-native-paper";
-import { Picker } from "@react-native-picker/picker";
-import axios from "axios";
-import { REACT_APP_SERVER_IP, REACT_APP_SERVER_PORT } from "@env";
-import * as ImagePicker from "expo-image-picker";
+} from 'react-native';
+import {TextInput, Checkbox} from 'react-native-paper';
+import {Picker} from '@react-native-picker/picker';
+import axios from 'axios';
+import {useNavigation} from '@react-navigation/native';
+import {IconButton} from 'react-native-paper';
+import {REACT_APP_SERVER_IP, REACT_APP_SERVER_PORT} from '@env';
+import * as ImagePicker from 'expo-image-picker';
 
-const AddVehicleScreen = ({ route }) => {
-  const { customer_id } = route.params;
-  const [vehicleType, setVehicleType] = useState("Two Wheeler");
-  const [vehicleNumber, setVehicleNumber] = useState("");
-  const [vehicleLot, setVehicleLot] = useState("");
-  const [vehicleCompany, setVehicleCompany] = useState("");
-  const [vehicleModel, setVehicleModel] = useState("");
-  const [createdDate, setCreatedDate] = useState("");
-  const [expiryDate, setExpiryDate] = useState("");
-  const [ownerName, setOwnerName] = useState("");
-  const [contactNumber, setContactNumber] = useState("");
-  const [message, setMessage] = useState(null);
-  const [vehicleImage, setVehicleImage] = useState(null);
-  const [billBookImage, setBillBookImage] = useState(null);
-  const [isVehicleUsedForIncome, setIsVehicleUsedForIncome] = useState(false);
+const AddVehicleScreen = ({route}) => {
+  const {customer_id} = route.params;
+  const [vehicleType, setVehicleType] = useState ('Two Wheeler');
+  const [vehicleNumber, setVehicleNumber] = useState ('');
+  const [vehicleLot, setVehicleLot] = useState ('');
+  const [vehicleCompany, setVehicleCompany] = useState ('');
+  const [vehicleModel, setVehicleModel] = useState ('');
+  const [createdDate, setCreatedDate] = useState ('');
+  const [expiryDate, setExpiryDate] = useState ('');
+  const [ownerName, setOwnerName] = useState ('');
+  const [contactNumber, setContactNumber] = useState ('');
+  const [message, setMessage] = useState (null);
+  const [vehicleImage, setVehicleImage] = useState (null);
+  const [billBookImage, setBillBookImage] = useState (null);
+  const [isVehicleUsedForIncome, setIsVehicleUsedForIncome] = useState (false);
+  const navigation = useNavigation ();
+  const route = useRoute ();
 
+  const handleCloseForm = () => {
+    if (route.name === 'AddVehicleScreen') {
+      // Add your specific conditions or use navigate to go to a different screen
+      navigation.navigate ('AddVehicleScreen');
+    } else {
+      navigation.goBack ();
+    }
+  };
   const handleVehicleImageUpload = async () => {
     try {
-      const result = await ImagePicker.launchImageLibraryAsync({
+      const result = await ImagePicker.launchImageLibraryAsync ({
         mediaTypes: ImagePicker.MediaTypeOptions.Images,
         allowsEditing: true,
         aspect: [4, 3],
@@ -40,44 +52,44 @@ const AddVehicleScreen = ({ route }) => {
 
       if (!result.cancelled) {
         // Create a FormData object
-        const formData = new FormData();
+        const formData = new FormData ();
 
         // Append the image file to the FormData object
-        formData.append("image", {
+        formData.append ('image', {
           uri: result.uri,
-          type: "image/jpeg", // Adjust the type based on the image type
-          name: "vehicle_image.jpg", // Adjust the name as needed
+          type: 'image/jpeg', // Adjust the type based on the image type
+          name: 'vehicle_image.jpg', // Adjust the name as needed
         });
 
         // Send the FormData object to the server using fetch or axios
-        const response = await fetch(
+        const response = await fetch (
           `http://${REACT_APP_SERVER_IP}:${REACT_APP_SERVER_PORT}/api/vehicleImageupload`,
           {
-            method: "POST",
+            method: 'POST',
             body: formData,
             headers: {
-              "Content-Type": "multipart/form-data",
+              'Content-Type': 'multipart/form-data',
             },
           }
         );
 
         // Parse the response
-        const responseData = await response.json();
+        const responseData = await response.json ();
 
         // Log the Cloudinary response
-        console.log("Cloudinary response:", responseData);
+        console.log ('Cloudinary response:', responseData);
 
         // If you want to store the Cloudinary URL in the state
-        setVehicleImage(responseData.secure_url);
+        setVehicleImage (responseData.secure_url);
       }
     } catch (error) {
-      console.error("Error handling vehicle image upload:", error);
+      console.error ('Error handling vehicle image upload:', error);
     }
   };
 
   const handleBillBookImageUpload = async () => {
     try {
-      const result = await ImagePicker.launchImageLibraryAsync({
+      const result = await ImagePicker.launchImageLibraryAsync ({
         mediaTypes: ImagePicker.MediaTypeOptions.Images,
         allowsEditing: true,
         aspect: [4, 3],
@@ -86,38 +98,38 @@ const AddVehicleScreen = ({ route }) => {
 
       if (!result.cancelled) {
         // Create a FormData object
-        const formData = new FormData();
+        const formData = new FormData ();
 
         // Append the image file to the FormData object
-        formData.append("image", {
+        formData.append ('image', {
           uri: result.uri,
-          type: "image/jpeg", // Adjust the type based on the image type
-          name: "bill_book_image.jpg", // Adjust the name as needed
+          type: 'image/jpeg', // Adjust the type based on the image type
+          name: 'bill_book_image.jpg', // Adjust the name as needed
         });
 
         // Send the FormData object to the server using fetch or axios
-        const response = await fetch(
+        const response = await fetch (
           `http://${REACT_APP_SERVER_IP}:${REACT_APP_SERVER_PORT}/api/billBookImage`,
           {
-            method: "POST",
+            method: 'POST',
             body: formData,
             headers: {
-              "Content-Type": "multipart/form-data",
+              'Content-Type': 'multipart/form-data',
             },
           }
         );
 
         // Parse the response
-        const responseData = await response.json();
+        const responseData = await response.json ();
 
         // Log the Cloudinary response
-        console.log("Cloudinary response for Bill Book Image:", responseData);
+        console.log ('Cloudinary response for Bill Book Image:', responseData);
 
         // If you want to store the Cloudinary URL in the state
-        setBillBookImage(responseData.secure_url);
+        setBillBookImage (responseData.secure_url);
       }
     } catch (error) {
-      console.error("Error handling bill book image upload:", error);
+      console.error ('Error handling bill book image upload:', error);
     }
   };
 
@@ -133,20 +145,20 @@ const AddVehicleScreen = ({ route }) => {
       !ownerName ||
       !contactNumber
     ) {
-      alert("Error", "Please fill in all the details.");
+      alert ('Error', 'Please fill in all the details.');
       return;
     }
 
     const dateRegex = /^\d{4}-\d{2}-\d{2}$/;
-    if (!dateRegex.test(createdDate) || !dateRegex.test(expiryDate)) {
-      setMessage("Error: Date format should be yyyy-mm-dd");
+    if (!dateRegex.test (createdDate) || !dateRegex.test (expiryDate)) {
+      setMessage ('Error: Date format should be yyyy-mm-dd');
       return;
     }
 
     // Validate contactNumber
     const contactRegex = /^\d{10}$/;
-    if (!contactRegex.test(contactNumber)) {
-      setMessage("Error: Contact number should be 10 digits");
+    if (!contactRegex.test (contactNumber)) {
+      setMessage ('Error: Contact number should be 10 digits');
       return;
     }
 
@@ -162,7 +174,7 @@ const AddVehicleScreen = ({ route }) => {
         vehicleImage,
         billBookImage,
       };
-      const response = await axios.post(
+      const response = await axios.post (
         `http://${REACT_APP_SERVER_IP}:${REACT_APP_SERVER_PORT}/api/storeVehicleDetails`,
         {
           customer_id,
@@ -177,32 +189,32 @@ const AddVehicleScreen = ({ route }) => {
         },
         {
           headers: {
-            "Content-Type": "application/json",
+            'Content-Type': 'application/json',
           },
         }
       );
-      console.log("Server Response:", response.data);
+      console.log ('Server Response:', response.data);
       if (response.data.message) {
         // Update the message state for success
-        setMessage(response.data.message);
-        setVehicleType("Two Wheeler");
-        setVehicleNumber("");
-        setVehicleLot("");
-        setVehicleCompany("");
-        setVehicleModel("");
-        setCreatedDate("");
-        setExpiryDate("");
-        setOwnerName("");
-        setContactNumber("");
+        setMessage (response.data.message);
+        setVehicleType ('Two Wheeler');
+        setVehicleNumber ('');
+        setVehicleLot ('');
+        setVehicleCompany ('');
+        setVehicleModel ('');
+        setCreatedDate ('');
+        setExpiryDate ('');
+        setOwnerName ('');
+        setContactNumber ('');
       } else {
         // Update the message state for error
-        setMessage(response.data.error || "Failed to store vehicle details.");
+        setMessage (response.data.error || 'Failed to store vehicle details.');
       }
     } catch (error) {
-      console.error("Error adding vehicle:", error);
+      console.error ('Error adding vehicle:', error);
       // Update the message state for error
-      setMessage(
-        "Something went wrong. Please try again. Maybe Vehicle Number already exists"
+      setMessage (
+        'Something went wrong. Please try again. Maybe Vehicle Number already exists'
       );
     }
   };
@@ -211,25 +223,31 @@ const AddVehicleScreen = ({ route }) => {
     <ScrollView style={styles.card}>
       <Text style={styles.heading}>Add your vehicle details</Text>
       {/* Display message */}
-      {message && (
+      {message &&
         <Text
           style={
-            message.startsWith("Success")
+            message.startsWith ('Success')
               ? styles.successMessage
               : styles.errorMessage
           }
         >
           {message}
-        </Text>
-      )}
+        </Text>}
       {/* Form for collecting vehicle details */}
       <View style={styles.container}>
+        <IconButton
+          icon="close"
+          size={20}
+          color="black"
+          style={styles.closeIcon}
+          onPress={handleCloseForm}
+        />
         {/* Dropdown for selecting vehicle type */}
         <Picker
           selectedValue={vehicleType}
           label="vehicleType"
           style={styles.pickerContain}
-          onValueChange={(itemValue) => setVehicleType(itemValue)}
+          onValueChange={itemValue => setVehicleType (itemValue)}
         >
           <Picker.Item
             style={styles.contain}
@@ -246,38 +264,34 @@ const AddVehicleScreen = ({ route }) => {
 
         <TextInput
           style={styles.textinput}
-          mode="outlined"
-          underlineColor="transparent"
-          label="Vehicle Number"
+          placeholder="Vehicle Number"
           value={vehicleNumber}
-          onChangeText={(text) => setVehicleNumber(text)}
+          onChangeText={text => setVehicleNumber (text)}
+          left={<TextInput.Icon icon="tag" />}
         />
 
         <TextInput
           style={styles.textinput}
-          mode="outlined"
-          underlineColor="transparent"
-          label="Vehicle Lot"
+          placeholder="Vehicle Lot"
           value={vehicleLot}
-          onChangeText={(text) => setVehicleLot(text)}
+          onChangeText={text => setVehicleLot (text)}
+          left={<TextInput.Icon icon="bookmark" />}
         />
 
         <TextInput
           style={styles.textinput}
-          mode="outlined"
-          underlineColor="transparent"
-          label="vehicle Company"
+          placeholder="vehicle Company"
           value={vehicleCompany}
-          onChangeText={(text) => setVehicleCompany(text)}
+          onChangeText={text => setVehicleCompany (text)}
+          left={<TextInput.Icon icon="home" />}
         />
 
         <TextInput
           style={styles.textinput}
-          mode="outlined"
-          underlineColor="transparent"
-          label="Vehicle Model"
+          placeholder="Vehicle Model"
           value={vehicleModel}
-          onChangeText={(text) => setVehicleModel(text)}
+          onChangeText={text => setVehicleModel (text)}
+          left={<TextInput.Icon icon="car" />}
         />
         {/* Bill Book details */}
 
@@ -285,49 +299,45 @@ const AddVehicleScreen = ({ route }) => {
 
         <TextInput
           style={styles.textinput}
-          mode="outlined"
-          underlineColor="transparent"
-          label="Created Date : yyyy-mm-dd"
+          placeholder="Created Date : yyyy-mm-dd"
           value={createdDate}
-          onChangeText={(text) => setCreatedDate(text)}
+          onChangeText={text => setCreatedDate (text)}
+          left={<TextInput.Icon icon="calendar" />}
         />
 
         <TextInput
           style={styles.textinput}
-          mode="outlined"
-          underlineColor="transparent"
-          label="Expiry Date : yyyy-mm-dd"
+          placeholder="Expiry Date : yyyy-mm-dd"
           value={expiryDate}
-          onChangeText={(text) => setExpiryDate(text)}
+          onChangeText={text => setExpiryDate (text)}
+          left={<TextInput.Icon icon="calendar" />}
         />
 
         <TextInput
           style={styles.textinput}
-          mode="outlined"
-          underlineColor="transparent"
-          label="Owner Name"
+          placeholder="Owner Name"
           value={ownerName}
-          onChangeText={(text) => setOwnerName(text)}
+          onChangeText={text => setOwnerName (text)}
+          left={<TextInput.Icon icon="account" />}
         />
 
         <TextInput
           style={styles.textinput}
-          mode="outlined"
-          underlineColor="transparent"
-          label="Contact Number"
+          placeholder="Contact Number"
           value={contactNumber}
-          onChangeText={(text) => setContactNumber(text)}
+          onChangeText={text => setContactNumber (text)}
+          left={<TextInput.Icon icon="phone" />}
         />
         <TouchableOpacity
           onPress={handleVehicleImageUpload}
           style={{
             padding: 15,
-            alignItems: "center",
+            alignItems: 'center',
             marginTop: 20,
-            backgroundColor: "#0d5563",
+            backgroundColor: '#0d5563',
           }}
         >
-          <Text style={{ color: "white", fontSize: 16, fontWeight: "bold" }}>
+          <Text style={{color: 'white', fontSize: 16, fontWeight: 'bold'}}>
             Upload Vehicle Image
           </Text>
         </TouchableOpacity>
@@ -336,12 +346,12 @@ const AddVehicleScreen = ({ route }) => {
           onPress={handleBillBookImageUpload}
           style={{
             padding: 15,
-            alignItems: "center",
+            alignItems: 'center',
             marginTop: 20,
-            backgroundColor: "#0d5563",
+            backgroundColor: '#0d5563',
           }}
         >
-          <Text style={{ color: "white", fontSize: 16, fontWeight: "bold" }}>
+          <Text style={{color: 'white', fontSize: 16, fontWeight: 'bold'}}>
             Upload Bill Book Image
           </Text>
         </TouchableOpacity>
@@ -349,48 +359,47 @@ const AddVehicleScreen = ({ route }) => {
           onPress={handleAddVehicle}
           style={{
             padding: 15,
-            alignItems: "center",
+            alignItems: 'center',
             marginTop: 20,
-            backgroundColor: "#0d5563",
+            backgroundColor: '#0d5563',
           }}
         >
-          <Text style={{ color: "white", fontSize: 16, fontWeight: "bold" }}>
+          <Text style={{color: 'white', fontSize: 16, fontWeight: 'bold'}}>
             Add Vehicle Details
           </Text>
         </TouchableOpacity>
         <Checkbox.Item
-          label="Is vehicle used for income?"
-          status={isVehicleUsedForIncome ? "checked" : "unchecked"}
-          onPress={() => setIsVehicleUsedForIncome(!isVehicleUsedForIncome)}
+          placeholder="Is vehicle used for income?"
+          status={isVehicleUsedForIncome ? 'checked' : 'unchecked'}
+          onPress={() => setIsVehicleUsedForIncome (!isVehicleUsedForIncome)}
           color="#0d5563" // Set the checkbox color
-          labelStyle={{ color: "#0d5563" }} // Set the label color
+          placeholderStyle={{color: '#0d5563'}} // Set the placeholder color
         />
       </View>
 
       {/* Upload buttons */}
 
       {/* Display uploaded images */}
-      {vehicleImage && (
+      {vehicleImage &&
         <Image
-          source={{ uri: vehicleImage }}
-          style={{ width: 100, height: 100 }}
-        />
-      )}
+          source={{uri: vehicleImage}}
+          style={{width: 100, height: 100}}
+        />}
 
-      {billBookImage && (
+      {billBookImage &&
         <Image
-          source={{ uri: billBookImage }}
-          style={{ width: 100, height: 100 }}
-        />
-      )}
+          source={{uri: billBookImage}}
+          style={{width: 100, height: 100}}
+        />}
     </ScrollView>
   );
 };
 
-const styles = StyleSheet.create({
+const styles = StyleSheet.create ({
   card: {
     flex: 1,
-    backgroundColor: "#f5f1e9",
+    paddingTop: 30,
+    backgroundColor: 'white',
   },
   container: {
     padding: 35,
@@ -401,42 +410,51 @@ const styles = StyleSheet.create({
     padding: 10,
     paddingLeft: 20,
     paddingRight: 60,
-    color: "white",
-    backgroundColor: "#0d5563",
+    color: 'white',
+    backgroundColor: '#808000',
   },
   contain: {
     padding: 40,
-    color: "black",
+    color: 'white',
+  },
+  closeIcon: {
+    position: 'absolute',
+    top: -50,
+    right: -1,
+    zIndex: 1,
   },
   heading: {
-    marginTop: "10%",
-    paddingLeft: "10%",
-    alignItems: "left",
-    color: "#c1121f",
-    fontWeight: "bold",
+    marginTop: '10%',
+    paddingLeft: '10%',
+    alignItems: 'left',
+    color: '#c1121f',
+    fontWeight: 'bold',
     fontSize: 22,
   },
   headingTo: {
-    marginTop: "10%",
-    alignItems: "left",
-    color: "#c1121f",
-    fontWeight: "bold",
+    marginTop: '10%',
+    alignItems: 'left',
+    color: '#c1121f',
+    fontWeight: 'bold',
     fontSize: 20,
   },
 
   textinput: {
-    height: 50,
-    backgroundColor: "#edf2f4",
-    width: "100%",
-    marginBottom: 10,
+    height: 45,
+    backgroundColor: 'transparent',
+    borderTopRightRadius: 10,
+    borderTopLeftRadius: 10,
+    width: '100%',
+    paddingLeft: 30,
+    marginTop: 10,
   },
 
   successMessage: {
-    color: "green",
+    color: 'green',
     marginVertical: 10,
   },
   errorMessage: {
-    color: "red",
+    color: 'red',
     marginVertical: 10,
   },
 });
