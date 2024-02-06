@@ -11,7 +11,9 @@ import { Avatar, Card, Title, Paragraph, Button } from "react-native-paper";
 import Icon from "react-native-vector-icons/MaterialIcons";
 const { width, height } = Dimensions.get("window");
 
-const image = {uri: 'https://i.pinimg.com/originals/fb/26/bf/fb26bf0dadfd3741e5e6ea9a8a2f8a4b.jpg'};
+const image = {
+  uri: "https://i.pinimg.com/originals/fb/26/bf/fb26bf0dadfd3741e5e6ea9a8a2f8a4b.jpg",
+};
 
 const LoginSelectionScreen = ({ navigation }) => {
   const handleNavigateToWorkerLogin = () => {
@@ -20,15 +22,15 @@ const LoginSelectionScreen = ({ navigation }) => {
   return (
     <View style={styles.container}>
       <ImageBackground source={image} resizeMode="cover" style={styles.image}>
-      
         <View style={styles.purpleOverlay}>
           {/* Purple transparent background */}
         </View>
         <View style={styles.overlay}>
-          <Title style={styles.subTitle}>Vehicle<Text style={{ color: "#ffd300", }}>G</Text></Title>
+          <Title style={styles.subTitle}>
+            Vehicle<Text style={{ color: "#ffd300" }}>G</Text>
+          </Title>
         </View>
         <View style={styles.card}>
-        
           <Button
             style={styles.button}
             mode="contained"
@@ -65,7 +67,7 @@ const styles = StyleSheet.create({
   },
   image: {
     flex: 1,
-    justifyContent: 'center',
+    justifyContent: "center",
   },
   overlay: {
     marginTop: height * 0.3,
@@ -73,7 +75,7 @@ const styles = StyleSheet.create({
   },
   purpleOverlay: {
     ...StyleSheet.absoluteFillObject,
-    backgroundColor: 'rgba(34, 51, 59,0.7)', // Purple transparent background
+    backgroundColor: "rgba(34, 51, 59,0.7)", // Purple transparent background
   },
   icon: {
     backgroundColor: "transparent",
@@ -106,7 +108,7 @@ const styles = StyleSheet.create({
   button: {
     marginVertical: 10,
     backgroundColor: "#e1ad21",
-    shadowColor: '#000',
+    shadowColor: "#000",
     shadowOffset: { width: 10, height: 12 },
     shadowOpacity: 0.8,
     shadowRadius: 2,
@@ -137,7 +139,6 @@ const styles = StyleSheet.create({
     color: "#e1ad21",
     fontSize: 15,
     fontWeight: "bold",
-    
 
     marginTop: 1, // Adjust this value to decrease the space above sudTitle
   },

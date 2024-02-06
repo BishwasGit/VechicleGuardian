@@ -6,4 +6,3 @@
 <link rel="stylesheet" href="{{ asset('assets/css/fullcalendar.min.css') }}">
 <link rel="stylesheet" href="{{ asset('assets/css/select2.min.css') }}">
 <link rel="stylesheet" href="{{ asset('assets/css/nepali.datepicker.v4.0.1.min.css') }}">
-<link rel="stylesheet" href="{{ asset('assets/css/style2888.css?v1.0.0')}}">
