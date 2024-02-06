@@ -42,19 +42,19 @@
                             <div class="list-group-wrap">
                                 <div class="p-3">
                                     <div class="media-group">
-                                        <div class="media rounded-0"><img src="images/icon/file-type-pdf.svg" alt=""></div>
+                                        <div class="media rounded-0"><img src="#" alt=""></div>
                                         <div class="media-text ms-1"><a href="#" class="title">Modern Designs Pattern</a><span class="text smaller">1.6.mb</span></div>
                                     </div>
                                 </div>
                                 <div class="p-3">
                                     <div class="media-group">
-                                        <div class="media rounded-0"><img src="images/icon/file-type-doc.svg" alt=""></div>
+                                        <div class="media rounded-0"><img src="#" alt=""></div>
                                         <div class="media-text ms-1"><a href="#" class="title">Cpanel Upload Guidelines</a><span class="text smaller">18kb</span></div>
                                     </div>
                                 </div>
                                 <div class="p-3">
                                     <div class="media-group">
-                                        <div class="media rounded-0"><img src="images/icon/file-type-code.svg" alt=""></div>
+                                        <div class="media rounded-0"><img src="#" alt=""></div>
                                         <div class="media-text ms-1"><a href="#" class="title">Weekly Finance Reports</a><span class="text smaller">10mb</span></div>
                                     </div>
                                 </div>

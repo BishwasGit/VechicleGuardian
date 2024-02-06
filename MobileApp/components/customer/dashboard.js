@@ -16,27 +16,25 @@ const DashboardScreen = () => {
   return <DashboardContent />;
 };
 
-const CustomerDashboard = ({route}) => {
-  const {customer_id} = route.params;
-  const [customerDetails, setCustomerDetails] = useState (null);
-  const [repairCenterProfile, setRepairCenterProfile] = useState (null);
-  const [repairCenterSellerProfile, setRepairCenterSellerProfile] = useState (
-    null
-  );
-  const navigation = useNavigation ();
+const CustomerDashboard = ({ route }) => {
+  const { customer_id } = route.params;
+  const [customerDetails, setCustomerDetails] = useState(null);
+  const [repairCenterProfile, setRepairCenterProfile] = useState(null);
+  const [repairCenterSellerProfile, setRepairCenterSellerProfile] =
+    useState(null);
+  const navigation = useNavigation();
 
-  useEffect (
-    () => {
-      const fetchCustomerDetails = async () => {
-        if (!customer_id) {
-          console.error ('customer_id is undefined');
-          return;
-        }
-        try {
-          const response = await fetch (
-            `http://${REACT_APP_SERVER_IP}:${REACT_APP_SERVER_PORT}/api/customerDetails/${customer_id}`
-          );
-          const data = await response.json ();
+  useEffect(() => {
+    const fetchCustomerDetails = async () => {
+      if (!customer_id) {
+        console.error("customer_id is undefined");
+        return;
+      }
+      try {
+        const response = await fetch(
+          `http://${REACT_APP_SERVER_IP}:${REACT_APP_SERVER_PORT}/api/customerDetails/${customer_id}`
+        );
+        const data = await response.json();
 
           setCustomerDetails (data.customerDetails);
 
@@ -65,32 +63,27 @@ const CustomerDashboard = ({route}) => {
         }
       };
 
-      fetchCustomerDetails ();
-    },
-    [customer_id]
-  );
+    fetchCustomerDetails();
+  }, [customer_id]);
 
-  const handleMenuNavigation = screen => {
-    navigation.navigate (screen, customer_id);
+  const handleButtonPress = (buttonType) => {
+    switch (buttonType) {
+      case "switchToRepairCenterProfile":
+        navigation.navigate("RepairCenterDashboard", {
+          repaircenter_id: repairCenterProfile?.repaircenter_id,
+        });
+        break;
+      case "switchToRepairCenterSellerProfile":
+        navigation.navigate("RepairCenterPartsSeller", {
+          repaircenter_id:
+            repairCenterSellerProfile?.repair_parts_seller_users_id,
+        });
+        break;
+    }
   };
-
-  const handleButtonPress=(buttonType) => {
-    switch(buttonType)
-     {case "switchToRepairCenterProfile"  :
-     navigation.navigate("RepairCenterDashboard",
-     {
-    repaircenter_id: repairCenterProfile?.repaircenter_id,
-     });
-     break;
-     case "switchToRepairCenterSellerProfile":
-     navigation.navigate("RepairCenterPartsSeller",
-     {
-     repaircenter_id:repairCenterSellerProfile?.repair_parts_seller_users_id,
-    });
-    break;
-        }
-      };
-
+  const handleMenuNavigation = (screen) => {
+    navigation.navigate(screen, customer_id);
+  };
   return (
     <Tab.Navigator
       screenOptions={{
@@ -150,79 +143,34 @@ const CustomerDashboard = ({route}) => {
   );
 };
 
-function MenusScreen({handleMenuNavigation}) {
+function MenusScreen({ handleMenuNavigation }) {
   return (
-    <ScrollView>
-        <ImageBackground source={image} resizeMode="cover" style={styles.image}>
-      <View style={styles.purpleOverlay}>
-          {/* Purple transparent background */}
-        </View>
-      <View style={styles.menuContainer}>
-
-        <View style={styles.menuIntroContainer}>
-          <Text style={{color: 'white',fontSize: 35, fontWeight: 'bold', marginBottom: 50}}>
-          <Ionicons name="cog-outline" size={40} color="#ffd700" />  Vehicle<Text style={{color: '#ffd700', fontWeight: 'bold'}}>G</Text>
-          </Text>
-
-          <Text style={{color: '#e5e4e2',fontSize: 26, marginBottom: 40}}>
-            GRAB NEARBY OFFERS!!
-          </Text>
-
-          <View style={styles.line} />
-          <TouchableOpacity
-
-              onPress={() => handleMenuNavigation ('AddVehicle')}
-            >
-
-              <Text style={{marginLeft: 11,color: 'white',fontSize: 13,paddingTop:5,  marginBottom: 5}}>
-               <Ionicons name="add-outline" size={16} color="white" /> Register Vechile now</Text>
-            </TouchableOpacity>
-          <View style={styles.line} />
-
-        </View>
-
-        <View style={styles.menuGridContainer}>
-          <View style={styles.gridRow}>
-            <TouchableOpacity
-              style={styles.button}
-              onPress={() => handleMenuNavigation ('AddVehicle')}
-            >
-
-              <Ionicons name="newspaper-sharp" size={38} color="#253529" />
-              <Text style={styles.buttonText}>Add Vehicle</Text>
-            </TouchableOpacity>
-
-            <TouchableOpacity
-              style={styles.button}
-              onPress={() => handleMenuNavigation ('ListVehicle')}
-            >
-              <Ionicons name="list-sharp" size={38} color="#253529" />
-              <Text style={styles.buttonText}>List Vehicle Details</Text>
-            </TouchableOpacity>
-          </View>
-          <View style={styles.gridRow}>
-            <TouchableOpacity
-              style={styles.button}
-              onPress={() => handleMenuNavigation ('ViewServiceHistory')}
-            >
-              <Ionicons name="time-sharp" size={38} color="#253529" />
-
-              <Text style={styles.buttonText}>View Service History</Text>
-            </TouchableOpacity>
-
-            <TouchableOpacity
-              style={styles.button}
-              onPress={() => handleMenuNavigation ('LocateRepairCenters')}
-            >
-              <Ionicons name="location-sharp" size={38} color="#253529" />
-              <Text style={styles.buttonText}>Locate Repair Centers</Text>
-            </TouchableOpacity>
-          </View>
-        </View>
-
-      </View>
-      </ImageBackground>
-    </ScrollView>
+    <View style={styles.menuContainer}>
+      <TouchableOpacity
+        style={styles.button}
+        onPress={() => handleMenuNavigation("AddVehicle")}
+      >
+        <Text style={styles.buttonText}>Add Vehicle</Text>
+      </TouchableOpacity>
+      <TouchableOpacity
+        style={styles.button}
+        onPress={() => handleMenuNavigation("ListVehicle")}
+      >
+        <Text style={styles.buttonText}>List Vehicle Details</Text>
+      </TouchableOpacity>
+      <TouchableOpacity
+        style={styles.button}
+        onPress={() => handleMenuNavigation("ViewServiceHistory")}
+      >
+        <Text style={styles.buttonText}>View Service History</Text>
+      </TouchableOpacity>
+      <TouchableOpacity
+        style={styles.button}
+        onPress={() => handleMenuNavigation("LocateRepairCenters")}
+      >
+        <Text style={styles.buttonText}>Locate Repair Centers</Text>
+      </TouchableOpacity>
+    </View>
   );
 }
 function ProfileScreen({

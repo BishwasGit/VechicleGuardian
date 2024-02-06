@@ -8,11 +8,11 @@
                 <div class="nk-content">
                     <div class="container-fluid">
                         <div class="nk-content-inner">
-                            @include('repairpartseller.includes.bodycontents')
+                            <!-- Body contents here-->
+                            @include('repairpartseller.crud.form')
                         </div>
                     </div>
                 </div>
-                @include('repairpartseller.includes.nkfooter')
             </div>
         </div>
     </div>

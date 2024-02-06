@@ -69,7 +69,7 @@ const styles = StyleSheet.create ({
   },
   image: {
     flex: 1,
-    justifyContent: 'center',
+    justifyContent: "center",
   },
   overlay: {
     marginTop: height * 0.3,
@@ -77,7 +77,7 @@ const styles = StyleSheet.create ({
   },
   purpleOverlay: {
     ...StyleSheet.absoluteFillObject,
-    backgroundColor: 'rgba(34, 51, 59,0.7)', // Purple transparent background
+    backgroundColor: "rgba(34, 51, 59,0.7)", // Purple transparent background
   },
   icon: {
     backgroundColor: 'transparent',
