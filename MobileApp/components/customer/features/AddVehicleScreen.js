@@ -31,7 +31,6 @@ const AddVehicleScreen = ({route}) => {
   const [billBookImage, setBillBookImage] = useState (null);
   const [isVehicleUsedForIncome, setIsVehicleUsedForIncome] = useState (false);
   const navigation = useNavigation ();
-  const route = useRoute ();
 
   const handleCloseForm = () => {
     if (route.name === 'AddVehicleScreen') {
@@ -43,47 +42,51 @@ const AddVehicleScreen = ({route}) => {
   };
   const handleVehicleImageUpload = async () => {
     try {
-      const result = await ImagePicker.launchImageLibraryAsync ({
+      const result = await ImagePicker.launchImageLibraryAsync({
         mediaTypes: ImagePicker.MediaTypeOptions.Images,
         allowsEditing: true,
         aspect: [4, 3],
         quality: 1,
       });
-
-      if (!result.canceled) {
-        // Create a FormData object
-        const formData = new FormData ();
-
-        // Append the image file to the FormData object
-        formData.append ('image', {
-          uri: result.uri,
-          type: 'image/jpeg', // Adjust the type based on the image type
-          name: 'vehicle_image.jpg', // Adjust the name as needed
-        });
-
-        // Send the FormData object to the server using fetch or axios
-        const response = await fetch (
-          `http://${REACT_APP_SERVER_IP}:${REACT_APP_SERVER_PORT}/api/vehicleImageupload`,
-          {
-            method: 'POST',
-            body: formData,
-            headers: {
-              'Content-Type': 'multipart/form-data',
-            },
-          }
-        );
-
-        // Parse the response
-        const responseData = await response.json ();
-
-        // Log the Cloudinary response
-        console.log ('Cloudinary response:', responseData);
-
-        // If you want to store the Cloudinary URL in the state
-        setVehicleImage (responseData.secure_url);
+  
+      // Check if the user cancelled the image selection
+      if (result.canceled) {
+        console.log('Image selection cancelled');
+        return;
       }
+  
+      // Access the selected asset from the assets array
+      const selectedAsset = result.assets[0];
+  
+      // Create a FormData object
+      const formData = new FormData();
+  
+      // Append the selected asset to the FormData object
+      formData.append('image', {
+        uri: selectedAsset.uri,
+        type: 'image/jpeg', // Adjust the type based on the image type
+        name: 'vehicle_image.jpg', // Adjust the name as needed
+      });
+  
+      // Send the FormData object to the server using fetch or axios
+      const response = await fetch(
+        `http://${REACT_APP_SERVER_IP}:${REACT_APP_SERVER_PORT}/api/vehicleImageupload`,
+        {
+          method: 'POST',
+          body: formData,
+        }
+      );
+  
+      // Parse the response
+      const responseData = await response.json();
+  
+      // Log the Cloudinary response
+      console.log('Cloudinary response:', responseData);
+  
+      // If you want to store the Cloudinary URL in the state
+      setVehicleImage(responseData.secure_url);
     } catch (error) {
-      console.error ('Error handling vehicle image upload:', error);
+      console.error('Error handling vehicle image upload:', error);
     }
   };
 
@@ -97,12 +100,16 @@ const AddVehicleScreen = ({route}) => {
       });
 
       if (!result.canceled) {
+
+      // Access the selected asset from the assets array
+      const selectedAsset = result.assets[0];
+
         // Create a FormData object
         const formData = new FormData ();
 
         // Append the image file to the FormData object
         formData.append ('image', {
-          uri: result.uri,
+          uri: selectedAsset.uri,
           type: 'image/jpeg', // Adjust the type based on the image type
           name: 'bill_book_image.jpg', // Adjust the name as needed
         });
@@ -113,9 +120,6 @@ const AddVehicleScreen = ({route}) => {
           {
             method: 'POST',
             body: formData,
-            headers: {
-              'Content-Type': 'multipart/form-data',
-            },
           }
         );
 
