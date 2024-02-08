@@ -24,12 +24,16 @@ router.post('/login', async (req, res) => {
 
         if (!result || result[0].length === 0) {
           // Check if the username exists in repair_parts_seller_users table
-          result = await db.execute('SELECT seller_id, password FROM repair_parts_seller_users WHERE username = ?', [lowercaseUsername]);
+          result = await db.execute('SELECT repair_parts_seller_users_id, password FROM repair_parts_seller_users WHERE username = ?', [lowercaseUsername]);
+        
+          if(!result || result[0].length === 0){
+            result = await db.execute('SELECT repaircenter_workers_id, password FROM repaircenter_workers WHERE user_name = ?',[lowercaseUsername]);
+          }
         }
       }
     }
     if (result && result.length > 0) {
-      const { password: hashedPassword, customer_id, repaircenter_id, seller_id, admin_id } = result[0][0];
+      const { password: hashedPassword, customer_id, repaircenter_id, repair_parts_seller_users_id, admin_id, repaircenter_workers_id } = result[0][0];
 
       // Compare the provided password with the hashed password
       const passwordMatch = await bcrypt.compare(password, hashedPassword);
@@ -45,12 +49,15 @@ router.post('/login', async (req, res) => {
         } else if (repaircenter_id) {
           payload = { userId: repaircenter_id, userType: 'repaircenter' };
           message = 'Repair Center login successful';
-        } else if (seller_id) {
-          payload = { userId: seller_id, userType: 'seller' };
+        } else if (repair_parts_seller_users_id) {
+          payload = { userId: repair_parts_seller_users_id, userType: 'seller' };
           message = 'Repair Parts Seller login successful';
         } else if (admin_id) {
           payload = { userId: admin_id, userType: 'admin' };
           message = 'Admin login successful';
+        } else if (repaircenter_workers_id) {
+          payload = { userId: repaircenter_workers_id, userType: 'repaircenter_worker' };
+          message = 'Repair Center worker login successful';
         }
         // Generate a token
         const token = jwt.sign(payload, SECRET_KEY, { expiresIn: '24h' });

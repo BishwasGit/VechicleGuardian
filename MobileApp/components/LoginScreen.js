@@ -49,14 +49,6 @@ const LoginSelectionScreen = ({navigation}) => {
             Register
           </Button>
         </View>
-        <View style={styles.lay}>
-          <Title style={styles.Title}>
-            Are you working for a repair Center ?
-          </Title>
-          <TouchableOpacity onPress={handleNavigateToWorkerLogin}>
-            <Title style={styles.sudTitle}>Login as Worker</Title>
-          </TouchableOpacity>
-        </View>
       </ImageBackground>
     </View>
   );

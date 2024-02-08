@@ -53,6 +53,7 @@ const App = () => {
           'admin': "AdminDashboard",
           'customer': "CustomerDashboard",
           'repair center': "RepairCenterDashboard",
+          'repair center worker': "WorkerDashboard",
         };
         setInitialRoute(routeMap[userInfo.userType] || "LoginSelection");
         setInitialParams({ userId: userInfo.userId });
@@ -171,13 +172,5 @@ const App = () => {
       </NavigationContainer>
     </PaperProvider>
   );
-};
-
-const headerStyle = {
-  headerStyle: {
-    backgroundColor: "#0d5563",
-  },
-  headerTintColor: "white", // Optionally, set text color
-  headerTitleAlign: "center",
 };
 export default App;

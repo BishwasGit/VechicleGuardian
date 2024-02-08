@@ -93,7 +93,18 @@ const Login = ({ navigation }) => {
             console.log("Login Successful as Repair Center");
           }, 1000);
         }
-      } else {
+        else if(data.userType==='repaircenter_worker') {
+          showDialog();
+          setTimeout(() => {
+            hideDialog();
+            setLoading(false);
+            navigation.navigate("WorkerDashboard", {
+              workerId: data.userId,
+            });
+            console.log("Login Successful as Repair Center Wroker");
+          }, 1000);
+        }}
+       else {
         // Login failed, display an error message
         setMessage(data.error);
         console.error("Login failed:", data.error);

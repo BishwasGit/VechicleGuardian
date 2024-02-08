@@ -20,6 +20,7 @@ const RepairProcessScreen = ({ route, navigation }) => {
   const [selectedVehicleId, setSelectedVehicleId] = useState("");
   const [selectedDate, setSelectedDate] = useState(new Date());
   const [showDatePicker, setShowDatePicker] = useState(false);
+  const [completionTime, setcompletionTime] = useState(false);
   const [changes, setChanges] = useState([
     { id: 1, changesMade: "", cost: "", estimatedTime: "" },
   ]);
@@ -109,26 +110,27 @@ const RepairProcessScreen = ({ route, navigation }) => {
         value={item.cost}
         onChangeText={(text) => handleChangesInputChange(item.id, "cost", text)}
       />
-      <TextInput
-        style={styles.input}
-        placeholder="Estimated Time"
-        value={item.estimatedTime}
-        onChangeText={(text) =>
-          handleChangesInputChange(item.id, "estimatedTime", text)
-        }
-      />
       <TouchableOpacity disabled style={styles.inputBox} activeOpacity={1}>
         <Text>In Minutes</Text>
       </TouchableOpacity>
     </View>
   );
+  const getCurrentDateTime = () => {
+    const currentTime = new Date();
+  
+    const day = currentTime.toLocaleString("default", { weekday: "long" });
+    const date = currentTime.toLocaleDateString();
+    const hours = currentTime.getHours();
+    const minutes = currentTime.getMinutes().toString().padStart(2, "0");
+    const time = hours >= 12 ? "PM" : "AM"; // Determine AM/PM
+    const twelveHourFormat = hours % 12 || 12; // Convert to 12-hour format
+    const formattedHours = twelveHourFormat.toString().padStart(2, "0");
+  
+    return `${day}, ${date} ${formattedHours}:${minutes} ${time}`;
+  };
   const handleSubmit = () => {
     const totalCost = changes.reduce(
       (total, { cost }) => total + (parseFloat(cost) || 0),
-      0
-    );
-    const totalEstimatedTime = changes.reduce(
-      (total, { estimatedTime }) => total + (parseFloat(estimatedTime) || 0),
       0
     );
     const changesMade = changes
@@ -139,13 +141,16 @@ const RepairProcessScreen = ({ route, navigation }) => {
     const selectedDate = new Date().toLocaleString("en-US", {
       timeZone: "Asia/Kathmandu",
     });
-    const workerId = route.params;
+
+    const completionTime = getCurrentDateTime(); 
+
+    const {workerId }= route.params;
     const formData = {
       repaircenter_workers_id: workerId,
       vehicleId: selectedVehicleId,
       date: selectedDate,
       totalCost,
-      totalEstimatedTime,
+      completion_time : completionTime,
       changesMade: JSON.stringify(changesMade),
     };
     // Adjust the date to Nepal Time (UTC+5:45)
@@ -214,7 +219,12 @@ const RepairProcessScreen = ({ route, navigation }) => {
                 disabled={Platform.OS === "android"}
               />
             )}
-
+            <TextInput
+              style={styles.input}
+              label="Completion Time"
+              value={getCurrentDateTime()}
+              editable={false} // Prevent editing of the TextInput
+            />
             {/* Changes Form */}
             <Text style={styles.heading}>Changes Made</Text>
 
@@ -247,7 +257,7 @@ const RepairProcessScreen = ({ route, navigation }) => {
             {/* Display Total Rs and Estimated Time */}
             <View style={styles.totalContainer}>
               <Text>Total Rs: {totalRs}</Text>
-              <Text>Total Estimated Time: {totalEstimatedTime} minutes</Text>
+              <Text>Total Completion Time: {getCurrentDateTime()}</Text>
             </View>
           </>
         )}
