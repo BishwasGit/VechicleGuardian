@@ -11,7 +11,8 @@
                 </p>
               </div>
             </div>
-            <form action="#">
+            <form action="{{ route('login') }}" method="POST">
+                @csrf
               <div class="row gy-3">
                 <div class="col-12">
                   <div class="form-group">
@@ -24,6 +25,7 @@
                         class="form-control"
                         id="username"
                         placeholder="Enter username"
+                        name="username"
                       />
                     </div>
                   </div>
@@ -35,10 +37,11 @@
                     >
                     <div class="form-control-wrap">
                       <input
-                        type="text"
+                        type="password"
                         class="form-control"
                         id="password"
                         placeholder="Enter password"
+                        name="password"
                       />
                     </div>
                   </div>
@@ -46,14 +49,15 @@
                 <div class="col-12">
                   <div class="d-flex flex-wrap justify-content-between">
                     <div class="form-check form-check-sm">
-                      <input
-                        class="form-check-input"
-                        type="checkbox"
-                        value=""
-                        id="rememberMe"
-                      /><label class="form-check-label" for="rememberMe">
-                        Remember Me
-                      </label>
+                        <input
+                            class="form-check-input"
+                            type="checkbox"
+                            id="rememberMe"
+                            name="remember"
+                        >
+                        <label class="form-check-label" for="rememberMe">
+                            Remember Me
+                        </label>
                     </div>
                     <a href="auth-reset-classic.html" class="small"
                       >Forgot Password?</a

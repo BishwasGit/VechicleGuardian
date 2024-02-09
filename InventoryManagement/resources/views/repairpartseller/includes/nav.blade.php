@@ -6,7 +6,7 @@
             <nav class="nk-header-menu nk-navbar">
                 <ul class="nk-nav">
                     <li class="nk-nav-item">
-                        <h5 class="nk-nav-text">Good Morning , Username</h5>
+                        <h5 class="nk-nav-text">Good Morning , {{ $user->username }}</h5>
                     </li>
                 </ul>
             </nav>

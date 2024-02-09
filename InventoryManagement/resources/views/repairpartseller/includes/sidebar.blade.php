@@ -45,12 +45,11 @@
                 <ul class="nk-menu">
                     <!-- Dashboard -->
                     <li class="nk-menu-item">
-                        <a href="{{ route('repaircenter_dashboard') }}" class="nk-menu-link">
+                        <a href="{{ route('repaircenter_dashboard', ['user' => $user]) }}" class="nk-menu-link">
                             <span class="nk-menu-icon"><em class="icon ni ni-dashboard"></em></span>
                             <span class="nk-menu-text">Dashboard</span>
                         </a>
                     </li>
-
                     <li class="nk-menu-item">
                         <a href="{{ route("crud_index") }}" class="nk-menu-link">
                             <span class="nk-menu-icon"><em class="icon ni ni-dashboard"></em></span>
@@ -109,7 +108,7 @@
                             <span class="nk-menu-text">Debtors</span>
                         </a>
                         <ul class="nk-menu-sub">
-                            <li class="nk-menu-item"><a href="{{ route('repairpartseller.debtors.debtors.index') }}" class="nk-menu-link"><span
+                            <li class="nk-menu-item"><a href="#" class="nk-menu-link"><span
                                         class="nk-menu-text">Add Debtor</span></a></li>
                             <li class="nk-menu-item"><a href="debtors/manage-debtors.html" class="nk-menu-link"><span
                                         class="nk-menu-text">Manage Debtors</span></a></li>
