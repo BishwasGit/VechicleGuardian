@@ -28,8 +28,7 @@
                                     <div class="media media-xl media-middle media-circle"><img
                                             src="{{asset('assets/avatar.png')}}" alt="" class="img-thumbnail"></div>
                                     <div class="media-text">
-                                        <div class="lead-text">Wesley Burland</div><span class="sub-text">Owner &amp;
-                                            Founder</span>
+                                        <div class="lead-text">{{ $user->username }}</div><span class="sub-text">Repair Parts Seller</span>
                                     </div>
                                 </div>
                             </div>
@@ -45,7 +44,7 @@
                             </div>
                             <div class="dropdown-content dropdown-content-x-lg py-3">
                                 <ul class="link-list">
-                                    <li><a href="#"><em class="icon ni ni-signout"></em> <span>Log
+                                    <li><a href="{{ route('logout') }}"><em class="icon ni ni-signout"></em> <span>Log
                                                 Out</span></a></li>
                                 </ul>
                             </div>
