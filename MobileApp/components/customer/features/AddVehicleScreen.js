@@ -332,6 +332,13 @@ const AddVehicleScreen = ({route}) => {
           onChangeText={text => setContactNumber (text)}
           left={<TextInput.Icon icon="phone" />}
         />
+          <Checkbox.Item
+          label="Is vehicle used for income ?"
+          status={isVehicleUsedForIncome ? 'checked' : 'unchecked'}
+          onPress={() => setIsVehicleUsedForIncome (!isVehicleUsedForIncome)}
+          color="#0d5563" // Set the checkbox color
+         labelStyle={{color: '#0d5563'}} // Set the placeholder color
+        />
         <TouchableOpacity
           onPress={handleVehicleImageUpload}
           style={{
@@ -372,13 +379,6 @@ const AddVehicleScreen = ({route}) => {
             Add Vehicle Details
           </Text>
         </TouchableOpacity>
-        <Checkbox.Item
-          placeholder="Is vehicle used for income?"
-          status={isVehicleUsedForIncome ? 'checked' : 'unchecked'}
-          onPress={() => setIsVehicleUsedForIncome (!isVehicleUsedForIncome)}
-          color="#0d5563" // Set the checkbox color
-          placeholderStyle={{color: '#0d5563'}} // Set the placeholder color
-        />
       </View>
 
       {/* Upload buttons */}

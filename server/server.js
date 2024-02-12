@@ -28,6 +28,10 @@ const getCustomerRepairHistory = require('./api/customers/getCustomerRepairHisto
 app.use('/api', getCustomerRepairHistory);
 const listVehicleDetails = require('./api/customers/listVehicleDetails');
 app.use('/api', listVehicleDetails);
+const getVehicleDetails = require('./api/customers/getVehicleDetails');
+app.use('/api', getVehicleDetails);
+const storevehicleincomeexpenses = require('./api/customers/storevehicleincomeexpenses');
+app.use('/api', storevehicleincomeexpenses);
 
 
 //repair centers side

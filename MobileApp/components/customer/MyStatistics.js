@@ -15,7 +15,7 @@ const MyStatistics=() => {
       legendFontSize: 13,
     },
     {
-      name: 'Work',
+      name: 'Income',
       population: 38000,
       color: '#808000',
       legendFontColor: 'gray',

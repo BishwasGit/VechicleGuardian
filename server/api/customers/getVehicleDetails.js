@@ -2,18 +2,15 @@ const express = require("express");
 const router = express.Router();
 const { db } = require('../../db');
 
-router.get("/vehicleDetails/:customer_id", async (req, res) => {
+router.get("/getvehicleDetails/:vehicleDetailsId", async (req, res) => {
   try {
-    const { customer_id } = req.params;
-    const customerId = parseInt(customer_id, 10);
-    console.log(customer_id);
+    const { vehicleDetailsId } = req.params;
+    const vehicleDetails_Id = parseInt(vehicleDetailsId, 10);
     // Retrieve vehicle details based on customer_id from the database
     const [vehicleDetails] = await db.execute(
-      "SELECT * FROM vehicle_details WHERE customer_id = ? AND status = 1",
-      [customerId]
+      "SELECT * FROM vehicle_details WHERE vehicleDetails_id = ? AND status = 1",
+      [vehicleDetails_Id]
     );
-
-    //console.log(vehicleDetails);
     // Assuming the response structure; modify as per your database schema
     res.json(vehicleDetails);
   } catch (error) {

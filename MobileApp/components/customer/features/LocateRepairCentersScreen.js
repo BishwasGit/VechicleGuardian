@@ -1,13 +1,17 @@
 import React, { useEffect, useState } from "react";
-import { View, Text, StyleSheet, FlatList } from "react-native";
+import { View, StyleSheet } from "react-native";
+import MapView, { Marker } from "react-native-maps";
+import * as Location from "expo-location"; // Import Location module from Expo
 import { REACT_APP_SERVER_IP, REACT_APP_SERVER_PORT } from "@env";
-import { encode as base64Encode, decode as base64Decode } from "base-64";
-import { WebView } from "react-native-webview";
 
-const LocateRepairCentersScreen = ({ route, navigation }) => {
-  const customer_id = route.params;
-
+const LocateRepairCentersScreen = ({ route }) => {
   const [repairCenters, setRepairCenters] = useState([]);
+  const [initialLocation, setInitialLocation] = useState({
+    latitude: 27.68899461302774,
+    longitude: 85.28788243117607,
+    latitudeDelta: 0.01,
+    longitudeDelta: 0.01,
+  });
 
   useEffect(() => {
     const fetchRepairCenters = async () => {
@@ -29,59 +33,43 @@ const LocateRepairCentersScreen = ({ route, navigation }) => {
     };
 
     fetchRepairCenters();
+
+    // Fetch user's current location
+    (async () => {
+      let { status } = await Location.requestForegroundPermissionsAsync();
+      if (status !== "granted") {
+        console.error("Permission to access location was denied");
+        return;
+      }
+
+      let location = await Location.getCurrentPositionAsync({});
+      setInitialLocation({
+        latitude: location.coords.latitude,
+        longitude: location.coords.longitude,
+        latitudeDelta: 0.01,
+        longitudeDelta: 0.01,
+      });
+    })();
   }, []);
 
-  // Check if customer_id is available
-  if (!customer_id) {
-    // Redirect to the main landing page or any other desired screen
-    navigation.navigate("Vechicle Guardian Landing Page");
-    return null; // Render nothing if redirecting
-  }
-
-  const renderMap = (repairCenters) => {
-    const latitude = parseFloat(repairCenters.map.split(",")[0]);
-    const longitude = parseFloat(repairCenters.map.split(",")[1]);
-    const mapUrl = `https://www.google.com/maps/embed/v1/view?center=${latitude},${longitude}&zoom=15`;
-    return (
-      <>
-        <WebView source={{ uri: mapUrl }} style={{ flex: 1 }} />
-      </>
-    );
-  };
-  const renderVacancy = (repairCenters) => {
-    if (repairCenters.vacancy) {
-      return (
-        <>
-          <Text style={styles.itemText}>
-            {JSON.parse(repairCenters.vacancy).position}
-          </Text>
-          <Text style={styles.itemText}>
-            {JSON.parse(repairCenters.vacancy).noOfPerson}
-          </Text>
-          <Text style={styles.itemText}>
-            {JSON.parse(repairCenters.vacancy).salary}
-          </Text>
-        </>
-      );
-    } else {
-      return <></>;
-    }
-  };
   return (
     <View style={styles.container}>
-      <Text style={styles.firstTitle}> Repair Center Lists</Text>
-      <FlatList
-        data={repairCenters}
-        keyExtractor={(item) => item.repaircenters_id.toString()}
-        renderItem={({ item }) => (
-          <View style={styles.itemContainer}>
-            <Text style={styles.itemText}>{item.address}</Text>
-            {/* {renderMap(item)} */}
-            <Text style={styles.itemText}>{item.contact}</Text>
-            {renderVacancy(item)}
-          </View>
-        )}
-      />
+      <MapView
+        style={styles.map}
+        initialRegion={initialLocation} // Use initialLocation as the initial region
+      >
+        {/* Markers for repair centers */}
+        {repairCenters.map((item, index) => (
+          <Marker
+            key={index}
+            coordinate={{
+              latitude: parseFloat(item.map.split(",")[0]),
+              longitude: parseFloat(item.map.split(",")[1]),
+            }}
+            title={item.repaircenter_fname}
+          />
+        ))}
+      </MapView>
     </View>
   );
 };
@@ -89,21 +77,9 @@ const LocateRepairCentersScreen = ({ route, navigation }) => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    padding: 16,
   },
-  firstTitle: {
-    marginTop: "10%",
-    color: "#c1121f",
-    fontWeight: "bold",
-    fontSize: 25,
-  },
-  itemContainer: {
-    marginTop: "10%",
-    paddingVertical: 10,
-  },
-  itemText: {
-    fontSize: 16,
-    color: "#000",
+  map: {
+    ...StyleSheet.absoluteFillObject,
   },
 });
 
