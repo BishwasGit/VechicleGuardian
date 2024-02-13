@@ -339,6 +339,13 @@ const AddVehicleScreen = ({route}) => {
           color="#808000" // Set the checkbox color
           placeholderStyle={{color: '#808000'}} // Set the placeholder color
         />
+          <Checkbox.Item
+          label="Is vehicle used for income ?"
+          status={isVehicleUsedForIncome ? 'checked' : 'unchecked'}
+          onPress={() => setIsVehicleUsedForIncome (!isVehicleUsedForIncome)}
+          color="#0d5563" // Set the checkbox color
+         labelStyle={{color: '#0d5563'}} // Set the placeholder color
+        />
         <TouchableOpacity
           onPress={handleVehicleImageUpload}
           style={{

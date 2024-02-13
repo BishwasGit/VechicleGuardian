@@ -25,6 +25,7 @@ import AddVehicleScreen from "./components/customer/features/AddVehicleScreen";
 import ListVehicleScreen from "./components/customer/features/ListVehicleScreen";
 import ViewServiceHistoryScreen from "./components/customer/features/ViewServiceHistoryScreen";
 import LocateRepairCentersScreen from "./components/customer/features/LocateRepairCentersScreen";
+import VehicleIncomeExpenses from "./components/customer/features/VehicleIncomeExpenses";
 
 //admin
 import AdminDashboard from "./components/admin/dashboard";
@@ -129,6 +130,12 @@ const App = () => {
           <Stack.Screen
             name="LocateRepairCenters"
             component={LocateRepairCentersScreen}
+          
+            options={{ headerShown: false }}
+          />
+          <Stack.Screen
+            name="VehicleIncomeExpenses"
+            component={VehicleIncomeExpenses}
           
             options={{ headerShown: false }}
           />

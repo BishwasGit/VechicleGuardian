@@ -102,10 +102,10 @@ const styles = StyleSheet.create ({
   button: {
     marginVertical: 10,
     backgroundColor: '#e1ad21',
-    shadowColor: '#000',
-    shadowOffset: {width: 10, height: 12},
-    shadowOpacity: 0.8,
-    shadowRadius: 2,
+    boxShadowColor: '#000',
+    boxShadowOffset: {width: 10, height: 12},
+    boxShadowOpacity: 0.8,
+    boxShadowRadius: 2,
     elevation: 15, // for Android
   },
   button2: {

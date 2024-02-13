@@ -136,7 +136,6 @@ const RepairCenterDashboard = ({ route }) => {
   );
 
   const handleAddDetails = async () => {
-    const mapBase64 = base64Encode (newDetails.map);
     const contactRegex = /^\d{10}$/;
     if (!contactRegex.test (newDetails.contact)) {
       alert ('Invalid contact number. Please enter a 10-digit number.');
@@ -153,7 +152,7 @@ const RepairCenterDashboard = ({ route }) => {
             repaircenter_id,
             fname: newDetails.fullname,
             address: newDetails.address,
-            map: mapBase64,
+            map: newDetails.address,
             contact: newDetails.contact,
             documents: documentsImage,
           }),
@@ -616,7 +615,7 @@ const styles = StyleSheet.create ({
     borderTopRightRadius: 20,
     borderColor: '#1e6091',
     marginVertical: 10,
-    textDecoration: 'none',
+    textDecorationLine: 'none',
     backgroundColor: '#edf2f4',
   },
   addButton: {

@@ -24,6 +24,7 @@ DROP TABLE IF EXISTS `repair_parts_seller_users`;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `repair_parts_seller_users` (
   `repair_parts_seller_users_id` int NOT NULL AUTO_INCREMENT,
+  `seller_uuid` bigint DEFAULT NULL,
   `username` varchar(45) DEFAULT NULL,
   `phone` varchar(45) DEFAULT NULL,
   `email` varchar(45) DEFAULT NULL,
@@ -40,7 +41,7 @@ CREATE TABLE `repair_parts_seller_users` (
 
 LOCK TABLES `repair_parts_seller_users` WRITE;
 /*!40000 ALTER TABLE `repair_parts_seller_users` DISABLE KEYS */;
-INSERT INTO `repair_parts_seller_users` VALUES (1,'Bishwas','9869133344','workmail.bishwas@gmail.com','$2b$10$4n4f.gdlCIidenwSrCVPNuSm8vp0.Yg375Nmw3v4fqwFY7KBmY79W',NULL,NULL),(2,'prajwalbro@hotmail.com','9869144445','b15hw45@gmail.com','$2y$12$2m9XMEdWxUK0u8zc3BYmI.fQhyqj98rWKeirC6OX.F6xcd8RlFfI6','2024-01-30 00:58:22','2024-01-30 00:58:22');
+INSERT INTO `repair_parts_seller_users` VALUES (1,NULL,'Bishwas','9869133344','workmail.bishwas@gmail.com','$2b$10$4n4f.gdlCIidenwSrCVPNuSm8vp0.Yg375Nmw3v4fqwFY7KBmY79W',NULL,NULL),(2,NULL,'prajwalbro@hotmail.com','9869144445','b15hw45@gmail.com','$2y$12$2m9XMEdWxUK0u8zc3BYmI.fQhyqj98rWKeirC6OX.F6xcd8RlFfI6','2024-01-30 00:58:22','2024-01-30 00:58:22');
 /*!40000 ALTER TABLE `repair_parts_seller_users` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -53,4 +54,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2024-01-30 12:29:48
+-- Dump completed on 2024-02-12 14:20:07

@@ -8,8 +8,6 @@ import DashboardContent from './dashboardContent.js';
 import {REACT_APP_SERVER_IP, REACT_APP_SERVER_PORT} from '@env';
 import {Ionicons} from '@expo/vector-icons';
 
-const image = {uri: 'https://i.pinimg.com/originals/47/8b/f6/478bf61e4712ba383a76118a6558bfd4.jpg'};
-
 const Tab = createBottomTabNavigator ();
 
 const DashboardScreen = () => {
