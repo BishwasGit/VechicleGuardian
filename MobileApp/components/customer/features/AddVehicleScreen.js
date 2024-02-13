@@ -48,26 +48,26 @@ const AddVehicleScreen = ({route}) => {
         aspect: [4, 3],
         quality: 1,
       });
-  
+
       // Check if the user cancelled the image selection
       if (result.canceled) {
         console.log('Image selection cancelled');
         return;
       }
-  
+
       // Access the selected asset from the assets array
       const selectedAsset = result.assets[0];
-  
+
       // Create a FormData object
       const formData = new FormData();
-  
+
       // Append the selected asset to the FormData object
       formData.append('image', {
         uri: selectedAsset.uri,
         type: 'image/jpeg', // Adjust the type based on the image type
         name: 'vehicle_image.jpg', // Adjust the name as needed
       });
-  
+
       // Send the FormData object to the server using fetch or axios
       const response = await fetch(
         `http://${REACT_APP_SERVER_IP}:${REACT_APP_SERVER_PORT}/api/vehicleImageupload`,
@@ -76,13 +76,13 @@ const AddVehicleScreen = ({route}) => {
           body: formData,
         }
       );
-  
+
       // Parse the response
       const responseData = await response.json();
-  
+
       // Log the Cloudinary response
       console.log('Cloudinary response:', responseData);
-  
+
       // If you want to store the Cloudinary URL in the state
       setVehicleImage(responseData.secure_url);
     } catch (error) {
@@ -271,7 +271,7 @@ const AddVehicleScreen = ({route}) => {
           placeholder="Vehicle Number"
           value={vehicleNumber}
           onChangeText={text => setVehicleNumber (text)}
-          left={<TextInput.Icon icon="tag" />}
+          left={<TextInput.Icon icon="tag-outline" color='gray' />}
         />
 
         <TextInput
@@ -279,7 +279,7 @@ const AddVehicleScreen = ({route}) => {
           placeholder="Vehicle Lot"
           value={vehicleLot}
           onChangeText={text => setVehicleLot (text)}
-          left={<TextInput.Icon icon="bookmark" />}
+          left={<TextInput.Icon icon="bookmark-outline" color='gray' />}
         />
 
         <TextInput
@@ -287,7 +287,7 @@ const AddVehicleScreen = ({route}) => {
           placeholder="vehicle Company"
           value={vehicleCompany}
           onChangeText={text => setVehicleCompany (text)}
-          left={<TextInput.Icon icon="home" />}
+          left={<TextInput.Icon icon="home-outline" color='gray' />}
         />
 
         <TextInput
@@ -295,7 +295,7 @@ const AddVehicleScreen = ({route}) => {
           placeholder="Vehicle Model"
           value={vehicleModel}
           onChangeText={text => setVehicleModel (text)}
-          left={<TextInput.Icon icon="car" />}
+          left={<TextInput.Icon icon="car-outline" color='gray' />}
         />
         {/* Bill Book details */}
 
@@ -306,7 +306,7 @@ const AddVehicleScreen = ({route}) => {
           placeholder="Created Date : yyyy-mm-dd"
           value={createdDate}
           onChangeText={text => setCreatedDate (text)}
-          left={<TextInput.Icon icon="calendar" />}
+          left={<TextInput.Icon icon="calendar" color='gray' />}
         />
 
         <TextInput
@@ -314,7 +314,7 @@ const AddVehicleScreen = ({route}) => {
           placeholder="Expiry Date : yyyy-mm-dd"
           value={expiryDate}
           onChangeText={text => setExpiryDate (text)}
-          left={<TextInput.Icon icon="calendar" />}
+          left={<TextInput.Icon icon="calendar" color='gray' />}
         />
 
         <TextInput
@@ -322,7 +322,7 @@ const AddVehicleScreen = ({route}) => {
           placeholder="Owner Name"
           value={ownerName}
           onChangeText={text => setOwnerName (text)}
-          left={<TextInput.Icon icon="account" />}
+          left={<TextInput.Icon icon="account-outline" color='gray' />}
         />
 
         <TextInput
@@ -330,18 +330,26 @@ const AddVehicleScreen = ({route}) => {
           placeholder="Contact Number"
           value={contactNumber}
           onChangeText={text => setContactNumber (text)}
-          left={<TextInput.Icon icon="phone" />}
+          left={<TextInput.Icon icon="phone-outline" color='gray' />}
+        />
+         <Checkbox.Item
+          label="Is vehicle used for income?"
+          status={isVehicleUsedForIncome ? 'checked' : 'unchecked'}
+          onPress={() => setIsVehicleUsedForIncome (!isVehicleUsedForIncome)}
+          color="#808000" // Set the checkbox color
+          placeholderStyle={{color: '#808000'}} // Set the placeholder color
         />
         <TouchableOpacity
           onPress={handleVehicleImageUpload}
           style={{
-            padding: 15,
+            padding: 14,
             alignItems: 'center',
-            marginTop: 20,
-            backgroundColor: '#0d5563',
+            marginTop: 8,
+            borderRadius:20,
+            backgroundColor: '#d4af37',
           }}
         >
-          <Text style={{color: 'white', fontSize: 16, fontWeight: 'bold'}}>
+          <Text style={{color: 'white', fontSize: 14, fontWeight: 'bold',}}>
             Upload Vehicle Image
           </Text>
         </TouchableOpacity>
@@ -349,36 +357,34 @@ const AddVehicleScreen = ({route}) => {
         <TouchableOpacity
           onPress={handleBillBookImageUpload}
           style={{
-            padding: 15,
+            padding: 14,
             alignItems: 'center',
-            marginTop: 20,
-            backgroundColor: '#0d5563',
+
+            borderRadius:20,
+            backgroundColor: '#d4af37',
           }}
         >
-          <Text style={{color: 'white', fontSize: 16, fontWeight: 'bold'}}>
+          <Text style={{color: 'white', fontSize: 14,fontWeight: 'bold', }}>
             Upload Bill Book Image
           </Text>
         </TouchableOpacity>
-        <TouchableOpacity
+
+
+
+<TouchableOpacity
           onPress={handleAddVehicle}
           style={{
-            padding: 15,
+            padding: 14,
             alignItems: 'center',
-            marginTop: 20,
-            backgroundColor: '#0d5563',
+            marginTop: 35,
+            borderRadius:20,
+            backgroundColor: '#808000',
           }}
         >
-          <Text style={{color: 'white', fontSize: 16, fontWeight: 'bold'}}>
+          <Text style={{color: 'white', fontSize: 14, }}>
             Add Vehicle Details
           </Text>
         </TouchableOpacity>
-        <Checkbox.Item
-          placeholder="Is vehicle used for income?"
-          status={isVehicleUsedForIncome ? 'checked' : 'unchecked'}
-          onPress={() => setIsVehicleUsedForIncome (!isVehicleUsedForIncome)}
-          color="#0d5563" // Set the checkbox color
-          placeholderStyle={{color: '#0d5563'}} // Set the placeholder color
-        />
       </View>
 
       {/* Upload buttons */}
@@ -415,7 +421,7 @@ const styles = StyleSheet.create ({
     paddingLeft: 20,
     paddingRight: 60,
     color: 'white',
-    backgroundColor: '#808000',
+    backgroundColor: '#d4af37',
   },
   contain: {
     padding: 40,
@@ -423,24 +429,24 @@ const styles = StyleSheet.create ({
   },
   closeIcon: {
     position: 'absolute',
-    top: -50,
-    right: -1,
+    top: -36,
+    right: 20,
     zIndex: 1,
   },
   heading: {
     marginTop: '10%',
     paddingLeft: '10%',
     alignItems: 'left',
-    color: '#c1121f',
+    color: '#556b2f',
     fontWeight: 'bold',
-    fontSize: 22,
+    fontSize: 18,
   },
   headingTo: {
     marginTop: '10%',
     alignItems: 'left',
-    color: '#c1121f',
+    color: '#556b2f',
     fontWeight: 'bold',
-    fontSize: 20,
+    fontSize: 18,
   },
 
   textinput: {

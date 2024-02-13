@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from 'react';
+import React, {useState, useEffect,useCallback} from 'react';
 import {
   ScrollView,
   View,
@@ -6,14 +6,21 @@ import {
   Text,
   TouchableOpacity,
 } from "react-native";
+import DashboardContent from './dashboardContent.js';
 import { IconButton } from "react-native-paper";
 import { Card, Title, Button, TextInput } from "react-native-paper";
 import { REACT_APP_SERVER_IP, REACT_APP_SERVER_PORT } from "@env";
 import { encode as base64Encode } from "base-64";
 import { useNavigation } from "@react-navigation/native";
-import Icon from "react-native-vector-icons/MaterialIcons";
+import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import * as ImagePicker from "expo-image-picker";
+import {Ionicons} from '@expo/vector-icons';
+import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 
+const Tab = createBottomTabNavigator ();
+const DashboardScreen = () => {
+  return <DashboardContent />;
+};
 const RepairCenterDashboard = ({ route }) => {
   const { repaircenter_id } = route.params;
   const [repairCenterDetails, setRepairCenterDetails] = useState(null);
@@ -212,85 +219,167 @@ const RepairCenterDashboard = ({ route }) => {
       alert ('Repair Center Verification Pending');
     }
   };
+  const handleMenuNavigation = useCallback((screen) => {
+    navigation.navigate(screen, repaircenter_id);
+  }, [navigation, repaircenter_id]);
 
-  const handleRepairHistory = () => {
-    navigation.navigate ('RepairHistoryScreen', {repaircenter_id});
-  };
+
+  const handleRepairHistory = useCallback((screen) => {
+    navigation.navigate ('RepairHistoryScreen',repaircenter_id);
+  },[navigation, repaircenter_id]);
+
 
   return (
-    <ScrollView style={styles.container}>
-      <View style={styles.heading}>
-        {repairCenterDetails &&
-          <Title style={styles.welcomeText}>
-            Hi {repairCenterDetails[0].username}!{'\n'}
-            <Title style={{fontWeight: 'normal', fontSize: 17}}>
-              Good Morning
-            </Title>
-          </Title>}
-      </View>
-      <View style={styles.gridContainer}>
+
+       <Tab.Navigator
+      screenOptions={{
+        headerShown: false,
+      }}
+      tabBarOptions={{
+        showLabel: false,
+        activeTintColor: '#d4af37',
+        inactiveTintColor: 'gray',
+      }}
+    >
+      <Tab.Screen
+        name="Dashboard"
+        component={DashboardScreen}
+        options={{
+          tabBarIcon: ({color, size}) => (
+            <Icon name="view-dashboard" size={size} color={color} />
+          ),
+        }}
+      />
+      <Tab.Screen
+        name="Menus"
+        children={() => (
+          <MenusScreen handleMenuNavigation={handleMenuNavigation}
+          handleRepairHistory={handleRepairHistory}
+          handleStartRepairing={handleStartRepairing}
+          showVacancyForm={showVacancyForm}
+          showForm={showForm}
+          setShowVacancyForm={setShowVacancyForm}
+          setShowForm={setShowForm}
+          handleCloseForm={handleCloseForm}
+          vacancyDetails={vacancyDetails}
+          newDetails={newDetails}
+          handleAddDetails={handleAddDetails}
+          documentsImage={documentsImage}
+          handleAddVacancyDetails={handleAddVacancyDetails}
+          handleDocumentsImageUpload={handleDocumentsImageUpload}
+          handleCloseVacancyForm={handleCloseVacancyForm}
+           />
+        )}
+        options={{
+          tabBarIcon: ({color, size}) => (
+            <Icon name="menu" size={size} color={color} />
+          ),
+        }}
+      />
+      <Tab.Screen
+        name="Profile"
+        children={() => (
+          <ProfileScreen
+            repairCenterProfile={repairCenterProfile}
+            repairCenterSellerProfile={repairCenterSellerProfile}
+            handleButtonPress={handleButtonPress}
+          />
+        )}
+        options={{
+          tabBarIcon: ({color, size}) => (
+            <Icon name="account" size={size} color={color} />
+          ),
+        }}
+      />
+      <Tab.Screen
+        name="Logout"
+        component={LogoutScreen}
+        options={{
+          tabBarIcon: ({color, size}) => (
+            <Icon name="logout" size={size} color={color} />
+          ),
+        }}
+      />
+    </Tab.Navigator>
+
+
+  );
+};
+function MenusScreen({
+  handleMenuNavigation,
+  handleRepairHistory,
+  handleStartRepairing,
+  setShowForm,
+  setShowVacancyForm,
+  showForm,
+  showVacancyForm,
+  handleCloseForm,
+  handleCloseVacancyForm,
+  vacancyDetails,
+  newDetails,
+  documentsImage,
+  handleAddDetails,
+  handleAddVacancyDetails,
+  handleDocumentsImageUpload,
+  navigation,
+}) {
+
+  return (
+    <View style={styles.menuContainer}>
+
         <TouchableOpacity
-          style={styles.gridItemActive}
+        style={styles.button}
           onPress={() => setShowForm (true)}
         >
-          <Icon
-            name="directions-car"
-            size={30}
-            color="white"
-            style={styles.icon}
-          />
-          <Text style={{color: 'white', padding: 10}}>
+              <Ionicons name="clipboard-outline" size={30} color="#556b2f" />
+          <Text style={styles.buttonText}>
             Add Repair Center Details
           </Text>
         </TouchableOpacity>
 
         <TouchableOpacity
-          style={styles.gridItemActive}
+        style={styles.button}
           onPress={() => setShowVacancyForm (true)}
         >
-          <Icon
-            name="directions-car"
-            size={30}
-            color="white"
-            style={styles.icon}
-          />
-          <Text style={{color: 'white', padding: 10}}>Add Vacancy</Text>
+             <Ionicons name="people-outline" size={30} color="#556b2f" />
+          <Text style={styles.buttonText}>Add Vacancy</Text>
         </TouchableOpacity>
 
         <TouchableOpacity
-          style={styles.gridItemActive}
+        style={styles.button}
           onPress={handleRepairHistory}
         >
-          <Icon name="history" size={30} color="white" style={styles.icon} />
-          <Text style={{color: 'white', padding: 10}}>Repair History</Text>
+            <Ionicons name="timer-outline" size={30} color="#556b2f" />
+          <Text style={styles.buttonText}>Repair History</Text>
         </TouchableOpacity>
 
         <TouchableOpacity
-          style={styles.gridItemActive}
-          onPress={() =>
-            navigation.navigate ('PartsManagement', {repaircenter_id})}
-        >
-          <Icon name="build" size={30} color="white" style={styles.icon} />
-          <Text style={{color: 'white', padding: 10}}>Parts Management</Text>
+        style={styles.button}
+          onPress={handleStartRepairing}
+          // onPress={() =>
+          //   navigation.navigate('PartsManagement', {repaircenter_id})}
+>
+<Ionicons name="car-sport-outline" size={30} color="#556b2f" />
+          <Text style={styles.buttonText}>Parts Management</Text>
         </TouchableOpacity>
 
         <TouchableOpacity
-          style={styles.gridItemActive}
+        style={styles.button}
           onPress={handleStartRepairing}
         >
-          <Icon name="people" size={30} color="white" style={styles.icon} />
-          <Text style={{color: 'white', padding: 10}}>Add Workers</Text>
+              <Ionicons name="person-circle-outline" size={30} color="#556b2f" />
+          <Text style={styles.buttonText}>Add Workers</Text>
         </TouchableOpacity>
-      </View>
+
       {showForm &&
         <Card style={styles.card}>
           <Title
             style={{
               fontWeight: 'normal',
-              fontSize: 17,
-              paddingTop: 130,
+              fontSize: 16,
+              paddingTop: 10,
               paddingLeft: 20,
-              paddingBottom: 20,
+              paddingBottom: 60,
             }}
           >
             Repair Center Form
@@ -417,15 +506,56 @@ const RepairCenterDashboard = ({ route }) => {
             <Text style={{color: 'white'}}>Add Vacancy</Text>
           </Button>
         </Card>}
-    </ScrollView>
+    </View>
   );
-};
+}
+function ProfileScreen({
+  repairCenterProfile,
+  repairCenterSellerProfile,
+  handleButtonPress,
+}) {
+  return (
+    <View style={styles.container}>
+      <Text>Profile Settings</Text>
+      <View style={styles.buttonRow}>
+        {repairCenterProfile &&
+          <TouchableOpacity
+            style={styles.switchprofilebutton}
+            onPress={() => handleButtonPress ('switchToRepairCenterProfile')}
+          >
+            <Text style={styles.buttonText}>Switch to Repair Center</Text>
+          </TouchableOpacity>}
+        {repairCenterSellerProfile &&
+          <TouchableOpacity
+            style={styles.switchprofilebutton}
+            onPress={() =>
+              handleButtonPress ('switchToRepairCenterSellerProfile')}
+          >
+            <Text style={styles.buttonText}>Switch to Seller Profile</Text>
+          </TouchableOpacity>}
+      </View>
+    </View>
+  );
+}
+
+function LogoutScreen () {
+  return (
+    <View style={styles.container}>
+      <Text>Logout!</Text>
+    </View>
+  );
+}
 
 const styles = StyleSheet.create ({
   container: {
     flex: 1,
-    flexDirection: 'column',
-    backgroundColor: '#f5f1e9',
+  },
+  buttonRow: {
+    flexDirection: 'row',
+    marginBottom: 20,
+  },
+  buttonContainer: {
+    width: '100%',
   },
   heading: {
     paddingTop: 30,
@@ -439,39 +569,44 @@ const styles = StyleSheet.create ({
     fontSize: 25,
     paddingBottom: -60,
   },
-  gridItemActive: {
-    width: '100%',
-    marginBottom: 20,
-    paddingTop: 20,
-    paddingBottom: 20,
-    paddingLeft: 10,
-    paddingRight: 50,
-    alignItems: 'center',
-    backgroundColor: '#0d5563',
-    borderRadius: 20,
-    borderTopLeftRadius: 20,
-    borderTopRightRadius: 20,
-    flexDirection: 'row', // Align icon and text horizontally
-  },
+
   icon: {
     marginLeft: 30, // Space between icon and text
     marginRight: 20,
   },
-  gridContainer: {
-    padding: 30,
-    paddingTop: 20,
-    flexDirection: 'column',
-    alignItems: 'stretch',
-    justifyContent: 'flex-start',
+  menuContainer: {
+    flex: 1,
+    paddingTop:80,
+  },
+  button: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    padding: 20,
+    borderRadius: 20,
+    marginBottom: 20,
+    marginRight: 30,
+    marginLeft: 30,
+    backgroundColor: '#fff',
+    elevation: 2, // Android
+  },
+  buttonText: {
+    paddingTop:16,
+    fontSize: 14,
+    fontWeight: 'bold',
+    color: '#253529',
+    textAlign: 'center',
   },
   card: {
-    height: '100%',
-    justifyContent: 'center',
+    paddingTop:90,
+    flex:1,
+    height: '200%',
     width: '100%',
     padding: 30,
     position: 'absolute',
     top: 1,
-    backgroundColor: '#f5f1e9',
+    backgroundColor: 'white',
+
   },
   field: {
     marginBottom: 15,
@@ -493,8 +628,8 @@ const styles = StyleSheet.create ({
   },
   closeIcon: {
     position: 'absolute',
-    top: -30,
-    right: -20,
+    top: 5,
+    right: 10,
     zIndex: 1,
   },
 });

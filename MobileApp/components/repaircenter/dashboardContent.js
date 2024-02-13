@@ -1,7 +1,6 @@
 import React from "react";
 import { Title,View, Text, StyleSheet, Image, ScrollView } from "react-native";
 import { Card } from "react-native-paper";
-import MyCarousel from "./MyCarousel";
 import MyStatistics from "./MyStatistics";
 
 const DashboardContent = () => {
@@ -10,15 +9,9 @@ const DashboardContent = () => {
       <View style={styles.container}>
         {/* Pie Chart Section */}
         <View style={styles.statisticsContainer}>
-            <MyStatistics />
+        <MyStatistics />
             </View>
 
-        {/* Carousel Section */}
-        <View style={styles.carouselContainer}>
-
-        <Text style={{ fontSize: 14, marginBottom: 15,marginLeft: 15, }}>Nearby Repair Centers</Text>
-          <MyCarousel />
-        </View>
 
         {/* Image Card Section */}
         <Card style={styles.card}>
@@ -48,9 +41,6 @@ const styles = StyleSheet.create({
   },
   container: {
     padding: 10,
-
-
-
   },
   overlay: {
     marginTop: 50,

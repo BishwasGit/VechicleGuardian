@@ -19,7 +19,6 @@ export class MyCarousel extends Component {
       ]
     };
   }
-
   _renderItem = ({item, index}) => {
     return (
       <View style={styles.slide}>
@@ -32,7 +31,7 @@ export class MyCarousel extends Component {
 
   render () {
     return (
-     
+
         <Carousel
         ref={(c) => { this._carousel = c; }}
         data={this.state.entries}

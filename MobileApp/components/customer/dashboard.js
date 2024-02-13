@@ -149,25 +149,32 @@ function MenusScreen({ handleMenuNavigation }) {
       <TouchableOpacity
         style={styles.button}
         onPress={() => handleMenuNavigation("AddVehicle")}
+
       >
+       <Ionicons name="clipboard-outline" size={35} color="green" />
+
+
         <Text style={styles.buttonText}>Add Vehicle</Text>
       </TouchableOpacity>
       <TouchableOpacity
         style={styles.button}
         onPress={() => handleMenuNavigation("ListVehicle")}
       >
+           <Ionicons name="list-outline" size={35} color="green" />
         <Text style={styles.buttonText}>List Vehicle Details</Text>
       </TouchableOpacity>
       <TouchableOpacity
         style={styles.button}
         onPress={() => handleMenuNavigation("ViewServiceHistory")}
       >
+          <Ionicons name="timer-outline" size={35} color="green" />
         <Text style={styles.buttonText}>View Service History</Text>
       </TouchableOpacity>
       <TouchableOpacity
         style={styles.button}
         onPress={() => handleMenuNavigation("LocateRepairCenters")}
       >
+          <Ionicons name="location-outline" size={35} color="green" />
         <Text style={styles.buttonText}>Locate Repair Centers</Text>
       </TouchableOpacity>
     </View>
@@ -224,44 +231,45 @@ const styles = StyleSheet.create ({
   buttonContainer: {
     width: '100%',
   },
-  menuContainer: {
-    flex: 1,
-    paddingTop:70,
 
-  },
   line: {
     width: '47%',
     borderBottomColor: '#ffd700',
     borderBottomWidth: 2,
   },
-  image: {
-    height:'43%',
-    flex:1,
-    justifyContent: 'center',
-  },
-  overlay: {
-    marginTop: 3,
-    alignItems: "center",
-  },
-  purpleOverlay: {
-    ...StyleSheet.absoluteFillObject,
-    backgroundColor: 'rgba(85,107,47,0.85)', // Purple transparent background
-  },
-  menuIntroContainer:{
-    justifyContent: 'left',
-    paddingLeft:40,
-  },
-  menuGridContainer: {
+  // image: {
+  //   height:'43%',
+  //   flex:1,
+  //   justifyContent: 'center',
+  // },
+  // overlay: {
+  //   marginTop: 3,
+  //   alignItems: "center",
+  // },
+  // purpleOverlay: {
+  //   ...StyleSheet.absoluteFillObject,
+  //   backgroundColor: 'rgba(85,107,47,0.85)', // Purple transparent background
+  // },
+  // menuIntroContainer:{
+  //   justifyContent: 'left',
+  //   paddingLeft:40,
+  // },
+  // menuGridContainer: {
+  //   flex: 1,
+  //   flexDirection: 'column',
+  //   justifyContent: 'center',
+  //   alignItems: 'center',
+  //   backgroundColor: '#f8f8ff',
+  //   borderTopRightRadius: 65,
+  //   borderTopLeftRadius: 65,
+  //   paddingBottom: 50,
+  //   marginTop:80,
+  //   paddingTop:60,
+  // },
+
+  menuContainer: {
     flex: 1,
-    flexDirection: 'column',
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: '#f8f8ff',
-    borderTopRightRadius: 65,
-    borderTopLeftRadius: 65,
-    paddingBottom: 50,
-    marginTop:80,
-    paddingTop:60,
+    paddingTop:80,
   },
   gridRow: {
     flexDirection: 'row',
@@ -270,16 +278,17 @@ const styles = StyleSheet.create ({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    padding: 30,
+    padding: 20,
     borderRadius: 20,
-    margin: 18,
+    marginBottom: 35,
+    marginRight: 25,
+    marginLeft: 25,
     backgroundColor: '#fff',
     elevation: 2, // Android
   },
-
   buttonText: {
-    paddingTop:20,
-    fontSize: 14,
+    paddingTop:16,
+    fontSize: 15,
     fontWeight: 'bold',
     color: '#253529',
     textAlign: 'center',
