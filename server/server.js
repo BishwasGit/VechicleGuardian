@@ -79,6 +79,8 @@ const checkRepairCenterUsername = require('./api/checkSwitchProfile/checkRepairC
 app.use('/api', checkRepairCenterUsername);
 const checkRepairCenterSellerUsername = require('./api/checkSwitchProfile/checkRepairCenterSellerUsername');
 app.use('/api', checkRepairCenterSellerUsername);
+const checkCustomerUsername = require('./api/checkSwitchProfile/checkCustomerUsername');
+app.use('/api', checkCustomerUsername);
 
 
 //imageupload 

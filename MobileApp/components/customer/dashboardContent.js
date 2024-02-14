@@ -40,8 +40,6 @@ const DashboardContent = () => {
     name: repairCenter.repaircenter_fname,
   }));
 
-  console.log(coordinateData);
-
   return (
     <ScrollView style={styles.scrollView}>
       <View style={styles.container}>

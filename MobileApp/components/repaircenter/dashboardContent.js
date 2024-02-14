@@ -2,6 +2,7 @@ import React from "react";
 import { Title,View, Text, StyleSheet, Image, ScrollView } from "react-native";
 import { Card } from "react-native-paper";
 import MyStatistics from "./MyStatistics";
+import MyCarousel from "./MyCarousel";
 
 const DashboardContent = () => {
   return (
@@ -14,20 +15,11 @@ const DashboardContent = () => {
 
 
         {/* Image Card Section */}
-        <Card style={styles.card}>
-          <Card.Content>
-            <Text style={styles.title}>Card with Image</Text>
-          </Card.Content>
-          <Card.Cover
-            source={{
-              uri: "https://images.pexels.com/photos/35967/mini-cooper-auto-model-vehicle.jpg",
-            }}
-            style={styles.cardImage}
-          />
-          <Card.Content>
-            <Text style={styles.paragraph}>Some additional text or description here.</Text>
-          </Card.Content>
-        </Card>
+        <View style={styles.carouselContainer}>
+        <Text style={{ fontSize: 14, marginBottom: 15,marginLeft: 15, }}>Nearby Repair Centers</Text>
+          <MyCarousel />
+        </View>
+
       </View>
     </ScrollView>
   );

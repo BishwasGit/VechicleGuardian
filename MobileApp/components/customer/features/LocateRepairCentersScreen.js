@@ -56,9 +56,8 @@ const LocateRepairCentersScreen = ({ route }) => {
     <View style={styles.container}>
       <MapView
         style={styles.map}
-        initialRegion={initialLocation} // Use initialLocation as the initial region
+        initialRegion={initialLocation}
       >
-        {/* Markers for repair centers */}
         {repairCenters.map((item, index) => (
           <Marker
             key={index}

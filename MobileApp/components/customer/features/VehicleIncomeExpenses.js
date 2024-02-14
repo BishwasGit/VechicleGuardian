@@ -3,7 +3,6 @@ import { View, Text, StyleSheet } from 'react-native';
 import { REACT_APP_SERVER_IP, REACT_APP_SERVER_PORT } from '@env';
 import { TextInput, Button, Divider } from 'react-native-paper';
 import { toast } from 'toastify-js';
-import 'toastify-js/src/toastify.css';
 
 const VehicleIncomeExpenses = ({ route }) => {
   // Extracting vehicleDetailsId from the route params

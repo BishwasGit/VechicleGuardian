@@ -207,10 +207,19 @@ function ProfileScreen({
   );
 }
 
-function LogoutScreen () {
+function LogoutScreen ({ navigation }) {
+  const handleLogout = () =>{
+    navigation.navigate('Login');
+  }
+  
   return (
     <View style={styles.container}>
-      <Text>Logout!</Text>
+      <TouchableOpacity
+        style={styles.switchprofilebutton}
+        onPress={handleLogout}
+      >
+        <Text style={styles.buttonText}>Log Out</Text>
+      </TouchableOpacity>
     </View>
   );
 }

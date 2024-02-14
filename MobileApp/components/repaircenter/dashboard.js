@@ -10,7 +10,6 @@ import DashboardContent from './dashboardContent.js';
 import { IconButton } from "react-native-paper";
 import { Card, Title, Button, TextInput } from "react-native-paper";
 import { REACT_APP_SERVER_IP, REACT_APP_SERVER_PORT } from "@env";
-import { encode as base64Encode } from "base-64";
 import { useNavigation } from "@react-navigation/native";
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import * as ImagePicker from "expo-image-picker";
@@ -29,6 +28,9 @@ const RepairCenterDashboard = ({ route }) => {
   const [isVerified, setIsVerified] = useState(false);
   const navigation = useNavigation();
   const [documentsImage, setDocumentsImage] = useState(null);
+  const [customerProfile, setCustomerProfile] = useState(null);
+  const [repairCenterSellerProfile, setRepairCenterSellerProfile] =
+  useState(null);
 
   const [newDetails, setNewDetails] = useState ({
     fullname: '',
@@ -50,6 +52,63 @@ const RepairCenterDashboard = ({ route }) => {
     setShowVacancyForm (false);
     setNewVacancyDetails ({position: '', noOfPerson: '', salary: ''});
   };
+  useEffect(() => {
+    const fetchRepairCenterDetails = async () => {
+      try {
+        const response = await fetch(
+          `http://${REACT_APP_SERVER_IP}:${REACT_APP_SERVER_PORT}/api/RepairCenterDetails/${repaircenter_id}`
+        );
+        const data = await response.json();
+        setRepairCenterDetails(data.repairCenterDetails);
+
+        const customerCheckResponse = await fetch (
+          `http://${REACT_APP_SERVER_IP}:${REACT_APP_SERVER_PORT}/api/checkCustomerUsername/${data.repairCenterDetails[0].username}`
+        );
+        const customerCheckData = await customerCheckResponse.json ();
+          console.log(data.repairCenterDetails[0].username);
+        if (customerCheckData.exists) {
+          setCustomerProfile ({
+            customer_id: customerCheckData.customer_id,
+          });
+        }
+        const repairCenterSellerCheckResponse = await fetch (
+          `http://${REACT_APP_SERVER_IP}:${REACT_APP_SERVER_PORT}/api/checkRepairCenterSellerUsername/${data.repairCenterDetails[0].username}`
+        );
+        const repairCenterSellerCheckData = await repairCenterSellerCheckResponse.json ();
+
+        if (repairCenterSellerCheckData.exists) {
+          setRepairCenterSellerProfile ({
+            repair_parts_seller_users_id: repairCenterSellerCheckData.repair_parts_seller_users_id,
+          });
+        }
+      } catch (error) {
+        console.error("Error fetching Repair Center details:", error);
+      }
+    };
+
+      fetchRepairCenterDetails ();
+    },
+    [route.params.repaircenter_id]
+  );
+
+  useEffect (
+    () => {
+      const checkVerificationStatus = async () => {
+        try {
+          const response = await fetch (
+            `http://${REACT_APP_SERVER_IP}:${REACT_APP_SERVER_PORT}/api/checkVerificationStatus/${repaircenter_id}`
+          );
+          const data = await response.json ();
+          setIsVerified (Boolean (data.verified));
+        } catch (error) {
+          console.error ('Error fetching verification status:', error);
+        }
+      };
+
+      checkVerificationStatus ();
+    },
+    [route.params.repaircenter_id]
+  );
   const handleDocumentsImageUpload = async () => {
     try {
       const result = await ImagePicker.launchImageLibraryAsync({
@@ -79,9 +138,6 @@ const RepairCenterDashboard = ({ route }) => {
           {
             method: "POST",
             body: formData,
-            headers: {
-              "Content-Type": "multipart/form-data",
-            },
           }
         );
 
@@ -98,42 +154,6 @@ const RepairCenterDashboard = ({ route }) => {
       console.error("Error handling Documents image upload:", error);
     }
   };
-  useEffect(() => {
-    const fetchRepairCenterDetails = async () => {
-      try {
-        const response = await fetch(
-          `http://${REACT_APP_SERVER_IP}:${REACT_APP_SERVER_PORT}/api/RepairCenterDetails/${repaircenter_id}`
-        );
-        const data = await response.json();
-        setRepairCenterDetails(data.repairCenterDetails);
-      } catch (error) {
-        console.error("Error fetching Repair Center details:", error);
-      }
-    };
-
-      fetchRepairCenterDetails ();
-    },
-    [route.params.repaircenter_id]
-  );
-
-  useEffect (
-    () => {
-      const checkVerificationStatus = async () => {
-        try {
-          const response = await fetch (
-            `http://${REACT_APP_SERVER_IP}:${REACT_APP_SERVER_PORT}/api/checkVerificationStatus/${repaircenter_id}`
-          );
-          const data = await response.json ();
-          setIsVerified (Boolean (data.verified));
-        } catch (error) {
-          console.error ('Error fetching verification status:', error);
-        }
-      };
-
-      checkVerificationStatus ();
-    },
-    [route.params.repaircenter_id]
-  );
 
   const handleAddDetails = async () => {
     const contactRegex = /^\d{10}$/;
@@ -210,13 +230,30 @@ const RepairCenterDashboard = ({ route }) => {
       console.error ('Error adding Vacancy details:', error);
     }
   };
-
-  const handleStartRepairing = () => {
+  const handleButtonPress = (buttonType) => {
+    switch (buttonType) {
+      case "switchToCustomerProfile":
+        navigation.navigate("CustomerDashboard", {
+          customer_id: customerProfile?.customer_id,
+        });
+        break;
+      case "switchToRepairCenterSellerProfile":
+        navigation.navigate("RepairCenterPartsSeller", {
+          repaircenter_id:
+            repairCenterSellerProfile?.repair_parts_seller_users_id,
+        });
+        break;
+    }
+  };
+  const handleStartRepairing = (screen) => {
     if (isVerified) {
-      navigation.navigate ('AddWorkersScreen', {repaircenter_id});
+      navigation.navigate (screen, {repaircenter_id});
     } else {
       alert ('Repair Center Verification Pending');
     }
+  };
+  const handleParts = (screen) => {
+      navigation.navigate (screen, {repaircenter_id});
   };
   const handleMenuNavigation = useCallback((screen) => {
     navigation.navigate(screen, repaircenter_id);
@@ -226,7 +263,6 @@ const RepairCenterDashboard = ({ route }) => {
   const handleRepairHistory = useCallback((screen) => {
     navigation.navigate ('RepairHistoryScreen',repaircenter_id);
   },[navigation, repaircenter_id]);
-
 
   return (
 
@@ -252,21 +288,23 @@ const RepairCenterDashboard = ({ route }) => {
       <Tab.Screen
         name="Menus"
         children={() => (
-          <MenusScreen handleMenuNavigation={handleMenuNavigation}
+          <MenusScreen
+          handleMenuNavigation={handleMenuNavigation}
           handleRepairHistory={handleRepairHistory}
           handleStartRepairing={handleStartRepairing}
-          showVacancyForm={showVacancyForm}
+          handleParts={handleParts}
+          setShowForm={setShowForm} // Pass setShowForm as prop
+          setShowVacancyForm={setShowVacancyForm} // Pass setShowVacancyForm as prop
           showForm={showForm}
-          setShowVacancyForm={setShowVacancyForm}
-          setShowForm={setShowForm}
+          showVacancyForm={showVacancyForm}
           handleCloseForm={handleCloseForm}
+          handleCloseVacancyForm={handleCloseVacancyForm}
           vacancyDetails={vacancyDetails}
           newDetails={newDetails}
-          handleAddDetails={handleAddDetails}
           documentsImage={documentsImage}
+          handleAddDetails={handleAddDetails}
           handleAddVacancyDetails={handleAddVacancyDetails}
           handleDocumentsImageUpload={handleDocumentsImageUpload}
-          handleCloseVacancyForm={handleCloseVacancyForm}
            />
         )}
         options={{
@@ -279,7 +317,7 @@ const RepairCenterDashboard = ({ route }) => {
         name="Profile"
         children={() => (
           <ProfileScreen
-            repairCenterProfile={repairCenterProfile}
+          customerProfile={customerProfile}
             repairCenterSellerProfile={repairCenterSellerProfile}
             handleButtonPress={handleButtonPress}
           />
@@ -305,9 +343,9 @@ const RepairCenterDashboard = ({ route }) => {
   );
 };
 function MenusScreen({
-  handleMenuNavigation,
   handleRepairHistory,
   handleStartRepairing,
+  handleParts,
   setShowForm,
   setShowVacancyForm,
   showForm,
@@ -320,7 +358,6 @@ function MenusScreen({
   handleAddDetails,
   handleAddVacancyDetails,
   handleDocumentsImageUpload,
-  navigation,
 }) {
 
   return (
@@ -345,30 +382,28 @@ function MenusScreen({
         </TouchableOpacity>
 
         <TouchableOpacity
-        style={styles.button}
-          onPress={handleRepairHistory}
-        >
-            <Ionicons name="timer-outline" size={30} color="#556b2f" />
-          <Text style={styles.buttonText}>Repair History</Text>
-        </TouchableOpacity>
-
-        <TouchableOpacity
-        style={styles.button}
-          onPress={handleStartRepairing}
-          // onPress={() =>
-          //   navigation.navigate('PartsManagement', {repaircenter_id})}
+  style={styles.button}
+  onPress={() => handleRepairHistory()}
 >
-<Ionicons name="car-sport-outline" size={30} color="#556b2f" />
-          <Text style={styles.buttonText}>Parts Management</Text>
-        </TouchableOpacity>
+  <Ionicons name="timer-outline" size={30} color="#556b2f" />
+  <Text style={styles.buttonText}>Repair History</Text>
+</TouchableOpacity>
 
-        <TouchableOpacity
-        style={styles.button}
-          onPress={handleStartRepairing}
-        >
-              <Ionicons name="person-circle-outline" size={30} color="#556b2f" />
-          <Text style={styles.buttonText}>Add Workers</Text>
-        </TouchableOpacity>
+<TouchableOpacity
+  style={styles.button}
+  onPress={() => handleParts('PartsManagement')}
+>
+  <Ionicons name="car-sport-outline" size={30} color="#556b2f" />
+  <Text style={styles.buttonText}>Parts Management</Text>
+</TouchableOpacity>
+
+<TouchableOpacity
+  style={styles.button}
+  onPress={() => handleStartRepairing('AddWorkersScreen')}
+>
+  <Ionicons name="person-circle-outline" size={30} color="#556b2f" />
+  <Text style={styles.buttonText}>Add Workers</Text>
+</TouchableOpacity>
 
       {showForm &&
         <Card style={styles.card}>
@@ -509,7 +544,7 @@ function MenusScreen({
   );
 }
 function ProfileScreen({
-  repairCenterProfile,
+  customerProfile,
   repairCenterSellerProfile,
   handleButtonPress,
 }) {
@@ -517,12 +552,12 @@ function ProfileScreen({
     <View style={styles.container}>
       <Text>Profile Settings</Text>
       <View style={styles.buttonRow}>
-        {repairCenterProfile &&
+        {customerProfile &&
           <TouchableOpacity
             style={styles.switchprofilebutton}
-            onPress={() => handleButtonPress ('switchToRepairCenterProfile')}
+            onPress={() => handleButtonPress ('switchToCustomerProfile')}
           >
-            <Text style={styles.buttonText}>Switch to Repair Center</Text>
+            <Text style={styles.buttonText}>Switch to Customer Profile</Text>
           </TouchableOpacity>}
         {repairCenterSellerProfile &&
           <TouchableOpacity
@@ -536,21 +571,30 @@ function ProfileScreen({
     </View>
   );
 }
-
-function LogoutScreen () {
+function LogoutScreen ({ navigation }) {
+  const handleLogout = () =>{
+    navigation.navigate('Login');
+  }
+  
   return (
     <View style={styles.container}>
-      <Text>Logout!</Text>
+      <TouchableOpacity
+        style={styles.switchprofilebutton}
+        onPress={handleLogout}
+      >
+        <Text style={styles.buttonText}>Log Out</Text>
+      </TouchableOpacity>
     </View>
   );
 }
-
 const styles = StyleSheet.create ({
   container: {
     flex: 1,
   },
   buttonRow: {
     flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
     marginBottom: 20,
   },
   buttonContainer: {
@@ -630,6 +674,15 @@ const styles = StyleSheet.create ({
     top: 5,
     right: 10,
     zIndex: 1,
+  },
+  switchprofilebutton: {
+    flex: 1, // Add this line
+    flexDirection: 'row',
+    alignItems: 'center',
+    backgroundColor: '#e1ad21',
+    padding: 15,
+    borderRadius: 10,
+    marginHorizontal: 5, // Add this line for spacing between buttons
   },
 });
 
