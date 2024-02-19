@@ -30,11 +30,10 @@ CREATE TABLE `repair_centers` (
   `map` varchar(255) DEFAULT NULL,
   `contact` varchar(45) DEFAULT NULL,
   `documents` varchar(500) DEFAULT NULL,
-  `vacancy` text,
   `status` int DEFAULT '1',
   `verification` varchar(20) DEFAULT 'NotVerified',
   PRIMARY KEY (`repaircenters_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -43,7 +42,7 @@ CREATE TABLE `repair_centers` (
 
 LOCK TABLES `repair_centers` WRITE;
 /*!40000 ALTER TABLE `repair_centers` DISABLE KEYS */;
-INSERT INTO `repair_centers` VALUES (1,1,'bajaj repari center','kalimati,kathmandu','27.68899461302774, 85.28788243117607','9869233345',NULL,NULL,1,'Verified');
+INSERT INTO `repair_centers` VALUES (1,1,'bajaj repari center','kalimati,kathmandu','27.68899461302774, 85.28788243117607','9869233345',NULL,1,'Verified'),(2,1,'Ripetixe','Slutryeyess','Slutryeyess','9804887299','https://res.cloudinary.com/dpftkbsu6/image/upload/v1708337968/repaircenter_documentsa2381cbc-0285-43e6-aff9-8568730f1472.png',1,'NotVerified');
 /*!40000 ALTER TABLE `repair_centers` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -56,4 +55,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2024-02-12 14:20:03
+-- Dump completed on 2024-02-19 16:21:11

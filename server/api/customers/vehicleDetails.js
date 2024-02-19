@@ -29,7 +29,7 @@ router.post("/storeVehicleDetails", async (req, res) => {
 
     // If no duplicate, insert the new vehicle details
     const insertQuery =
-      "INSERT INTO vehicle_details (customer_id, vehicle_type, vehicle_number, vehicle_lot_number, vehicle_company, vehicle_model, bill_book_details, images, isVehicleUsedForIncome) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
+      "INSERT INTO vehicle_details (customer_id, vehicle_type, vehicle_number, vehicle_lot_number, vehicle_company, vehicle_model, bill_book_details, images, vehicle_for_income) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
     const result = await db.execute(insertQuery, [
       customer_id,
       vehicleType,
@@ -39,6 +39,7 @@ router.post("/storeVehicleDetails", async (req, res) => {
       vehicleModel,
       JSON.stringify(billBookDetails),
       JSON.stringify(images),
+      isVehicleUsedForIncome,
     ]);
     if (result) {
       res.json({ message: "Vehicle details stored successfully!" });

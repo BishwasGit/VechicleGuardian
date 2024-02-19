@@ -80,9 +80,6 @@ const AddVehicleScreen = ({route}) => {
       // Parse the response
       const responseData = await response.json();
 
-      // Log the Cloudinary response
-      console.log('Cloudinary response:', responseData);
-
       // If you want to store the Cloudinary URL in the state
       setVehicleImage(responseData.secure_url);
     } catch (error) {
@@ -126,9 +123,6 @@ const AddVehicleScreen = ({route}) => {
         // Parse the response
         const responseData = await response.json ();
 
-        // Log the Cloudinary response
-        console.log ('Cloudinary response for Bill Book Image:', responseData);
-
         // If you want to store the Cloudinary URL in the state
         setBillBookImage (responseData.secure_url);
       }
@@ -138,7 +132,6 @@ const AddVehicleScreen = ({route}) => {
   };
 
   const handleAddVehicle = async () => {
-    // Validate form data before sending to the server
     if (
       !customer_id ||
       !vehicleType ||
@@ -210,6 +203,8 @@ const AddVehicleScreen = ({route}) => {
         setExpiryDate ('');
         setOwnerName ('');
         setContactNumber ('');
+        setVehicleImage ('');
+        setBillBookImage ('');
       } else {
         // Update the message state for error
         setMessage (response.data.error || 'Failed to store vehicle details.');
@@ -226,17 +221,6 @@ const AddVehicleScreen = ({route}) => {
   return (
     <ScrollView style={styles.card}>
       <Text style={styles.heading}>Add your vehicle details</Text>
-      {/* Display message */}
-      {message &&
-        <Text
-          style={
-            message.startsWith ('Success')
-              ? styles.successMessage
-              : styles.errorMessage
-          }
-        >
-          {message}
-        </Text>}
       {/* Form for collecting vehicle details */}
       <View style={styles.container}>
         <IconButton
@@ -339,13 +323,6 @@ const AddVehicleScreen = ({route}) => {
           color="#808000" // Set the checkbox color
           placeholderStyle={{color: '#808000'}} // Set the placeholder color
         />
-          <Checkbox.Item
-          label="Is vehicle used for income ?"
-          status={isVehicleUsedForIncome ? 'checked' : 'unchecked'}
-          onPress={() => setIsVehicleUsedForIncome (!isVehicleUsedForIncome)}
-          color="#0d5563" // Set the checkbox color
-         labelStyle={{color: '#0d5563'}} // Set the placeholder color
-        />
         <TouchableOpacity
           onPress={handleVehicleImageUpload}
           style={{
@@ -392,6 +369,17 @@ const AddVehicleScreen = ({route}) => {
             Add Vehicle Details
           </Text>
         </TouchableOpacity>
+              {/* Display message */}
+      {message &&
+        <Text
+          style={
+            message.startsWith ('Success')
+              ? styles.successMessage
+              : styles.errorMessage
+          }
+        >
+          {message}
+        </Text>}
       </View>
 
       {/* Upload buttons */}

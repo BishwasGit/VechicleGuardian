@@ -16,31 +16,27 @@
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
--- Table structure for table `sales`
+-- Table structure for table `repair_vacancy`
 --
 
-DROP TABLE IF EXISTS `sales`;
+DROP TABLE IF EXISTS `repair_vacancy`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `sales` (
-  `sales_id` int NOT NULL AUTO_INCREMENT,
-  `item_id` int DEFAULT NULL,
-  `quantity_sold` int DEFAULT NULL,
-  `total_price` decimal(10,2) DEFAULT NULL,
-  `sold_at` timestamp NULL DEFAULT NULL,
-  PRIMARY KEY (`sales_id`),
-  KEY `item_id` (`item_id`),
-  CONSTRAINT `sales_ibfk_1` FOREIGN KEY (`item_id`) REFERENCES `inventories` (`item_id`)
+CREATE TABLE `repair_vacancy` (
+  `vacancy_id` int NOT NULL AUTO_INCREMENT,
+  `repaircenter_id` varchar(45) DEFAULT NULL,
+  `vacancy` text,
+  PRIMARY KEY (`vacancy_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `sales`
+-- Dumping data for table `repair_vacancy`
 --
 
-LOCK TABLES `sales` WRITE;
-/*!40000 ALTER TABLE `sales` DISABLE KEYS */;
-/*!40000 ALTER TABLE `sales` ENABLE KEYS */;
+LOCK TABLES `repair_vacancy` WRITE;
+/*!40000 ALTER TABLE `repair_vacancy` DISABLE KEYS */;
+/*!40000 ALTER TABLE `repair_vacancy` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
@@ -52,4 +48,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2024-02-19 16:21:14
+-- Dump completed on 2024-02-19 16:21:15

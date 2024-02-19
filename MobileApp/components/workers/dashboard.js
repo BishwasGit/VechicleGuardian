@@ -12,7 +12,7 @@ const WorkerDashboard = ({ route }) => {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    if (!workerId) navigation.navigate("Vechicle Guardian Landing Page");
+    if (!workerId) navigation.navigate("MainScreen");
   }, [navigation, workerId]);
 
   useEffect(() => {

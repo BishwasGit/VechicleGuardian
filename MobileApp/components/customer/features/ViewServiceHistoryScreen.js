@@ -4,7 +4,7 @@ import { Button, Card, Title, Paragraph } from "react-native-paper";
 import { REACT_APP_SERVER_IP, REACT_APP_SERVER_PORT } from "@env";
 
 const ViewServiceHistoryScreen = ({ route, navigation }) => {
-  const customer_id  = route.params;
+  const {customer_id}  = route.params;
   const [vehicleList, setVehicleList] = useState([]);
   const [selectedVehicleData, setSelectedVehicleData] = useState(null);
 

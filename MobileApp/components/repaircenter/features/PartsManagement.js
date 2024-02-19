@@ -25,7 +25,7 @@ const PartsManagementPage = ({ route }) => {
   const [snackbarMessage, setSnackbarMessage] = useState("");
 
   useEffect(() => {
-    if (!repaircenter_id) navigation.navigate("Vechicle Guardian Landing Page");
+    if (!repaircenter_id) navigation.navigate("MainScreen");
   }, [navigation, repaircenter_id]);
 
   useEffect(() => {

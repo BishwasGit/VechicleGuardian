@@ -25,7 +25,7 @@ const AdminDash = ({ route, navigation }) => {
   // Check if admin_id is available
   if (!admin_id) {
     // Redirect to the main landing page or any other desired screen
-    navigation.navigate("Vechicle Guardian Landing Page");
+    navigation.navigate("MainScreen");
     return null; // Render nothing if redirecting
   }
 

@@ -56,6 +56,7 @@ const App = () => {
           'repair center': "RepairCenterDashboard",
           'repair center worker': "WorkerDashboard",
         };
+        setIsAuthenticated(true);
         setInitialRoute(routeMap[userInfo.userType] || "LoginSelection");
         setInitialParams({ userId: userInfo.userId });
       }
@@ -67,9 +68,9 @@ const App = () => {
   return (
     <PaperProvider>
       <NavigationContainer>
-      <Stack.Navigator initialRouteName={initialRoute}>
+      <Stack.Navigator initialRouteName={initialRoute} initialParams={initialParams}>
           <Stack.Screen
-            name="Vechicle Guardian Landing Page"
+            name="MainScreen"
             component={LoginSelectionScreen}
             options={{ headerShown: false }}
           />

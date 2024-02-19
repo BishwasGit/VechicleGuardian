@@ -4,6 +4,7 @@ import {
   View,
   StyleSheet,
   Text,
+  Image,
   TouchableOpacity,
 } from "react-native";
 import DashboardContent from './dashboardContent.js';
@@ -126,7 +127,7 @@ const RepairCenterDashboard = ({ route }) => {
 
         // Append the image file to the FormData object
         formData.append("documents", {
-          uri: result.assets[0].uri,
+          uri: result.uri,
           type: "image/jpeg",
           name: "documents.jpg",
         });
@@ -143,9 +144,6 @@ const RepairCenterDashboard = ({ route }) => {
 
         // Parse the response
         const responseData = await response.json();
-
-        // Log the Cloudinary response
-        console.log("Cloudinary response for Documents Image:", responseData);
 
         // If you want to store the Cloudinary URL in the state
         setDocumentsImage(responseData.secure_url);
@@ -182,6 +180,7 @@ const RepairCenterDashboard = ({ route }) => {
       const data = await response.json ();
       if (data.success) {
         alert (data.message);
+        setNewDetails('');
       } else {
         alert (`Error: ${data.message}`);
       }
@@ -305,6 +304,7 @@ const RepairCenterDashboard = ({ route }) => {
           handleAddDetails={handleAddDetails}
           handleAddVacancyDetails={handleAddVacancyDetails}
           handleDocumentsImageUpload={handleDocumentsImageUpload}
+          setNewDetails={setNewDetails}
            />
         )}
         options={{
@@ -358,6 +358,7 @@ function MenusScreen({
   handleAddDetails,
   handleAddVacancyDetails,
   handleDocumentsImageUpload,
+  setNewDetails
 }) {
 
   return (
@@ -478,7 +479,7 @@ function MenusScreen({
             {documentsImage && (
               <Image
                 source={{ uri: documentsImage }}
-                style={{ width: 100, height: 100 }}
+                style={{ width: 100, height: 100, marginTop : 30 }}
               />
             )}
             <Button style={styles.addButton} onPress={handleAddDetails}>

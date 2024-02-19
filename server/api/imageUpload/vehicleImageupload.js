@@ -9,6 +9,7 @@ cloudinary.config({
   cloud_name: 'dpftkbsu6',
   api_key: '888578658969881',
   api_secret: 'PwS4c844YOXPCHftfdXrx7xDW8c',
+  api_ev : 'CLOUDINARY_URL=cloudinary://888578658969881:PwS4c844YOXPCHftfdXrx7xDW8c@dpftkbsu6'
 });
 
 // Set up Multer for handling file uploads

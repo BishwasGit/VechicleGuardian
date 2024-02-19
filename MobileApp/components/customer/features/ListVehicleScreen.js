@@ -5,7 +5,7 @@ import Icon from "react-native-vector-icons/MaterialCommunityIcons";
 import { REACT_APP_SERVER_IP, REACT_APP_SERVER_PORT } from "@env";
 
 const ListVehicleScreen = ({ route, navigation }) => {
-  const customer_id  = route.params;
+  const {customer_id}  = route.params;
   const [vehicleData, setVehicleData] = useState([]);
   const [expanded, setExpanded] = useState({}); // Add this line
   const handleTrashIconPress = async (vehicleDetails_id) => {
@@ -37,7 +37,7 @@ const ListVehicleScreen = ({ route, navigation }) => {
 
   useEffect(() => {
     if (!customer_id) {
-      navigation.navigate("Vechicle Guardian Landing Page");
+      navigation.navigate("MainScreen");
       return;
     }
 

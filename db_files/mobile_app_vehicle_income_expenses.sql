@@ -16,31 +16,33 @@
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
--- Table structure for table `sales`
+-- Table structure for table `vehicle_income_expenses`
 --
 
-DROP TABLE IF EXISTS `sales`;
+DROP TABLE IF EXISTS `vehicle_income_expenses`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `sales` (
-  `sales_id` int NOT NULL AUTO_INCREMENT,
-  `item_id` int DEFAULT NULL,
-  `quantity_sold` int DEFAULT NULL,
-  `total_price` decimal(10,2) DEFAULT NULL,
-  `sold_at` timestamp NULL DEFAULT NULL,
-  PRIMARY KEY (`sales_id`),
-  KEY `item_id` (`item_id`),
-  CONSTRAINT `sales_ibfk_1` FOREIGN KEY (`item_id`) REFERENCES `inventories` (`item_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+CREATE TABLE `vehicle_income_expenses` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `vehicleDetails_id` varchar(45) DEFAULT NULL,
+  `expenses_data` json DEFAULT NULL,
+  `income_data` json DEFAULT NULL,
+  `total_expenses_amount` varchar(45) DEFAULT NULL,
+  `total_income_amount` varchar(45) DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `sales`
+-- Dumping data for table `vehicle_income_expenses`
 --
 
-LOCK TABLES `sales` WRITE;
-/*!40000 ALTER TABLE `sales` DISABLE KEYS */;
-/*!40000 ALTER TABLE `sales` ENABLE KEYS */;
+LOCK TABLES `vehicle_income_expenses` WRITE;
+/*!40000 ALTER TABLE `vehicle_income_expenses` DISABLE KEYS */;
+INSERT INTO `vehicle_income_expenses` VALUES (1,'1','[{\"amount\": 1200, \"description\": \"Yggfgg\"}, {\"amount\": 900, \"description\": \"Rgcxgg\"}]','[{\"amount\": 2500, \"description\": \"Ffthvc\"}]','2100','2500','2024-02-12 04:21:09',NULL);
+/*!40000 ALTER TABLE `vehicle_income_expenses` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
@@ -52,4 +54,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2024-02-19 16:21:14
+-- Dump completed on 2024-02-19 16:21:12

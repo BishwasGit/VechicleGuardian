@@ -80,7 +80,7 @@ const CustomerDashboard = ({ route }) => {
     }
   };
   const handleMenuNavigation = (screen) => {
-    navigation.navigate(screen, customer_id);
+    navigation.navigate(screen, { customer_id: customer_id }); // Pass customer_id as a parameter object
   };
   return (
     <Tab.Navigator
