@@ -29,8 +29,7 @@ const Login = ({ navigation }) => {
   };
 
   const handleLogin = async () => {
-    try {
-      setLoading(true);
+        try {
       const response = await fetch(
         `http://${REACT_APP_SERVER_IP}:${REACT_APP_SERVER_PORT}/api/login`,
         {
@@ -42,7 +41,7 @@ const Login = ({ navigation }) => {
         }
       );
       const data = await response.json();
-      
+
       console.log('server response :' , data.userType);
 
       if (response.ok) {
@@ -124,24 +123,23 @@ const Login = ({ navigation }) => {
   return (
 
     <View style={styles.container}>
-      
-     
+
+
      <Button style={styles.title}>
             <Title style={{ color: "white" ,paddingTop: 80,fontWeight: "bold", fontSize: 24,}}> LOG-IN</Title>
           </Button>
 
       <View style={styles.containerTwo}>
         <View style={styles.card}>
-       
+
           <TextInput
              placeholder="Username"
             value={username}
             onChangeText={(text) => setUsername(text)}
             style={styles.textinput}
             left={<TextInput.Icon icon="account" />}
-            
-          />
 
+          />
           <TextInput
             style={styles.textinput}
             placeholder="Password"
@@ -155,11 +153,11 @@ const Login = ({ navigation }) => {
           </Button>
           <Button onPress={handleLogin} style={styles.button}>
             <Text style={{ color: "white", fontSize: 17, fontWeight: "bold" }}>
-              Login 
+              Login
             </Text>
           </Button>
           {loading && <LoadingScreen />}
-        
+
 
         <View style={styles.registerButton}>
         <Text style={{ color: "black" }}>
@@ -178,10 +176,10 @@ const Login = ({ navigation }) => {
             </Text>
           </TouchableOpacity>
       </View>
-         
+
           {message && <Text style={styles.message}>{message}</Text>}
         </View>
-        
+
         <Dialog visible={visible} onDismiss={hideDialog}>
             <Dialog.Title>Login Successful</Dialog.Title>
             <Dialog.Content>
@@ -192,9 +190,9 @@ const Login = ({ navigation }) => {
             </Dialog.Actions>
             </Dialog>
       </View>
-    
+
     </View>
-  
+
   );
 };
 
@@ -212,10 +210,10 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
   card: {
-   
+
     marginTop: "30%",
     width: "75%",
-    
+
   },
   button: {
     fontSize: 20,
@@ -227,7 +225,7 @@ const styles = StyleSheet.create({
     borderTopLeftRadius:25,
     borderBottomRightRadius:25,
     borderBottomLeftRadius:25,
-  
+
   },
   forgotButton: {
     marginTop: 30,
@@ -238,7 +236,7 @@ const styles = StyleSheet.create({
     marginTop: 20,
     paddingTop: 80,
     alignSelf: "right",
-  
+
 
   },
   registerButton: {
@@ -246,7 +244,7 @@ const styles = StyleSheet.create({
     marginTop: 100,
     alignSelf: "center",
   },
- 
+
   textinput: {
     height:45,
     backgroundColor: "transparent",
@@ -262,8 +260,8 @@ const styles = StyleSheet.create({
   message: {
     color: "red",
   },
-  
-  
+
+
 });
 
 export default Login;

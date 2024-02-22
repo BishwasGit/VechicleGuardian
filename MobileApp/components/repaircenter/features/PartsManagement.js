@@ -11,6 +11,7 @@ import {
 import { Picker } from "@react-native-picker/picker";
 import { REACT_APP_SERVER_IP, REACT_APP_SERVER_PORT } from "@env";
 import { useNavigation } from "@react-navigation/native";
+import { IconButton } from "react-native-paper";
 
 const PartsManagementPage = ({ route }) => {
   const { repaircenter_id } = route.params;
@@ -45,6 +46,10 @@ const PartsManagementPage = ({ route }) => {
     fetchData();
   }, [repaircenter_id]);
 
+  const handleCloseForm = () => {
+  navigation.goBack();
+  };
+
   const handleSubmit = async () => {
     try {
       // Validate the form fields here before submitting
@@ -69,6 +74,7 @@ const PartsManagementPage = ({ route }) => {
         partsQuantity: partsQuantity,
         selectedRepairCenterId: selectedItem,
       };
+
 
       // Send the data to the server
       const response = await fetch(
@@ -112,11 +118,16 @@ const PartsManagementPage = ({ route }) => {
     <ScrollView>
       <View style={styles.container}>
         <Title style={styles.firstTitle}>
-          Welcome Back ! {"\n"}
-          <Title style={{ fontWeight: "normal", fontSize: 17 }}>
-            Repair Center ID: {repaircenter_id}
-          </Title>
+          Add your Parts
+
         </Title>
+        <IconButton
+            icon="close"
+            size={20}
+            color="black"
+            style={styles.closeIcon}
+            onPress={handleCloseForm}
+          />
         <View style={styles.card}>
           <View style={styles.pickerContainer}>
             <Picker
@@ -138,48 +149,47 @@ const PartsManagementPage = ({ route }) => {
           <TextInput
             label="Parts Name"
             style={styles.textinput}
-            mode="outlined"
+
             underlineColor="transparent"
             value={partsName}
             onChangeText={(text) => setPartsName(text)}
-            style={{ marginVertical: 10 }}
+
           />
           <TextInput
             label="Parts Image URL"
             style={styles.textinput}
-            mode="outlined"
             underlineColor="transparent"
             value={partsImage}
             onChangeText={(text) => setPartsImage(text)}
-            style={{ marginVertical: 10 }}
+
           />
           <TextInput
             label="Parts Number"
             style={styles.textinput}
-            mode="outlined"
+
             underlineColor="transparent"
             value={partsNumber}
             onChangeText={(text) => setPartsNumber(text)}
-            style={{ marginVertical: 10 }}
+
           />
           <TextInput
             label="Parts Quantity"
             style={styles.textinput}
-            mode="outlined"
             underlineColor="transparent"
             value={partsQuantity}
             onChangeText={(text) => setPartsQuantity(text)}
             keyboardType="numeric"
-            style={{ marginVertical: 10 }}
+
           />
           <Button
             mode="contained"
             onPress={handleSubmit}
             style={{
               padding: 8,
-              alignItems: "center",
-              marginTop: 20,
-              backgroundColor: "#c1121f",
+              color: 'white',
+              alignItems: 'center',
+              marginTop: '13%',
+              backgroundColor: '#808000',
             }}
           >
             <Text style={{ color: "white", fontSize: 16, fontWeight: "bold" }}>
@@ -194,38 +204,49 @@ const PartsManagementPage = ({ route }) => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#f5f1e9",
+    backgroundColor:"#f5f5f5",
+    paddingTop:60,
   },
   card: {
-    width: "80%",
-    marginTop: "10%",
-    margin: 35,
-    gap: 10,
-    marginBottom: 55,
+    paddingTop:60,
+    padding: 30,
   },
   firstTitle: {
     marginTop: "13%",
     paddingLeft: "10%",
     alignItems: "left",
-    color: "#c1121f",
-    fontWeight: "bold",
-    fontSize: 23,
+    color: "black",
+    fontSize: 18,
+  },
+  pickerContainer:{
+    marginBottom:30,
+
   },
   pickerContain: {
-    padding: 10,
-    paddingLeft: 20,
-    paddingRight: 60,
+    borderTopLeftRadius: 20,
+    borderTopRightRadius: 20,
     color: "white",
-    backgroundColor: "#0d5563",
+    backgroundColor: "#808000",
   },
   textinput: {
-    height: 50,
-    backgroundColor: "#edf2f4",
-    width: "100%",
-    marginBottom: 10,
+    marginBottom: 15,
+    borderRadius: 20,
+    borderTopLeftRadius: 20,
+    borderTopRightRadius: 20,
+    marginVertical: 10,
+    textDecorationLine: 'none',
+    backgroundColor: 'white',
+    elevation:2,
   },
   contain: {
     padding: 40,
+
+  },
+  closeIcon: {
+    position: 'absolute',
+    top: 105,
+    right: 25,
+    zIndex: 1,
   },
 });
 

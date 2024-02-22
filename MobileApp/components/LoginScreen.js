@@ -10,10 +10,10 @@ import {
 import {Avatar, Card, Title, Paragraph, Button} from 'react-native-paper';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 const {width, height} = Dimensions.get ('window');
-
 const image = {
   uri: 'https://i.pinimg.com/originals/fb/26/bf/fb26bf0dadfd3741e5e6ea9a8a2f8a4b.jpg',
 };
+import { REACT_APP_SERVER_IP, REACT_APP_SERVER_PORT } from "@env";
 
 const LoginSelectionScreen = ({navigation}) => {
   const handleNavigateToWorkerLogin = () => {
@@ -22,7 +22,7 @@ const LoginSelectionScreen = ({navigation}) => {
   return (
     <View style={styles.container}>
       <ImageBackground source={image} resizeMode="cover" style={styles.image}>
-
+     <Text> </Text>
         <View style={styles.purpleOverlay}>
           {/* Purple transparent background */}
         </View>

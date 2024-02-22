@@ -100,7 +100,7 @@ const RegistrationScreen = ({ route }) => {
 
   return (
     <ScrollView style={styles.container}>
-        
+
      <Button style={styles.title}>
             <Title style={{ color: "white" ,paddingTop: 80,fontWeight: "bold", fontSize: 24,}}>REGISTER</Title>
           </Button>
@@ -128,7 +128,7 @@ const RegistrationScreen = ({ route }) => {
               }
               onPress={() => toggleUserType("Repair Parts Seller")}
             />
-        
+
         </View>
         <Snackbar
           visible={snackbarVisible}
@@ -142,7 +142,7 @@ const RegistrationScreen = ({ route }) => {
            placeholder="Username"
             value={username}
             onChangeText={(text) => setUsername(text)}
-           
+
             style={styles.textinput}
             left={<TextInput.Icon icon="account" />}
           />
@@ -160,7 +160,7 @@ const RegistrationScreen = ({ route }) => {
           <Text style={styles.errorText}>{phoneError}</Text>
 
           <TextInput
-          
+
            placeholder="Email"
             value={email}
             onChangeText={(text) => setEmail(text)}
@@ -171,7 +171,7 @@ const RegistrationScreen = ({ route }) => {
           <Text style={styles.errorText}>{emailError}</Text>
 
           <TextInput
-          
+
            placeholder="Password"
             value={password}
             secureTextEntry
@@ -183,12 +183,12 @@ const RegistrationScreen = ({ route }) => {
           <Button onPress={handleRegistration} style={styles.button}>
             <Text style={{ color: "white", fontSize: 17, fontWeight: "bold" }}>
               {" "}
-              Register 
+              Register
             </Text>
           </Button>
           {registrationStatus && <Text>{registrationStatus}</Text>}
         </View>
-       
+
       </View>
     </ScrollView>
   );
@@ -201,49 +201,46 @@ const styles = StyleSheet.create({
   },
   containerTwo: {
     flex: 1,
-    paddingTop:30,
+    paddingTop:50,
     marginTop: "15%",
     backgroundColor:'white',
     borderTopRightRadius:65,
     borderTopLeftRadius:65,
-    alignItems: "center",
+    paddingLeft:40,
+    paddingRight:40,
+    paddingBottom:40,
   },
   checkboxContainer: {
-   
-    display: 'flex',
-    flexDirection: "row",
-    flexWrap: "wrap",
-    alignItems: "center",
+    display: 'grid',
   },
-  checkbox: {
-    flexBasis: "65%",
-  },
+
   card: {
     flex: 1,
     marginTop: "5%",
-    width: "75%",
+    width: "95%",
     marginBottom: "5%",
-    
+    paddingLeft:10,
+
   },
   button: {
     fontSize: 20,
     padding: 5,
     color: "white",
-    backgroundColor: "#e1ad21",
-    borderTopRightRadius:25,
-    borderTopLeftRadius:25,
-    borderBottomRightRadius:25,
-    borderBottomLeftRadius:25,
+    backgroundColor: "#808000",
+    borderTopRightRadius:20,
+    borderTopLeftRadius:20,
+    borderBottomRightRadius:20,
+    borderBottomLeftRadius:20,
     marginTop: "20%",
     marginBottom: "10%",
-  
+
   },
- 
+
   title:{
     marginTop: 20,
     paddingTop: 80,
     alignSelf: "right",
-  
+
 
   },
   textinput: {
@@ -262,8 +259,8 @@ const styles = StyleSheet.create({
     color: "red",
     marginBottom: 5,
   },
- 
- 
+
+
 });
 
 export default RegistrationScreen;
