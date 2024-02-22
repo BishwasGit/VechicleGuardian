@@ -21,10 +21,19 @@ class AppServiceProvider extends ServiceProvider
     {
         $this->registerPolicies();
 
-        Gate::define('view', function (User $loggedInUser, User $requestedUser) {
+        Gate::define('view', function (User $loggedInUser, string $requestedUserId) {
+            // Retrieve the requested user based on the seller_uuid
+            $requestedUser = User::where('seller_uuid', $requestedUserId)->first();
+
+            // Ensure that the requested user exists
+            if (!$requestedUser) {
+                return false; // or handle appropriately
+            }
+
             // Return the result of the authorization logic
-            return $loggedInUser->repair_parts_seller_users_id === $requestedUser->repair_parts_seller_users_id;
+            return $loggedInUser->seller_uuid === $requestedUser->seller_uuid;
         });
+
     }
 
 }

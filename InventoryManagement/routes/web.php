@@ -19,4 +19,5 @@ require __DIR__ . '/registration.php';
 require __DIR__ . '/master_crud.php';
 require __DIR__ . '/login.php';
 require __DIR__ . '/logout.php';
+require __DIR__ . '/inventories/inventories.php';
 

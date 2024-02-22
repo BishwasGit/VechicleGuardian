@@ -159,7 +159,8 @@ return [
         /*
          * Package Service Providers...
          */
-
+        // Add Cloudinary's service provider
+        CloudinaryLabs\CloudinaryLaravel\CloudinaryServiceProvider::class,
         /*
          * Application Service Providers...
          */

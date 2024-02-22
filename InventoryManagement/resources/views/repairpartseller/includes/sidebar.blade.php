@@ -45,7 +45,7 @@
                 <ul class="nk-menu">
                     <!-- Dashboard -->
                     <li class="nk-menu-item">
-                        <a href="{{ route('repaircenter_dashboard', ['user' => $user]) }}" class="nk-menu-link">
+                        <a href="{{ route('repaircenter_dashboard', ['user' => auth()->user()->seller_uuid]) }}" class="nk-menu-link">
                             <span class="nk-menu-icon"><em class="icon ni ni-dashboard"></em></span>
                             <span class="nk-menu-text">Dashboard</span>
                         </a>
@@ -64,7 +64,7 @@
                             <span class="nk-menu-text">Inventory</span>
                         </a>
                         <ul class="nk-menu-sub">
-                            <li class="nk-menu-item"><a href="inventory/add-item.html" class="nk-menu-link"><span
+                            <li class="nk-menu-item"><a href="{{ route('repairpartseller.inventories.inventories.index') }}" class="nk-menu-link"><span
                                         class="nk-menu-text">Add Item</span></a></li>
                             <li class="nk-menu-item"><a href="inventory/manage-items.html" class="nk-menu-link"><span
                                         class="nk-menu-text">Manage Items</span></a></li>

@@ -6,7 +6,7 @@
             <nav class="nk-header-menu nk-navbar">
                 <ul class="nk-nav">
                     <li class="nk-nav-item">
-                        <h5 class="nk-nav-text">Good Morning , {{ $user->username }}</h5>
+                        <h5 class="nk-nav-text">Good Morning , {{ auth()->user()->username }}</h5>
                     </li>
                 </ul>
             </nav>
@@ -28,7 +28,7 @@
                                     <div class="media media-xl media-middle media-circle"><img
                                             src="{{asset('assets/avatar.png')}}" alt="" class="img-thumbnail"></div>
                                     <div class="media-text">
-                                        <div class="lead-text">{{ $user->username }}</div><span class="sub-text">Repair Parts Seller</span>
+                                        <div class="lead-text">{{ auth()->user()->username}}</div><span class="sub-text">Repair Parts Seller</span>
                                     </div>
                                 </div>
                             </div>

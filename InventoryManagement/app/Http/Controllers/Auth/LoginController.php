@@ -24,9 +24,8 @@ class LoginController extends Controller
         if ($user && password_verify($request->password, $user->password)) {
             // Start a session
             Auth::login($user, $request->filled('remember'));
-
             // Redirect to the dashboard with the authenticated user instance
-            return redirect()->route('repaircenter_dashboard', ['user' => $user]);
+            return redirect()->route('repaircenter_dashboard', ['user' => $user->seller_uuid]);
         }
 
         // If credentials are invalid, redirect back with error message
