@@ -6,8 +6,8 @@ class inventories extends Model
 {
     // Fillable fields based on the columns
     protected $table = 'inventories';
+    protected $primaryKey = 'item_id';
     protected $fillable = [
-                    'item_id',
                     'seller_uuid',
                     'item_name',
                     'item_description',

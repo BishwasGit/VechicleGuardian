@@ -5,11 +5,9 @@
             @include('repairpartseller.includes.sidebar')
             <div class="nk-wrap">
                 @include('repairpartseller.includes.nav')
-
                 <div class="nk-content">
                     <div class="container-fluid">
                         <div class="nk-content-inner">
-                            <!-- Body contents here-->
                             <div class="nk-content-body">
                                 <div class="nk-block-head">
                                     <div class="nk-block-head-between flex-wrap gap g-2">
@@ -68,7 +66,7 @@
                                                             </th>
                                                             <th class="tb-col" data-sortable="" style="width: 30.1887%;">
                                                                 <a href="#" class="dataTable-sorter">
-                                                                    <span class="overline-title">Item_name</span>
+                                                                    <span class="overline-title">Item</span>
                                                                 </a>
                                                             </th>
                                                             <th class="tb-col" data-sortable="" style="width: 30.1887%;">
@@ -83,12 +81,7 @@
                                                             </th>
                                                             <th class="tb-col" data-sortable="" style="width: 30.1887%;">
                                                                 <a href="#" class="dataTable-sorter">
-                                                                    <span class="overline-title">Created_at</span>
-                                                                </a>
-                                                            </th>
-                                                            <th class="tb-col" data-sortable="" style="width: 30.1887%;">
-                                                                <a href="#" class="dataTable-sorter">
-                                                                    <span class="overline-title">Last_Updated_at</span>
+                                                                    <span class="overline-title">Status</span>
                                                                 </a>
                                                             </th>
                                                             <th class="tb-col" data-sortable="" style="width: 30.1887%;">
@@ -99,7 +92,51 @@
                                                         </tr>
                                                     </thead>
                                                     <tbody>
+                                                        @foreach ($inventories as $item)
+                                                            <tr>
+                                                                <td class="tb-col">{{ $item->item_id }}</td>
+                                                                <td class="tb-col">
+                                                                    <div class="media-group">
+                                                                        <div class="media media-md media-middle"><img
+                                                                                src="{{ $item->item_image }}"
+                                                                                alt="{{ $item->item_id }}"></div>
+                                                                        <div class="media-text"><a href="#"
+                                                                                class="title">{{ $item->item_name }}</a>
+                                                                            <div class="text smaller d-none d-sm-block">
+                                                                                {{ $item->item_description }}</div>
+                                                                        </div>
+                                                                    </div>
+                                                                </td>
+                                                                <td class="tb-col">{{ $item->item_quantity }}</td>
+                                                                <td class="tb-col">{{ $item->item_price }}</td>
+                                                                <td class="tb-col"><span
+                                                                        class="badge text-bg-success-soft">In Stock</span>
+                                                                </td>
+                                                                <td class="tb-col tb-col-end">
+                                                                    <div class="d-flex justify-content-end gap g-2">
+                                                                        <div class="gap-col"><a type="button"
+                                                                                class="btn btn-sm btn-icon bg-primary-soft"
+                                                                                title="Print"
+                                                                                href="{{ route('repairpartseller.inventories.inventories.edit', ['id' => $item->item_id]) }}"><em
+                                                                                    class="icon ni ni-edit"></em></a>
+                                                                        </div>
+                                                                        <div class="gap-col"><a
+                                                                                href="{{ route('repairpartseller.inventories.inventories.show', ['id' => $item->item_id]) }}"
+                                                                                class="btn btn-sm bg-success-soft"> <em
+                                                                                    class="icon ni ni-eye"></em>
+                                                                            </a></div>
+                                                                        <div class="gap-col">
+                                                                            <a href="#" id="delete-item"
+                                                                                class="btn btn-sm bg-danger-soft delete-item"
+                                                                                data-item-id="{{ $item->item_id }}">
+                                                                                <em class="icon ni ni-trash"></em>
+                                                                            </a>
+                                                                        </div>
+                                                                    </div>
 
+                                                                </td>
+                                                            </tr>
+                                                        @endforeach
                                                     </tbody>
                                                 </table>
                                             </div>
@@ -114,3 +151,57 @@
         </div>
     </div>
 @endsection
+@push('js')
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"
+        integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script>
+        // Add event listener to delete link with the class 'delete-item'
+        $('.delete-item').on('click', function(event) {
+            event.preventDefault();
+            const itemId = $(this).data('item-id');
+            // Show confirmation dialog
+            Swal.fire({
+                title: 'Are you sure?',
+                text: "You won't be able to revert this!",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#d33',
+                cancelButtonColor: '#3085d6',
+                confirmButtonText: 'Yes, delete it!'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    // Make Ajax request to delete route
+                    $.ajax({
+                        type: 'DELETE',
+                        url: "{{ route('repairpartseller.inventories.inventories.destroy', ':id') }}"
+                            .replace(':id', itemId),
+                        headers: {
+                            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                        },
+                        success: function(response) {
+                            // Handle success response
+                            Swal.fire(
+                                'Deleted!',
+                                'Your item has been deleted.',
+                                'success'
+                            ).then(() => {
+                                // Reload the page or update UI as needed
+                                window.location.reload();
+                            });
+                        },
+                        error: function(xhr, status, error) {
+                            // Handle error response
+                            Swal.fire(
+                                'Error!',
+                                'An error occurred while deleting the item.',
+                                'error'
+                            );
+                        }
+                    });
+                }
+            });
+        });
+    </script>
+@endpush
