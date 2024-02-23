@@ -6,7 +6,7 @@ const bcrypt = require('bcrypt');
 router.post('/register', async (req, res) => {
   const { userTypes, username, phone, email, password } = req.body;
   const saltRounds = 10; // Number of salt rounds
-
+  console.log(req.body);
   try {
     const lowercaseUsername = username.toLowerCase();
     for (const userType of userTypes) {

@@ -128,15 +128,7 @@ const CustomerDashboard = ({ route }) => {
           ),
         }}
       />
-      <Tab.Screen
-        name="Logout"
-        component={LogoutScreen}
-        options={{
-          tabBarIcon: ({color, size}) => (
-            <Icon name="logout" size={size} color={color} />
-          ),
-        }}
-      />
+
     </Tab.Navigator>
   );
 };
@@ -183,16 +175,20 @@ function ProfileScreen({
   repairCenterSellerProfile,
   handleButtonPress,
 }) {
+  const handleLogout = () =>{
+    navigation.navigate('Login');
+  }
   return (
-    <View style={styles.container}>
-      <Text>Profile Settings</Text>
+    <View style={styles.profileContainer}>
+      <Text style={{paddingBottom:50,fontWeight:"medium",
+    fontSize:16,}}>Switch Back to your Profile</Text>
       <View style={styles.buttonRow}>
         {repairCenterProfile &&
           <TouchableOpacity
             style={styles.switchprofilebutton}
             onPress={() => handleButtonPress ('switchToRepairCenterProfile')}
           >
-            <Text style={styles.buttonText}>Switch to Repair Center</Text>
+            <Text style={styles.buttonProfileText}>Switch to Repair Center</Text>
           </TouchableOpacity>}
         {repairCenterSellerProfile &&
           <TouchableOpacity
@@ -200,41 +196,42 @@ function ProfileScreen({
             onPress={() =>
               handleButtonPress ('switchToRepairCenterSellerProfile')}
           >
-            <Text style={styles.buttonText}>Switch to Seller Profile</Text>
+            <Text style={styles.buttonProfileText}>Switch to Seller Profile</Text>
           </TouchableOpacity>}
+          <TouchableOpacity
+        style={styles.switchprofileLogbutton}
+        onPress={handleLogout}
+      >
+        <Text style={styles.buttonProfileText}>Log Out</Text>
+      </TouchableOpacity>
       </View>
     </View>
   );
 }
 
-function LogoutScreen ({ navigation }) {
-  const handleLogout = () =>{
-    navigation.navigate('Login');
-  }
-  
-  return (
-    <View style={styles.container}>
-      <TouchableOpacity
-        style={styles.switchprofilebutton}
-        onPress={handleLogout}
-      >
-        <Text style={styles.buttonText}>Log Out</Text>
-      </TouchableOpacity>
-    </View>
-  );
-}
+// function LogoutScreen ({ navigation }) {
+//   const handleLogout = () =>{
+//     navigation.navigate('Login');
+//   }
+
+//   return (
+//     <View style={styles.container}>
+//       <TouchableOpacity
+//         style={styles.switchprofilebutton}
+//         onPress={handleLogout}
+//       >
+//         <Text style={styles.buttonText}>Log Out</Text>
+//       </TouchableOpacity>
+//     </View>
+//   );
+// }
 const styles = StyleSheet.create ({
   container: {
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
   },
-  buttonRow: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-    marginBottom: 20,
-  },
+
   buttonContainer: {
     width: '100%',
   },
@@ -277,9 +274,12 @@ const styles = StyleSheet.create ({
   menuContainer: {
     flex: 1,
     paddingTop:80,
+    marginBottom: 35,
+    marginTop:35,
   },
   gridRow: {
     flexDirection: 'row',
+
   },
   button: {
     flex: 1,
@@ -287,9 +287,9 @@ const styles = StyleSheet.create ({
     alignItems: 'center',
     padding: 20,
     borderRadius: 20,
-    marginBottom: 35,
-    marginRight: 25,
-    marginLeft: 25,
+    marginBottom: 25,
+    marginRight: 35,
+    marginLeft: 35,
     backgroundColor: '#fff',
     elevation: 2, // Android
   },
@@ -300,14 +300,45 @@ const styles = StyleSheet.create ({
     color: '#253529',
     textAlign: 'center',
   },
+  profileContainer:{
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  buttonRow: {
+height:300,
+width:"60%",
+
+
+  },
+  buttonProfileText:{
+    color:'white',
+    fontWeight:"medium",
+    fontSize:16,
+
+  },
+
   switchprofilebutton: {
     flex: 1, // Add this line
     flexDirection: 'row',
+    backgroundColor: '#808000',
+    padding: 20,
+    justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: '#e1ad21',
-    padding: 15,
+    elevation: 2,
     borderRadius: 10,
-    marginHorizontal: 5, // Add this line for spacing between buttons
+    marginBottom:20,
+
+  },
+  switchprofileLogbutton:{
+    backgroundColor:"#96a53c",
+    padding: 20,
+    justifyContent: 'center',
+    alignItems: 'center',
+    elevation: 2,
+    borderRadius: 10,
+    marginTop:10,
+
   },
 });
 export default CustomerDashboard;

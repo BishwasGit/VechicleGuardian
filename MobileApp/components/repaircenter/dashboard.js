@@ -328,15 +328,7 @@ const RepairCenterDashboard = ({ route }) => {
           ),
         }}
       />
-      <Tab.Screen
-        name="Logout"
-        component={LogoutScreen}
-        options={{
-          tabBarIcon: ({color, size}) => (
-            <Icon name="logout" size={size} color={color} />
-          ),
-        }}
-      />
+
     </Tab.Navigator>
 
 
@@ -368,7 +360,7 @@ function MenusScreen({
         style={styles.button}
           onPress={() => setShowForm (true)}
         >
-              <Ionicons name="clipboard-outline" size={30} color="#556b2f" />
+              <Ionicons name="clipboard-outline" size={30} color="#808000" />
           <Text style={styles.buttonText}>
             Add Repair Center Details
           </Text>
@@ -378,7 +370,7 @@ function MenusScreen({
         style={styles.button}
           onPress={() => setShowVacancyForm (true)}
         >
-             <Ionicons name="people-outline" size={30} color="#556b2f" />
+             <Ionicons name="people-outline" size={30} color="#808000" />
           <Text style={styles.buttonText}>Add Vacancy</Text>
         </TouchableOpacity>
 
@@ -386,7 +378,7 @@ function MenusScreen({
   style={styles.button}
   onPress={() => handleRepairHistory()}
 >
-  <Ionicons name="timer-outline" size={30} color="#556b2f" />
+  <Ionicons name="timer-outline" size={30} color="#808000" />
   <Text style={styles.buttonText}>Repair History</Text>
 </TouchableOpacity>
 
@@ -394,7 +386,7 @@ function MenusScreen({
   style={styles.button}
   onPress={() => handleParts('PartsManagement')}
 >
-  <Ionicons name="car-sport-outline" size={30} color="#556b2f" />
+  <Ionicons name="car-sport-outline" size={30} color="#808000" />
   <Text style={styles.buttonText}>Parts Management</Text>
 </TouchableOpacity>
 
@@ -402,7 +394,7 @@ function MenusScreen({
   style={styles.button}
   onPress={() => handleStartRepairing('AddWorkersScreen')}
 >
-  <Ionicons name="person-circle-outline" size={30} color="#556b2f" />
+  <Ionicons name="person-circle-outline" size={30} color="#808000" />
   <Text style={styles.buttonText}>Add Workers</Text>
 </TouchableOpacity>
 
@@ -429,7 +421,7 @@ function MenusScreen({
           <Card.Content>
             <TextInput
               style={styles.field}
-              label="Full name"
+              placeholder="Full name"
               underlineColor="transparent"
               value={newDetails.fullname}
               onChangeText={text =>
@@ -437,7 +429,7 @@ function MenusScreen({
             />
             <TextInput
               style={styles.field}
-              label="Address"
+              placeholder="Address"
               underlineColor="transparent"
               value={newDetails.address}
               onChangeText={text =>
@@ -445,7 +437,7 @@ function MenusScreen({
             />
             <TextInput
               style={styles.field}
-              label="Contact"
+              placeholder="Contact"
               underlineColor="transparent"
               value={newDetails.contact}
               onChangeText={text =>
@@ -453,10 +445,10 @@ function MenusScreen({
             />
             <TextInput
               style={styles.field}
-              label="Map Link"
+              placeholder="Map Link"
               underlineColor="transparent"
               value={newDetails.map}
-              placeholder="27.68899461302774, 85.28788243117607"
+              // placeholder="27.68899461302774, 85.28788243117607"
               onChangeText={(text) =>
                 setNewDetails({ ...newDetails, map: text })
               }
@@ -467,11 +459,12 @@ function MenusScreen({
                 padding: 15,
                 alignItems: "center",
                 marginTop: 20,
-                backgroundColor: "#0d5563",
+                borderRadius: 20,
+                backgroundColor: "#8a9a5b",
               }}
             >
               <Text
-                style={{ color: "white", fontSize: 16, fontWeight: "bold" }}
+                style={{ color: "white", fontSize: 15,  }}
               >
                 Upload Document Image
               </Text>
@@ -483,7 +476,7 @@ function MenusScreen({
               />
             )}
             <Button style={styles.addButton} onPress={handleAddDetails}>
-              <Text style={{color: 'white'}}>Add Details </Text>
+              <Text style={{color: 'white',fontWeight:'bold'}}>Add Details </Text>
             </Button>
           </Card.Content>
         </Card>}
@@ -492,10 +485,10 @@ function MenusScreen({
           <Title
             style={{
               fontWeight: 'normal',
-              fontSize: 17,
-              paddingTop: 130,
+              fontSize: 16,
+              paddingTop: 10,
               paddingLeft: 20,
-              paddingBottom: 20,
+              paddingBottom: 60,
             }}
           >
             Add Vacancy Form
@@ -549,16 +542,20 @@ function ProfileScreen({
   repairCenterSellerProfile,
   handleButtonPress,
 }) {
+  const handleLogout = () =>{
+    navigation.navigate('Login');
+  }
   return (
-    <View style={styles.container}>
-      <Text>Profile Settings</Text>
+    <View style={styles.profileContainer}>
+      <Text style={{paddingBottom:50,fontWeight:"medium",
+    fontSize:16,}}>Switch Back to your Profile</Text>
       <View style={styles.buttonRow}>
         {customerProfile &&
           <TouchableOpacity
             style={styles.switchprofilebutton}
             onPress={() => handleButtonPress ('switchToCustomerProfile')}
           >
-            <Text style={styles.buttonText}>Switch to Customer Profile</Text>
+            <Text style={styles.buttonProfileText}>Switch to Customer Profile</Text>
           </TouchableOpacity>}
         {repairCenterSellerProfile &&
           <TouchableOpacity
@@ -566,38 +563,24 @@ function ProfileScreen({
             onPress={() =>
               handleButtonPress ('switchToRepairCenterSellerProfile')}
           >
-            <Text style={styles.buttonText}>Switch to Seller Profile</Text>
+            <Text style={styles.buttonProfileText}>Switch to Seller Profile</Text>
           </TouchableOpacity>}
+          <TouchableOpacity
+        style={styles.switchprofileLogbutton}
+        onPress={handleLogout}
+      >
+        <Text style={styles.buttonProfileText}>Log Out</Text>
+      </TouchableOpacity>
       </View>
     </View>
   );
 }
-function LogoutScreen ({ navigation }) {
-  const handleLogout = () =>{
-    navigation.navigate('Login');
-  }
-  
-  return (
-    <View style={styles.container}>
-      <TouchableOpacity
-        style={styles.switchprofilebutton}
-        onPress={handleLogout}
-      >
-        <Text style={styles.buttonText}>Log Out</Text>
-      </TouchableOpacity>
-    </View>
-  );
-}
+
 const styles = StyleSheet.create ({
   container: {
     flex: 1,
   },
-  buttonRow: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-    marginBottom: 20,
-  },
+
   buttonContainer: {
     width: '100%',
   },
@@ -620,7 +603,9 @@ const styles = StyleSheet.create ({
   },
   menuContainer: {
     flex: 1,
-    paddingTop:80,
+    paddingTop:90,
+    marginBottom: 35,
+
   },
   button: {
     flex: 1,
@@ -628,9 +613,9 @@ const styles = StyleSheet.create ({
     alignItems: 'center',
     padding: 20,
     borderRadius: 20,
-    marginBottom: 20,
-    marginRight: 30,
-    marginLeft: 30,
+    marginBottom: 25,
+    marginRight: 35,
+    marginLeft: 35,
     backgroundColor: '#fff',
     elevation: 2, // Android
   },
@@ -643,32 +628,30 @@ const styles = StyleSheet.create ({
   },
   card: {
     paddingTop:90,
-    flex:1,
     height: '200%',
     width: '100%',
     padding: 30,
     position: 'absolute',
-    top: 1,
-    backgroundColor: 'white',
+    backgroundColor:"#f5f5f5",
 
   },
   field: {
     marginBottom: 15,
-    borderWidth: 1,
     borderRadius: 20,
     borderTopLeftRadius: 20,
     borderTopRightRadius: 20,
-    borderColor: '#1e6091',
     marginVertical: 10,
     textDecorationLine: 'none',
-    backgroundColor: '#edf2f4',
+    backgroundColor: 'white',
+    elevation:2,
   },
   addButton: {
-    padding: 5,
+    padding: 8,
     color: 'white',
     alignItems: 'center',
     marginTop: '13%',
-    backgroundColor: '#c1121f',
+    backgroundColor: '#808000',
+
   },
   closeIcon: {
     position: 'absolute',
@@ -676,14 +659,44 @@ const styles = StyleSheet.create ({
     right: 10,
     zIndex: 1,
   },
+  profileContainer:{
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  buttonRow: {
+height:300,
+width:"60%",
+
+
+  },
+  buttonProfileText:{
+    color:'white',
+    fontWeight:"medium",
+    fontSize:16,
+
+  },
   switchprofilebutton: {
     flex: 1, // Add this line
     flexDirection: 'row',
+    backgroundColor: '#808000',
+    padding: 20,
+    justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: '#e1ad21',
-    padding: 15,
+    elevation: 2,
     borderRadius: 10,
-    marginHorizontal: 5, // Add this line for spacing between buttons
+    marginBottom:20,
+
+  },
+  switchprofileLogbutton:{
+    backgroundColor:"#96a53c",
+    padding: 20,
+    justifyContent: 'center',
+    alignItems: 'center',
+    elevation: 2,
+    borderRadius: 10,
+    marginTop:10,
+
   },
 });
 

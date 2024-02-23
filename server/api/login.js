@@ -25,7 +25,7 @@ router.post('/login', async (req, res) => {
         if (!result || result[0].length === 0) {
           // Check if the username exists in repair_parts_seller_users table
           result = await db.execute('SELECT repair_parts_seller_users_id, password FROM repair_parts_seller_users WHERE username = ?', [lowercaseUsername]);
-        
+
           if(!result || result[0].length === 0){
             result = await db.execute('SELECT repaircenter_workers_id, password FROM repaircenter_workers WHERE user_name = ?',[lowercaseUsername]);
           }
@@ -41,7 +41,7 @@ router.post('/login', async (req, res) => {
       if (passwordMatch) {
         let payload = {};
         let message = '';
-        
+
         // Passwords match, login successful
         if (customer_id) {
           payload = { userId: customer_id, userType: 'customer' };
@@ -61,7 +61,7 @@ router.post('/login', async (req, res) => {
         }
         // Generate a token
         const token = jwt.sign(payload, SECRET_KEY, { expiresIn: '24h' });
-          
+
         res.json({ success: true, message, token, userId: payload.userId, userType: payload.userType });
         console.log([payload.userId,payload.userType]);
       } else {
