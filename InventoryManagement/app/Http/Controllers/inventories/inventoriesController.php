@@ -23,15 +23,6 @@ class inventoriesController extends Controller
 
     public function store(Request $request)
     {
-        // Validate the incoming request data
-        $request->validate([
-            // Add validation rules for other form fields here
-            'item_name' => 'required|string|max:255',
-            'item_description' => 'required|string|max:255',
-            'item_quantity' => 'required|integer',
-            'item_price' => 'required|numeric',
-            'item_image' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048', // Adjust max file size as needed
-        ]);
         $uploadedFileUrl = Cloudinary::upload($request->file('item_image')->getRealPath())->getSecurePath();
 
         InventoryModel::create([
@@ -92,5 +83,9 @@ class inventoriesController extends Controller
 
         // Redirect to index page after successful deletion
         return redirect()->route('repairpartseller.inventories.inventories.index')->with('success', 'Inventory item deleted successfully.');
+    }
+    public function lowstock($selleruuid){
+        $data = InventoryModel::where('seller_uuid',$selleruuid)->where('item_quantity', '<', 5);
+        return view('repairpartseller.inventories.lowstock',compact('data'));
     }
 }
