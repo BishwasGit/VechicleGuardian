@@ -5,6 +5,8 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\inventories\inventories as InventoryModel;
 use CloudinaryLabs\CloudinaryLaravel\Facades\Cloudinary;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
+use Illuminate\Support\Facades\DB;
 
 class inventoriesController extends Controller
 {
@@ -21,15 +23,6 @@ class inventoriesController extends Controller
 
     public function store(Request $request)
     {
-        // Validate the incoming request data
-        $request->validate([
-            // Add validation rules for other form fields here
-            'item_name' => 'required|string|max:255',
-            'item_description' => 'required|string|max:255',
-            'item_quantity' => 'required|integer',
-            'item_price' => 'required|numeric',
-            'item_image' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048', // Adjust max file size as needed
-        ]);
         $uploadedFileUrl = Cloudinary::upload($request->file('item_image')->getRealPath())->getSecurePath();
 
         InventoryModel::create([
@@ -53,27 +46,46 @@ class inventoriesController extends Controller
 
     public function edit($id)
     {
-        $inventories = InventoryModel::findOrFail($id);
+        $inventories = InventoryModel::where('item_id', $id)->firstOrFail();
         return view('repairpartseller.inventories.edit', compact('inventories'));
     }
-
     public function update(Request $request, $id)
     {
-        // Validate and update the record
-        $data = $request->validate([
-            // Add validation rules based on your field requirements
-        ]);
+        $inventory = InventoryModel::where('item_id', $id)->firstOrFail();
+          // Update the inventory fields with the new data
+            $inventory->item_name = $request->item_name;
+            $inventory->item_description = $request->item_description;
+            $inventory->item_quantity = $request->item_quantity;
+            $inventory->item_price = $request->item_price;
+            $inventory->seller_uuid =  auth()->user()->seller_uuid;
 
-        InventoryModel::findOrFail($id)->update($data);
+            // Check if a new image file is uploaded
+        if ($request->hasFile('new_item_image')) {
+            // Upload the new image and update the item_image field
+            $uploadedFileUrl = Cloudinary::upload($request->file('new_item_image')->getRealPath())->getSecurePath();
+            $inventory->item_image = $uploadedFileUrl;
+        }
+            // Save the updated inventory item
+            $inventory->save();
 
-        return redirect()->route('repairpartseller.inventories.index');
+            return redirect()->route('repairpartseller.inventories.inventories.index');
     }
-
     public function destroy($id)
     {
-        // Delete the record
-        InventoryModel::findOrFail($id)->delete();
+        try {
+            // Find and delete the record
+            $inventory = InventoryModel::where('item_id', $id)->firstOrFail();
+            $inventory->delete();
+        } catch (ModelNotFoundException $e) {
+            // Handle the case where the record is not found
+            return redirect()->route('repairpartseller.inventories.inventories.index')->with('error', 'Record not found.');
+        }
 
-        return redirect()->route('repairpartseller.inventories.index');
+        // Redirect to index page after successful deletion
+        return redirect()->route('repairpartseller.inventories.inventories.index')->with('success', 'Inventory item deleted successfully.');
+    }
+    public function lowstock($selleruuid){
+        $data = InventoryModel::where('seller_uuid',$selleruuid)->where('item_quantity', '<', 5);
+        return view('repairpartseller.inventories.lowstock',compact('data'));
     }
 }

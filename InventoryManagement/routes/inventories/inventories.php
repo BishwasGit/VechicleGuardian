@@ -9,6 +9,6 @@ Route::prefix('inventories')->group(function () {
     Route::get('inventories/{id}', [inventoriesController::class, 'show'])->name('repairpartseller.inventories.inventories.show');
     Route::get('inventories/{id}/edit', [inventoriesController::class, 'edit'])->name('repairpartseller.inventories.inventories.edit');
     Route::put('inventories/{id}', [inventoriesController::class, 'update'])->name('repairpartseller.inventories.inventories.update');
-    Route::delete('inventories/{id}', [inventoriesController::class, 'destroy'])->name('repairpartseller.inventories.inventories.destroy');
+    Route::delete('inventories/{id}/delete', [inventoriesController::class, 'destroy'])->name('repairpartseller.inventories.inventories.destroy');
 });
 

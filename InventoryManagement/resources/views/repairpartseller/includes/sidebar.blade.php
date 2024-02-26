@@ -68,7 +68,7 @@
                                         class="nk-menu-text">Add Item</span></a></li>
                             <li class="nk-menu-item"><a href="inventory/manage-items.html" class="nk-menu-link"><span
                                         class="nk-menu-text">Manage Items</span></a></li>
-                            <li class="nk-menu-item"><a href="inventory/low-stock.html" class="nk-menu-link"><span
+                            <li class="nk-menu-item"><a href="{{route('inventories.lowstock',['selleruuid' => auth()->user()->seller_uuid])}}" class="nk-menu-link"><span
                                         class="nk-menu-text">Low Stock</span></a></li>
                         </ul>
                     </li>
@@ -80,9 +80,9 @@
                             <span class="nk-menu-text">Sales</span>
                         </a>
                         <ul class="nk-menu-sub">
-                            <li class="nk-menu-item"><a href="sales/new-sale.html" class="nk-menu-link"><span
+                            <li class="nk-menu-item"><a href="{{ route('repairpartseller.sales.create') }}" class="nk-menu-link"><span
                                         class="nk-menu-text">New Sale</span></a></li>
-                            <li class="nk-menu-item"><a href="sales/manage-sales.html" class="nk-menu-link"><span
+                            <li class="nk-menu-item"><a href="{{route('sales.manage')}}" class="nk-menu-link"><span
                                         class="nk-menu-text">Manage Sales</span></a></li>
                         </ul>
                     </li>

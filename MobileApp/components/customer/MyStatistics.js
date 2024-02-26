@@ -76,6 +76,7 @@ const styles=StyleSheet.create({
   },
   contentContainer: {
     flex: 1,
+    padding : 10,
   },
   profileContainer: {
     paddingTop: 10,

@@ -30,7 +30,6 @@ const DashboardContent = () => {
 
     fetchRepairCenters();
   }, []);
-
   // Move this part inside the useEffect hook
   const coordinateData = repairCenters.map(repairCenter => ({
     latitude: parseFloat(repairCenter.map.split(",")[0]),
@@ -75,7 +74,7 @@ const DashboardContent = () => {
 const styles = StyleSheet.create({
   scrollView: {
     flex: 1,
-    paddingTop:40,
+    paddingTop:20,
 
   },
   container: {

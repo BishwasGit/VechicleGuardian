@@ -12,7 +12,7 @@
                                 <div class="nk-block-head">
                                     <div class="nk-block-head-between flex-wrap gap g-2">
                                         <div class="nk-block-head-content">
-                                            <h2 class="nk-block-title">inventories List</h2>
+                                            <h2 class="nk-block-title">Low Stock List</h2>
                                             <nav>
                                                 <ol class="breadcrumb breadcrumb-arrow mb-0">
                                                     <li class="breadcrumb-item"><a href="#">inventories</a></li>
@@ -92,7 +92,7 @@
                                                         </tr>
                                                     </thead>
                                                     <tbody>
-                                                        @foreach ($inventories as $item)
+                                                        @foreach ($data as $item)
                                                             <tr>
                                                                 <td class="tb-col">{{ $item->item_id }}</td>
                                                                 <td class="tb-col">
@@ -107,15 +107,7 @@
                                                                         </div>
                                                                     </div>
                                                                 </td>
-                                                                <td class="tb-col">
-                                                                    @if($item->item_quantity < 5)
-                                                                        <span class="btn btn-sm btn-icon bg-warning-soft">{{ $item->item_quantity }}</span> <!-- Mark quantity as low stock -->
-                                                                    @elseif($item->item_quantity == 0)
-                                                                        <span class="btn btn-sm btn-icon bg-danger-soft">Out of Stock</span> <!-- Mark item as out of stock -->
-                                                                    @else
-                                                                    <span class="btn btn-sm btn-icon bg-success-soft"> {{ $item->item_quantity }}</span>
-                                                                    @endif
-                                                                </td>
+                                                                <td class="tb-col">{{ $item->item_quantity }}</td>
                                                                 <td class="tb-col">{{ $item->item_price }}</td>
                                                                 <td class="tb-col"><span
                                                                         class="badge text-bg-success-soft">In Stock</span>
