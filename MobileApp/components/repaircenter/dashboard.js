@@ -44,7 +44,6 @@ const RepairCenterDashboard = ({ route }) => {
     noOfPerson: '',
     salary: '',
   });
-
   const handleCloseForm = () => {
     setShowForm (false);
     setNewDetails ({fullname: '', address: '', contact: '', map: ''});
@@ -154,41 +153,57 @@ const RepairCenterDashboard = ({ route }) => {
   };
 
   const handleAddDetails = async () => {
+    const validateCoordinates = (coordinates) => {
+      // Regular expression to match latitude and longitude separated by a comma
+      const coordinatePattern = /^-?([1-8]?[1-9]|[1-9]0)\.{1}\d{1,6},\s*-?([1]?[0-7]?[0-9]|[1-9]?[0-9])\.{1}\d{1,6}$/;
+  
+      return coordinatePattern.test(coordinates);
+    };
+  
+    // Regular expression to validate contact number
     const contactRegex = /^\d{10}$/;
-    if (!contactRegex.test (newDetails.contact)) {
-      alert ('Invalid contact number. Please enter a 10-digit number.');
+  
+    // Validate contact number
+    if (!contactRegex.test(newDetails.contact)) {
+      alert('Invalid contact number. Please enter a 10-digit number.');
       return;
     }
-
-    try {
-      const response = await fetch (
-        `http://${REACT_APP_SERVER_IP}:${REACT_APP_SERVER_PORT}/api/addRepairCenterDetails`,
-        {
-          method: 'POST',
-          headers: {'Content-Type': 'application/json'},
-          body: JSON.stringify ({
-            repaircenter_id,
-            fname: newDetails.fullname,
-            address: newDetails.address,
-            map: newDetails.address,
-            contact: newDetails.contact,
-            documents: documentsImage,
-          }),
+  
+    // Validate map coordinates
+    const { map } = newDetails;
+    if (validateCoordinates(map)) {
+      // Coordinates are valid, proceed with saving
+      try {
+        const response = await fetch(
+          `http://${REACT_APP_SERVER_IP}:${REACT_APP_SERVER_PORT}/api/addRepairCenterDetails`,
+          {
+            method: 'POST',
+            headers: {'Content-Type': 'application/json'},
+            body: JSON.stringify({
+              repaircenter_id,
+              fname: newDetails.fullname,
+              address: newDetails.address,
+              map: newDetails.map, // Ensure you're sending the correct value for map
+              contact: newDetails.contact,
+              documents: documentsImage,
+            }),
+          }
+        );
+  
+        const data = await response.json();
+        if (data.success) {
+          alert(data.message);
+          setNewDetails(''); // Reset newDetails after successful submission
+        } else {
+          alert(`Error: ${data.message}`);
         }
-      );
-
-      const data = await response.json ();
-      if (data.success) {
-        alert (data.message);
-        setNewDetails('');
-      } else {
-        alert (`Error: ${data.message}`);
+      } catch (error) {
+        console.error('Error adding repair center details:', error);
+        alert('Error adding repair center details. Please try again.');
       }
-      if (!response.ok) {
-        throw new Error ('Network response was not ok');
-      }
-    } catch (error) {
-      console.error ('Error adding Repair Center details:', error);
+    } else {
+      // Invalid coordinates
+      alert('Please enter valid coordinates (latitude, longitude).');
     }
   };
 
@@ -445,10 +460,9 @@ function MenusScreen({
             />
             <TextInput
               style={styles.field}
-              placeholder="Map Link"
               underlineColor="transparent"
               value={newDetails.map}
-              // placeholder="27.68899461302774, 85.28788243117607"
+              placeholder="Enter map coordinates"
               onChangeText={(text) =>
                 setNewDetails({ ...newDetails, map: text })
               }

@@ -11,7 +11,7 @@ import * as SecureStore from 'expo-secure-store';
 import { Platform } from 'react-native';
 
 const Login = ({ navigation }) => {
-    const [username, setUsername] = useState("");
+  const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [message, setMessage] = useState(null);
   const [visible, setVisible] = useState(false);
@@ -21,15 +21,13 @@ const Login = ({ navigation }) => {
   const hideDialog = () => setVisible(false);
 
   const saveUserInfoToStorage = async (userInfo) => {
-    if (Platform.OS === 'web') {
-      localStorage.setItem('userInfo', JSON.stringify(userInfo));
-    } else {
-     SecureStore.setItemAsync('userInfo', JSON.stringify(userInfo));
-    }
+    const storageKey = Platform.OS === 'web' ? 'userInfo' : 'userInfo';
+    await SecureStore.setItemAsync(storageKey, JSON.stringify(userInfo));
   };
 
   const handleLogin = async () => {
-        try {
+    setLoading(true);
+    try {
       const response = await fetch(
         `http://${REACT_APP_SERVER_IP}:${REACT_APP_SERVER_PORT}/api/login`,
         {
@@ -41,104 +39,53 @@ const Login = ({ navigation }) => {
         }
       );
       const data = await response.json();
-
-      console.log('server response :' , data.userType);
-
       if (response.ok) {
-
         const userInfo = {
           token: data.token,
-          userType: data.userType, // Set this based on the response
+          userType: data.userType,
           userId: data.userId
         };
-
         saveUserInfoToStorage(userInfo);
-
-        console.log('userinfo :',userInfo.userType);
-
-        if(data.userType==='admin') {
+        if(data.userType === 'admin') {
           showDialog();
           setTimeout(() => {
             hideDialog();
-            setLoading(false);
             navigation.navigate("AdminDashboard", { admin_id: data.userId });
-            console.log("Login Successful as Admin");
           }, 1000);
-        } else if(data.userType==='customer') {
+        } else if(data.userType === 'customer' || data.userType === 'seller' || data.userType === 'repaircenter' || data.userType === 'repaircenter_worker') {
           setTimeout(() => {
             hideDialog();
-            setLoading(false);
-            navigation.navigate("CustomerDashboard", {customer_id: data.userId });
-            console.log("Login Successful as Customer");
-          }, 1000);
-        } else if(data.userType==='seller') {
-          showDialog();
-          setTimeout(() => {
-            hideDialog();
-            setLoading(false);
-            navigation.navigate("RepairPartsSellerDashboard", {
-              repair_parts_seller_id: data.userId
-            });
-            console.log("Login Successful as Repair Parts Seller");
-          }, 1000);
-        } else if(data.userType==='repaircenter') {
-          showDialog();
-          setTimeout(() => {
-            hideDialog();
-            setLoading(false);
-            navigation.navigate("RepairCenterDashboard", {
-              repaircenter_id: data.userId,
-            });
-            console.log("Login Successful as Repair Center");
+            navigation.navigate(data.userType === 'customer' ? "CustomerDashboard" : data.userType === 'seller' ? "RepairPartsSellerDashboard" : data.userType === 'repaircenter' ? "RepairCenterDashboard" : "WorkerDashboard", { [`${data.userType}_id`]: data.userId });
           }, 1000);
         }
-        else if(data.userType==='repaircenter_worker') {
-          showDialog();
-          setTimeout(() => {
-            hideDialog();
-            setLoading(false);
-            navigation.navigate("WorkerDashboard", {
-              workerId: data.userId,
-            });
-            console.log("Login Successful as Repair Center Wroker");
-          }, 1000);
-        }}
-       else {
-        // Login failed, display an error message
+      } else {
         setMessage(data.error);
-        console.error("Login failed:", data.error);
-        alert(data.error);
       }
     } catch (error) {
       console.error("Error during login:", error);
-      alert("Login failed. Please try again."); // Provide a generic error message
-    }
-    finally {
-      setLoading(false); // Ensure loading is turned off
+      alert("Login failed. Please try again.");
+    } finally {
+      setLoading(false);
     }
   };
+
   const handleRegisterNow = () => {
     navigation.navigate("Registration", { userType: "Customer" });
   };
+
   return (
-
     <View style={styles.container}>
-
-
-     <Button style={styles.title}>
-            <Title style={{ color: "white" ,paddingTop: 80,fontWeight: "bold", fontSize: 24,}}> LOG-IN</Title>
-          </Button>
-
+      <Button style={styles.title}>
+        <Title style={{ color: "white" ,paddingTop: 80,fontWeight: "bold", fontSize: 24 }}> LOG-IN</Title>
+      </Button>
       <View style={styles.containerTwo}>
         <View style={styles.card}>
-
           <TextInput
-             placeholder="Username"
+            placeholder="Username"
             value={username}
             onChangeText={(text) => setUsername(text)}
             style={styles.textinput}
             left={<TextInput.Icon icon="account" />}
-
           />
           <TextInput
             style={styles.textinput}
@@ -148,51 +95,33 @@ const Login = ({ navigation }) => {
             onChangeText={(text) => setPassword(text)}
             left={<TextInput.Icon icon="key" />}
           />
-            <Button style={styles.forgotButton}>
+          <Button style={styles.forgotButton}>
             <Text style={{ color: "black", alignSelf: "center" }}> Forgot your password ?</Text>
           </Button>
           <Button onPress={handleLogin} style={styles.button}>
-            <Text style={{ color: "white", fontSize: 17, fontWeight: "bold" }}>
-              Login
-            </Text>
+            <Text style={{ color: "white", fontSize: 17, fontWeight: "bold" }}>Login</Text>
           </Button>
-          {loading && <LoadingScreen />}
-
-
-        <View style={styles.registerButton}>
-        <Text style={{ color: "black" }}>
-          Don't have an account?
-          </Text>
-          <Divider />
-          <TouchableOpacity onPress={handleRegisterNow}>
-            <Text
-              style={{
-                fontWeight: "bold",
-                color: "#808000",
-                textAlign : "center",
-              }}
-            >
-              Register Here
-            </Text>
-          </TouchableOpacity>
-      </View>
-
+          {loading && <ActivityIndicator />}
+          <View style={styles.registerButton}>
+            <Text style={{ color: "black" }}>Don't have an account?</Text>
+            <Divider />
+            <TouchableOpacity onPress={handleRegisterNow}>
+              <Text style={{ fontWeight: "bold", color: "#808000", textAlign : "center" }}>Register Here</Text>
+            </TouchableOpacity>
+          </View>
           {message && <Text style={styles.message}>{message}</Text>}
         </View>
-
         <Dialog visible={visible} onDismiss={hideDialog}>
-            <Dialog.Title>Login Successful</Dialog.Title>
-            <Dialog.Content>
-              <Text>Navigating to your dashboard</Text>
-            </Dialog.Content>
-            <Dialog.Actions>
-              <Button onPress={hideDialog}>OK</Button>
-            </Dialog.Actions>
-            </Dialog>
+          <Dialog.Title>Login Successful</Dialog.Title>
+          <Dialog.Content>
+            <Text>Navigating to your dashboard</Text>
+          </Dialog.Content>
+          <Dialog.Actions>
+            <Button onPress={hideDialog}>OK</Button>
+          </Dialog.Actions>
+        </Dialog>
       </View>
-
     </View>
-
   );
 };
 
@@ -210,10 +139,8 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
   card: {
-
     marginTop: "30%",
     width: "75%",
-
   },
   button: {
     fontSize: 20,
@@ -225,26 +152,21 @@ const styles = StyleSheet.create({
     borderTopLeftRadius:25,
     borderBottomRightRadius:25,
     borderBottomLeftRadius:25,
-
   },
   forgotButton: {
     marginTop: 30,
     alignSelf: "right",
-
   },
   title:{
     marginTop: 20,
     paddingTop: 80,
     alignSelf: "right",
-
-
   },
   registerButton: {
     color: "black",
     marginTop: 100,
     alignSelf: "center",
   },
-
   textinput: {
     height:45,
     backgroundColor: "transparent",
@@ -260,8 +182,6 @@ const styles = StyleSheet.create({
   message: {
     color: "red",
   },
-
-
 });
 
 export default Login;
