@@ -29,6 +29,7 @@ const Login = ({ navigation }) => {
   };
 
   const handleLogin = async () => {
+    alert("go to dashboard")
         try {
       const response = await fetch(
         `http://${REACT_APP_SERVER_IP}:${REACT_APP_SERVER_PORT}/api/login`,

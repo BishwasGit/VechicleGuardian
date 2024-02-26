@@ -36,6 +36,7 @@ const RegistrationScreen = ({ route }) => {
     setSnackbarVisible(true);
   }
   const handleRegistration = async () => {
+
     if (userTypes.length === 0) {
       // No user type selected, show an error message or take appropriate action
       showSnackbar("At least one user type should be selected");

@@ -3,6 +3,7 @@ import { Title,View, Text, StyleSheet, Image, ScrollView } from "react-native";
 import { Card } from "react-native-paper";
 import MyStatistics from "./MyStatistics";
 import MyCarousel from "./MyCarousel";
+import MyList from "./MyList";
 
 const DashboardContent = () => {
   return (
@@ -14,11 +15,12 @@ const DashboardContent = () => {
             </View>
 
 
-        {/* Image Card Section */}
+{/*
         <View style={styles.carouselContainer}>
         <Text style={{ fontSize: 14, marginBottom: 15,marginLeft: 15, }}>Nearby Repair Centers</Text>
           <MyCarousel />
-        </View>
+        </View> */}
+
 
       </View>
     </ScrollView>

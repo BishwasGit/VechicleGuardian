@@ -23,6 +23,7 @@ const CustomerDashboard = ({ route }) => {
   const navigation = useNavigation();
 
   useEffect(() => {
+    alert("go to dashboard")
     const fetchCustomerDetails = async () => {
       if (!customer_id) {
         console.error("customer_id is undefined");

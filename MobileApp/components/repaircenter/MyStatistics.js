@@ -41,7 +41,7 @@ const MyStatistics=() => {
           Vehicle<Text style={{color: '#D4AF37'}}>G</Text>
         </Text>
 
-        <Text style={{marginLeft: 2,marginBottom: 35}}>Good Morning,</Text>
+        <Text style={{marginLeft: 2,marginBottom: 35}}>Repair Center Dashboard</Text>
         <View style={styles.line} />
         <Text style={{fontSize: 18,fontWeight: 'bold',marginBottom: 30}}>
           Work Done Today !!

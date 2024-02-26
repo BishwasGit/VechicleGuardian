@@ -16,6 +16,7 @@ import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import * as ImagePicker from "expo-image-picker";
 import {Ionicons} from '@expo/vector-icons';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
+import MyList from "./MyList";
 
 const Tab = createBottomTabNavigator ();
 const DashboardScreen = () => {
@@ -285,6 +286,15 @@ const RepairCenterDashboard = ({ route }) => {
         }}
       />
       <Tab.Screen
+        name="List"
+        component={MyList}
+        options={{
+          tabBarIcon: ({color, size}) => (
+            <Icon name="menu" size={size} color={color} />
+          ),
+        }}
+      />
+      <Tab.Screen
         name="Menus"
         children={() => (
           <MenusScreen
@@ -309,7 +319,7 @@ const RepairCenterDashboard = ({ route }) => {
         )}
         options={{
           tabBarIcon: ({color, size}) => (
-            <Icon name="menu" size={size} color={color} />
+            <Icon name="folder" size={size} color={color} />
           ),
         }}
       />
@@ -407,6 +417,7 @@ function MenusScreen({
               paddingTop: 10,
               paddingLeft: 20,
               paddingBottom: 60,
+              fontWeight:"bold",
             }}
           >
             Repair Center Form
@@ -489,6 +500,7 @@ function MenusScreen({
               paddingTop: 10,
               paddingLeft: 20,
               paddingBottom: 60,
+              fontWeight:"bold",
             }}
           >
             Add Vacancy Form
