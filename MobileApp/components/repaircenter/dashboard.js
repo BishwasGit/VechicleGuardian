@@ -303,6 +303,7 @@ const RepairCenterDashboard = ({ route }) => {
       <Tab.Screen
         name="List"
         component={MyList}
+        initialParams={{ repaircenter_id: repaircenter_id }}
         options={{
           tabBarIcon: ({color, size}) => (
             <Icon name="menu" size={size} color={color} />

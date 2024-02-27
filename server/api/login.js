@@ -56,7 +56,7 @@ router.post('/login', async (req, res) => {
           payload = { userId: admin_id, userType: 'admin' };
           message = 'Admin login successful';
         } else if (repaircenter_workers_id) {
-          payload = { userId: repaircenter_workers_id, userType: 'repaircenter_worker' };
+          payload = { userId: repaircenter_workers_id, userType: 'repaircenter_workers' };
           message = 'Repair Center worker login successful';
         }
         // Generate a token

@@ -4,16 +4,8 @@ import { Card, Divider, Text, List, Chip } from "react-native-paper";
 
 import MyCalendar from "./MyCalendar";
 import MyCarousel from "./MyCarousel";
-import MyList from "./MyList";
 
 const DashboardContent = () => {
-  // Sample data for recent repairs and upcoming appointments
-  const recentRepairs = [
-    { id: 1, device: "Bajaj Ns 200", status: "Completed" },
-    { id: 2, device: "KTM Duke 250", status: "In Progress" },
-    { id: 3, device: "Dominar 400", status: "Scheduled" },
-  ];
-
   const upcomingAppointments = [
     { id: 1, date: "2024-03-01", time: "10:00 AM", customer: "John Doe" },
     { id: 2, date: "2024-03-02", time: "11:00 AM", customer: "Jane Smith" },
@@ -23,36 +15,11 @@ const DashboardContent = () => {
   return (
     <ScrollView contentContainerStyle={styles.scrollViewContent}>
       <View style={styles.container}>
-        {/* Pie Chart Section */}
-        <View style={styles.statisticsContainer}>
-        <MyStatistics />
-            </View>
-
-
-{/*
-        <View style={styles.carouselContainer}>
-        <Text style={{ fontSize: 14, marginBottom: 15,marginLeft: 15, }}>Nearby Repair Centers</Text>
         {/* Statistics Section */}
           <MyCalendar />
         {/* Nearby Repair Centers Section */}
           <Card.Title title="Nearby Repair Centers" style={styles.title} />
           <MyCarousel />
-        </View> */}
-
-
-
-        {/* Recent Repairs Section */}
-        <Card style={styles.card}>
-          <Card.Title title="Recent Repairs" style={styles.title} />
-          {recentRepairs.map((repair) => (
-            <List.Item
-              key={repair.id}
-              title={`Device: ${repair.device}`}
-              description={`Status: ${repair.status}`}
-              left={(props) => <List.Icon {...props} icon="wrench" />}
-            />
-          ))}
-        </Card>
 
         {/* Appointment Schedule Section */}
         <Card style={styles.card}>

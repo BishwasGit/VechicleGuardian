@@ -31,7 +31,6 @@ import VehicleIncomeExpenses from "./components/customer/features/VehicleIncomeE
 import AdminDashboard from "./components/admin/dashboard";
 
 //workers
-import WorkerLoginScreen from "./components/workers/login";
 import WorkerDashboard from "./components/workers/dashboard";
 import RepairProcessScreen from "./components/workers/features/RepairProcessScreen";
 
@@ -161,12 +160,6 @@ const App = () => {
           <Stack.Screen
             name="AddWorkersScreen"
             component={AddWorkersScreen}
-          
-            options={{ headerShown: false }}
-          />
-          <Stack.Screen
-            name="WorkerLoginScreen"
-            component={WorkerLoginScreen}
           
             options={{ headerShown: false }}
           />

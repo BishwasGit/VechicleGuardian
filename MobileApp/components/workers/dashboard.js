@@ -6,20 +6,18 @@ import { useNavigation } from "@react-navigation/native";
 import { Button, ActivityIndicator } from "react-native-paper";
 
 const WorkerDashboard = ({ route }) => {
-  const { workerId } = route.params;
+  const { repaircenter_workers_id } = route.params;
   const navigation = useNavigation();
   const [workerDetails, setWorkerDetails] = useState(null);
   const [loading, setLoading] = useState(true);
-
   useEffect(() => {
-    if (!workerId) navigation.navigate("MainScreen");
-  }, [navigation, workerId]);
-
+    if (!repaircenter_workers_id) navigation.navigate("MainScreen");
+  }, [navigation, repaircenter_workers_id]);
   useEffect(() => {
     const fetchWorkerDetails = async () => {
       try {
         const response = await fetch(
-          `http://${REACT_APP_SERVER_IP}:${REACT_APP_SERVER_PORT}/api/getWorkerDetails/${workerId}`
+          `http://${REACT_APP_SERVER_IP}:${REACT_APP_SERVER_PORT}/api/getWorkerDetails/${repaircenter_workers_id}`
         );
 
         if (!response.ok) {
@@ -42,10 +40,10 @@ const WorkerDashboard = ({ route }) => {
     };
 
     fetchWorkerDetails();
-  }, [workerId]);
+  }, [repaircenter_workers_id]);
 
   const handleStartRepairing = () => {
-    navigation.navigate("RepairProcessScreen", { workerId });
+    navigation.navigate("RepairProcessScreen", { repaircenter_workers_id });
   };
 
   return (

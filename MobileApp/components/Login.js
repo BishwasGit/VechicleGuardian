@@ -52,7 +52,7 @@ const Login = ({ navigation }) => {
             hideDialog();
             navigation.navigate("AdminDashboard", { admin_id: data.userId });
           }, 1000);
-        } else if(data.userType === 'customer' || data.userType === 'seller' || data.userType === 'repaircenter' || data.userType === 'repaircenter_worker') {
+        } else if(data.userType === 'customer' || data.userType === 'seller' || data.userType === 'repaircenter' || data.userType === 'repaircenter_workers') {
           setTimeout(() => {
             hideDialog();
             navigation.navigate(data.userType === 'customer' ? "CustomerDashboard" : data.userType === 'seller' ? "RepairPartsSellerDashboard" : data.userType === 'repaircenter' ? "RepairCenterDashboard" : "WorkerDashboard", { [`${data.userType}_id`]: data.userId });
