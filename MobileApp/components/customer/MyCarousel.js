@@ -50,23 +50,26 @@ const styles = StyleSheet.create({
     width: itemWidth,
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: 'floralwhite',
-    borderRadius: 8,
+    backgroundColor: 'white',
+    borderRadius: 5,
+    elevation:2,
+    marginBottom:10,
   },
   image: {
-    width: '100%',
-    height: 160, // Adjust the image height as needed
-    borderRadius: 8, // Optional: if you want rounded corners
+    marginTop: 5,
+    width: '97%',
+    height: 120, // Adjust the image height as needed
+    borderRadius: 5, // Optional: if you want rounded corners
   },
   title: {
-    padding:5,
-    fontSize: 15,
+    paddingTop:6,
+    fontSize: 14,
     fontWeight: 'bold',
-    marginTop: 10, // Space between the image and title
+
   },
   description: {
-    fontSize: 12,
-    marginBottom: 20,
+    fontSize: 11,
+    marginBottom: 10,
   },
 });
 

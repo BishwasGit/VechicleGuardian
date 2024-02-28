@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { TouchableOpacity, View, StyleSheet, Text } from "react-native";
-import { Dialog, Portal } from "react-native-paper";
+import { Dialog,Checkbox, Portal } from "react-native-paper";
 import { REACT_APP_SERVER_IP, REACT_APP_SERVER_PORT } from "@env";
 import Icon from "react-native-vector-icons/FontAwesome";
 import { TextInput } from "react-native-paper";
@@ -10,12 +10,15 @@ import { Divider } from 'react-native-paper';
 import * as SecureStore from 'expo-secure-store';
 import { Platform } from 'react-native';
 
+
+
 const Login = ({ navigation }) => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [message, setMessage] = useState(null);
   const [visible, setVisible] = useState(false);
   const [loading, setLoading] = useState(false);
+
 
   const showDialog = () => setVisible(true);
   const hideDialog = () => setVisible(false);
@@ -72,7 +75,7 @@ const Login = ({ navigation }) => {
   const handleRegisterNow = () => {
     navigation.navigate("Registration", { userType: "Customer" });
   };
-
+  const [checked, setChecked] = React.useState(false);
   return (
     <View style={styles.container}>
       <Button style={styles.title}>
@@ -95,11 +98,21 @@ const Login = ({ navigation }) => {
             onChangeText={(text) => setPassword(text)}
             left={<TextInput.Icon icon="key" />}
           />
-          <Button style={styles.forgotButton}>
-            <Text style={{ color: "black", alignSelf: "center" }}> Forgot your password ?</Text>
-          </Button>
+          <View>
+          <View style={styles.checkboxContainer}>
+            <Checkbox.Item
+              label="Remember Me"
+              status={checked ? 'checked' : 'unchecked'}
+            />
+
+        </View>
+          </View>
           <Button onPress={handleLogin} style={styles.button}>
             <Text style={{ color: "white", fontSize: 17, fontWeight: "bold" }}>Login</Text>
+          </Button>
+
+          <Button style={styles.forgotButton}>
+            <Text style={{ color: "black", alignSelf: "center" }}> Forgot your password ?</Text>
           </Button>
           {loading && <ActivityIndicator />}
           <View style={styles.registerButton}>
@@ -154,7 +167,7 @@ const styles = StyleSheet.create({
     borderBottomLeftRadius:25,
   },
   forgotButton: {
-    marginTop: 30,
+    marginTop: 10,
     alignSelf: "right",
   },
   title:{
@@ -164,7 +177,7 @@ const styles = StyleSheet.create({
   },
   registerButton: {
     color: "black",
-    marginTop: 100,
+    marginTop: 130,
     alignSelf: "center",
   },
   textinput: {

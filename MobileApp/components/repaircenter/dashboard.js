@@ -157,19 +157,19 @@ const RepairCenterDashboard = ({ route }) => {
     const validateCoordinates = (coordinates) => {
       // Regular expression to match latitude and longitude separated by a comma
       const coordinatePattern = /^-?([1-8]?[1-9]|[1-9]0)\.{1}\d{1,6},\s*-?([1]?[0-7]?[0-9]|[1-9]?[0-9])\.{1}\d{1,6}$/;
-  
+
       return coordinatePattern.test(coordinates);
     };
-  
+
     // Regular expression to validate contact number
     const contactRegex = /^\d{10}$/;
-  
+
     // Validate contact number
     if (!contactRegex.test(newDetails.contact)) {
       alert('Invalid contact number. Please enter a 10-digit number.');
       return;
     }
-  
+
     // Validate map coordinates
     const { map } = newDetails;
     if (validateCoordinates(map)) {
@@ -190,7 +190,7 @@ const RepairCenterDashboard = ({ route }) => {
             }),
           }
         );
-  
+
         const data = await response.json();
         if (data.success) {
           alert(data.message);
@@ -574,32 +574,71 @@ function ProfileScreen({
   }
   return (
     <View style={styles.profileContainer}>
-      <Text style={{paddingBottom:50,fontWeight:"medium",
-    fontSize:16,}}>Switch Back to your Profile</Text>
-      <View style={styles.buttonRow}>
-        {customerProfile &&
+
+    <Text style={styles.profileTitle}>Account</Text>
+      <Text style={styles.profileSubTitle}>Services</Text>
+      <View  style={styles.switchprofilebutton}>
+      {customerProfile &&
           <TouchableOpacity
-            style={styles.switchprofilebutton}
+          style={styles.profilebutton}
+            onPress={() => handleButtonPress ('switchToCustomerProfile')}
+          >
+            <Text style={styles.buttonProfileText}>Payments</Text>
+          </TouchableOpacity>}
+      </View>
+
+      <Text style={styles.profileSubTitle}>General</Text>
+      <View  style={styles.switchprofilebutton}>
+      {customerProfile &&
+          <TouchableOpacity
+          style={styles.profilebutton}
             onPress={() => handleButtonPress ('switchToCustomerProfile')}
           >
             <Text style={styles.buttonProfileText}>Switch to Customer Profile</Text>
           </TouchableOpacity>}
-        {repairCenterSellerProfile &&
+          {repairCenterSellerProfile &&
           <TouchableOpacity
-            style={styles.switchprofilebutton}
+          style={styles.profilebutton}
             onPress={() =>
               handleButtonPress ('switchToRepairCenterSellerProfile')}
           >
             <Text style={styles.buttonProfileText}>Switch to Seller Profile</Text>
           </TouchableOpacity>}
-          <TouchableOpacity
-        style={styles.switchprofileLogbutton}
-        onPress={handleLogout}
-      >
-        <Text style={styles.buttonProfileText}>Log Out</Text>
-      </TouchableOpacity>
+
       </View>
-    </View>
+      <Text style={styles.profileSubTitle}>Support</Text>
+      <View  style={styles.switchprofilebutton}>
+      {customerProfile &&
+          <TouchableOpacity
+          style={styles.profilebutton}
+            onPress={() => handleButtonPress ('switchToCustomerProfile')}
+          >
+            <Text style={styles.buttonProfileText}>App Feedback</Text>
+          </TouchableOpacity>}
+
+          {customerProfile &&
+          <TouchableOpacity
+          style={styles.profilebutton}
+            onPress={() => handleButtonPress ('switchToCustomerProfile')}
+          >
+            <Text style={styles.buttonProfileText}>Help Center</Text>
+          </TouchableOpacity>}
+
+      </View>
+
+      <View style={styles.buttonRow}>
+
+<TouchableOpacity
+style={styles.switchprofileLogbutton}
+onPress={handleLogout}
+>
+<Text style={{color:'white',fontSize:16,fontWeight:'bold'}}>Log Out</Text>
+</TouchableOpacity>
+</View>
+</View>
+
+
+
   );
 }
 
@@ -688,42 +727,52 @@ const styles = StyleSheet.create ({
   },
   profileContainer:{
     flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
+    alignItems: 'left',
+    paddingTop:"25%",
+    paddingLeft:"5%",
+  },
+  profileTitle:{
+    fontSize:25,
+    fontWeight:'bold',
+  },
+  profileSubTitle:{
+    paddingTop:"8%",
+    fontWeight:'medium',
+    fontSize:14,
+    paddingBottom:10,
   },
   buttonRow: {
-height:300,
-width:"60%",
-
-
+    height:300,
+    width:"60%",
   },
   buttonProfileText:{
-    color:'white',
+    color:'black',
     fontWeight:"medium",
-    fontSize:16,
-
+    fontSize:15,
   },
   switchprofilebutton: {
-    flex: 1, // Add this line
-    flexDirection: 'row',
-    backgroundColor: '#808000',
-    padding: 20,
+    backgroundColor: 'white',
+    width:'94%',
     justifyContent: 'center',
-    alignItems: 'center',
+    alignItems: 'left',
     elevation: 2,
-    borderRadius: 10,
-    marginBottom:20,
-
+    borderRadius:10,
+  },
+  profilebutton:{
+    padding:24,
+    borderWidth:0.2,
+    borderColor:'#e5e4e2',
   },
   switchprofileLogbutton:{
     backgroundColor:"#96a53c",
-    padding: 20,
+    padding: 15,
     justifyContent: 'center',
     alignItems: 'center',
     elevation: 2,
-    borderRadius: 10,
-    marginTop:10,
-
+    borderRadius: 50,
+    marginTop:'40%',
+    width:'60%',
+    marginLeft:"50%",
   },
 });
 

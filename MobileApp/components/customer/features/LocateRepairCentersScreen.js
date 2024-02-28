@@ -1,10 +1,14 @@
 import React, { useEffect, useState } from "react";
-import { View, StyleSheet } from "react-native";
+import { View,Text,TouchableOpacity, StyleSheet } from "react-native";
 import MapView, { Marker } from "react-native-maps";
 import * as Location from "expo-location"; // Import Location module from Expo
 import { REACT_APP_SERVER_IP, REACT_APP_SERVER_PORT } from "@env";
+import {Ionicons} from '@expo/vector-icons';
+import MyCarousel from "../MyCarousel";
+import { useNavigation } from '@react-navigation/native';
 
 const LocateRepairCentersScreen = ({ route }) => {
+  const navigation = useNavigation();
   const [repairCenters, setRepairCenters] = useState([]);
   const [initialLocation, setInitialLocation] = useState({
     latitude: 27.68899461302774,
@@ -54,7 +58,7 @@ const LocateRepairCentersScreen = ({ route }) => {
 
   return (
     <View style={styles.container}>
-      <MapView
+       <MapView
         style={styles.map}
         initialRegion={initialLocation}
       >
@@ -68,7 +72,40 @@ const LocateRepairCentersScreen = ({ route }) => {
             title={item.repaircenter_fname}
           />
         ))}
+
+
+
       </MapView>
+
+       <View style={styles.overlayContainer}>
+        <TouchableOpacity
+          style={{backgroundColor: '#a9a9a9',
+          padding: 10,
+          borderRadius: 50,
+          marginLeft:'8%',
+          elevation:6,}}
+          onPress={() => {
+            navigation.goBack();
+          }}
+        >
+          <Ionicons name="arrow-back" size={23} color="white" />
+        </TouchableOpacity>
+        <TouchableOpacity
+          style={{backgroundColor: '#a9a9a9',
+          padding: 10,
+          borderRadius: 50,
+        marginLeft:'63%',
+      elevation:6,}}
+          onPress={() => {
+          }}
+        >
+          <Ionicons name="search" size={23} color="white" />
+        </TouchableOpacity>
+      </View>
+      <View style={styles.overlayCarousel}>
+         <MyCarousel />
+      </View>
+
     </View>
   );
 };
@@ -76,6 +113,19 @@ const LocateRepairCentersScreen = ({ route }) => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+  },
+  overlayContainer: {
+    position: "absolute",
+    flexDirection: 'row', // Align items in a row
+    justifyContent: 'space-between',
+    top: 65,
+  },
+  overlayText: {
+    color: 'white',
+    marginTop: 5,
+  },
+  overlayCarousel:{
+    top:700,
   },
   map: {
     ...StyleSheet.absoluteFillObject,

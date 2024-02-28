@@ -43,7 +43,7 @@ const MyStatistics=() => {
 
         <Text style={{marginLeft: 2,marginBottom: 35}}>Good Morning,</Text>
         <View style={styles.line} />
-        <Text style={{fontSize: 18,fontWeight: 'bold',marginBottom: 30}}>
+        <Text style={{fontSize: 15,fontWeight: 'bold',marginBottom: 10}}>
           Income and Expenses Statistics
         </Text>
         <PieChart
@@ -73,13 +73,15 @@ const styles=StyleSheet.create({
   container: {
     flexDirection: 'row',
     justifyContent: 'space-between',
+    marginTop:20,
   },
   contentContainer: {
     flex: 1,
     padding : 10,
+
   },
   profileContainer: {
-    paddingTop: 10,
+    paddingTop: 20,
     borderRadius: 50,
     overflow: 'hidden',
   },

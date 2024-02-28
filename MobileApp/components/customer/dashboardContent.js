@@ -49,11 +49,13 @@ const DashboardContent = () => {
 
         {/* Carousel Section */}
         <View style={styles.carouselContainer}>
-        <Text style={{ fontSize: 14, marginBottom: 15,marginLeft: 15, }}>Nearby Repair Centers</Text>
+        <Text style={{ fontSize: 14, marginBottom: 15,marginLeft: 15,fontWeight:'bold' }}>Nearby Repair Centers</Text>
           <MyCarousel />
         </View>
 
-          <MapView
+        <Text style={{ fontSize: 14, marginBottom: 15,marginLeft: 15,fontWeight:'bold' }}>Search NearBy Centers</Text>
+         <View style={styles.mapCounter}>
+         <MapView
           style={styles.map}
           initialRegion={{
             latitude :  27.68899461302774,
@@ -66,6 +68,12 @@ const DashboardContent = () => {
         <Marker key={index} coordinate={coordinates} title={coordinates.repaircenter_fname}/>
        ))}
         </MapView>
+         </View>
+
+        <View style={styles.carouselContainer}>
+        <Text style={{ fontSize: 14, marginBottom: 15,marginLeft: 15,fontWeight:'bold' }}>Nearby Best Offers</Text>
+          <MyCarousel />
+        </View>
       </View>
     </ScrollView>
   );
@@ -78,18 +86,18 @@ const styles = StyleSheet.create({
 
   },
   container: {
-    padding: 10,
+
   },
   overlay: {
     marginTop: 50,
     alignItems: "center",
   },
   statisticsContainer:{
-    marginBottom: 30,
+    marginBottom: 10,
     padding : 15,
   },
   carouselContainer: {
-    marginBottom: 20,
+    marginBottom: 30,
   },
   carouselItem: {
     backgroundColor: "floralwhite",
@@ -120,10 +128,19 @@ const styles = StyleSheet.create({
   paragraph:{
     marginTop : 5,
   },
+  mapCounter:{
+    borderWidth:0.1,
+    elevation:2,
+    marginLeft:"2.5%",
+    width: '95%',
+    height: 180,
+    marginBottom : 30,
+  },
   map: {
     width: '100%',
-    height: 200,
-    marginBottom : 50,
+    height: 180,
+    borderWidth:0.1,
+    elevation:2,
   },
 
 });

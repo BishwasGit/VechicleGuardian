@@ -7,11 +7,15 @@ import {useNavigation} from '@react-navigation/native';
 import DashboardContent from './dashboardContent.js';
 import {REACT_APP_SERVER_IP, REACT_APP_SERVER_PORT} from '@env';
 import {Ionicons} from '@expo/vector-icons';
+import ChatContent from './ChatContent.js';
 
 const Tab = createBottomTabNavigator ();
-
+Ionicons
 const DashboardScreen = () => {
   return <DashboardContent />;
+};
+const ChatScreen = () => {
+  return <ChatContent />;
 };
 
 const CustomerDashboard = ({ route }) => {
@@ -23,6 +27,7 @@ const CustomerDashboard = ({ route }) => {
   const navigation = useNavigation();
 
   useEffect(() => {
+    // alert('Fetch Details Press Ok');
     const fetchCustomerDetails = async () => {
       if (!customer_id) {
         console.error("customer_id is undefined");
@@ -99,6 +104,15 @@ const CustomerDashboard = ({ route }) => {
         options={{
           tabBarIcon: ({color, size}) => (
             <Icon name="view-dashboard" size={size} color={color} />
+          ),
+        }}
+      />
+       <Tab.Screen
+        name="Chat"
+        component={ChatScreen}
+        options={{
+          tabBarIcon: ({color, size}) => (
+            <Icon name="chat" size={size} color={color} />
           ),
         }}
       />
@@ -180,29 +194,71 @@ function ProfileScreen({
   }
   return (
     <View style={styles.profileContainer}>
-      <Text style={{paddingBottom:50,fontWeight:"medium",
-    fontSize:16,}}>Switch Back to your Profile</Text>
-      <View style={styles.buttonRow}>
-        {repairCenterProfile &&
+
+      <Text style={styles.profileTitle}>Account</Text>
+      <Text style={styles.profileSubTitle}>Services</Text>
+      <View  style={styles.switchprofilebutton}>
+      {repairCenterProfile &&
           <TouchableOpacity
-            style={styles.switchprofilebutton}
+          style={styles.profilebutton}
+            onPress={() => handleButtonPress ('switchToRepairCenterProfile')}
+          >
+            <Text style={styles.buttonProfileText}>Payments</Text>
+          </TouchableOpacity>}
+      </View>
+      <Text style={styles.profileSubTitle}>General</Text>
+      <View  style={styles.switchprofilebutton}>
+      {repairCenterProfile &&
+          <TouchableOpacity
+          style={styles.profilebutton}
             onPress={() => handleButtonPress ('switchToRepairCenterProfile')}
           >
             <Text style={styles.buttonProfileText}>Switch to Repair Center</Text>
           </TouchableOpacity>}
-        {repairCenterSellerProfile &&
+
+          {repairCenterSellerProfile &&
           <TouchableOpacity
-            style={styles.switchprofilebutton}
+          style={styles.profilebutton}
             onPress={() =>
               handleButtonPress ('switchToRepairCenterSellerProfile')}
           >
             <Text style={styles.buttonProfileText}>Switch to Seller Profile</Text>
           </TouchableOpacity>}
+
+      </View>
+      <Text style={styles.profileSubTitle}>Support</Text>
+      <View  style={styles.switchprofilebutton}>
+      {repairCenterProfile &&
+          <TouchableOpacity
+          style={styles.profilebutton}
+            onPress={() => handleButtonPress ('switchToRepairCenterProfile')}
+          >
+            <Text style={styles.buttonProfileText}>App Feedback</Text>
+          </TouchableOpacity>}
+
+          {repairCenterSellerProfile &&
+          <TouchableOpacity
+          style={styles.profilebutton}
+            onPress={() =>
+              handleButtonPress ('switchToRepairCenterSellerProfile')}
+          >
+            <Text style={styles.buttonProfileText}>Help Center</Text>
+          </TouchableOpacity>}
+
+      </View>
+
+
+
+
+
+
+      <View style={styles.buttonRow}>
+
           <TouchableOpacity
         style={styles.switchprofileLogbutton}
         onPress={handleLogout}
       >
-        <Text style={styles.buttonProfileText}>Log Out</Text>
+        <Text style={{color:'white',fontSize:16,fontWeight:'bold'}}>Log Out</Text>
       </TouchableOpacity>
       </View>
     </View>
@@ -300,45 +356,58 @@ const styles = StyleSheet.create ({
     color: '#253529',
     textAlign: 'center',
   },
+
+
+
+
   profileContainer:{
     flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
+    alignItems: 'left',
+    paddingTop:"25%",
+    paddingLeft:"5%",
+  },
+  profileTitle:{
+    fontSize:25,
+    fontWeight:'bold',
+  },
+  profileSubTitle:{
+    paddingTop:"8%",
+    fontWeight:'medium',
+    fontSize:14,
+    paddingBottom:10,
   },
   buttonRow: {
-height:300,
-width:"60%",
-
-
+    height:300,
+    width:"60%",
   },
   buttonProfileText:{
-    color:'white',
+    color:'black',
     fontWeight:"medium",
-    fontSize:16,
-
+    fontSize:15,
   },
-
   switchprofilebutton: {
-    flex: 1, // Add this line
-    flexDirection: 'row',
-    backgroundColor: '#808000',
-    padding: 20,
+    backgroundColor: 'white',
+    width:'94%',
     justifyContent: 'center',
-    alignItems: 'center',
+    alignItems: 'left',
     elevation: 2,
-    borderRadius: 10,
-    marginBottom:20,
-
+    borderRadius:10,
+  },
+  profilebutton:{
+    padding:24,
+    borderWidth:0.2,
+    borderColor:'#e5e4e2',
   },
   switchprofileLogbutton:{
     backgroundColor:"#96a53c",
-    padding: 20,
+    padding: 15,
     justifyContent: 'center',
     alignItems: 'center',
     elevation: 2,
-    borderRadius: 10,
-    marginTop:10,
-
+    borderRadius: 50,
+    marginTop:'40%',
+    width:'60%',
+    marginLeft:"50%",
   },
 });
 export default CustomerDashboard;
