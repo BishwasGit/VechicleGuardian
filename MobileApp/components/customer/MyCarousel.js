@@ -70,7 +70,8 @@ const styles = StyleSheet.create({
   },
   image: {
     marginTop: 5,
-    width: '97%',
+    backgroundColor: 'black',
+    width: '95%',
     height: 120, // Adjust the image height as needed
     borderRadius: 5, // Optional: if you want rounded corners
   },

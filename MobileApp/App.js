@@ -19,6 +19,9 @@ import RepairHistoryScreen from "./components/repaircenter/features/RepairHistor
 
 //customer side
 import CustomerDashboard from "./components/customer/dashboard";
+import ChatContent from './components/customer/ChatContent';
+import ChatDetailScreen from './components/customer/ChatDetailScreen';
+
 
 import AddVehicleScreen from "./components/customer/features/AddVehicleScreen";
 import ListVehicleScreen from "./components/customer/features/ListVehicleScreen";
@@ -42,7 +45,7 @@ const App = () => {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [initialRoute, setInitialRoute] = useState("LoginSelection");
   const [initialParams, setInitialParams] = useState(null);
-  
+
   useEffect(() => {
     const checkLoginStatus = async () => {
       const userInfoString = await SecureStore.getItemAsync('userInfo');
@@ -75,91 +78,86 @@ const App = () => {
           <Stack.Screen
             name="Login"
             component={Login}
-          
             options={{ headerShown: false }}
           />
           <Stack.Screen
             name="Registration"
             component={RegistrationScreen}
-          
             options={{ headerShown: false }}
           />
           <Stack.Screen
             name="AdminDashboard"
             component={AdminDashboard}
-          
             options={{ headerShown: false }}
           />
           <Stack.Screen
             name="CustomerDashboard"
             component={CustomerDashboard}
-          
             options={{ headerShown: false }}
           />
           <Stack.Screen
             name="RepairCenterDashboard"
             component={RepairCenterDashboard}
-          
             options={{ headerShown: false }}
           />
           <Stack.Screen
             name="AddVehicle"
             component={AddVehicleScreen}
-          
             options={{ headerShown: false }}
           />
           <Stack.Screen
             name="ListVehicle"
             component={ListVehicleScreen}
-          
             options={{ headerShown: false }}
           />
           <Stack.Screen
             name="ViewServiceHistory"
             component={ViewServiceHistoryScreen}
-          
             options={{ headerShown: false }}
           />
           <Stack.Screen
             name="LocateRepairCenters"
             component={LocateRepairCentersScreen}
-          
             options={{ headerShown: false }}
           />
           <Stack.Screen
             name="VehicleIncomeExpenses"
             component={VehicleIncomeExpenses}
-          
             options={{ headerShown: false }}
           />
           <Stack.Screen
             name="RepairProcessScreen"
             component={RepairProcessScreen}
-          
             options={{ headerShown: false }}
           />
           <Stack.Screen
             name="RepairHistoryScreen"
             component={RepairHistoryScreen}
-          
             options={{ headerShown: false }}
           />
           <Stack.Screen
             name="PartsManagement"
             component={PartsManagementPage}
-          
             options={{ headerShown: false }}
           />
           <Stack.Screen
             name="AddWorkersScreen"
             component={AddWorkersScreen}
-          
+            options={{ headerShown: false }}
+          />
+          <Stack.Screen
+            name="ChatContent"
+            component={ChatContent}
+            options={{ headerShown: false }}
+          />
+          <Stack.Screen
+            name="ChatDetail"
+            component={ChatDetailScreen}
             options={{ headerShown: false }}
           />
           <Stack.Screen
             name="WorkerDashboard"
             component={WorkerDashboard}
-          
             options={{ headerShown: false }}
           />
         </Stack.Navigator>

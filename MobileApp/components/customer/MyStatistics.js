@@ -37,12 +37,10 @@ const MyStatistics=() => {
   return (
     <View style={styles.container}>
       <View style={styles.contentContainer}>
-        <Text style={{fontSize: 35,fontWeight: 'bold',marginBottom: 5}}>
+        <Text style={{fontSize: 35,fontWeight: 'bold',marginBottom: 1}}>
           Vehicle<Text style={{color: '#D4AF37'}}>G</Text>
         </Text>
-
-        <Text style={{marginLeft: 2,marginBottom: 5}}>Good Morning,</Text>
-        <Text  style={{marginLeft: 2,marginBottom: 10, fontSize : 15}} >Welcome to Customer dashboard</Text>
+        <Text  style={{marginLeft: 2,marginBottom: 20, fontSize : 15}} >Customer dashboard</Text>
         <View style={styles.line} />
         <Text style={{fontSize: 15,fontWeight: 'bold',marginBottom: 10}}>
           Income and Expenses Statistics

@@ -72,7 +72,7 @@ const DashboardContent = () => {
 
         <View style={styles.carouselContainer}>
          <Text style={{ fontSize: 14, marginBottom: 15,marginLeft: 15,fontWeight:'bold' }}>Nearby Best Offers</Text>
-          {/* <MyCarousel /> */}
+          <MyCarousel />
         </View>
       </View>
     </ScrollView>

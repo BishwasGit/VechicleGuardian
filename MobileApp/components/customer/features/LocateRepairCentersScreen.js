@@ -125,7 +125,7 @@ const styles = StyleSheet.create({
     marginTop: 5,
   },
   overlayCarousel:{
-    top:550,
+    top:680,
   },
   map: {
     ...StyleSheet.absoluteFillObject,
