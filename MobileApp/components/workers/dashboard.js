@@ -1,7 +1,7 @@
+import { REACT_APP_SERVER_IP, REACT_APP_SERVER_PORT } from "@env";
 import React, { useEffect, useState } from "react";
 import { View, StyleSheet, Text, TouchableOpacity } from "react-native";
 import { Card, Title } from "react-native-paper";
-import { REACT_APP_SERVER_IP, REACT_APP_SERVER_PORT } from "@env";
 import { useNavigation } from "@react-navigation/native";
 import { Button, ActivityIndicator } from "react-native-paper";
 

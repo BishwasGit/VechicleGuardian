@@ -1,8 +1,8 @@
+import { REACT_APP_SERVER_IP, REACT_APP_SERVER_PORT } from "@env";
 import React, { useState, useEffect } from 'react';
 import { View, Text, StyleSheet } from 'react-native';
 import { List } from 'react-native-paper';
 import { Picker } from '@react-native-picker/picker';
-import { REACT_APP_SERVER_IP, REACT_APP_SERVER_PORT } from "@env";
 
 const MyList = ({ route }) => {
   const { repaircenter_id } = route.params;

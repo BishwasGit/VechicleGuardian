@@ -1,8 +1,8 @@
+import { REACT_APP_SERVER_IP, REACT_APP_SERVER_PORT } from "@env";
 import React, { useEffect, useState } from "react";
 import { ScrollView, View, Text, StyleSheet, Alert } from "react-native";
 import { DataTable, Button, List } from "react-native-paper";
 import Icon from "react-native-vector-icons/MaterialCommunityIcons";
-import { REACT_APP_SERVER_IP, REACT_APP_SERVER_PORT } from "@env";
 
 const ListVehicleScreen = ({ route, navigation }) => {
   const {customer_id}  = route.params;

@@ -12,7 +12,6 @@ import Login from "./components/Login";
 import RegistrationScreen from "./components/RegistrationScreen";
 
 //repair center side
-import RepairCenterLogin from "./components/repaircenter/RepairCenterLogin";
 import RepairCenterDashboard from "./components/repaircenter/dashboard";
 import AddWorkersScreen from "./components/repaircenter/features/AddWorkers";
 import PartsManagementPage from "./components/repaircenter/features/PartsManagement";
@@ -76,12 +75,6 @@ const App = () => {
           <Stack.Screen
             name="Login"
             component={Login}
-          
-            options={{ headerShown: false }}
-          />
-          <Stack.Screen
-            name="RepairCenterLogin"
-            component={RepairCenterLogin}
           
             options={{ headerShown: false }}
           />

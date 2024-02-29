@@ -1,3 +1,4 @@
+import { REACT_APP_SERVER_IP, REACT_APP_SERVER_PORT } from "@env";
 import React, { useState, useEffect } from "react";
 import {
   View,
@@ -11,7 +12,6 @@ import {
 } from "react-native";
 import DateTimePicker from "@react-native-community/datetimepicker";
 import { Picker } from "@react-native-picker/picker";
-import { REACT_APP_SERVER_IP, REACT_APP_SERVER_PORT } from "@env";
 import { Button, Title } from "react-native-paper";
 
 const RepairProcessScreen = ({ route, navigation }) => {

@@ -1,8 +1,8 @@
+import { REACT_APP_SERVER_IP, REACT_APP_SERVER_PORT } from "@env";
 import React, { useEffect, useState } from "react";
 import { View,Text,TouchableOpacity, StyleSheet } from "react-native";
-import MapView, { Marker } from "react-native-maps";
+import MapView, {Marker}from 'react-native-maps';
 import * as Location from "expo-location"; // Import Location module from Expo
-import { REACT_APP_SERVER_IP, REACT_APP_SERVER_PORT } from "@env";
 import {Ionicons} from '@expo/vector-icons';
 import MyCarousel from "../MyCarousel";
 import { useNavigation } from '@react-navigation/native';
@@ -103,7 +103,7 @@ const LocateRepairCentersScreen = ({ route }) => {
         </TouchableOpacity>
       </View>
       <View style={styles.overlayCarousel}>
-         <MyCarousel />
+      <MyCarousel repairCenters={repairCenters} />
       </View>
 
     </View>
@@ -125,7 +125,7 @@ const styles = StyleSheet.create({
     marginTop: 5,
   },
   overlayCarousel:{
-    top:700,
+    top:550,
   },
   map: {
     ...StyleSheet.absoluteFillObject,

@@ -1,7 +1,7 @@
+import { REACT_APP_SERVER_IP, REACT_APP_SERVER_PORT } from "@env";
 import React, { useState } from "react";
 import { TouchableOpacity, View, StyleSheet, Text } from "react-native";
 import { Dialog,Checkbox, Portal } from "react-native-paper";
-import { REACT_APP_SERVER_IP, REACT_APP_SERVER_PORT } from "@env";
 import Icon from "react-native-vector-icons/FontAwesome";
 import { TextInput } from "react-native-paper";
 import { Button, Card, Title, ActivityIndicator } from "react-native-paper";
@@ -9,28 +9,21 @@ import LoadingScreen from "./LoadingScreen"; // Import the LoadingScreen compone
 import { Divider } from 'react-native-paper';
 import * as SecureStore from 'expo-secure-store';
 import { Platform } from 'react-native';
-
-
-
 const Login = ({ navigation }) => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [message, setMessage] = useState(null);
   const [visible, setVisible] = useState(false);
   const [loading, setLoading] = useState(false);
-
-
   const showDialog = () => setVisible(true);
   const hideDialog = () => setVisible(false);
-
   const saveUserInfoToStorage = async (userInfo) => {
     const storageKey = Platform.OS === 'web' ? 'userInfo' : 'userInfo';
     await SecureStore.setItemAsync(storageKey, JSON.stringify(userInfo));
   };
-
   const handleLogin = async () => {
     setLoading(true);
-    try {
+    setTimeout(async () => { try {
       const response = await fetch(
         `http://${REACT_APP_SERVER_IP}:${REACT_APP_SERVER_PORT}/api/login`,
         {
@@ -70,7 +63,8 @@ const Login = ({ navigation }) => {
     } finally {
       setLoading(false);
     }
-  };
+  },1000)
+};
 
   const handleRegisterNow = () => {
     navigation.navigate("Registration", { userType: "Customer" });

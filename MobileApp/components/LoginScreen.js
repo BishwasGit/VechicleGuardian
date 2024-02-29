@@ -1,3 +1,4 @@
+import { REACT_APP_SERVER_IP, REACT_APP_SERVER_PORT } from "@env";
 import React from 'react';
 import {
   ImageBackground,
@@ -13,7 +14,6 @@ const {width, height} = Dimensions.get ('window');
 const image = {
   uri: 'https://i.pinimg.com/originals/fb/26/bf/fb26bf0dadfd3741e5e6ea9a8a2f8a4b.jpg',
 };
-import { REACT_APP_SERVER_IP, REACT_APP_SERVER_PORT } from "@env";
 
 const LoginSelectionScreen = ({navigation}) => {
   const handleNavigateToWorkerLogin = () => {

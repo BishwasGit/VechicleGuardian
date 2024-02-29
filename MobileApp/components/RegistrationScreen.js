@@ -1,8 +1,8 @@
+import { REACT_APP_SERVER_IP, REACT_APP_SERVER_PORT } from "@env";
 import React, { useState } from "react";
 import { ScrollView, View, StyleSheet, Text } from "react-native";
 import { TextInput, Button, Title, Card, Checkbox, Snackbar } from "react-native-paper";
 import axios from "axios";
-import { REACT_APP_SERVER_IP, REACT_APP_SERVER_PORT } from "@env";
 import Icon from "react-native-vector-icons/MaterialIcons";
 
 const RegistrationScreen = ({ route }) => {

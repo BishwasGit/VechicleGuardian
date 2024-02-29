@@ -2,3 +2,5 @@ node_modules
 /server/db.js
 server/db.js
 /MobileApp/.env
+# Ignore all .env files in the project directory and its subdirectories
+**/.env

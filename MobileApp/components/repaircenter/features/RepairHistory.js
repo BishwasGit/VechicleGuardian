@@ -1,7 +1,7 @@
+import { REACT_APP_SERVER_IP, REACT_APP_SERVER_PORT } from "@env";
 import React, { useEffect, useState } from "react";
 import { View, Text, StyleSheet } from "react-native";
 import { useNavigation, useRoute } from "@react-navigation/native";
-import { REACT_APP_SERVER_IP, REACT_APP_SERVER_PORT } from "@env";
 
 const RepairHistory = () => {
   const navigation = useNavigation();

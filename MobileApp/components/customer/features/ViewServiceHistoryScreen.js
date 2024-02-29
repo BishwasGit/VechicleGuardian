@@ -1,7 +1,7 @@
+import { REACT_APP_SERVER_IP, REACT_APP_SERVER_PORT } from "@env";
 import React, { useState, useEffect } from "react";
 import { Text, StyleSheet, View, ScrollView, FlatList } from "react-native";
 import { Button, Card, Title, Paragraph } from "react-native-paper";
-import { REACT_APP_SERVER_IP, REACT_APP_SERVER_PORT } from "@env";
 
 const ViewServiceHistoryScreen = ({ route, navigation }) => {
   const {customer_id}  = route.params;

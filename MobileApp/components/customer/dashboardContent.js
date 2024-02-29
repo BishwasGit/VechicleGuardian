@@ -1,9 +1,9 @@
+import { REACT_APP_SERVER_IP, REACT_APP_SERVER_PORT } from "@env";
 import React, { useEffect, useState } from "react";
 import {View, Text, StyleSheet, ScrollView } from "react-native";
 import MyCarousel from "./MyCarousel";
 import MyStatistics from "./MyStatistics";
 import MapView, {Marker}from 'react-native-maps';
-import { REACT_APP_SERVER_IP, REACT_APP_SERVER_PORT } from "@env";
 
 
 const DashboardContent = () => {
@@ -71,8 +71,8 @@ const DashboardContent = () => {
          </View>
 
         <View style={styles.carouselContainer}>
-        <Text style={{ fontSize: 14, marginBottom: 15,marginLeft: 15,fontWeight:'bold' }}>Nearby Best Offers</Text>
-          <MyCarousel />
+         <Text style={{ fontSize: 14, marginBottom: 15,marginLeft: 15,fontWeight:'bold' }}>Nearby Best Offers</Text>
+          {/* <MyCarousel /> */}
         </View>
       </View>
     </ScrollView>

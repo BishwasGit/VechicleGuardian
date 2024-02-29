@@ -1,3 +1,4 @@
+import { REACT_APP_SERVER_IP, REACT_APP_SERVER_PORT } from "@env";
 import React, { useEffect, useState } from "react";
 import { ScrollView, View, StyleSheet } from "react-native";
 import {
@@ -9,7 +10,6 @@ import {
   Snackbar,
 } from "react-native-paper";
 import { Picker } from "@react-native-picker/picker";
-import { REACT_APP_SERVER_IP, REACT_APP_SERVER_PORT } from "@env";
 import { useNavigation } from "@react-navigation/native";
 import { IconButton } from "react-native-paper";
 

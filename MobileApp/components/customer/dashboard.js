@@ -1,3 +1,4 @@
+import {REACT_APP_SERVER_IP, REACT_APP_SERVER_PORT} from '@env';
 import React, {useState, useEffect} from 'react';
 import { ImageBackground,ScrollView, View, StyleSheet, TouchableOpacity} from 'react-native';
 import { Text} from 'react-native-paper';
@@ -5,7 +6,6 @@ import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import {useNavigation} from '@react-navigation/native';
 import DashboardContent from './dashboardContent.js';
-import {REACT_APP_SERVER_IP, REACT_APP_SERVER_PORT} from '@env';
 import {Ionicons} from '@expo/vector-icons';
 import ChatContent from './ChatContent.js';
 
@@ -33,7 +33,7 @@ const CustomerDashboard = ({ route }) => {
         console.error("customer_id is undefined");
         return;
       }
-      try {
+      setTimeout(async () => { try {
         const response = await fetch(
           `http://${REACT_APP_SERVER_IP}:${REACT_APP_SERVER_PORT}/api/customerDetails/${customer_id}`
         );
@@ -64,7 +64,7 @@ const CustomerDashboard = ({ route }) => {
         } catch (error) {
           console.error ('Error fetching customer details:', error);
         }
-      };
+      },1000)};
 
     fetchCustomerDetails();
   }, [customer_id]);

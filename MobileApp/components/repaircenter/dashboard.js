@@ -1,3 +1,4 @@
+import { REACT_APP_SERVER_IP, REACT_APP_SERVER_PORT } from "@env";
 import React, {useState, useEffect,useCallback} from 'react';
 import {
   ScrollView,
@@ -10,7 +11,6 @@ import {
 import DashboardContent from './dashboardContent.js';
 import { IconButton } from "react-native-paper";
 import { Card, Title, Button, TextInput } from "react-native-paper";
-import { REACT_APP_SERVER_IP, REACT_APP_SERVER_PORT } from "@env";
 import { useNavigation } from "@react-navigation/native";
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import * as ImagePicker from "expo-image-picker";

@@ -1,3 +1,4 @@
+import { REACT_APP_SERVER_IP, REACT_APP_SERVER_PORT } from "@env";
 import React, { useState, useEffect } from "react";
 import { ScrollView, View, Text, StyleSheet, Alert } from "react-native";
 import {
@@ -9,7 +10,6 @@ import {
   Button,
   Searchbar,
 } from "react-native-paper";
-import { REACT_APP_SERVER_IP, REACT_APP_SERVER_PORT } from "@env";
 import { WebView } from "react-native-webview";
 
 const AdminDash = ({ route, navigation }) => {
