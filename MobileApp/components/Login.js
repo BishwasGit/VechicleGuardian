@@ -23,7 +23,6 @@ const Login = ({ navigation }) => {
   };
   const handleLogin = async () => {
     setLoading(true);
-    alert("dashboard");
     setTimeout(async () => { try {
       const response = await fetch(
         `http://${REACT_APP_SERVER_IP}:${REACT_APP_SERVER_PORT}/api/login`,

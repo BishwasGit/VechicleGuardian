@@ -33,6 +33,14 @@ app.use('/api', getVehicleDetails);
 const storevehicleincomeexpenses = require('./api/customers/storevehicleincomeexpenses');
 app.use('/api', storevehicleincomeexpenses);
 
+//for chat feature
+const repairCenterWorker = require('./api/customers/repairCenterWorker');
+app.use('/api', repairCenterWorker);
+const repairData = require('./api/customers/chatScreenCustomer');
+app.use('/api', repairData);
+const repaircentersData = require('./api/customers/getSingleRepairCenter');
+app.use('/api', repaircentersData);
+
 
 //repair centers side
 
