@@ -1,12 +1,13 @@
 import {REACT_APP_SERVER_IP, REACT_APP_SERVER_PORT} from '@env';
 import React, { useState, useEffect } from 'react';
-import { View, Text, Image, StyleSheet } from 'react-native';
+import { View, Text, Image, StyleSheet, TouchableOpacity } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import { useNavigation } from '@react-navigation/native';
-import { TextInput } from "react-native-paper";
+import { TextInput } from "react-native-paper";;
 
 const ChatDetailScreen = ({ route }) => {
   const [repaircenterDetails, setRepairCenterDetails] = useState(null);
+  const [newMessage, setNewMessage] = useState('');
   const { repaircenters_id, customer_id } = route.params;
   const navigation = useNavigation();
 console.log(route.params);
@@ -24,7 +25,14 @@ console.log(route.params);
     }
     fetchRepairCenterDetails();
   }, [repaircenters_id]);
-  console.log('repaircenterDetails : ' , repaircenterDetails)
+
+  const sendMessage = async () => {
+    // Implement sending message functionality here
+    // You can make an API call to send the message
+    // After sending the message, clear the newMessage state
+    setNewMessage('');
+  };
+
   return (
     <View style={styles.container}>
     {repaircenterDetails && (
@@ -45,12 +53,17 @@ console.log(route.params);
     <View style={styles.bodyContainer}></View>
   
     <View style={styles.bottomContainer}>
-      <TextInput
-        placeholder="Type your message"
-        placeholderTextColor="#bfc1c2"
-        style={styles.textinput}
-      />
-    </View>
+        <TextInput
+          placeholder="Type your message"
+          placeholderTextColor="#bfc1c2"
+          value={newMessage}
+          onChangeText={setNewMessage}
+          style={styles.textInput}
+        />
+        <TouchableOpacity onPress={sendMessage}>
+          <Ionicons name="send" size={30} color="gray" style={styles.sendButton} />
+        </TouchableOpacity>
+      </View>
   </View>
   
   
@@ -72,16 +85,28 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
   },
   bottomContainer: {
-    flex: 1,
-    position: "absolute",
+    position: 'absolute',
     bottom: 0,
-    width: "100%",
+    left: 0,
+    right: 0,
+    flexDirection: 'row',
+    alignItems: 'center',
+    paddingHorizontal: 10,
+    paddingVertical: 10,
+    backgroundColor: 'white',
+    borderTopWidth: 1,
+    borderTopColor: '#ccc',
+    marginBottom : 0,
   },
-  textinput: {
-    height: 60,
-    backgroundColor: "white",
-    width: "100%",
-    paddingLeft: 30,
+  textInput: {
+    flex: 1,
+    height: 40,
+    paddingHorizontal: 15,
+    marginRight: 10,
+    backgroundColor : 'white',
+  },
+  sendButton: {
+    marginLeft: 10,
   },
 });
 
