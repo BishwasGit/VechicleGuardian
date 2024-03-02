@@ -22,6 +22,7 @@ const Login = ({ navigation }) => {
     await SecureStore.setItemAsync(storageKey, JSON.stringify(userInfo));
   };
   const handleLogin = async () => {
+    alert("hello");
     setLoading(true);
     setTimeout(async () => { try {
       const response = await fetch(

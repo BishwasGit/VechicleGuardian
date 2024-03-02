@@ -10,13 +10,14 @@ const ChatContent = ({ customerId }) => {
 
   useEffect(() => {
     const fetchRepairCenter = async () => {
+
       try {
         // Fetch repair data associated with the customer's vehicle
         const repairDataResponse = await fetch(
           `http://${REACT_APP_SERVER_IP}:${REACT_APP_SERVER_PORT}/api/repairData/${customerId}`
         );
         const repairData = await repairDataResponse.json();
-        
+
         // Extract repair center ID from repair data
         const repairCenterWorkerId = repairData.repairData[0].repaircenter_workers_id;
         // Fetch repair center information based on repair center worker ID
@@ -37,7 +38,7 @@ const ChatContent = ({ customerId }) => {
   const handlePress = ({ repaircentersId, customerId }) => {
     navigation.navigate('ChatDetail', {
       repaircenters_id: repaircentersId,
-      customer_id: customerId
+      customer_id: customerId,
     });
   };
 
@@ -52,27 +53,32 @@ const ChatContent = ({ customerId }) => {
       <TouchableOpacity
         style={styles.touchableContainer}
         onPress={() => {repairCenter &&
-            handlePress({
-              repaircentersId: repairCenter.repairCenterData[0].repaircenters_id,
-              customerId: customerId
-            });
-        }}
+          handlePress({
+            repaircentersId: repairCenter.repairCenterData[0].repaircenters_id,
+            customerId: customerId
+          });
+      }}
+
       >
 
-    {repairCenter && (
+
+   {repairCenter && (
       <View style={{ flexDirection: 'row', alignItems: 'center' }}>
         <Image
-          source={{ uri:" https://i.pinimg.com/originals/36/59/06/3659062e276f925abe678a81295854fa.jpg"}}
+          source={{ uri:"https://i.pinimg.com/originals/eb/9e/97/eb9e978108d7a30c654654b8210668fa.jpg"}}
           style={{ width: 60, height: 60, borderRadius: 50 }}
         />
         <View style={styles.texts}>
-          <Text style={{ fontSize: 17 }}>{repairCenter.repairCenterData[0].repaircenter_fname}</Text>
-          <Text style={{ color: 'gray' }}>Start your first text with {repairCenter.repairCenterData[0].repaircenter_fname}</Text>
-          <Text style={{ color: 'gray' }}>{repairCenter.repairCenterData[0].address}</Text>
+
+          <Text style={{ fontSize: 17 ,fontWeight:"bold"}}>{repairCenter.repairCenterData[0].repaircenter_fname}</Text>
+          <Text style={{ color: 'gray',fontSize: 13,paddingTop:7, }}>Start your first text with {repairCenter.repairCenterData[0].repaircenter_fname}</Text>
+          <Text style={{ color: 'gray',fontSize: 11, paddingTop:2,}}>{repairCenter.repairCenterData[0].address}</Text>
         </View>
         <View style={styles.date}></View>
       </View>
     )}
+
+
       </TouchableOpacity>
     </View>
     </View>
@@ -104,17 +110,13 @@ const styles = StyleSheet.create({
     borderColor: '#a9a9a9',
     width: "95%",
     backgroundColor: 'white',
-    height: 80,
+    height: 120,
     borderRadius: 10,
-    padding: 10,
+    padding: 20,
     elevation: 1,
   },
   texts: {
-  marginVertical : 10,
-  },
-  date: {
-    marginTop: "4%",
-    marginLeft: "23%",
+  marginLeft : 20,
   },
 });
 

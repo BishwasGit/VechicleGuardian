@@ -204,7 +204,7 @@ function ProfileScreen({
           style={styles.profilebutton}
             onPress={() => handleButtonPress ('switchToRepairCenterProfile')}
           >
-            <Text style={styles.buttonProfileText}>Paymsents</Text>
+            <Text style={styles.buttonProfileText}>Payments</Text>
           </TouchableOpacity>}
       </View>
       <Text style={styles.profileSubTitle}>General</Text>

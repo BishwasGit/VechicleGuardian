@@ -42,9 +42,6 @@ const MyStatistics=() => {
         </Text>
         <Text  style={{marginLeft: 2,marginBottom: 20, fontSize : 15}} >Customer dashboard</Text>
         <View style={styles.line} />
-        <Text style={{fontSize: 15,fontWeight: 'bold',marginBottom: 10}}>
-          Income and Expenses Statistics
-        </Text>
         <PieChart
           data={pieChartData}
           width={screenWidth}
@@ -77,7 +74,6 @@ const styles=StyleSheet.create({
   contentContainer: {
     flex: 1,
     padding : 10,
-
   },
   profileContainer: {
     paddingTop: 20,
@@ -93,7 +89,7 @@ const styles=StyleSheet.create({
     width: '117%',
     borderBottomColor: '#D4AF37',
     borderBottomWidth: 0.8,
-    marginBottom: 35,
+    marginBottom: 20,
   },
 });
 
