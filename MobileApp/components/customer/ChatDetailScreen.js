@@ -10,7 +10,6 @@ const ChatDetailScreen = ({ route }) => {
   const [newMessage, setNewMessage] = useState('');
   const { repaircenters_id, customer_id } = route.params;
   const navigation = useNavigation();
-console.log(route.params);
   useEffect(() => {
     const fetchRepairCenterDetails = async () => {
       try {

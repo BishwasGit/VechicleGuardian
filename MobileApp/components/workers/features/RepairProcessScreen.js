@@ -1,22 +1,15 @@
-import { REACT_APP_SERVER_IP, REACT_APP_SERVER_PORT } from "@env";
+import {REACT_APP_SERVER_IP, REACT_APP_SERVER_PORT} from '@env';
 import React, { useState, useEffect } from "react";
-import {
-  View,
-  Text,
-  ScrollView,
-  TouchableOpacity,
-  TextInput,
-  FlatList,
-  StyleSheet,
-  Platform,
-} from "react-native";
-import DateTimePicker from "@react-native-community/datetimepicker";
+import { View, Text, TouchableOpacity, TextInput, FlatList, StyleSheet } from "react-native";
+import Toast from 'react-native-root-toast';
+import { Snackbar, Button } from 'react-native-paper';
 import { Picker } from "@react-native-picker/picker";
-import { Button, Title } from "react-native-paper";
+
 
 const RepairProcessScreen = ({ route, navigation }) => {
-  const workerId = route.params;
   const [vehicleList, setVehicleList] = useState(null);
+  const [snackbarVisible, setSnackbarVisible] = useState(false); 
+  const [snackbarMessage, setSnackbarMessage] = useState(''); 
   const [selectedVehicleId, setSelectedVehicleId] = useState("");
   const [selectedDate, setSelectedDate] = useState(new Date());
   const [showDatePicker, setShowDatePicker] = useState(false);
@@ -26,7 +19,6 @@ const RepairProcessScreen = ({ route, navigation }) => {
   ]);
   const [totalRs, setTotalRs] = useState(0);
   const [totalEstimatedTime, setTotalEstimatedTime] = useState(0);
-
   useEffect(() => {
     const fetchVehicleList = async () => {
       try {
@@ -34,7 +26,6 @@ const RepairProcessScreen = ({ route, navigation }) => {
           `http://${REACT_APP_SERVER_IP}:${REACT_APP_SERVER_PORT}/api/fetchVehicleList`
         );
         const data = await response.json();
-
         setVehicleList(data);
       } catch (error) {
         console.error("Error fetching vehicle list:", error);
@@ -43,25 +34,6 @@ const RepairProcessScreen = ({ route, navigation }) => {
 
     fetchVehicleList();
   }, []);
-
-  const showDateTimePicker = () => {
-    if (Platform.OS === "ios") {
-      setShowDatePicker(true);
-    }
-  };
-
-  const hideDateTimePicker = () => {
-    if (Platform.OS === "ios") {
-      setShowDatePicker(false);
-    }
-  };
-
-  const handleDateChange = (event, date) => {
-    if (date) {
-      setSelectedDate(date);
-    }
-    hideDateTimePicker();
-  };
 
   const handleChangesInputChange = (id, key, value) => {
     const updatedChanges = changes.map((change) =>
@@ -110,9 +82,6 @@ const RepairProcessScreen = ({ route, navigation }) => {
         value={item.cost}
         onChangeText={(text) => handleChangesInputChange(item.id, "cost", text)}
       />
-      <TouchableOpacity disabled style={styles.inputBox} activeOpacity={1}>
-        <Text>In Minutes</Text>
-      </TouchableOpacity>
     </View>
   );
   const getCurrentDateTime = () => {
@@ -122,8 +91,8 @@ const RepairProcessScreen = ({ route, navigation }) => {
     const date = currentTime.toLocaleDateString();
     const hours = currentTime.getHours();
     const minutes = currentTime.getMinutes().toString().padStart(2, "0");
-    const time = hours >= 12 ? "PM" : "AM"; // Determine AM/PM
-    const twelveHourFormat = hours % 12 || 12; // Convert to 12-hour format
+    const time = hours >= 12 ? "PM" : "AM"; 
+    const twelveHourFormat = hours % 12 || 12; 
     const formattedHours = twelveHourFormat.toString().padStart(2, "0");
   
     return `${day}, ${date} ${formattedHours}:${minutes} ${time}`;
@@ -136,29 +105,19 @@ const RepairProcessScreen = ({ route, navigation }) => {
     const changesMade = changes
       .map(({ changesMade }) => changesMade)
       .filter(Boolean);
-    // Combine all input data for submission
-    // Set the time zone to Nepal (UTC+5:45)
-    const selectedDate = new Date().toLocaleString("en-US", {
-      timeZone: "Asia/Kathmandu",
-    });
-
-    const completionTime = getCurrentDateTime(); 
-
-    const {workerId }= route.params;
+  
+    const completionTime = getCurrentDateTime();
+  
+    const workerId = route.params;
     const formData = {
-      repaircenter_workers_id: workerId,
+      repaircenter_workers_id: workerId.repaircenter_workers_id,
       vehicleId: selectedVehicleId,
       date: selectedDate,
       totalCost,
-      completion_time : completionTime,
+      completion_time: completionTime,
       changesMade: JSON.stringify(changesMade),
     };
-    // Adjust the date to Nepal Time (UTC+5:45)
-
-    console.log(formData);
-
-    // Send formData to the server
-    // Example: You can use fetch or your preferred method to send data to the server
+  
     fetch(
       `http://${REACT_APP_SERVER_IP}:${REACT_APP_SERVER_PORT}/api/startRepairData`,
       {
@@ -171,15 +130,21 @@ const RepairProcessScreen = ({ route, navigation }) => {
     )
       .then((response) => response.json())
       .then((data) => {
-        // Handle server response if needed
-        console.log("Server Response:", data);
+        console.log(data.message)
+        Toast.show('Data Stored Successfully', {
+          duration: Toast.durations.LONG,
+        });
+        navigation.goBack();
       })
       .catch((error) => {
         console.error("Error submitting form data:", error);
+        Toast.show('Error submitting form data:', {
+          duration: Toast.durations.LONG,
+        });
       });
   };
   return (
-    <ScrollView style={styles.container}>
+    <View style={styles.container}>
       <View style={styles.card}>
         <Text style={styles.heading}>Changes Made</Text>
         {vehicleList && (
@@ -187,7 +152,6 @@ const RepairProcessScreen = ({ route, navigation }) => {
             <Picker
               selectedValue={selectedVehicleId}
               onValueChange={(itemValue) => {
-                console.log("Selected Vehicle ID:", itemValue);
                 setSelectedVehicleId(itemValue);
               }}
               style={styles.pickerContain}
@@ -201,60 +165,24 @@ const RepairProcessScreen = ({ route, navigation }) => {
                 />
               ))}
             </Picker>
-            {/* Date and Time Input */}
-            <TouchableOpacity
-              onPress={showDateTimePicker}
-              style={styles.inputBox}
-              activeOpacity={1}
-            >
-              <Text>{selectedDate.toLocaleString()}</Text>
-            </TouchableOpacity>
-
-            {showDatePicker && (
-              <DateTimePicker
-                value={selectedDate}
-                mode="datetime"
-                display={Platform.OS === "ios" ? "spinner" : "default"}
-                onChange={handleDateChange}
-                disabled={Platform.OS === "android"}
-              />
-            )}
-            <TextInput
-              style={styles.input}
-              label="Completion Time"
-              value={getCurrentDateTime()}
-              editable={false} // Prevent editing of the TextInput
-            />
-            {/* Changes Form */}
+              <Text>Date and Time : {selectedDate.toLocaleString()}</Text>
             <Text style={styles.heading}>Changes Made</Text>
 
-            {/* Repeater for Changes Input */}
             <FlatList
-              style={styles.textinput}
               data={changes}
               keyExtractor={(item) => item.id.toString()}
               renderItem={renderChangesInput}
             />
 
-            {/* Add More Button */}
             <Button
-              style={{
-                padding: 5,
-                alignItems: "center",
-
-                backgroundColor: "#0d5563",
-              }}
-              labelStyle={{ color: "white" }}
+              style={styles.addButton}
               onPress={handleAddMore}
             >
-              <Text
-                style={{ color: "white", fontSize: 14, fontWeight: "bold" }}
-              >
+              <Text style={styles.buttonText}>
                 Add More Changes
               </Text>
             </Button>
 
-            {/* Display Total Rs and Estimated Time */}
             <View style={styles.totalContainer}>
               <Text>Total Rs: {totalRs}</Text>
               <Text>Total Completion Time: {getCurrentDateTime()}</Text>
@@ -262,20 +190,22 @@ const RepairProcessScreen = ({ route, navigation }) => {
           </>
         )}
         <Button
-          style={{
-            padding: 5,
-            alignItems: "center",
-            backgroundColor: "#0d5563",
-          }}
-          labelStyle={{ color: "white" }}
+          style={styles.addButton}
           onPress={handleSubmit}
         >
-          <Text style={{ color: "white", fontSize: 14, fontWeight: "bold" }}>
+          <Text style={styles.buttonText}>
             Submit Repair Details
           </Text>
         </Button>
       </View>
-    </ScrollView>
+      <Snackbar
+        visible={snackbarVisible}
+        onDismiss={() => setSnackbarVisible(false)}
+        duration={Snackbar.DURATION_SHORT}
+      >
+        {snackbarMessage}
+      </Snackbar>
+    </View>
   );
 };
 
@@ -307,7 +237,6 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
     fontSize: 22,
   },
-
   inputGroup: {
     flexDirection: "column",
     marginBottom: 10,
@@ -331,11 +260,16 @@ const styles = StyleSheet.create({
     marginTop: 20,
   },
   addButton: {
-    padding: 5,
-    color: "white",
+    padding: 10,
     alignItems: "center",
-    marginTop: "13%",
-    backgroundColor: "#c1121f",
+    marginTop: 20,
+    backgroundColor: "gray",
+    borderRadius: 5,
+  },
+  buttonText: {
+    color: "white",
+    fontSize: 16,
+    fontWeight: "bold",
   },
 });
 

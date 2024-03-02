@@ -145,13 +145,6 @@ const AddVehicleScreen = ({route}) => {
       alert ('Error', 'Please fill in all the details.');
       return;
     }
-
-    const dateRegex = /^\d{4}-\d{2}-\d{2}$/;
-    if (!dateRegex.test (createdDate) || !dateRegex.test (expiryDate)) {
-      setMessage ('Error: Date format should be yyyy-mm-dd');
-      return;
-    }
-
     // Validate contactNumber
     const contactRegex = /^\d{10}$/;
     if (!contactRegex.test (contactNumber)) {
