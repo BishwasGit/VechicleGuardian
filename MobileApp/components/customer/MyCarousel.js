@@ -63,14 +63,14 @@ const styles = StyleSheet.create({
     width: itemWidth,
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: 'white',
+    backgroundColor: '#808000',
     borderRadius: 5,
     elevation: 2,
     marginBottom: 10,
   },
   image: {
     marginTop: 5,
-    backgroundColor: 'black',
+    backgroundColor: 'white',
     width: '95%',
     height: 120, // Adjust the image height as needed
     borderRadius: 5, // Optional: if you want rounded corners
@@ -79,9 +79,11 @@ const styles = StyleSheet.create({
     paddingTop: 6,
     fontSize: 14,
     fontWeight: 'bold',
+    color:"white",
   },
   description: {
     fontSize: 11,
+    color:"white",
     marginBottom: 10,
   },
 });

@@ -11,6 +11,7 @@ const DashboardContent = () => {
 
   useEffect(() => {
     const fetchRepairCenters = async () => {
+      alert("sdj");
       try {
         const response = await fetch(
           `http://${REACT_APP_SERVER_IP}:${REACT_APP_SERVER_PORT}/api/getRepairCentersList`
@@ -93,11 +94,11 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
   statisticsContainer:{
-    marginBottom: 10,
+    marginBottom: 30,
     padding : 15,
   },
   carouselContainer: {
-    marginBottom: 30,
+    marginBottom: 50,
   },
   carouselItem: {
     backgroundColor: "floralwhite",
@@ -134,7 +135,7 @@ const styles = StyleSheet.create({
     marginLeft:"2.5%",
     width: '95%',
     height: 180,
-    marginBottom : 30,
+    marginBottom : 60,
   },
   map: {
     width: '100%',
