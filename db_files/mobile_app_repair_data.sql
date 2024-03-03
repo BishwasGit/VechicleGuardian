@@ -31,7 +31,7 @@ CREATE TABLE `repair_data` (
   `changes_made` text,
   `completion_time` text,
   PRIMARY KEY (`repairData_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=15 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -40,7 +40,7 @@ CREATE TABLE `repair_data` (
 
 LOCK TABLES `repair_data` WRITE;
 /*!40000 ALTER TABLE `repair_data` DISABLE KEYS */;
-INSERT INTO `repair_data` VALUES (1,2,1,'2/8/2024, 1:02:43 PM','12000','[\"brake oil changed\"]','Thursday, 2/8/2024 01:02 PM');
+INSERT INTO `repair_data` VALUES (1,2,1,'2/8/2024, 1:02:43 PM','12000','[\"brake oil changed\"]','Thursday, 2/8/2024 01:02 PM'),(8,2,1,'2024-03-02T15:55:30.315Z','8900','[\"Yguvucycyx\"]','Saturday, 02/03/2024, 21:40:47, 02/03/2024 09:40 PM');
 /*!40000 ALTER TABLE `repair_data` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -53,4 +53,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2024-02-27 20:26:51
+-- Dump completed on 2024-03-03 14:52:24

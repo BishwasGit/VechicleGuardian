@@ -42,6 +42,12 @@ const repaircentersData = require('./api/customers/getSingleRepairCenter');
 app.use('/api', repaircentersData);
 
 
+//send and receive messages 
+const sendMessage = require('./api/chat/sendMessage');
+app.use('/api', sendMessage);
+const messages_cr = require('./api/chat/messages_cr');
+app.use('/api', messages_cr);
+
 //repair centers side
 
 const registerRouteRepairCenter = require('./api/repaircenters/registerRepairCenter');

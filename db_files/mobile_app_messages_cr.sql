@@ -16,34 +16,31 @@
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
--- Table structure for table `repair_parts_seller_users`
+-- Table structure for table `messages_cr`
 --
 
-DROP TABLE IF EXISTS `repair_parts_seller_users`;
+DROP TABLE IF EXISTS `messages_cr`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `repair_parts_seller_users` (
-  `repair_parts_seller_users_id` int NOT NULL AUTO_INCREMENT,
-  `seller_uuid` text,
-  `username` varchar(45) DEFAULT NULL,
-  `phone` varchar(45) DEFAULT NULL,
-  `email` varchar(45) DEFAULT NULL,
-  `password` varchar(512) DEFAULT NULL,
-  `updated_at` timestamp NULL DEFAULT NULL,
-  `created_at` timestamp NULL DEFAULT NULL,
-  `remember_token` varchar(255) DEFAULT NULL,
-  PRIMARY KEY (`repair_parts_seller_users_id`)
+CREATE TABLE `messages_cr` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `customer_id` int DEFAULT NULL,
+  `repaircenters_id` int DEFAULT NULL,
+  `message_contents` json DEFAULT NULL,
+  `timestamp` datetime DEFAULT NULL,
+  `senderType` varchar(45) DEFAULT NULL,
+  PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `repair_parts_seller_users`
+-- Dumping data for table `messages_cr`
 --
 
-LOCK TABLES `repair_parts_seller_users` WRITE;
-/*!40000 ALTER TABLE `repair_parts_seller_users` DISABLE KEYS */;
-INSERT INTO `repair_parts_seller_users` VALUES (1,NULL,'Bishwas','9869133344','workmail.bishwas@gmail.com','$2b$10$4n4f.gdlCIidenwSrCVPNuSm8vp0.Yg375Nmw3v4fqwFY7KBmY79W',NULL,NULL,NULL),(2,'4d276e29-7983-4a7c-91a8-788af52f3396','prajwalbro@hotmail.com','9869144445','b15hw45@gmail.com','$2y$12$2m9XMEdWxUK0u8zc3BYmI.fQhyqj98rWKeirC6OX.F6xcd8RlFfI6','2024-01-30 00:58:22','2024-01-30 00:58:22','lAgXZGQjFT9tsoMbSVAYVISHTjTj1mqJefJAdmAtwZVZJNaQWEGxq1rGyK0s');
-/*!40000 ALTER TABLE `repair_parts_seller_users` ENABLE KEYS */;
+LOCK TABLES `messages_cr` WRITE;
+/*!40000 ALTER TABLE `messages_cr` DISABLE KEYS */;
+INSERT INTO `messages_cr` VALUES (1,1,1,'\"Hello\"','2024-03-03 14:33:51','customer'),(2,1,1,'\"Hii\"','2024-03-03 14:42:33','customer');
+/*!40000 ALTER TABLE `messages_cr` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
@@ -55,4 +52,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2024-03-03 14:52:23
+-- Dump completed on 2024-03-03 14:52:26

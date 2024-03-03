@@ -9,8 +9,25 @@ import { TextInput } from "react-native-paper";
 const ChatDetailScreen = ({ route }) => {
   const [repaircenterDetails, setRepairCenterDetails] = useState(null);
   const [newMessage, setNewMessage] = useState('');
+  const [messages, setMessages] = useState([]);
   const { repaircenters_id, customer_id } = route.params;
   const navigation = useNavigation();
+  
+    
+  const fetchMessages = async () => {
+    try {
+      const response = await fetch(`http://${REACT_APP_SERVER_IP}:${REACT_APP_SERVER_PORT}/api/messages_cr?repaircenters_id=${repaircenters_id}&customer_id=${customer_id}`);
+      if (response.ok) {
+        const data = await response.json();
+        setMessages(data);
+      } else {
+        console.error('Failed to fetch messages');
+      }
+    } catch (error) {
+      console.log('Error fetching messages', error);
+    }
+  };
+
   useEffect(() => {
     const fetchRepairCenterDetails = async () => {
       try {
@@ -26,13 +43,46 @@ const ChatDetailScreen = ({ route }) => {
     fetchRepairCenterDetails();
   }, [repaircenters_id]);
 
+  useEffect(() => {
+    fetchMessages();
+  }, [repaircenters_id, customer_id]);
+
   const sendMessage = async () => {
-    // Implement sending message functionality here
-    // You can make an API call to send the message
-    // After sending the message, clear the newMessage state
-    setNewMessage('');
+    try {
+      const messageData = JSON.stringify(newMessage);
+      // Make an API call to send the message
+      const response = await fetch(`http://${REACT_APP_SERVER_IP}:${REACT_APP_SERVER_PORT}/api/sendMessage`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          repaircenters_id: repaircenters_id,
+          customer_id: customer_id,
+          message: messageData,
+          senderType: 'customer'
+        }),
+      });
+  
+      if (!response.ok) {
+        // If response status is not okay, throw an error
+        throw new Error('Failed to send message');
+      }
+  
+      // Clear the newMessage state
+      setNewMessage('');
+      // Fetch messages again to update the message list
+      fetchMessages();
+    } catch (error) {
+      // Log the error for debugging
+      console.error('Error sending message:', error);
+    }
   };
 
+  const formatTimestamp = (timestamp) => {
+    const date = new Date(timestamp);
+    return `${date.toLocaleDateString()} ${date.toLocaleTimeString()}`;
+  };
   return (
     <View style={styles.container}>
        {repaircenterDetails && (
@@ -51,7 +101,14 @@ const ChatDetailScreen = ({ route }) => {
     )}
 
 
-    <View style={styles.bodyContainer}></View>
+<View style={styles.bodyContainer}>
+  {messages.map((message, index) => (
+    <View key={index} style={message.senderType === 'customer' ? styles.customerMessage : styles.repairCenterMessage}>
+      <Text style={styles.messageText}>{message.message_contents}</Text>
+      <Text style={styles.timestamp}>{formatTimestamp(message.timestamp)}</Text>
+    </View>
+  ))}
+</View>
 
     <View style={styles.bottomContainer}>
         <TextInput
@@ -115,6 +172,46 @@ const styles = StyleSheet.create({
   },
   sendButton: {
  marginLeft:10,
+  },
+  bodyContainer: {
+    flex: 1,
+    padding: 10,
+  },
+  messageContainer: {
+    maxWidth: '80%',
+    marginBottom: 10,
+    alignSelf: 'flex-start',
+  },
+  customerMessage: {
+    alignSelf: 'flex-end', 
+    backgroundColor: '#DCF8C6',
+    padding: 10,
+    left : 100,
+    borderRadius : 10,
+    marginVertical : 5,
+  },
+  repairCenterMessage: {
+    backgroundColor: '#ABCFCA',
+    padding: 10,
+    right : 100,
+    marginVertical : 5,
+    borderRadius : 10,
+  },
+  customerText: {
+    color: 'black',
+    padding: 10,
+  },
+  repairCenterText: {
+    color: 'black',
+    padding: 10,
+  },
+  timestamp: {
+    fontSize: 12,
+    color: 'gray',
+    marginTop: 2,
+  },
+  messageText: {
+    flexWrap: 'wrap',
   },
 });
 

@@ -42,7 +42,7 @@ CREATE TABLE `repair_centers` (
 
 LOCK TABLES `repair_centers` WRITE;
 /*!40000 ALTER TABLE `repair_centers` DISABLE KEYS */;
-INSERT INTO `repair_centers` VALUES (1,1,'bajaj repari center','kalimati,kathmandu','27.68899461302774, 85.28788243117607','9869233345',NULL,1,'Verified'),(2,1,'Ripetixe','Slutryeyess','27.688994614545774, 85.28788244432107','9804887299','https://res.cloudinary.com/dpftkbsu6/image/upload/v1708337968/repaircenter_documentsa2381cbc-0285-43e6-aff9-8568730f1472.png',1,'Verified');
+INSERT INTO `repair_centers` VALUES (1,1,'bajaj repari center','kalimati,kathmandu','27.689878091287703, 85.28768927582482','9869233345','https://asset.cloudinary.com/dpftkbsu6/da21061a4c53be3d19303d7c129041e1',1,'Verified'),(2,1,'Ripetixe','Sitapaila,Kathmandu','27.688994614545774, 85.28788244432107','9804887299','https://asset.cloudinary.com/dpftkbsu6/da21061a4c53be3d19303d7c129041e1',1,'Verified');
 /*!40000 ALTER TABLE `repair_centers` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -55,4 +55,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2024-02-27 20:26:52
+-- Dump completed on 2024-03-03 14:52:22

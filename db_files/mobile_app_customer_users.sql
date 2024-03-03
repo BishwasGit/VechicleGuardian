@@ -39,7 +39,7 @@ CREATE TABLE `customer_users` (
 
 LOCK TABLES `customer_users` WRITE;
 /*!40000 ALTER TABLE `customer_users` DISABLE KEYS */;
-INSERT INTO `customer_users` VALUES (1,'Bishwas','$2b$10$4n4f.gdlCIidenwSrCVPNuSm8vp0.Yg375Nmw3v4fqwFY7KBmY79W','workmail.bishwas@gmail.com','9869133344');
+INSERT INTO `customer_users` VALUES (1,'bishwas','$2b$10$4n4f.gdlCIidenwSrCVPNuSm8vp0.Yg375Nmw3v4fqwFY7KBmY79W','workmail.bishwas@gmail.com','9869133344');
 /*!40000 ALTER TABLE `customer_users` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -52,4 +52,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2024-02-27 20:26:50
+-- Dump completed on 2024-03-03 14:52:23

@@ -8,10 +8,8 @@ import MapView, {Marker}from 'react-native-maps';
 
 const DashboardContent = () => {
   const [repairCenters, setRepairCenters] = useState([]);
-
   useEffect(() => {
     const fetchRepairCenters = async () => {
-      alert("sdj");
       try {
         const response = await fetch(
           `http://${REACT_APP_SERVER_IP}:${REACT_APP_SERVER_PORT}/api/getRepairCentersList`

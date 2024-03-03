@@ -71,7 +71,7 @@ const ChatContent = ({ customerId }) => {
         <View style={styles.texts}>
 
           <Text style={{ fontSize: 17 ,fontWeight:"bold"}}>{repairCenter.repairCenterData[0].repaircenter_fname}</Text>
-          <Text style={{ color: 'gray',fontSize: 13,paddingTop:7, }}>Start your first text with {repairCenter.repairCenterData[0].repaircenter_fname}</Text>
+          <Text style={{ color: 'gray',fontSize: 13,paddingTop:7, }}>Tap to view with {repairCenter.repairCenterData[0].repaircenter_fname}</Text>
           <Text style={{ color: 'gray',fontSize: 11, paddingTop:2,}}>{repairCenter.repairCenterData[0].address}</Text>
         </View>
         <View style={styles.date}></View>
