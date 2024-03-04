@@ -4,10 +4,11 @@ import { View, Text, TouchableOpacity, TextInput, FlatList, StyleSheet } from "r
 import Toast from 'react-native-root-toast';
 import { Snackbar, Button } from 'react-native-paper';
 import { Picker } from "@react-native-picker/picker";
-
+import LoadingScreen from "../../LoadingScreen"
 
 const RepairProcessScreen = ({ route, navigation }) => {
   const [vehicleList, setVehicleList] = useState(null);
+  const [loading, setLoading] = useState(false);
   const [snackbarVisible, setSnackbarVisible] = useState(false); 
   const [snackbarMessage, setSnackbarMessage] = useState(''); 
   const [selectedVehicleId, setSelectedVehicleId] = useState("");
@@ -15,7 +16,7 @@ const RepairProcessScreen = ({ route, navigation }) => {
   const [showDatePicker, setShowDatePicker] = useState(false);
   const [completionTime, setcompletionTime] = useState(false);
   const [changes, setChanges] = useState([
-    { id: 1, changesMade: "", cost: "", estimatedTime: "" },
+    { id: 1, changesMade: "", cost: "" },
   ]);
   const [totalRs, setTotalRs] = useState(0);
   const [totalEstimatedTime, setTotalEstimatedTime] = useState(0);
@@ -86,35 +87,38 @@ const RepairProcessScreen = ({ route, navigation }) => {
   );
   const getCurrentDateTime = () => {
     const currentTime = new Date();
-  
-    const day = currentTime.toLocaleString("default", { weekday: "long" });
-    const date = currentTime.toLocaleDateString();
-    const hours = currentTime.getHours();
-    const minutes = currentTime.getMinutes().toString().padStart(2, "0");
-    const time = hours >= 12 ? "PM" : "AM"; 
-    const twelveHourFormat = hours % 12 || 12; 
-    const formattedHours = twelveHourFormat.toString().padStart(2, "0");
-  
-    return `${day}, ${date} ${formattedHours}:${minutes} ${time}`;
+    const formattedDate = currentTime.toLocaleDateString("en-US", {
+      month: "numeric",
+      day: "numeric",
+      year: "numeric",
+    });
+    const formattedTime = currentTime.toLocaleTimeString("en-US", {
+      hour: "numeric",
+      minute: "2-digit",
+      hour12: true,
+    });
+    return `${formattedDate}, ${formattedTime}`;
   };
+  
   const handleSubmit = () => {
+    setLoading(true);
     const totalCost = changes.reduce(
       (total, { cost }) => total + (parseFloat(cost) || 0),
       0
     );
-    const changesMade = changes
-      .map(({ changesMade }) => changesMade)
-      .filter(Boolean);
-  
-    const completionTime = getCurrentDateTime();
-  
+      const changesMade = changes
+    .map(({ changesMade, cost }) => ({ changesMade, cost }))
+    .filter(({ changesMade, cost }) => changesMade.trim() !== "" && cost.trim() !== "");
+
+    const repair_date = getCurrentDateTime();
+    const completion_time = getCurrentDateTime();
     const workerId = route.params;
     const formData = {
       repaircenter_workers_id: workerId.repaircenter_workers_id,
       vehicleId: selectedVehicleId,
-      date: selectedDate,
+      date: repair_date,
       totalCost,
-      completion_time: completionTime,
+      completion_time: completion_time,
       changesMade: JSON.stringify(changesMade),
     };
   
@@ -131,7 +135,7 @@ const RepairProcessScreen = ({ route, navigation }) => {
       .then((response) => response.json())
       .then((data) => {
         console.log(data.message)
-        Toast.show('Data Stored Successfully', {
+        Toast.show((data.message), {
           duration: Toast.durations.LONG,
         });
         navigation.goBack();
@@ -141,6 +145,9 @@ const RepairProcessScreen = ({ route, navigation }) => {
         Toast.show('Error submitting form data:', {
           duration: Toast.durations.LONG,
         });
+      })
+      .finally(() => {
+        setLoading(false); // Set loading state to false when the request is completed
       });
   };
   return (
@@ -189,6 +196,9 @@ const RepairProcessScreen = ({ route, navigation }) => {
             </View>
           </>
         )}
+     {loading ? (
+        <LoadingScreen />
+      ) : (
         <Button
           style={styles.addButton}
           onPress={handleSubmit}
@@ -197,6 +207,7 @@ const RepairProcessScreen = ({ route, navigation }) => {
             Submit Repair Details
           </Text>
         </Button>
+      )}
       </View>
       <Snackbar
         visible={snackbarVisible}

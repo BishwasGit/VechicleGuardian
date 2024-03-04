@@ -3,12 +3,13 @@ const multer = require('multer');
 const cloudinary = require('cloudinary').v2;
 const router = express.Router();
 const { v4: uuidv4 } = require('uuid');
+require('dotenv').config(); 
 
 // Set up Cloudinary credentials
 cloudinary.config({
-  cloud_name: 'dpftkbsu6',
-  api_key: '888578658969881',
-  api_secret: 'PwS4c844YOXPCHftfdXrx7xDW8c',
+  cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
+  api_key: process.env.CLOUDINARY_API_KEY,
+  api_secret: process.env.CLOUDINARY_API_SECRET
 });
 
 // Set up Multer for handling file uploads
