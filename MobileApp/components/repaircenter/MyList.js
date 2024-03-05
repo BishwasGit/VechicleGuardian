@@ -74,33 +74,6 @@ const MyList = ({ route }) => {
     return groupedData;
   };
 
-  const handleSendMessage = async () => {
-    try {
-      // Assuming you have the customer_id stored in task.vehicleDetails[0].customer_id
-      const customerID = task.vehicleDetails[0].customer_id;
-
-      // Your messaging service API endpoint or function to send a message
-      const sendMessageResponse = await fetch('YOUR_MESSAGE_API_ENDPOINT', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          // Add any additional headers required by your messaging service
-        },
-        body: JSON.stringify({
-          recipient_id: customerID,
-          message: 'Your vehicle repair is completed!',
-          // Add any other relevant data for your message
-        }),
-      });
-
-      // Handle the response if necessary
-      const result = await sendMessageResponse.json();
-      console.log('Message sent successfully:', result);
-    } catch (error) {
-      console.error('Error sending message:', error);
-    }
-  };
-
 
   const [visible, setVisible] = React.useState(false);
 
