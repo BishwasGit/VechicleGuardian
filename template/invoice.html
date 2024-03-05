@@ -40,11 +40,16 @@
 <body>
   <div class="container">
     <div class="header">
-      <h2>Repair Invoice</h2>
+      <h2>{{repaircenterName}}</h2>
+      <p>{{repaircenterAddress}}</p>
     </div>
     <div class="invoice-details">
       <p>Date: {{date}}</p>
-      <p>Customer: {{customerName}}</p>
+      <p>Customer Username: {{customerName}}</p>
+      <p>Customer Contact: {{customerContact}}</p>
+      <p>Vehicle Number: {{VehicleNumber}}</p>
+      <p>Vehicle Model: {{VehicleModel}}</p>
+      <p>Repair Done By: {{repairWorker}}</p>
       <!-- Add more invoice details here -->
     </div>
     <table class="details-table">
@@ -56,10 +61,6 @@
       </thead>
       <tbody>
         {{#each changes_made}}
-        <tr>
-          <td>{{this.changesMade}}</td>
-          <td>{{this.cost}}</td>
-        </tr>
         {{/each}}
       </tbody>
     </table>

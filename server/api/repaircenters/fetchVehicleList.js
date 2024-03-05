@@ -6,7 +6,6 @@ const { db } = require('../../db');
 router.get('/fetchVehicleList', async (req, res) => {
     try {
       const [rows] = await db.execute('SELECT * FROM vehicle_details');
-      console.log(rows);
       res.json(rows);
     } catch (error) {
       console.error('Error fetching vehicle list:', error);

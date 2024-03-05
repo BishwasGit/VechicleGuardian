@@ -134,8 +134,7 @@ const RepairProcessScreen = ({ route, navigation }) => {
     )
       .then((response) => response.json())
       .then((data) => {
-        console.log(data.message)
-        Toast.show((data.message), {
+        Toast.show('Repair data and PDF invoice uploaded successfully', {
           duration: Toast.durations.LONG,
         });
         navigation.goBack();
