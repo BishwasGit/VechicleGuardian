@@ -84,24 +84,6 @@ const DashboardContent = () => {
           </List.Section>
         </Card>
 
-        {/* Notifications Section */}
-        <Card style={styles.card}>
-          <Card.Title title="Notifications" style={styles.title} />
-          <List.Section>
-            <List.Accordion
-              title="New repair request received"
-              left={(props) => <List.Icon {...props} icon="bell-ring" />}
-            >
-              <List.Item title="Company: Bajaj" />
-              <List.Item title="Status: Pending" />
-            </List.Accordion>
-            <Divider />
-            <List.Item
-              title="Appointment reminder: Tomorrow at 10:00 AM"
-              left={(props) => <List.Icon {...props} icon="clock" />}
-            />
-          </List.Section>
-        </Card>
       </View>
     </ScrollView>
   );

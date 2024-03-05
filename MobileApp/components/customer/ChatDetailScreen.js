@@ -12,8 +12,8 @@ const ChatDetailScreen = ({ route }) => {
   const [messages, setMessages] = useState([]);
   const { repaircenters_id, customer_id } = route.params;
   const navigation = useNavigation();
-  
-    
+
+
   const fetchMessages = async () => {
     try {
       const response = await fetch(`http://${REACT_APP_SERVER_IP}:${REACT_APP_SERVER_PORT}/api/messages_cr?repaircenters_id=${repaircenters_id}&customer_id=${customer_id}`);
@@ -63,12 +63,12 @@ const ChatDetailScreen = ({ route }) => {
           senderType: 'customer'
         }),
       });
-  
+
       if (!response.ok) {
         // If response status is not okay, throw an error
         throw new Error('Failed to send message');
       }
-  
+
       // Clear the newMessage state
       setNewMessage('');
       // Fetch messages again to update the message list
@@ -183,35 +183,37 @@ const styles = StyleSheet.create({
     alignSelf: 'flex-start',
   },
   customerMessage: {
-    alignSelf: 'flex-end', 
-    backgroundColor: '#DCF8C6',
-    padding: 10,
-    left : 100,
+    alignSelf: 'flex-end',
+    backgroundColor: '#808000',
+    padding: 15,
+    left : 120,
     borderRadius : 10,
     marginVertical : 5,
   },
   repairCenterMessage: {
-    backgroundColor: '#ABCFCA',
+    backgroundColor: 'white',
     padding: 10,
     right : 100,
     marginVertical : 5,
     borderRadius : 10,
   },
   customerText: {
-    color: 'black',
+    color: 'white',
     padding: 10,
   },
   repairCenterText: {
-    color: 'black',
+    color: 'white',
     padding: 10,
   },
   timestamp: {
-    fontSize: 12,
-    color: 'gray',
-    marginTop: 2,
+    fontSize: 11,
+    color: '#d3d3d3',
+    marginTop: 6,
   },
   messageText: {
     flexWrap: 'wrap',
+    color:'white',
+
   },
 });
 

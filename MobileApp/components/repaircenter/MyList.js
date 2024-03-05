@@ -74,6 +74,34 @@ const MyList = ({ route }) => {
     return groupedData;
   };
 
+  const handleSendMessage = async () => {
+    try {
+      // Assuming you have the customer_id stored in task.vehicleDetails[0].customer_id
+      const customerID = task.vehicleDetails[0].customer_id;
+
+      // Your messaging service API endpoint or function to send a message
+      const sendMessageResponse = await fetch('YOUR_MESSAGE_API_ENDPOINT', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          // Add any additional headers required by your messaging service
+        },
+        body: JSON.stringify({
+          recipient_id: customerID,
+          message: 'Your vehicle repair is completed!',
+          // Add any other relevant data for your message
+        }),
+      });
+
+      // Handle the response if necessary
+      const result = await sendMessageResponse.json();
+      console.log('Message sent successfully:', result);
+    } catch (error) {
+      console.error('Error sending message:', error);
+    }
+  };
+
+
   const [visible, setVisible] = React.useState(false);
 
   const showModal = () => setVisible(true);
@@ -84,6 +112,7 @@ const MyList = ({ route }) => {
                            marginLeft:"10%",
                            padding:40,
                           };
+
 
 
 
@@ -122,9 +151,9 @@ const MyList = ({ route }) => {
               <Text style={{fontSize:17,paddingBottom:5,fontWeight:"bold"}}>Name: {task.vehicleDetails[0].vehicle_company}</Text>
               <Text style={{paddingBottom:25,fontSize:13}}>Vechile Number: {task.vehicleDetails[0].vehicle_number}</Text>
               <Text style={{paddingBottom:5,color:"gray",fontSize:13}}>Changes done :</Text>
-              <Text style={{fontSize:15,padding:8,marginBottom:40,borderRadius:5,borderWidth:1,borderColor:"#808000"}}> {
+              <Text style={{fontSize:15,padding:10,marginBottom:40,borderRadius:5,borderWidth:1,borderColor:"#808000"}}> {
               JSON.parse(task.changes_made).map((change, i) => (
-                <Text style={{color:"black",}} key={i}>{`Change ${i + 1}: ${change}`}</Text>
+                <Text style={{color:"black",  }} key={i}>{`Change ${i + 1}: ${change}`} {"\n"} </Text>
               ))
             }</Text>
 
@@ -136,7 +165,8 @@ const MyList = ({ route }) => {
             <Button style={{borderRadius:5,borderColor:"#808000",margin:5,}}  mode="outlined">
               <Text style={{color:"#808000",fontWeight:"bold"}}>Start</Text>
             </Button>
-              <Button style={{borderRadius:5 ,backgroundColor:"#808000",margin:5}} mode="contained">
+              <Button style={{borderRadius:5 ,backgroundColor:"#808000",margin:5}} mode="contained"
+              >
               <Text style={{color:"white",fontWeight:"bold"}}>Completed</Text>
               </Button>
             </View>
