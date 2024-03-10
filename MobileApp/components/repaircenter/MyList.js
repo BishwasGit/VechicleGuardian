@@ -119,6 +119,7 @@ const MyList = ({ route }) => {
     return groupedData;
   };
 
+
   const [visible, setVisible] = React.useState(false);
 
   const showModal = () => setVisible(true);
@@ -170,7 +171,7 @@ const MyList = ({ route }) => {
               <Text style={{fontSize:17,paddingBottom:5,fontWeight:"bold"}}>Name: {task.vehicleDetails[0].vehicle_company}</Text>
               <Text style={{paddingBottom:25,fontSize:13}}>Vechile Number: {task.vehicleDetails[0].vehicle_number}</Text>
               <Text style={{paddingBottom:5,color:"gray",fontSize:13}}>Changes done :</Text>
-              <Text style={{fontSize:15,padding:8,marginBottom:40,borderRadius:5,borderWidth:1,borderColor:"#808000"}}> {
+              <Text style={{fontSize:15,padding:10,marginBottom:40,borderRadius:5,borderWidth:1,borderColor:"#808000"}}> {
               JSON.parse(task.changes_made).map((change, i) => (
                 <React.Fragment key={i}>
                   <Text>{`Change ${i + 1}: ${change.changesMade}, Cost: ${change.cost}`}</Text>

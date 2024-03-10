@@ -9,6 +9,7 @@ import {
   TouchableOpacity,
 } from "react-native";
 import DashboardContent from './dashboardContent.js';
+import NotificationScreen from "./NotificationScreen.js";
 import { IconButton } from "react-native-paper";
 import { Card, Title, Button, TextInput } from "react-native-paper";
 import { useNavigation } from "@react-navigation/native";
@@ -22,6 +23,11 @@ const Tab = createBottomTabNavigator ();
 const DashboardScreen = () => {
   return <DashboardContent />;
 };
+
+const Notification = () => {
+  return <NotificationScreen />;
+};
+
 const RepairCenterDashboard = ({ route }) => {
   const { repaircenter_id } = route.params;
   const [repairCenterDetails, setRepairCenterDetails] = useState(null);
@@ -300,6 +306,7 @@ const RepairCenterDashboard = ({ route }) => {
           ),
         }}
       />
+
       <Tab.Screen
         name="List"
         component={MyList}
@@ -310,6 +317,7 @@ const RepairCenterDashboard = ({ route }) => {
           ),
         }}
       />
+
       <Tab.Screen
         name="Menus"
         children={() => (
@@ -336,6 +344,15 @@ const RepairCenterDashboard = ({ route }) => {
         options={{
           tabBarIcon: ({color, size}) => (
             <Icon name="folder" size={size} color={color} />
+          ),
+        }}
+      />
+       <Tab.Screen
+        name="Notification"
+        component={Notification}
+        options={{
+          tabBarIcon: ({color, size}) => (
+            <Icon name="bell" size={size} color={color} />
           ),
         }}
       />
