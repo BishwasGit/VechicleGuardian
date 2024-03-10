@@ -9,7 +9,7 @@ router.get('/getRepairHistory/:repaircenterId', async (req, res) => {
       SELECT rd.*
       FROM repair_data rd
       INNER JOIN repaircenter_workers rw ON rd.repaircenter_workers_id = rw.repaircenters_id
-      WHERE rw.repaircenters_id = ?
+      WHERE rw.repaircenters_id = ? AND rd.markedCompleted = 'NO'
       ORDER BY STR_TO_DATE(repair_date, '%m/%d/%Y, %h:%i:%s %p') DESC
     `, [repaircenterId]);
 

@@ -30,7 +30,7 @@ CREATE TABLE `messages_cr` (
   `timestamp` datetime DEFAULT NULL,
   `senderType` varchar(45) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -39,7 +39,7 @@ CREATE TABLE `messages_cr` (
 
 LOCK TABLES `messages_cr` WRITE;
 /*!40000 ALTER TABLE `messages_cr` DISABLE KEYS */;
-INSERT INTO `messages_cr` VALUES (1,1,1,'\"Hello\"','2024-03-03 14:33:51','customer'),(2,1,1,'\"Hii\"','2024-03-03 14:42:33','customer');
+INSERT INTO `messages_cr` VALUES (1,1,1,'\"Hello\"','2024-03-03 14:33:51','customer'),(2,1,1,'\"Hii\"','2024-03-03 14:42:33','repaircenters'),(3,1,1,'\"Your repair has been completed! You may get your vehicle from the repair center. Thank You\"','2024-03-10 13:18:09','repaircenters'),(4,1,1,'\"Your repair has been completed! You may get your vehicle from the repair center. Thank You\"','2024-03-10 13:23:18','repaircenters');
 /*!40000 ALTER TABLE `messages_cr` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -52,4 +52,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2024-03-03 14:52:26
+-- Dump completed on 2024-03-10 13:51:50

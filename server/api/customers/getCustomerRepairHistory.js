@@ -15,8 +15,6 @@ router.get('/getCustomerRepairHistory/:vehicleId', async (req, res) => {
       INNER JOIN repaircenter_workers rw ON rd.repaircenter_workers_id = rw.repaircenter_workers_id
       WHERE rd.vehicleDetails_id = ?
     `, [vehicleId]);
-
-    console.log(rows);
     res.json(rows);
   } catch (error) {
     console.error('Error fetching repair history:', error);

@@ -120,6 +120,7 @@ const RepairProcessScreen = ({ route, navigation }) => {
       totalCost,
       completion_time: completion_time,
       changesMade: JSON.stringify(changesMade),
+      markCompleted : 'NO'
     };
   
     fetch(

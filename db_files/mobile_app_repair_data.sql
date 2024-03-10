@@ -31,8 +31,9 @@ CREATE TABLE `repair_data` (
   `changes_made` text,
   `completion_time` text,
   `pdf_url` varchar(500) DEFAULT NULL,
+  `markedCompleted` enum('YES','NO') DEFAULT 'NO',
   PRIMARY KEY (`repairData_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -41,7 +42,7 @@ CREATE TABLE `repair_data` (
 
 LOCK TABLES `repair_data` WRITE;
 /*!40000 ALTER TABLE `repair_data` DISABLE KEYS */;
-INSERT INTO `repair_data` VALUES (1,2,1,'3/4/2024, 10:40 PM','38000','[{\"changesMade\":\"Brake oil \",\"cost\":\"15000\"},{\"changesMade\":\"Engine repair\",\"cost\":\"23000\"}]','3/4/2024, 10:40 PM','https://res.cloudinary.com/dpftkbsu6/image/upload/v1709571329/invoice/gys0bokqpdmu0hj8h3fl.pdf');
+INSERT INTO `repair_data` VALUES (1,2,1,'3/4/2024, 10:40 PM','38000','[{\"changesMade\":\"Brake oil \",\"cost\":\"15000\"},{\"changesMade\":\"Engine repair\",\"cost\":\"23000\"}]','3/4/2024, 10:40 PM','https://res.cloudinary.com/dpftkbsu6/image/upload/v1709571329/invoice/gys0bokqpdmu0hj8h3fl.pdf','NO'),(3,2,1,'3/5/2024, 2:47 PM','13456','[{\"changesMade\":\"Testing\",\"cost\":\"13456\"}]','3/5/2024, 2:47 PM','https://res.cloudinary.com/dpftkbsu6/image/upload/v1709629379/invoice/y3udagzqxobe8bxdpwvv.pdf','NO'),(4,3,1,'3/5/2024, 3:15 PM','12000','[{\"changesMade\":\"Test\",\"cost\":\"12000\"}]','3/5/2024, 3:15 PM','https://res.cloudinary.com/dpftkbsu6/image/upload/v1709631020/invoice/iwavahhyvisggi5oqghn.pdf','NO'),(5,2,1,'3/5/2024, 3:16 PM','12000','[{\"changesMade\":\"Testinggg\",\"cost\":\"12000\"}]','3/5/2024, 3:16 PM','https://res.cloudinary.com/dpftkbsu6/image/upload/v1709631093/invoice/pnf3ekrdlnpailh9c4pc.pdf','NO'),(6,3,1,'3/5/2024, 3:18 PM','20000','[{\"changesMade\":\"Final testing \",\"cost\":\"20000\"}]','3/5/2024, 3:18 PM','https://res.cloudinary.com/dpftkbsu6/image/upload/v1709631191/invoice/egmdfvt9prek9zax1a6a.pdf','NO');
 /*!40000 ALTER TABLE `repair_data` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -54,4 +55,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2024-03-04 22:48:14
+-- Dump completed on 2024-03-10 13:51:51

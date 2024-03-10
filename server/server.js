@@ -48,6 +48,12 @@ app.use('/api', sendMessage);
 const messages_cr = require('./api/chat/messages_cr');
 app.use('/api', messages_cr);
 
+//from repaircenter to customer
+const getRepairCenterDetailsUsingWorkerId = require('./api/getRepairCenterDetailsUsingWorkerId');
+app.use('/api', getRepairCenterDetailsUsingWorkerId);
+const downloadBill = require('./api/downloadBill');
+app.use('/api', downloadBill);
+
 //repair centers side
 
 const registerRouteRepairCenter = require('./api/repaircenters/registerRepairCenter');
