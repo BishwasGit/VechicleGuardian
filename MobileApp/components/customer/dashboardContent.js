@@ -8,10 +8,9 @@ import {useNavigation} from '@react-navigation/native';
 import {Ionicons} from '@expo/vector-icons';
 
 
-const DashboardContent = () => {
+const DashboardContent = ({customerId}) => {
   const [repairCenters, setRepairCenters] = useState([]);
   const navigation = useNavigation();
-
   useEffect(() => {
     const fetchRepairCenters = async () => {
       try {

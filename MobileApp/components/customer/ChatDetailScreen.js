@@ -221,7 +221,7 @@ const styles = StyleSheet.create({
   },
   messageText: {
     flexWrap: 'wrap',
-    color:'black',
+    color:'white',
   },
 });
 

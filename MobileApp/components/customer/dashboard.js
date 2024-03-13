@@ -10,11 +10,11 @@ import {Ionicons} from '@expo/vector-icons';
 import ChatContent from './ChatContent.js';
 
 const Tab = createBottomTabNavigator ();
-const DashboardScreen = () => {
-  return <DashboardContent />;
+
+const DashboardScreen = ({customerId}) => {
+  return <DashboardContent customerId={customerId}/>;
 };
 const ChatScreen = ({ customerId }) => {
-  // Use the customerId in your ChatContent component
   return <ChatContent customerId={customerId} />;
 };
 
@@ -104,15 +104,16 @@ const CustomerDashboard = ({ route }) => {
         inactiveTintColor: 'gray',
       }}
     >
-      <Tab.Screen
+        <Tab.Screen
         name="Dashboard"
-        component={DashboardScreen}
         options={{
           tabBarIcon: ({color, size}) => (
             <Icon name="view-dashboard" size={size} color={color} />
           ),
         }}
-      />
+      >
+          {() => <DashboardScreen customerId={customer_id} />}
+        </Tab.Screen>
        <Tab.Screen
       name="Chat"
       options={{
