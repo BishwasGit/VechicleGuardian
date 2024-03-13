@@ -45,8 +45,8 @@ const ChatContent = ({ customerId }) => {
   return (
     <View style={styles.container}>
       <View style={styles.topContainer}>
-        <Ionicons name="list-outline" size={30} color="white" />
-        <Text style={{ fontSize: 22, fontWeight: "bold", color: 'white', marginLeft: "35%", }}>Chat</Text>
+        {/* <Ionicons name="list-outline" size={30} color="white" /> */}
+        <Text style={{ fontSize: 22, fontWeight: "bold", color: 'white', textAlign : 'center', marginVertical : 10 }}>Chat</Text>
       </View>
 
       <View style={styles.touchContainer}>
@@ -71,8 +71,8 @@ const ChatContent = ({ customerId }) => {
         <View style={styles.texts}>
 
           <Text style={{ fontSize: 17 ,fontWeight:"bold"}}>{repairCenter.repairCenterData[0].repaircenter_fname}</Text>
-          <Text style={{ color: 'gray',fontSize: 13,paddingTop:7, }}>Tap to view with {repairCenter.repairCenterData[0].repaircenter_fname}</Text>
-          <Text style={{ color: 'gray',fontSize: 11, paddingTop:2,}}>{repairCenter.repairCenterData[0].address}</Text>
+          <Text style={{ color: 'gray',fontSize: 13,paddingTop:7, }}>Tap to view chat with {repairCenter.repairCenterData[0].repaircenter_fname}</Text>
+          <Text style={{ color: 'gray',fontSize: 11, paddingTop:7,}}>{repairCenter.repairCenterData[0].address}</Text>
         </View>
         <View style={styles.date}></View>
       </View>
@@ -91,12 +91,13 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   topContainer: {
+    display : 'flex',
     paddingTop: "12%",
     backgroundColor: "gray",
-    alignItems: 'center',
     width: "100%",
     padding: 20,
     flexDirection: 'row',
+    justifyContent : 'center',
   },
   touchContainer: {
     flex: 1,

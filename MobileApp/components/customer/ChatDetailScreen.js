@@ -1,9 +1,8 @@
 import {REACT_APP_SERVER_IP, REACT_APP_SERVER_PORT} from '@env';
 import React, { useState, useEffect } from 'react';
-import { View, Text, Image, StyleSheet, TouchableOpacity } from 'react-native';
+import { View, Text, Image, StyleSheet, TouchableOpacity, ScrollView, TextInput } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import { useNavigation } from '@react-navigation/native';
-import { TextInput } from "react-native-paper";
 
 
 const ChatDetailScreen = ({ route }) => {
@@ -102,23 +101,25 @@ const ChatDetailScreen = ({ route }) => {
 
 
 <View style={styles.bodyContainer}>
-  {messages.map((message, index) => (
-    <View key={index} style={message.senderType === 'customer' ? styles.customerMessage : styles.repairCenterMessage}>
-      <Text style={styles.messageText}>{message.message_contents}</Text>
-      <Text style={styles.timestamp}>{formatTimestamp(message.timestamp)}</Text>
-    </View>
-  ))}
+  <ScrollView>
+    {messages.map((message, index) => (
+      <View key={index} style={message.senderType === 'customer' ? styles.customerMessage : styles.repairCenterMessage}>
+        <Text style={styles.messageText}>{message.message_contents}</Text>
+        <Text style={styles.timestamp}>{formatTimestamp(message.timestamp)}</Text>
+      </View>
+    ))}
+  </ScrollView>
 </View>
 
     <View style={styles.bottomContainer}>
-        <TextInput
-          placeholder="Type your message"
-          placeholderTextColor="#d3d3d3"
-          value={newMessage}
-          onChangeText={setNewMessage}
-          style={styles.textInput}
-          underlineColor="transparent"
-        />
+    <TextInput
+      placeholder="        Type your message"
+      placeholderTextColor="#d3d3d3"
+      value={newMessage}
+      onChangeText={setNewMessage}
+      style={styles.textInput}
+      underlineColorAndroid="transparent"
+    />
          <TouchableOpacity >
           <Ionicons name="mic" size={25} color="#808000" style={styles.sendButton} />
         </TouchableOpacity>
@@ -165,10 +166,6 @@ const styles = StyleSheet.create({
     borderRadius: 30,
     borderTopRightRadius: 30,
     borderTopLeftRadius: 30,
-    borderWidth: 0,  // Set border width to 0
-    borderBottomWidth: 0,  // Set borderBottom width to 0
-    borderColor: 'transparent',  // Set border color to transparent
-    outline: 'none',
   },
   sendButton: {
  marginLeft:10,
@@ -197,14 +194,6 @@ const styles = StyleSheet.create({
     marginVertical : 5,
     borderRadius : 10,
   },
-  customerText: {
-    color: 'white',
-    padding: 10,
-  },
-  repairCenterText: {
-    color: 'white',
-    padding: 10,
-  },
   timestamp: {
     fontSize: 11,
     color: '#d3d3d3',
@@ -212,8 +201,7 @@ const styles = StyleSheet.create({
   },
   messageText: {
     flexWrap: 'wrap',
-    color:'white',
-
+    color:'black',
   },
 });
 

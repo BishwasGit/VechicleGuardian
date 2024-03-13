@@ -71,16 +71,18 @@ const RepairCenterDashboard = ({ route }) => {
         const customerCheckResponse = await fetch (
           `http://${REACT_APP_SERVER_IP}:${REACT_APP_SERVER_PORT}/api/checkCustomerUsername/${data.repairCenterDetails[0].username}`
         );
+        if(customerCheckResponse.ok){
         const customerCheckData = await customerCheckResponse.json ();
-          console.log(data.repairCenterDetails[0].username);
         if (customerCheckData.exists) {
           setCustomerProfile ({
             customer_id: customerCheckData.customer_id,
           });
         }
+      }
         const repairCenterSellerCheckResponse = await fetch (
           `http://${REACT_APP_SERVER_IP}:${REACT_APP_SERVER_PORT}/api/checkRepairCenterSellerUsername/${data.repairCenterDetails[0].username}`
         );
+        if(repairCenterSellerCheckResponse.ok){
         const repairCenterSellerCheckData = await repairCenterSellerCheckResponse.json ();
 
         if (repairCenterSellerCheckData.exists) {
@@ -88,6 +90,7 @@ const RepairCenterDashboard = ({ route }) => {
             repair_parts_seller_users_id: repairCenterSellerCheckData.repair_parts_seller_users_id,
           });
         }
+      }
       } catch (error) {
         console.error("Error fetching Repair Center details:", error);
       }
@@ -95,7 +98,7 @@ const RepairCenterDashboard = ({ route }) => {
 
       fetchRepairCenterDetails ();
     },
-    [route.params.repaircenter_id]
+    []
   );
 
   useEffect (
@@ -593,18 +596,19 @@ function ProfileScreen({
     <View style={styles.profileContainer}>
 
     <Text style={styles.profileTitle}>Account</Text>
+
       <Text style={styles.profileSubTitle}>Services</Text>
+
       <View  style={styles.switchprofilebutton}>
-      {customerProfile &&
           <TouchableOpacity
           style={styles.profilebutton}
-            onPress={() => handleButtonPress ('switchToCustomerProfile')}
           >
             <Text style={styles.buttonProfileText}>Payments</Text>
-          </TouchableOpacity>}
+          </TouchableOpacity>
       </View>
 
-      <Text style={styles.profileSubTitle}>General</Text>
+      <Text style={styles.profileSubTitle}>Profile Settings</Text>
+
       <View  style={styles.switchprofilebutton}>
       {customerProfile &&
           <TouchableOpacity
@@ -625,21 +629,16 @@ function ProfileScreen({
       </View>
       <Text style={styles.profileSubTitle}>Support</Text>
       <View  style={styles.switchprofilebutton}>
-      {customerProfile &&
           <TouchableOpacity
           style={styles.profilebutton}
-            onPress={() => handleButtonPress ('switchToCustomerProfile')}
           >
             <Text style={styles.buttonProfileText}>App Feedback</Text>
-          </TouchableOpacity>}
-
-          {customerProfile &&
+          </TouchableOpacity>
           <TouchableOpacity
           style={styles.profilebutton}
-            onPress={() => handleButtonPress ('switchToCustomerProfile')}
           >
             <Text style={styles.buttonProfileText}>Help Center</Text>
-          </TouchableOpacity>}
+          </TouchableOpacity>
 
       </View>
 
@@ -783,13 +782,12 @@ const styles = StyleSheet.create ({
   switchprofileLogbutton:{
     backgroundColor:"#96a53c",
     padding: 15,
-    justifyContent: 'center',
-    alignItems: 'center',
-    elevation: 2,
     borderRadius: 50,
-    marginTop:'40%',
     width:'60%',
-    marginLeft:"50%",
+    alignItems : 'center',
+    marginVertical : 20,
+    marginLeft : '50%',
+    marginRight : '50%'
   },
 });
 

@@ -44,6 +44,8 @@ const CustomerDashboard = ({ route }) => {
           const repairCenterCheckResponse = await fetch (
             `http://${REACT_APP_SERVER_IP}:${REACT_APP_SERVER_PORT}/api/checkRepairCenterUsername/${data.customerDetails[0].username}`
           );
+
+          if(repairCenterCheckResponse.ok){
           const repairCenterCheckData = await repairCenterCheckResponse.json ();
 
           if (repairCenterCheckData.exists) {
@@ -51,9 +53,12 @@ const CustomerDashboard = ({ route }) => {
               repaircenter_id: repairCenterCheckData.repaircenter_id,
             });
           }
+        }
           const repairCenterSellerCheckResponse = await fetch (
             `http://${REACT_APP_SERVER_IP}:${REACT_APP_SERVER_PORT}/api/checkRepairCenterSellerUsername/${data.customerDetails[0].username}`
           );
+
+          if(repairCenterSellerCheckResponse.ok){
           const repairCenterSellerCheckData = await repairCenterSellerCheckResponse.json ();
 
           if (repairCenterSellerCheckData.exists) {
@@ -61,6 +66,7 @@ const CustomerDashboard = ({ route }) => {
               repair_parts_seller_users_id: repairCenterSellerCheckData.repair_parts_seller_users_id,
             });
           }
+        }
         } catch (error) {
           console.error ('Error fetching customer details:', error);
         }
@@ -191,7 +197,7 @@ function ProfileScreen({
   handleButtonPress,
 }) {
   const handleLogout = () =>{
-    navigation.navigate('Login');
+    useNavigation.navigate('Login');
   }
   return (
     <View style={styles.profileContainer}>
@@ -199,15 +205,15 @@ function ProfileScreen({
       <Text style={styles.profileTitle}>Account</Text>
       <Text style={styles.profileSubTitle}>Services</Text>
       <View  style={styles.switchprofilebutton}>
-      {repairCenterProfile &&
           <TouchableOpacity
           style={styles.profilebutton}
-            onPress={() => handleButtonPress ('switchToRepairCenterProfile')}
           >
             <Text style={styles.buttonProfileText}>Payments</Text>
-          </TouchableOpacity>}
+          </TouchableOpacity>
       </View>
-      <Text style={styles.profileSubTitle}>General</Text>
+
+      <Text style={styles.profileSubTitle}>Profile Settings</Text>
+
       <View  style={styles.switchprofilebutton}>
       {repairCenterProfile &&
           <TouchableOpacity
@@ -229,32 +235,20 @@ function ProfileScreen({
       </View>
       <Text style={styles.profileSubTitle}>Support</Text>
       <View  style={styles.switchprofilebutton}>
-      {repairCenterProfile &&
           <TouchableOpacity
           style={styles.profilebutton}
-            onPress={() => handleButtonPress ('switchToRepairCenterProfile')}
           >
             <Text style={styles.buttonProfileText}>App Feedback</Text>
-          </TouchableOpacity>}
-
-          {repairCenterSellerProfile &&
+          </TouchableOpacity>
           <TouchableOpacity
           style={styles.profilebutton}
             onPress={() =>
               handleButtonPress ('switchToRepairCenterSellerProfile')}
           >
             <Text style={styles.buttonProfileText}>Help Center</Text>
-          </TouchableOpacity>}
-
+          </TouchableOpacity>
       </View>
-
-
-
-
-
-
       <View style={styles.buttonRow}>
-
           <TouchableOpacity
         style={styles.switchprofileLogbutton}
         onPress={handleLogout}
@@ -265,23 +259,6 @@ function ProfileScreen({
     </View>
   );
 }
-
-// function LogoutScreen ({ navigation }) {
-//   const handleLogout = () =>{
-//     navigation.navigate('Login');
-//   }
-
-//   return (
-//     <View style={styles.container}>
-//       <TouchableOpacity
-//         style={styles.switchprofilebutton}
-//         onPress={handleLogout}
-//       >
-//         <Text style={styles.buttonText}>Log Out</Text>
-//       </TouchableOpacity>
-//     </View>
-//   );
-// }
 const styles = StyleSheet.create ({
   container: {
     flex: 1,
@@ -298,36 +275,6 @@ const styles = StyleSheet.create ({
     borderBottomColor: '#ffd700',
     borderBottomWidth: 2,
   },
-  // image: {
-  //   height:'43%',
-  //   flex:1,
-  //   justifyContent: 'center',
-  // },
-  // overlay: {
-  //   marginTop: 3,
-  //   alignItems: "center",
-  // },
-  // purpleOverlay: {
-  //   ...StyleSheet.absoluteFillObject,
-  //   backgroundColor: 'rgba(85,107,47,0.85)', // Purple transparent background
-  // },
-  // menuIntroContainer:{
-  //   justifyContent: 'left',
-  //   paddingLeft:40,
-  // },
-  // menuGridContainer: {
-  //   flex: 1,
-  //   flexDirection: 'column',
-  //   justifyContent: 'center',
-  //   alignItems: 'center',
-  //   backgroundColor: '#f8f8ff',
-  //   borderTopRightRadius: 65,
-  //   borderTopLeftRadius: 65,
-  //   paddingBottom: 50,
-  //   marginTop:80,
-  //   paddingTop:60,
-  // },
-
   menuContainer: {
     flex: 1,
     paddingTop:80,
@@ -357,10 +304,6 @@ const styles = StyleSheet.create ({
     color: '#253529',
     textAlign: 'center',
   },
-
-
-
-
   profileContainer:{
     flex: 1,
     alignItems: 'left',
@@ -402,13 +345,12 @@ const styles = StyleSheet.create ({
   switchprofileLogbutton:{
     backgroundColor:"#96a53c",
     padding: 15,
-    justifyContent: 'center',
-    alignItems: 'center',
-    elevation: 2,
     borderRadius: 50,
-    marginTop:'40%',
     width:'60%',
-    marginLeft:"50%",
+    alignItems : 'center',
+    marginVertical : 20,
+    marginLeft : '50%',
+    marginRight : '50%'
   },
 });
 export default CustomerDashboard;
