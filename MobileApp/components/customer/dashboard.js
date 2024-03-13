@@ -117,17 +117,7 @@ const CustomerDashboard = ({ route }) => {
     >
       {() => <ChatScreen customerId={customer_id} />}
     </Tab.Screen>
-      <Tab.Screen
-        name="Menus"
-        children={() => (
-          <MenusScreen handleMenuNavigation={handleMenuNavigation} />
-        )}
-        options={{
-          tabBarIcon: ({color, size}) => (
-            <Icon name="menu" size={size} color={color} />
-          ),
-        }}
-      />
+
       <Tab.Screen
         name="Profile"
         children={() => (
@@ -148,43 +138,7 @@ const CustomerDashboard = ({ route }) => {
   );
 };
 
-function MenusScreen({ handleMenuNavigation }) {
-  return (
-    <View style={styles.menuContainer}>
-      <TouchableOpacity
-        style={styles.button}
-        onPress={() => handleMenuNavigation("AddVehicle")}
 
-      >
-       <Ionicons name="clipboard-outline" size={35} color="green" />
-
-
-        <Text style={styles.buttonText}>Add Vehicle</Text>
-      </TouchableOpacity>
-      <TouchableOpacity
-        style={styles.button}
-        onPress={() => handleMenuNavigation("ListVehicle")}
-      >
-           <Ionicons name="list-outline" size={35} color="green" />
-        <Text style={styles.buttonText}>List Vehicle Details</Text>
-      </TouchableOpacity>
-      <TouchableOpacity
-        style={styles.button}
-        onPress={() => handleMenuNavigation("ViewServiceHistory")}
-      >
-          <Ionicons name="timer-outline" size={35} color="green" />
-        <Text style={styles.buttonText}>View Service History</Text>
-      </TouchableOpacity>
-      <TouchableOpacity
-        style={styles.button}
-        onPress={() => handleMenuNavigation("LocateRepairCenters")}
-      >
-          <Ionicons name="location-outline" size={35} color="green" />
-        <Text style={styles.buttonText}>Locate Repair Centers</Text>
-      </TouchableOpacity>
-    </View>
-  );
-}
 function ProfileScreen({
   repairCenterProfile,
   repairCenterSellerProfile,

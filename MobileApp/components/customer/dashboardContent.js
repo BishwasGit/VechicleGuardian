@@ -1,13 +1,17 @@
-import { REACT_APP_SERVER_IP, REACT_APP_SERVER_PORT } from "@env";
-import React, { useEffect, useState } from "react";
-import {View, Text, StyleSheet, ScrollView } from "react-native";
+import {View, Text, StyleSheet, ScrollView,TouchableOpacity } from "react-native";
 import MyCarousel from "./MyCarousel";
 import MyStatistics from "./MyStatistics";
 import MapView, {Marker}from 'react-native-maps';
+import {REACT_APP_SERVER_IP, REACT_APP_SERVER_PORT} from '@env';
+import React, {useState, useEffect} from 'react';
+import {useNavigation} from '@react-navigation/native';
+import {Ionicons} from '@expo/vector-icons';
 
 
 const DashboardContent = () => {
   const [repairCenters, setRepairCenters] = useState([]);
+  const navigation = useNavigation();
+
   useEffect(() => {
     const fetchRepairCenters = async () => {
       try {
@@ -38,13 +42,56 @@ const DashboardContent = () => {
     name: repairCenter.repaircenter_fname,
   }));
 
+  const handleMenuNavigation = (screen) => {
+    navigation.navigate(screen, { customer_id: customer_id }); // Pass customer_id as a parameter object
+  };
+
   return (
-    <ScrollView style={styles.scrollView}>
+    <ScrollView
+     style={styles.scrollView}>
       <View style={styles.container}>
         {/* Pie Chart Section */}
         <View style={styles.statisticsContainer}>
         <MyStatistics/>
             </View>
+
+        <View>
+        <Text style={{ fontSize: 14, marginBottom: 10,marginLeft: 15,fontWeight:'bold' }}>Services</Text>
+        <ScrollView
+           horizontal
+           contentContainerStyle={styles.scrollContainer}
+           showsHorizontalScrollIndicator={false}
+        >
+          <TouchableOpacity
+            style={styles.button}
+            onPress={() => handleMenuNavigation("AddVehicle")}
+          >
+            <Ionicons name="archive" size={25} color="#808000" />
+            <Text style={styles.buttonText}>Add Vehicle</Text>
+          </TouchableOpacity>
+          <TouchableOpacity
+            style={styles.button}
+            onPress={() => handleMenuNavigation("ListVehicle")}
+          >
+            <Ionicons name="list" size={25} color="#808000" />
+            <Text style={styles.buttonText}>List Vehicle Details</Text>
+          </TouchableOpacity>
+          <TouchableOpacity
+            style={styles.button}
+            onPress={() => handleMenuNavigation("ViewServiceHistory")}
+          >
+            <Ionicons name="timer-outline" size={25} color="#808000" />
+            <Text style={styles.buttonText}>View Service History</Text>
+          </TouchableOpacity>
+          <TouchableOpacity
+            style={styles.button}
+            onPress={() => handleMenuNavigation("LocateRepairCenters")}
+          >
+            <Ionicons name="location" size={25} color="#808000" />
+            <Text style={styles.buttonText}>Locate Repair Centers</Text>
+          </TouchableOpacity>
+        </ScrollView>
+        </View>
 
         {/* Carousel Section */}
         <View style={styles.carouselContainer}>
@@ -94,6 +141,34 @@ const styles = StyleSheet.create({
   statisticsContainer:{
     marginBottom: 30,
     padding : 15,
+  },
+  scrollContainer: {
+    width: '120%', // Set the width to 150%
+  },
+  menuContainer: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+
+
+  },
+  button: {
+    width:"20%",
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    padding: 10,
+    borderRadius: 10,
+    margin:10,
+    marginBottom: 55,
+    backgroundColor: '#fff',
+    elevation: 2, // Android
+  },
+  buttonText: {
+    paddingTop:10,
+    fontSize: 12,
+    fontWeight: 'bold',
+    color: '#253529',
+    textAlign: 'center',
   },
   carouselContainer: {
     marginBottom: 50,
