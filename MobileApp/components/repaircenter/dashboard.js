@@ -7,6 +7,7 @@ import {
   Text,
   Image,
   TouchableOpacity,
+  FlatList
 } from "react-native";
 import DashboardContent from './dashboardContent.js';
 import NotificationScreen from "./NotificationScreen.js";
@@ -20,9 +21,9 @@ import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import MyList from "./MyList";
 
 const Tab = createBottomTabNavigator ();
-const DashboardScreen = () => {
-  return <DashboardContent />;
-};
+// const DashboardScreen = () => {
+//   return <DashboardContent />;
+// };
 
 const Notification = () => {
   return <NotificationScreen />;
@@ -389,66 +390,31 @@ function MenusScreen({
   handleDocumentsImageUpload,
   setNewDetails
 }) {
-
+  const menuItems = [
+    { id: '1', icon: 'archive', text: 'Add Repair Center', onPress: () => setShowForm(true) },
+    { id: '2', icon: 'people', text: 'Add Vacancy', onPress: () => setShowVacancyForm(true) },
+    { id: '3', icon: 'timer', text: 'Repair History', onPress: () => handleRepairHistory() },
+    { id: '4', icon: 'car-sport', text: 'Parts Management', onPress: () => handleParts('PartsManagement') },
+    { id: '5', icon: 'person-circle', text: 'Add Workers', onPress: () => handleStartRepairing('AddWorkersScreen') },
+  ];
+  const renderItem = ({ item }) => (
+    <TouchableOpacity style={styles.button} onPress={item.onPress}>
+      <Ionicons name={item.icon} size={30} color="#808000" />
+      <Text style={styles.buttonText}>{item.text}</Text>
+    </TouchableOpacity>
+  );
   return (
     <ScrollView style={styles.MainContainer}>
       <View style={{marginTop:60,}}>
       <Text  style={{marginLeft: 2,marginBottom: 3, fontSize : 17, fontWeight:"bold"}} >Hi, Repair Center</Text>
       <Text  style={{marginLeft: 2,marginBottom: 15, fontSize : 14}} >Lets explore.</Text>
-
-
       </View>
-        <ScrollView
-           horizontal
-           contentContainerStyle={styles.scrollContainer}
-           showsHorizontalScrollIndicator={false}
-        >
-
-          <View style={styles.menuContainer}>
-        <TouchableOpacity
-        style={styles.button}
-          onPress={() => setShowForm (true)}
-        >
-              <Ionicons name="archive" size={30} color="#808000" />
-          <Text style={styles.buttonText}>
-            Add Repair Center
-          </Text>
-        </TouchableOpacity>
-
-        <TouchableOpacity
-        style={styles.button}
-          onPress={() => setShowVacancyForm (true)}
-        >
-             <Ionicons name="people" size={30} color="#808000" />
-          <Text style={styles.buttonText}>Add Vacancy</Text>
-        </TouchableOpacity>
-
-        <TouchableOpacity
-  style={styles.button}
-  onPress={() => handleRepairHistory()}
->
-  <Ionicons name="timer" size={30} color="#808000" />
-  <Text style={styles.buttonText}>Repair History</Text>
-</TouchableOpacity>
-
-<TouchableOpacity
-  style={styles.button}
-  onPress={() => handleParts('PartsManagement')}
->
-  <Ionicons name="car-sport" size={30} color="#808000" />
-  <Text style={styles.buttonText}>Parts Management</Text>
-</TouchableOpacity>
-
-<TouchableOpacity
-  style={styles.button}
-  onPress={() => handleStartRepairing('AddWorkersScreen')}
->
-  <Ionicons name="person-circle" size={30} color="#808000" />
-  <Text style={styles.buttonText}>Add Workers</Text>
-</TouchableOpacity>
-</View>
-</ScrollView>
-
+      <FlatList
+      data={menuItems}
+      renderItem={renderItem}
+      keyExtractor={item => item.id}
+      contentContainerStyle={styles.menuContainer}
+    />
       {showForm &&
         <Card style={styles.card}>
           <Title
@@ -691,26 +657,24 @@ ScrollView:{
   },
 
   icon: {
-    marginLeft: 30, // Space between icon and text
+    marginLeft: 30,
     marginRight: 20,
   },
   scrollContainer: {
     paddingTop:"20%",
-    width: '170%', // Set the width to 150%
+    width: '170%', 
   },
   menuContainer: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
+    flexDirection: 'column',
   },
   button: {
+    marginVertical : 10,
     justifyContent: 'center',
     alignItems: 'center',
     padding: 10,
     borderRadius: 10,
-    margin:10,
-    marginBottom: 55,
     backgroundColor: 'white',
-    elevation: 2, // Android
+    elevation: 2, 
   },
   buttonText: {
     paddingTop:10,
