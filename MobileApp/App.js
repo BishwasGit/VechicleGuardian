@@ -2,6 +2,7 @@
 import React, { useState, useEffect } from 'react';
 import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
+
 import { Provider as PaperProvider } from "react-native-paper";
 
 //main screen
@@ -21,7 +22,7 @@ import RepairHistoryScreen from "./components/repaircenter/features/RepairHistor
 import CustomerDashboard from "./components/customer/dashboard";
 import ChatContent from './components/customer/ChatContent';
 import ChatDetailScreen from './components/customer/ChatDetailScreen';
-
+import Notification from './components/customer/Notification';
 
 import AddVehicleScreen from "./components/customer/features/AddVehicleScreen";
 import ListVehicleScreen from "./components/customer/features/ListVehicleScreen";
@@ -108,6 +109,11 @@ const App = () => {
           <Stack.Screen
             name="ListVehicle"
             component={ListVehicleScreen}
+            options={{ headerShown: false }}
+          />
+          <Stack.Screen
+            name="Notification"
+            component={Notification}
             options={{ headerShown: false }}
           />
           <Stack.Screen

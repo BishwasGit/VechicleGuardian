@@ -1,7 +1,7 @@
 import { REACT_APP_SERVER_IP, REACT_APP_SERVER_PORT } from "@env";
 import React, { useState, useEffect } from 'react';
-import { Linking } from 'react-native';
-import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
+import { Linking, ScrollView } from 'react-native';
+import {View, Text, StyleSheet, TouchableOpacity } from 'react-native';
 import {Button, Card, List } from 'react-native-paper';
 import { Picker } from '@react-native-picker/picker';
 import {Ionicons} from '@expo/vector-icons';
@@ -42,7 +42,7 @@ const MyList = ({ route }) => {
       console.log('Error while sending message from repair center', error);
     }
   };
-  
+
   const downloadBill = async ({ vehicleDetails_id, completionTime }) => {
     try {
       const url = await fetch(`http://${REACT_APP_SERVER_IP}:${REACT_APP_SERVER_PORT}/api/downloadBill/${vehicleDetails_id}?completionTime=${completionTime}`);
@@ -133,7 +133,7 @@ const MyList = ({ route }) => {
 
 
   const renderCombinedData = (tasks) => {
-  
+
     const groupedData = groupTasksByDate();
 
     // Filter tasks based on the selected vehicleType
@@ -211,10 +211,14 @@ const MyList = ({ route }) => {
   };
 
   return (
-    <View style={styles.container}>
+    <ScrollView style={styles.container}>
       <View style={styles.containerBar}>
-        <Text style={styles.headerText}>{currentDate.toLocaleDateString()}</Text>
-        <Text style={styles.headerText}>Recent Repairs</Text>
+        <View style={{flexDirection: 'row',
+    justifyContent: 'space-between',}}>
+      <Text style={styles.headerText}>Recent Repairs</Text>
+        <Text style={styles.headerText}>Date: {currentDate.toLocaleDateString()}</Text>
+
+        </View>
         <Picker
           style={styles.containerIcon}
           selectedValue={vehicleType}
@@ -229,36 +233,36 @@ const MyList = ({ route }) => {
       <View style={styles.containerList}>
       <List.Section>{renderCombinedData(Data)}</List.Section>
       </View>
-
-
-    </View>
+    </ScrollView>
   );
 };
 
 const styles = StyleSheet.create({
   container: {
-    marginTop: 40,
-
+    flex:1,
   },
-
   containerBar: {
-    paddingTop: 50,
+    paddingTop: 60,
     paddingLeft: 30,
     paddingRight: 30,
-    backgroundColor: '#808000',
+    backgroundColor: 'white',
+    elevation:5,
   },
   headerText: {
-    color: "white",
-    fontSize: 17,
+    color: "black",
+    fontSize: 15,
   },
   containerIcon: {
     top: 30,
+
     color: 'white',
-    backgroundColor: '#d4af37',
+    backgroundColor: '#808000',
+    borderRadius:20,
   },
   containerList: {
     paddingTop: 50,
     padding: 20,
+    borderRadius:20,
 
   },
   containerItem: {

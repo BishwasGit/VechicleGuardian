@@ -90,12 +90,20 @@ const ChatDetailScreen = ({ route }) => {
           onPress={() => navigation.goBack()}
           name="arrow-back-outline"
           size={25}
-          color="white"
+          color="#808000"
+
         />
-        <View style={{ marginLeft: 30 , marginVertical : 10 }}>
-          <Text style={{ fontSize: 20, color: "white", marginTop : 10 }}>{repaircenterDetails[0]?.repaircenter_fname}</Text>
-          <Text style={{ fontSize: 13, color: "white", opacity: 0.6 ,paddingTop:7,}}>{repaircenterDetails[0]?.contact}</Text>
+        <View style={{ marginLeft: 25 , marginBottom : 15 }}>
+          <Text style={{ fontSize: 18, color: "black", marginTop : 10 }}>{repaircenterDetails[0]?.repaircenter_fname}</Text>
+
         </View>
+        <Ionicons
+          onPress={() => Linking.openURL(`tel:${repaircenterDetails[0]?.contact || ''}`)}
+          name="call"
+          size={23}
+          color="#808000"
+          style={{ marginLeft: "30%", }}
+        />
       </View>
     )}
 
@@ -140,12 +148,14 @@ const styles = StyleSheet.create({
     backgroundColor: "#e5e4e2",
   },
   topContainer: {
-    paddingTop: "10%",
-    backgroundColor: "gray",
+    paddingTop: "11%",
+    paddingBottom:6,
+    backgroundColor: "white",
     alignItems: 'center',
     width: "100%",
     paddingLeft: 25,
     flexDirection: 'row',
+    elevation:4,
   },
   bottomContainer: {
     marginLeft:10,
@@ -173,6 +183,7 @@ const styles = StyleSheet.create({
   bodyContainer: {
     flex: 1,
     padding: 10,
+    paddingTop:30,
   },
   messageContainer: {
     maxWidth: '80%',
@@ -180,19 +191,28 @@ const styles = StyleSheet.create({
     alignSelf: 'flex-start',
   },
   customerMessage: {
-    alignSelf: 'flex-end', 
-    backgroundColor: '#DCF8C6',
-    padding: 10,
+    alignSelf: 'flex-end',
+    backgroundColor: '#4b5320',
+    padding: 15,
     left : 0,
-    borderRadius : 10,
-    marginVertical : 5,
+    borderRadius : 20,
+    marginVertical : 10,
   },
   repairCenterMessage: {
-    backgroundColor: 'white',
-    padding: 10,
+    backgroundColor: '#808000',
+    padding: 15,
     right : 0,
-    marginVertical : 5,
-    borderRadius : 10,
+    marginRight:"20%",
+    marginVertical : 10,
+    borderRadius : 20,
+  },
+  customerText: {
+    color: 'white',
+    padding: 10,
+  },
+  repairCenterText: {
+    color: 'black',
+    padding: 10,
   },
   timestamp: {
     fontSize: 11,

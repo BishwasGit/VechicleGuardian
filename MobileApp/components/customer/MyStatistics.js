@@ -1,24 +1,33 @@
-import React from 'react';
-import {View,Text,Image,Dimensions,StyleSheet} from 'react-native';
+import {REACT_APP_SERVER_IP, REACT_APP_SERVER_PORT} from '@env';
+import React, {useState, useEffect} from 'react';
+import {View,Text,Image,Dimensions,StyleSheet, TouchableOpacity} from 'react-native';
 import {PieChart} from 'react-native-chart-kit';
+import {Button} from 'react-native-paper';
+import {Ionicons} from '@expo/vector-icons';
+import { useNavigation } from '@react-navigation/native';
+import Notification from './Notification';
 
 const screenWidth=Dimensions.get('window').width;
 
 const MyStatistics=() => {
-  // Data for Pie Chart
+  const navigation = useNavigation();
+  const handleNotifications = () => {
+
+
+  };
   const pieChartData=[
     {
       name: 'Expenses',
       population: 21500,
       color: '#d4af37',
-      legendFontColor: 'gray',
+      legendFontColor: 'black',
       legendFontSize: 13,
     },
     {
       name: 'Income',
       population: 38000,
       color: '#808000',
-      legendFontColor: 'gray',
+      legendFontColor: 'black',
       legendFontSize: 13,
     },
   ];
@@ -37,29 +46,27 @@ const MyStatistics=() => {
   return (
     <View style={styles.container}>
       <View style={styles.contentContainer}>
-        <Text style={{fontSize: 35,fontWeight: 'bold',marginBottom: 1}}>
-          Vehicle<Text style={{color: '#D4AF37'}}>G</Text>
-        </Text>
-        <Text  style={{marginLeft: 2,marginBottom: 20, fontSize : 15}} >Customer dashboard</Text>
+        <Text  style={{marginLeft: 2,marginBottom: 3, fontSize : 17, fontWeight:"bold"}} >Hi, Customer</Text>
+        <Text  style={{marginLeft: 2,marginBottom: 15, fontSize : 14}} >Lets explore nearby services.</Text>
         <View style={styles.line} />
         <PieChart
           data={pieChartData}
           width={screenWidth}
-          height={140}
+          height={170}
           chartConfig={chartConfig}
           accessor="population"
           backgroundColor="transparent"
-          paddingLeft="-40"
+          paddingLeft="-30"
           absolute
+          style={styles.chart}
         />
       </View>
       <View style={styles.profileContainer}>
-        <Image
-          source={{
-            uri: 'https://i.pinimg.com/originals/f6/10/fe/f610feb7dda0168bb968a8830fd16b9c.jpg',
-          }} // Replace with the actual image source
-          style={styles.profileImage}
-        />
+      <TouchableOpacity style={styles.bell} >
+        <Ionicons name="notifications" size={20
+        } color="white" />
+      </TouchableOpacity>
+
       </View>
     </View>
   );
@@ -70,26 +77,29 @@ const styles=StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between',
     marginTop:20,
+    padding:10,
   },
   contentContainer: {
     flex: 1,
-    padding : 10,
+  },
+  chart: {
+    borderRadius: 16,
+
   },
   profileContainer: {
-    paddingTop: 20,
-    borderRadius: 50,
-    overflow: 'hidden',
+    marginBottom: 20,
   },
-  profileImage: {
-    width: 50,
-    height: 50,
-    borderRadius: 25,
+  bell:{
+    backgroundColor: "#808000",
+    padding:8,
+    borderRadius:10,
   },
   line: {
-    width: '117%',
+    width:"110%",
     borderBottomColor: '#D4AF37',
     borderBottomWidth: 0.8,
     marginBottom: 20,
+    marginTop:20,
   },
 });
 

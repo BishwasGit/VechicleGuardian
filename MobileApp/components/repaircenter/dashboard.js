@@ -302,27 +302,6 @@ const RepairCenterDashboard = ({ route }) => {
     >
       <Tab.Screen
         name="Dashboard"
-        component={DashboardScreen}
-        options={{
-          tabBarIcon: ({color, size}) => (
-            <Icon name="view-dashboard" size={size} color={color} />
-          ),
-        }}
-      />
-
-      <Tab.Screen
-        name="List"
-        component={MyList}
-        initialParams={{ repaircenter_id: repaircenter_id }}
-        options={{
-          tabBarIcon: ({color, size}) => (
-            <Icon name="menu" size={size} color={color} />
-          ),
-        }}
-      />
-
-      <Tab.Screen
-        name="Menus"
         children={() => (
           <MenusScreen
           handleMenuNavigation={handleMenuNavigation}
@@ -346,10 +325,22 @@ const RepairCenterDashboard = ({ route }) => {
         )}
         options={{
           tabBarIcon: ({color, size}) => (
-            <Icon name="folder" size={size} color={color} />
+            <Icon name="view-dashboard" size={size} color={color} />
           ),
         }}
       />
+
+      <Tab.Screen
+        name="List"
+        component={MyList}
+        initialParams={{ repaircenter_id: repaircenter_id }}
+        options={{
+          tabBarIcon: ({color, size}) => (
+            <Icon name="menu" size={size} color={color} />
+          ),
+        }}
+      />
+
        <Tab.Screen
         name="Notification"
         component={Notification}
@@ -400,15 +391,27 @@ function MenusScreen({
 }) {
 
   return (
-    <View style={styles.menuContainer}>
+    <ScrollView style={styles.MainContainer}>
+      <View style={{marginTop:60,}}>
+      <Text  style={{marginLeft: 2,marginBottom: 3, fontSize : 17, fontWeight:"bold"}} >Hi, Repair Center</Text>
+      <Text  style={{marginLeft: 2,marginBottom: 15, fontSize : 14}} >Lets explore.</Text>
 
+
+      </View>
+        <ScrollView
+           horizontal
+           contentContainerStyle={styles.scrollContainer}
+           showsHorizontalScrollIndicator={false}
+        >
+
+          <View style={styles.menuContainer}>
         <TouchableOpacity
         style={styles.button}
           onPress={() => setShowForm (true)}
         >
-              <Ionicons name="clipboard-outline" size={30} color="#808000" />
+              <Ionicons name="archive" size={30} color="#808000" />
           <Text style={styles.buttonText}>
-            Add Repair Center Details
+            Add Repair Center
           </Text>
         </TouchableOpacity>
 
@@ -416,7 +419,7 @@ function MenusScreen({
         style={styles.button}
           onPress={() => setShowVacancyForm (true)}
         >
-             <Ionicons name="people-outline" size={30} color="#808000" />
+             <Ionicons name="people" size={30} color="#808000" />
           <Text style={styles.buttonText}>Add Vacancy</Text>
         </TouchableOpacity>
 
@@ -424,7 +427,7 @@ function MenusScreen({
   style={styles.button}
   onPress={() => handleRepairHistory()}
 >
-  <Ionicons name="timer-outline" size={30} color="#808000" />
+  <Ionicons name="timer" size={30} color="#808000" />
   <Text style={styles.buttonText}>Repair History</Text>
 </TouchableOpacity>
 
@@ -432,7 +435,7 @@ function MenusScreen({
   style={styles.button}
   onPress={() => handleParts('PartsManagement')}
 >
-  <Ionicons name="car-sport-outline" size={30} color="#808000" />
+  <Ionicons name="car-sport" size={30} color="#808000" />
   <Text style={styles.buttonText}>Parts Management</Text>
 </TouchableOpacity>
 
@@ -440,9 +443,11 @@ function MenusScreen({
   style={styles.button}
   onPress={() => handleStartRepairing('AddWorkersScreen')}
 >
-  <Ionicons name="person-circle-outline" size={30} color="#808000" />
+  <Ionicons name="person-circle" size={30} color="#808000" />
   <Text style={styles.buttonText}>Add Workers</Text>
 </TouchableOpacity>
+</View>
+</ScrollView>
 
       {showForm &&
         <Card style={styles.card}>
@@ -581,7 +586,7 @@ function MenusScreen({
             <Text style={{color: 'white'}}>Add Vacancy</Text>
           </Button>
         </Card>}
-    </View>
+    </ScrollView>
   );
 }
 function ProfileScreen({
@@ -662,7 +667,13 @@ const styles = StyleSheet.create ({
   container: {
     flex: 1,
   },
-
+  MainContainer:{
+    flex: 1,
+    padding:20,
+  },
+ScrollView:{
+  flex:1,
+},
   buttonContainer: {
     width: '100%',
   },
@@ -683,27 +694,27 @@ const styles = StyleSheet.create ({
     marginLeft: 30, // Space between icon and text
     marginRight: 20,
   },
+  scrollContainer: {
+    paddingTop:"20%",
+    width: '170%', // Set the width to 150%
+  },
   menuContainer: {
-    flex: 1,
-    paddingTop:90,
-    marginBottom: 35,
-
+    flexDirection: 'row',
+    justifyContent: 'space-between',
   },
   button: {
-    flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    padding: 20,
-    borderRadius: 20,
-    marginBottom: 25,
-    marginRight: 35,
-    marginLeft: 35,
-    backgroundColor: '#fff',
+    padding: 10,
+    borderRadius: 10,
+    margin:10,
+    marginBottom: 55,
+    backgroundColor: 'white',
     elevation: 2, // Android
   },
   buttonText: {
-    paddingTop:16,
-    fontSize: 14,
+    paddingTop:10,
+    fontSize: 12,
     fontWeight: 'bold',
     color: '#253529',
     textAlign: 'center',
