@@ -1,14 +1,11 @@
 import { REACT_APP_SERVER_IP, REACT_APP_SERVER_PORT } from "@env";
 import React, { useState } from "react";
-import { TouchableOpacity, View, StyleSheet, Text } from "react-native";
-import { Dialog,Checkbox, Portal } from "react-native-paper";
-import Icon from "react-native-vector-icons/FontAwesome";
+import { TouchableOpacity, View, StyleSheet, Text  } from "react-native";
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import { Checkbox, } from "react-native-paper";
 import { TextInput } from "react-native-paper";
-import { Button, Card, Title, ActivityIndicator } from "react-native-paper";
-import LoadingScreen from "./LoadingScreen"; // Import the LoadingScreen component
+import { Button, Title, ActivityIndicator, Snackbar } from "react-native-paper";
 import { Divider } from 'react-native-paper';
-import * as SecureStore from 'expo-secure-store';
-import { Platform } from 'react-native';
 const Login = ({ navigation }) => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
@@ -18,8 +15,12 @@ const Login = ({ navigation }) => {
   const showDialog = () => setVisible(true);
   const hideDialog = () => setVisible(false);
   const saveUserInfoToStorage = async (userInfo) => {
-    const storageKey = Platform.OS === 'web' ? 'userInfo' : 'userInfo';
-    await SecureStore.setItemAsync(storageKey, JSON.stringify(userInfo));
+    try {
+      await AsyncStorage.setItem('userInfo', JSON.stringify(userInfo));
+    } catch (error) {
+      console.error('Error saving user info:', error);
+      // Handle error, maybe display a message to the user
+    }
   };
   const handleLogin = async () => {
     setLoading(true);
@@ -59,7 +60,7 @@ const Login = ({ navigation }) => {
       }
     } catch (error) {
       console.error("Error during login:", error);
-      alert("Login failed. Please try again.");
+      setMessage("Login failed. Please try again.");
     } finally {
       setLoading(false);
     }
@@ -116,17 +117,15 @@ const Login = ({ navigation }) => {
               <Text style={{ fontWeight: "bold", color: "#808000", textAlign : "center" }}>Register Here</Text>
             </TouchableOpacity>
           </View>
-          {message && <Text style={styles.message}>{message}</Text>}
+          {message &&    <Snackbar
+        visible={snackbarVisible}
+        onDismiss={() => setSnackbarVisible(false)}
+        duration={3000} // Adjust the duration as needed
+        style={styles.snackbar}
+      >
+        <Text style={styles.message}>{message}</Text>
+      </Snackbar>}
         </View>
-        <Dialog visible={visible} onDismiss={hideDialog}>
-          <Dialog.Title>Login Successful</Dialog.Title>
-          <Dialog.Content>
-            <Text>Navigating to your dashboard</Text>
-          </Dialog.Content>
-          <Dialog.Actions>
-            <Button onPress={hideDialog}>OK</Button>
-          </Dialog.Actions>
-        </Dialog>
       </View>
     </View>
   );

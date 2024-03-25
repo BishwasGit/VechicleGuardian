@@ -9,8 +9,7 @@ import {
   TouchableOpacity,
   FlatList
 } from "react-native";
-import DashboardContent from './dashboardContent.js';
-import NotificationScreen from "./NotificationScreen.js";
+import ChatContent from "./ChatContent.js";
 import { IconButton } from "react-native-paper";
 import { Card, Title, Button, TextInput } from "react-native-paper";
 import { useNavigation } from "@react-navigation/native";
@@ -21,12 +20,9 @@ import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import MyList from "./MyList";
 
 const Tab = createBottomTabNavigator ();
-// const DashboardScreen = () => {
-//   return <DashboardContent />;
-// };
 
-const Notification = () => {
-  return <NotificationScreen />;
+const ChatScreen = ({repaircenterId}) => {
+  return <ChatContent repaircenterId={repaircenterId}/>;
 };
 
 const RepairCenterDashboard = ({ route }) => {
@@ -67,6 +63,7 @@ const RepairCenterDashboard = ({ route }) => {
           `http://${REACT_APP_SERVER_IP}:${REACT_APP_SERVER_PORT}/api/RepairCenterDetails/${repaircenter_id}`
         );
         const data = await response.json();
+
         setRepairCenterDetails(data.repairCenterDetails);
 
         const customerCheckResponse = await fetch (
@@ -322,6 +319,7 @@ const RepairCenterDashboard = ({ route }) => {
           handleAddVacancyDetails={handleAddVacancyDetails}
           handleDocumentsImageUpload={handleDocumentsImageUpload}
           setNewDetails={setNewDetails}
+          repairCenterDetails={repairCenterDetails}
            />
         )}
         options={{
@@ -343,14 +341,15 @@ const RepairCenterDashboard = ({ route }) => {
       />
 
        <Tab.Screen
-        name="Notification"
-        component={Notification}
+        name="ChatContent"
         options={{
           tabBarIcon: ({color, size}) => (
-            <Icon name="bell" size={size} color={color} />
+            <Icon name="chat" size={size} color={color} />
           ),
         }}
-      />
+      >
+        {() => <ChatScreen repaircenterId={repaircenter_id} />}
+        </Tab.Screen>
       <Tab.Screen
         name="Profile"
         children={() => (
@@ -388,7 +387,8 @@ function MenusScreen({
   handleAddDetails,
   handleAddVacancyDetails,
   handleDocumentsImageUpload,
-  setNewDetails
+  setNewDetails,
+  repairCenterDetails
 }) {
   const menuItems = [
     { id: '1', icon: 'archive', text: 'Add Repair Center', onPress: () => setShowForm(true) },
@@ -397,6 +397,7 @@ function MenusScreen({
     { id: '4', icon: 'car-sport', text: 'Parts Management', onPress: () => handleParts('PartsManagement') },
     { id: '5', icon: 'person-circle', text: 'Add Workers', onPress: () => handleStartRepairing('AddWorkersScreen') },
   ];
+  
   const renderItem = ({ item }) => (
     <TouchableOpacity style={styles.button} onPress={item.onPress}>
       <Ionicons name={item.icon} size={30} color="#808000" />
@@ -406,7 +407,7 @@ function MenusScreen({
   return (
     <ScrollView style={styles.MainContainer}>
       <View style={{marginTop:60,}}>
-      <Text  style={{marginLeft: 2,marginBottom: 3, fontSize : 17, fontWeight:"bold"}} >Hi, Repair Center</Text>
+      <Text  style={{marginLeft: 2,marginBottom: 3, fontSize : 17, fontWeight:"bold"}} >Hello,&nbsp;{repairCenterDetails && repairCenterDetails[0].username }</Text>
       <Text  style={{marginLeft: 2,marginBottom: 15, fontSize : 14}} >Lets explore.</Text>
       </View>
       <FlatList
@@ -559,10 +560,11 @@ function ProfileScreen({
   customerProfile,
   repairCenterSellerProfile,
   handleButtonPress,
-}) {
-  const handleLogout = () =>{
+})  {
+  const navigation = useNavigation(); 
+  const handleLogout = () => {
     navigation.navigate('Login');
-  }
+  };
   return (
     <View style={styles.profileContainer}>
 

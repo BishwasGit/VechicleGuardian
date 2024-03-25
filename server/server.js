@@ -32,6 +32,8 @@ const getVehicleDetails = require('./api/customers/getVehicleDetails');
 app.use('/api', getVehicleDetails);
 const storevehicleincomeexpenses = require('./api/customers/storevehicleincomeexpenses');
 app.use('/api', storevehicleincomeexpenses);
+const getCustomerDetailsUsingVehicleDetailsId = require('./api/getCustomerDetailsUsingVehicleDetailsId')
+app.use('/api', getCustomerDetailsUsingVehicleDetailsId);
 
 //for chat feature
 const repairCenterWorker = require('./api/customers/repairCenterWorker');
@@ -40,6 +42,8 @@ const repairData = require('./api/customers/chatScreenCustomer');
 app.use('/api', repairData);
 const repaircentersData = require('./api/customers/getSingleRepairCenter');
 app.use('/api', repaircentersData);
+const repaircentersMessageScreenData = require('./api/repaircenters/chatScreenRepairCenter');
+app.use('/api', repaircentersMessageScreenData);
 
 
 //send and receive messages 

@@ -151,9 +151,10 @@ function ProfileScreen({
   repairCenterSellerProfile,
   handleButtonPress,
 }) {
-  const handleLogout = () =>{
-    useNavigation.navigate('Login');
-  }
+  const navigation = useNavigation(); 
+  const handleLogout = () => {
+    navigation.navigate('Login');
+  };
   return (
     <View style={styles.profileContainer}>
 
