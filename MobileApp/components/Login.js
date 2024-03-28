@@ -24,7 +24,7 @@ const Login = ({ navigation }) => {
   };
   const handleLogin = async () => {
     setLoading(true);
-    setTimeout(async () => { try {
+    try {
       const response = await fetch(
         `http://${REACT_APP_SERVER_IP}:${REACT_APP_SERVER_PORT}/api/login`,
         {
@@ -42,7 +42,7 @@ const Login = ({ navigation }) => {
           userType: data.userType,
           userId: data.userId
         };
-        saveUserInfoToStorage(userInfo);
+        await saveUserInfoToStorage(userInfo); // Await the saving of user info
         if(data.userType === 'admin') {
           showDialog();
           setTimeout(() => {
@@ -64,8 +64,8 @@ const Login = ({ navigation }) => {
     } finally {
       setLoading(false);
     }
-  },1000)
-};
+  };
+  
 
   const handleRegisterNow = () => {
     navigation.navigate("Registration", { userType: "Customer" });
