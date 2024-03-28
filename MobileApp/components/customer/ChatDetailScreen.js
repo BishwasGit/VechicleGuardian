@@ -3,6 +3,8 @@ import React, { useState, useEffect } from 'react';
 import { View, Text, Image, StyleSheet, TouchableOpacity, ScrollView, TextInput } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import { useNavigation } from '@react-navigation/native';
+import { Linking } from 'react-native';
+
 
 
 const ChatDetailScreen = ({ route }) => {
@@ -94,18 +96,20 @@ const ChatDetailScreen = ({ route }) => {
 
         />
         <View style={{ marginLeft: 25 , marginBottom : 15 }}>
-          <Text style={{ fontSize: 18, color: "black", marginTop : 10 }}>{repaircenterDetails[0]?.repaircenter_fname}</Text>
+          <Text style={{ fontSize: 18, color: "black",fontWeight:"bold", marginTop : 10 }}>{repaircenterDetails[0]?.repaircenter_fname}</Text>
 
         </View>
         <Ionicons
-          onPress={() => Linking.openURL(`tel:${repaircenterDetails[0]?.contact || ''}`)}
-          name="call"
-          size={23}
-          color="#808000"
-          style={{ marginLeft: "30%", }}
-        />
+      onPress={() => Linking.openURL(`tel:${repaircenterDetails[0]?.contact || ''}`)}
+      name="call"
+      size={23}
+      color="#808000"
+      style={{ marginLeft: "30%" }}
+    />
       </View>
     )}
+
+
 
 
 <View style={styles.bodyContainer}>
@@ -192,15 +196,15 @@ const styles = StyleSheet.create({
   },
   customerMessage: {
     alignSelf: 'flex-end',
-    backgroundColor: '#4b5320',
-    padding: 15,
+    backgroundColor: 'gray',
+    padding: 20,
     left : 0,
     borderRadius : 20,
     marginVertical : 10,
   },
   repairCenterMessage: {
     backgroundColor: '#808000',
-    padding: 15,
+    padding: 20,
     right : 0,
     marginRight:"20%",
     marginVertical : 10,
@@ -216,11 +220,12 @@ const styles = StyleSheet.create({
   },
   timestamp: {
     fontSize: 11,
-    color: '#d3d3d3',
+    color: '#dcdcdc',
     marginTop: 6,
   },
   messageText: {
     flexWrap: 'wrap',
+    fontSize: 15,
     color:'white',
   },
 });

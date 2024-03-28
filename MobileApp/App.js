@@ -25,6 +25,7 @@ import ChatDetailScreen from './components/customer/ChatDetailScreen';
 import Notification from './components/customer/Notification';
 
 import AddVehicleScreen from "./components/customer/features/AddVehicleScreen";
+import AppointmentScreen from "./components/customer/features/AppointmentScreen";
 import ListVehicleScreen from "./components/customer/features/ListVehicleScreen";
 import ViewServiceHistoryScreen from "./components/customer/features/ViewServiceHistoryScreen";
 import LocateRepairCentersScreen from "./components/customer/features/LocateRepairCentersScreen";
@@ -119,6 +120,11 @@ const App = () => {
           <Stack.Screen
             name="ViewServiceHistory"
             component={ViewServiceHistoryScreen}
+            options={{ headerShown: false }}
+          />
+           <Stack.Screen
+            name="Appointment"
+            component={AppointmentScreen}
             options={{ headerShown: false }}
           />
           <Stack.Screen

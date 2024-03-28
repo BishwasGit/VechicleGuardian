@@ -37,15 +37,6 @@ const MyStatistics=() => {
   return (
     <View style={styles.container}>
       <View style={styles.contentContainer}>
-        <Text style={{fontSize: 35,fontWeight: 'bold',marginBottom: 5}}>
-          Vehicle<Text style={{color: '#D4AF37'}}>G</Text>
-        </Text>
-
-        <Text style={{marginLeft: 2,marginBottom: 35}}>Repair Center Dashboard</Text>
-        <View style={styles.line} />
-        <Text style={{fontSize: 18,fontWeight: 'bold',marginBottom: 30}}>
-          Work Done Today !!
-        </Text>
         <PieChart
           data={pieChartData}
           width={screenWidth}
@@ -57,41 +48,19 @@ const MyStatistics=() => {
           absolute
         />
       </View>
-      <View style={styles.profileContainer}>
-        <Image
-          source={{
-            uri: 'https://i.pinimg.com/originals/f6/10/fe/f610feb7dda0168bb968a8830fd16b9c.jpg',
-          }} // Replace with the actual image source
-          style={styles.profileImage}
-        />
-      </View>
     </View>
   );
 };
 
 const styles=StyleSheet.create({
   container: {
+    paddingTop:20,
+    paddingBottom:20,
     flexDirection: 'row',
     justifyContent: 'space-between',
   },
   contentContainer: {
     flex: 1,
-  },
-  profileContainer: {
-    paddingTop: 10,
-    borderRadius: 50,
-    overflow: 'hidden',
-  },
-  profileImage: {
-    width: 50,
-    height: 50,
-    borderRadius: 25,
-  },
-  line: {
-    width: '117%',
-    borderBottomColor: '#D4AF37',
-    borderBottomWidth: 0.8,
-    marginBottom: 35,
   },
 });
 

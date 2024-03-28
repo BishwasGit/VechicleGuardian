@@ -18,6 +18,7 @@ import * as ImagePicker from "expo-image-picker";
 import {Ionicons} from '@expo/vector-icons';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import MyList from "./MyList";
+import MyStatistics from "./MyStatistics";
 
 const Tab = createBottomTabNavigator ();
 
@@ -390,32 +391,69 @@ function MenusScreen({
   setNewDetails,
   repairCenterDetails
 }) {
-  const menuItems = [
-    { id: '1', icon: 'archive', text: 'Add Repair Center', onPress: () => setShowForm(true) },
-    { id: '2', icon: 'people', text: 'Add Vacancy', onPress: () => setShowVacancyForm(true) },
-    { id: '3', icon: 'timer', text: 'Repair History', onPress: () => handleRepairHistory() },
-    { id: '4', icon: 'car-sport', text: 'Parts Management', onPress: () => handleParts('PartsManagement') },
-    { id: '5', icon: 'person-circle', text: 'Add Workers', onPress: () => handleStartRepairing('AddWorkersScreen') },
-  ];
-  
-  const renderItem = ({ item }) => (
-    <TouchableOpacity style={styles.button} onPress={item.onPress}>
-      <Ionicons name={item.icon} size={30} color="#808000" />
-      <Text style={styles.buttonText}>{item.text}</Text>
-    </TouchableOpacity>
-  );
   return (
     <ScrollView style={styles.MainContainer}>
+
       <View style={{marginTop:60,}}>
       <Text  style={{marginLeft: 2,marginBottom: 3, fontSize : 17, fontWeight:"bold"}} >Hello,&nbsp;{repairCenterDetails && repairCenterDetails[0].username }</Text>
       <Text  style={{marginLeft: 2,marginBottom: 15, fontSize : 14}} >Lets explore.</Text>
       </View>
-      <FlatList
-      data={menuItems}
-      renderItem={renderItem}
-      keyExtractor={item => item.id}
-      contentContainerStyle={styles.menuContainer}
-    />
+      <TouchableOpacity style={styles.bell} >
+        <Ionicons name="notifications" size={20
+        } color="white" />
+      </TouchableOpacity>
+      <MyStatistics />
+
+      <View>
+        <Text style={{ fontSize: 14,paddingBottom:10,paddingTop:25,fontWeight:'bold' }}>Services</Text>
+        <View style={styles.scrollContainer}>
+      <View style={styles.gridContainer}>
+
+        <TouchableOpacity
+          style={styles.buttonMain}
+          onPress={() => setShowForm(true)}
+        >
+          <Ionicons name="calendar-outline" size={30} color="white" />
+          <Text style={{ paddingTop:10,
+                          fontSize: 14,
+                          fontWeight: 'bold',
+                          color: 'white',
+                          textAlign: 'center',
+                          }}>
+                            Add Repair Center</Text>
+        </TouchableOpacity>
+        <TouchableOpacity
+          style={styles.button}
+          onPress={() => setShowVacancyForm(true)}
+        >
+          <Ionicons name="people" size={25} color="#808000" />
+          <Text style={styles.buttonText}>Add Vacancy</Text>
+        </TouchableOpacity>
+        <TouchableOpacity
+          style={styles.button}
+          onPress={() => handleRepairHistory()}
+        >
+          <Ionicons name="timer" size={25} color="#808000" />
+          <Text style={styles.buttonText}>Repair History</Text>
+        </TouchableOpacity>
+        <TouchableOpacity
+          style={styles.button}
+          onPress={() => handleParts('PartsManagement')}
+        >
+          <Ionicons name="car-sport" size={25} color="#808000" />
+          <Text style={styles.buttonText}>Parts Management</Text>
+        </TouchableOpacity>
+        <TouchableOpacity
+          style={styles.button}
+          onPress={() => handleStartRepairing('AddWorkersScreen')}
+        >
+          <Ionicons name="person-circle" size={25} color="#808000" />
+          <Text style={styles.buttonText}>Add Workers</Text>
+        </TouchableOpacity>
+      </View>
+    </View>
+        </View>
+
       {showForm &&
         <Card style={styles.card}>
           <Title
@@ -561,7 +599,7 @@ function ProfileScreen({
   repairCenterSellerProfile,
   handleButtonPress,
 })  {
-  const navigation = useNavigation(); 
+  const navigation = useNavigation();
   const handleLogout = () => {
     navigation.navigate('Login');
   };
@@ -635,6 +673,14 @@ const styles = StyleSheet.create ({
   container: {
     flex: 1,
   },
+  bell:{
+    top:65,
+    right:10,
+    position:'absolute',
+    backgroundColor: "#808000",
+    padding:8,
+    borderRadius:10,
+  },
   MainContainer:{
     flex: 1,
     padding:20,
@@ -663,28 +709,43 @@ ScrollView:{
     marginRight: 20,
   },
   scrollContainer: {
-    paddingTop:"20%",
-    width: '170%', 
+    flex: 1,
+
   },
-  menuContainer: {
-    flexDirection: 'column',
+  gridContainer: {
+    width: '100%',
+    flexDirection: 'row',
+    flexWrap: 'wrap',
+    justifyContent: 'space-between',
+  },
+  buttonMain:{
+    width: '48%', // Adjust this value according to your preference
+    alignItems: 'center',
+    justifyContent: 'center',
+    padding: 20,
+    borderRadius: 10,
+    marginBottom: 15,
+    backgroundColor: '#808000',
+    elevation: 2, // Android
   },
   button: {
-    marginVertical : 10,
-    justifyContent: 'center',
+    width: '48%', // Adjust this value according to your preference
     alignItems: 'center',
-    padding: 10,
+    justifyContent: 'center',
+    padding: 20,
     borderRadius: 10,
-    backgroundColor: 'white',
-    elevation: 2, 
+    marginBottom: 15,
+    backgroundColor: '#fff',
+    elevation: 2, // Android
   },
   buttonText: {
     paddingTop:10,
-    fontSize: 12,
+    fontSize: 13,
     fontWeight: 'bold',
     color: '#253529',
     textAlign: 'center',
   },
+
   card: {
     paddingTop:90,
     height: '200%',

@@ -143,7 +143,7 @@ const MyList = ({ route }) => {
       <View key={index} style={{justifyContent:"center"}}>
       {filteredTasks.map((task, innerIndex) => (
         <View key={innerIndex} style={{justifyContent:"center"}}>
-          <Text style={{ color: "gray", paddingBottom: 4, fontSize: 13 }}>{`Repair Date: ${dateKey}`}</Text>
+          <Text style={{ color: "gray", paddingBottom: 4, fontSize: 12 }}>{`Repair Date: ${dateKey}`}</Text>
           <List.Item
             key={innerIndex}
             title={`${task.vehicleDetails[0].vehicle_number} - ${task.vehicleDetails[0].vehicle_company} - ${task.vehicleDetails[0].vehicle_type}`}
@@ -250,7 +250,8 @@ const styles = StyleSheet.create({
   },
   headerText: {
     color: "black",
-    fontSize: 15,
+    fontSize: 17,
+    fontWeight:'bold',
   },
   containerIcon: {
     top: 30,
@@ -262,6 +263,7 @@ const styles = StyleSheet.create({
   containerList: {
     paddingTop: 50,
     padding: 20,
+
     borderRadius:20,
 
   },
@@ -270,6 +272,7 @@ const styles = StyleSheet.create({
     padding: 10,
     borderRadius: 10,
     margin: 6,
+    marginBottom:30,
     elevation:2,
   },
 });

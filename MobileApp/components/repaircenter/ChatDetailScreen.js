@@ -94,7 +94,7 @@ const ChatDetailScreen = ({ route }) => {
 
         />
         <View style={{ marginLeft: 25 , marginBottom : 15 }}>
-          <Text style={{ fontSize: 18, color: "black", marginTop : 10 }}>{repaircenterDetails[0]?.repaircenter_fname}</Text>
+          <Text style={{ fontSize: 18, color: "gray", marginTop : 10 }}>{repaircenterDetails[0]?.repaircenter_fname}</Text>
 
         </View>
         <Ionicons

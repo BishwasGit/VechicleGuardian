@@ -55,41 +55,53 @@ const DashboardContent = ({customerId}) => {
             </View>
 
         <View>
-        <Text style={{ fontSize: 14, marginBottom: 10,marginLeft: 15,fontWeight:'bold' }}>Services</Text>
-        <ScrollView
-           horizontal
-           contentContainerStyle={styles.scrollContainer}
-           showsHorizontalScrollIndicator={false}
+        <Text style={{ fontSize: 14,marginLeft: 15,fontWeight:'bold' }}>Services</Text>
+        <View style={styles.scrollContainer}>
+      <View style={styles.gridContainer}>
+
+        <TouchableOpacity
+          style={styles.buttonMain}
+          onPress={() => handleMenuNavigation("Appointment")}
         >
-          <TouchableOpacity
-            style={styles.button}
-            onPress={() => handleMenuNavigation("AddVehicle")}
-          >
-            <Ionicons name="archive" size={25} color="#808000" />
-            <Text style={styles.buttonText}>Add Vehicle</Text>
-          </TouchableOpacity>
-          <TouchableOpacity
-            style={styles.button}
-            onPress={() => handleMenuNavigation("ListVehicle")}
-          >
-            <Ionicons name="list" size={25} color="#808000" />
-            <Text style={styles.buttonText}>List Vehicle Details</Text>
-          </TouchableOpacity>
-          <TouchableOpacity
-            style={styles.button}
-            onPress={() => handleMenuNavigation("ViewServiceHistory")}
-          >
-            <Ionicons name="timer-outline" size={25} color="#808000" />
-            <Text style={styles.buttonText}>View Service History</Text>
-          </TouchableOpacity>
-          <TouchableOpacity
-            style={styles.button}
-            onPress={() => handleMenuNavigation("LocateRepairCenters")}
-          >
-            <Ionicons name="location" size={25} color="#808000" />
-            <Text style={styles.buttonText}>Locate Repair Centers</Text>
-          </TouchableOpacity>
-        </ScrollView>
+          <Ionicons name="calendar-outline" size={30} color="white" />
+          <Text style={{ paddingTop:10,
+                          fontSize: 14,
+                          fontWeight: 'bold',
+                          color: 'white',
+                          textAlign: 'center',
+                          }}>
+                            Appointment</Text>
+        </TouchableOpacity>
+        <TouchableOpacity
+          style={styles.button}
+          onPress={() => handleMenuNavigation("AddVehicle")}
+        >
+          <Ionicons name="archive" size={25} color="#808000" />
+          <Text style={styles.buttonText}>Add Vehicle</Text>
+        </TouchableOpacity>
+        <TouchableOpacity
+          style={styles.button}
+          onPress={() => handleMenuNavigation("ListVehicle")}
+        >
+          <Ionicons name="list" size={25} color="#808000" />
+          <Text style={styles.buttonText}>List Vehicle Details</Text>
+        </TouchableOpacity>
+        <TouchableOpacity
+          style={styles.button}
+          onPress={() => handleMenuNavigation("ViewServiceHistory")}
+        >
+          <Ionicons name="timer-outline" size={25} color="#808000" />
+          <Text style={styles.buttonText}>View Service History</Text>
+        </TouchableOpacity>
+        <TouchableOpacity
+          style={styles.button}
+          onPress={() => handleMenuNavigation("LocateRepairCenters")}
+        >
+          <Ionicons name="location" size={25} color="#808000" />
+          <Text style={styles.buttonText}>Locate Repair Centers</Text>
+        </TouchableOpacity>
+      </View>
+    </View>
         </View>
 
         {/* Carousel Section */}
@@ -138,39 +150,49 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
   statisticsContainer:{
-    marginBottom: 30,
+    marginBottom: 20,
     padding : 15,
   },
   scrollContainer: {
-    width: '120%', // Set the width to 150%
+    flex: 1,
+    padding: 20,
   },
-  menuContainer: {
+  gridContainer: {
+    width: '100%',
     flexDirection: 'row',
+    flexWrap: 'wrap',
     justifyContent: 'space-between',
-
-
+  },
+  buttonMain:{
+    width: '48%', // Adjust this value according to your preference
+    alignItems: 'center',
+    justifyContent: 'center',
+    padding: 20,
+    borderRadius: 10,
+    marginBottom: 15,
+    backgroundColor: '#808000',
+    elevation: 2, // Android
   },
   button: {
-    width:"20%",
-    flex: 1,
-    justifyContent: 'center',
+    width: '48%', // Adjust this value according to your preference
     alignItems: 'center',
-    padding: 10,
+    justifyContent: 'center',
+    padding: 20,
     borderRadius: 10,
-    margin:10,
-    marginBottom: 55,
+    marginBottom: 15,
     backgroundColor: '#fff',
     elevation: 2, // Android
   },
   buttonText: {
     paddingTop:10,
-    fontSize: 12,
+    fontSize: 13,
     fontWeight: 'bold',
     color: '#253529',
     textAlign: 'center',
   },
   carouselContainer: {
     marginBottom: 50,
+    marginTop:20,
   },
   carouselItem: {
     backgroundColor: "floralwhite",
