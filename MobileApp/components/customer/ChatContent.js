@@ -90,7 +90,7 @@ const styles = StyleSheet.create({
   },
   topContainer: {
     display : 'flex',
-    paddingTop: "15%",
+    paddingTop: "13%",
     width: "100%",
     padding: 20,
     flexDirection: 'row',

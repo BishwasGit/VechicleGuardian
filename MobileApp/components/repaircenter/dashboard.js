@@ -282,6 +282,10 @@ const RepairCenterDashboard = ({ route }) => {
     navigation.navigate(screen, repaircenter_id);
   }, [navigation, repaircenter_id]);
 
+  const handleNotificationPress = () => {
+    navigation.navigate('NotificationScreen');
+  };
+
 
   const handleRepairHistory = useCallback((screen) => {
     navigation.navigate ('RepairHistoryScreen',repaircenter_id);
@@ -321,6 +325,7 @@ const RepairCenterDashboard = ({ route }) => {
           handleDocumentsImageUpload={handleDocumentsImageUpload}
           setNewDetails={setNewDetails}
           repairCenterDetails={repairCenterDetails}
+          handleNotificationPress={handleNotificationPress}
            />
         )}
         options={{
@@ -389,16 +394,17 @@ function MenusScreen({
   handleAddVacancyDetails,
   handleDocumentsImageUpload,
   setNewDetails,
-  repairCenterDetails
+  repairCenterDetails,
+  handleNotificationPress,
 }) {
   return (
     <ScrollView style={styles.MainContainer}>
 
       <View style={{marginTop:60,}}>
-      <Text  style={{marginLeft: 2,marginBottom: 3, fontSize : 17, fontWeight:"bold"}} >Hello,&nbsp;{repairCenterDetails && repairCenterDetails[0].username }</Text>
+      <Text  style={{marginLeft: 2,marginBottom: 3, fontSize : 24, fontWeight:"bold"}} >Hello,&nbsp;{repairCenterDetails && repairCenterDetails[0].username }</Text>
       <Text  style={{marginLeft: 2,marginBottom: 15, fontSize : 14}} >Lets explore.</Text>
       </View>
-      <TouchableOpacity style={styles.bell} >
+      <TouchableOpacity style={styles.bell}  onPress={handleNotificationPress}>
         <Ionicons name="notifications" size={20
         } color="white" />
       </TouchableOpacity>

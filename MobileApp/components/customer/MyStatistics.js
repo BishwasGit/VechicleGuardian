@@ -11,10 +11,13 @@ const screenWidth=Dimensions.get('window').width;
 
 const MyStatistics=() => {
   const navigation = useNavigation();
-  const handleNotifications = () => {
-
-
+  const handleNotificationPress = () => {
+    navigation.navigate('Notification');
   };
+  const handleAppointmentPress = () => {
+    navigation.navigate('AppointmentScreen');
+  };
+
   const pieChartData=[
     {
       name: 'Expenses',
@@ -42,11 +45,10 @@ const MyStatistics=() => {
       borderRadius: 16,
     },
   };
-
   return (
     <View style={styles.container}>
       <View style={styles.contentContainer}>
-        <Text  style={{marginLeft: 2,marginBottom: 3, fontSize : 17, fontWeight:"bold"}} >Hi, Customer</Text>
+        <Text  style={{marginLeft: 2,marginBottom: 3, fontSize : 24, fontWeight:"bold"}} >Hi, Customer</Text>
         <Text  style={{marginLeft: 2,marginBottom: 15, fontSize : 14}} >Lets explore nearby services.</Text>
         <View style={styles.line} />
         <PieChart
@@ -62,8 +64,17 @@ const MyStatistics=() => {
         />
       </View>
       <View style={styles.profileContainer}>
-      <TouchableOpacity style={styles.bell} >
+      <TouchableOpacity style={styles.bell}
+      onPress={handleNotificationPress}
+      >
         <Ionicons name="notifications" size={20
+        } color="white" />
+      </TouchableOpacity>
+
+      <TouchableOpacity style={styles.bell}
+      onPress={handleAppointmentPress}
+      >
+        <Ionicons name="book" size={20
         } color="white" />
       </TouchableOpacity>
 
