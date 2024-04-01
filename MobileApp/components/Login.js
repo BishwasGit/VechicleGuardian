@@ -12,6 +12,7 @@ const Login = ({ navigation }) => {
   const [message, setMessage] = useState(null);
   const [visible, setVisible] = useState(false);
   const [loading, setLoading] = useState(false);
+  const [snackbarVisible, setSnackbarVisible] = useState(false);
   const showDialog = () => setVisible(true);
   const hideDialog = () => setVisible(false);
   const saveUserInfoToStorage = async (userInfo) => {
@@ -37,12 +38,7 @@ const Login = ({ navigation }) => {
       );
       const data = await response.json();
       if (response.ok) {
-        const userInfo = {
-          token: data.token,
-          userType: data.userType,
-          userId: data.userId
-        };
-        await saveUserInfoToStorage(userInfo); // Await the saving of user info
+        console.log('data after login success',data)
         if(data.userType === 'admin') {
           showDialog();
           setTimeout(() => {
@@ -58,6 +54,12 @@ const Login = ({ navigation }) => {
       } else {
         setMessage(data.error);
       }
+     const userInfo = {
+          token: data.token,
+          userType: data.userType,
+          userId: data.userId
+        };
+        await saveUserInfoToStorage(userInfo); 
     } catch (error) {
       console.error("Error during login:", error);
       setMessage("Login failed. Please try again.");

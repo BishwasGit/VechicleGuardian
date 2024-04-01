@@ -63,7 +63,7 @@ router.post('/login', async (req, res) => {
         const token = jwt.sign(payload, SECRET_KEY, { expiresIn: '24h' });
 
         res.json({ success: true, message, token, userId: payload.userId, userType: payload.userType });
-        console.log([payload.userId,payload.userType]);
+        console.log('the payload data from login api ',[payload.userId,payload.userType]);
       } else {
         // Passwords don't match, login failed
         res.status(401).json({ error: 'Invalid username or password' });

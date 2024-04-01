@@ -286,8 +286,11 @@ const RepairCenterDashboard = ({ route }) => {
     navigation.navigate('NotificationScreen');
   };
 
+   const handleAvailabilityScreen = useCallback(() => {
+    navigation.navigate('RepaircenterAvailabilityScreen',repaircenter_id)
+   },[navigation,repaircenter_id])
 
-  const handleRepairHistory = useCallback((screen) => {
+  const handleRepairHistory = useCallback(() => {
     navigation.navigate ('RepairHistoryScreen',repaircenter_id);
   },[navigation, repaircenter_id]);
 
@@ -307,6 +310,7 @@ const RepairCenterDashboard = ({ route }) => {
         name="Dashboard"
         children={() => (
           <MenusScreen
+          handleAvailabilityScreen={handleAvailabilityScreen}
           handleMenuNavigation={handleMenuNavigation}
           handleRepairHistory={handleRepairHistory}
           handleStartRepairing={handleStartRepairing}
@@ -396,6 +400,7 @@ function MenusScreen({
   setNewDetails,
   repairCenterDetails,
   handleNotificationPress,
+  handleAvailabilityScreen
 }) {
   return (
     <ScrollView style={styles.MainContainer}>
@@ -449,6 +454,13 @@ function MenusScreen({
           <Ionicons name="car-sport" size={25} color="#808000" />
           <Text style={styles.buttonText}>Parts Management</Text>
         </TouchableOpacity>
+        <TouchableOpacity
+            style={styles.button}
+            onPress={() => handleAvailabilityScreen()}
+          >
+            <Ionicons name="time" size={25} color="#808000" /> {/* Use appropriate icon name */}
+            <Text style={styles.buttonText}>Manage Repair Center Availability</Text>
+          </TouchableOpacity>
         <TouchableOpacity
           style={styles.button}
           onPress={() => handleStartRepairing('AddWorkersScreen')}
