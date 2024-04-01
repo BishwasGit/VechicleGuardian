@@ -65,7 +65,7 @@ const Login = ({ navigation }) => {
       setLoading(false);
     }
   };
-  
+
 
   const handleRegisterNow = () => {
     navigation.navigate("Registration", { userType: "Customer" });

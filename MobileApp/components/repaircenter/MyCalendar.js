@@ -20,11 +20,6 @@ const MyCalendar = () => {
   return (
     <View style={styles.container}>
       <View style={styles.calendarContainer}>
-      <Text style={{fontSize: 35,fontWeight: 'bold',marginBottom: 1}}>
-          Vehicle<Text style={{color: '#D4AF37'}}>G</Text>
-        </Text>
-        <Text  style={{marginLeft: 2,marginBottom: 35, fontSize : 15}} >Repair center dashboard</Text>
-        <View style={styles.line} />
         <Calendar
           theme={customTheme}
         />

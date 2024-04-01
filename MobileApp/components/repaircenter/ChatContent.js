@@ -61,7 +61,7 @@ const ChatContent = ({ repaircenterId }) => {
     <View style={styles.container}>
       <View style={styles.topContainer}>
         {/* <Ionicons name="list-outline" size={30} color="white" /> */}
-        <Text style={{ fontSize: 22, fontWeight: "bold", color: 'white', textAlign : 'center', marginVertical : 10 }}>Chat</Text>
+        <Text style={{ fontSize: 24, fontWeight: "bold", color: 'black', textAlign : 'center', marginVertical : 10 }}>Messages</Text>
       </View>
 
       <View style={styles.touchContainer}>
@@ -83,7 +83,7 @@ const ChatContent = ({ repaircenterId }) => {
       />
       <View style={styles.texts}>
         <Text style={{ fontSize: 17, fontWeight: "bold" }}>{customer.phone}</Text>
-        <Text style={{ color: 'gray', fontSize: 13, paddingTop: 7 }}>Tap to view chat with {customer.username}</Text>
+        <Text style={{ color: 'gray', fontSize: 13, paddingTop: 7 }}>{customer.username}</Text>
         <Text style={{ color: 'gray', fontSize: 11, paddingTop: 7 }}>{customer.email}</Text>
       </View>
       <View style={styles.date}></View>
@@ -98,20 +98,17 @@ const ChatContent = ({ repaircenterId }) => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    alignItems: 'center',
   },
   topContainer: {
     display : 'flex',
-    paddingTop: "12%",
-    backgroundColor: "gray",
+    paddingTop: "15%",
     width: "100%",
     padding: 20,
     flexDirection: 'row',
-    justifyContent : 'center',
   },
   touchContainer: {
     flex: 1,
-    paddingTop: 20,
+    padding:5,
     alignItems: 'center',
     width: "100%",
   },
@@ -121,13 +118,14 @@ const styles = StyleSheet.create({
     borderColor: '#a9a9a9',
     width: "95%",
     backgroundColor: 'white',
-    height: 120,
-    borderRadius: 10,
-    padding: 20,
+    height: 100,
+    borderRadius: 20,
+    paddingLeft: 30,
+    padding:5,
     elevation: 1,
   },
   texts: {
-  marginLeft : 20,
+  marginLeft : 25,
   },
 });
 

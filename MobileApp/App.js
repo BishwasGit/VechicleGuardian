@@ -17,6 +17,7 @@ import RepairCenterDashboard from "./components/repaircenter/dashboard";
 import AddWorkersScreen from "./components/repaircenter/features/AddWorkers";
 import PartsManagementPage from "./components/repaircenter/features/PartsManagement";
 import RepairHistoryScreen from "./components/repaircenter/features/RepairHistory";
+import NotificationScreen from './components/repaircenter/NotificationScreen';
 
 //customer side
 import CustomerDashboard from "./components/customer/dashboard";
@@ -25,6 +26,7 @@ import ChatDetailScreen from './components/customer/ChatDetailScreen';
 import Notification from './components/customer/Notification';
 
 import AddVehicleScreen from "./components/customer/features/AddVehicleScreen";
+import AppointmentScreen from "./components/customer/features/AppointmentScreen";
 import ListVehicleScreen from "./components/customer/features/ListVehicleScreen";
 import ViewServiceHistoryScreen from "./components/customer/features/ViewServiceHistoryScreen";
 import LocateRepairCentersScreen from "./components/customer/features/LocateRepairCentersScreen";
@@ -116,9 +118,19 @@ const App = () => {
             component={Notification}
             options={{ headerShown: false }}
           />
+           <Stack.Screen
+            name="NotificationScreen"
+            component={NotificationScreen}
+            options={{ headerShown: false }}
+          />
           <Stack.Screen
             name="ViewServiceHistory"
             component={ViewServiceHistoryScreen}
+            options={{ headerShown: false }}
+          />
+           <Stack.Screen
+            name="AppointmentScreen"
+            component={AppointmentScreen}
             options={{ headerShown: false }}
           />
           <Stack.Screen
