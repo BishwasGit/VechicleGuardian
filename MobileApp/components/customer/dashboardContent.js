@@ -9,6 +9,7 @@ import {Ionicons} from '@expo/vector-icons';
 
 
 const DashboardContent = ({customerId}) => {
+  console.log('customer id in dashboard content',customerId)
   const [repairCenters, setRepairCenters] = useState([]);
   const navigation = useNavigation();
   useEffect(() => {
@@ -42,7 +43,7 @@ const DashboardContent = ({customerId}) => {
   }));
 
   const handleMenuNavigation = (screen) => {
-    navigation.navigate(screen, { customer_id: customer_id }); // Pass customer_id as a parameter object
+    navigation.navigate(screen, { customer_id: customerId }); // Pass customer_id as a parameter object
   };
 
   return (

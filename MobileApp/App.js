@@ -18,7 +18,7 @@ import AddWorkersScreen from "./components/repaircenter/features/AddWorkers";
 import PartsManagementPage from "./components/repaircenter/features/PartsManagement";
 import RepairHistoryScreen from "./components/repaircenter/features/RepairHistory";
 import NotificationScreen from './components/repaircenter/NotificationScreen';
-import RepaircenterAvailabilityScreen from './components/repaircenter/features/RepaircenterAvailabilityScreen';
+import RepairCenterAvailabilityScreen from './components/repaircenter/features/RepaircenterAvailabilityScreen';
 
 //customer side
 import CustomerDashboard from "./components/customer/dashboard";
@@ -150,8 +150,8 @@ const App = () => {
             options={{ headerShown: false }}
           />
           <Stack.Screen
-            name="RepaircenterAvailabilityScreen"
-            component={RepaircenterAvailabilityScreen}
+            name="RepairCenterAvailabilityScreen"
+            component={RepairCenterAvailabilityScreen}
             options={{ headerShown: false }}
           />
           <Stack.Screen

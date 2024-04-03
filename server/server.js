@@ -82,6 +82,8 @@ const addRepairParts = require('./api/repaircenters/addRepairParts');
 app.use('/api', addRepairParts);
 const repairHistory = require('./api/repaircenters/repairHistory');
 app.use('/api', repairHistory);
+const repairCenterLists = require('./api/repaircenters/fetchrepaircentersList');
+app.use('/api', repairCenterLists);
 
 //admin side
 const getUnverifiedRepairCentersList = require('./api/admin/getUnverifiedRepairCentersList');

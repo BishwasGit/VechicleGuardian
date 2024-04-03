@@ -1,11 +1,14 @@
+import { REACT_APP_SERVER_IP, REACT_APP_SERVER_PORT } from '@env'
 import React, { useState, useEffect } from 'react';
-import { View, Text, StyleSheet, TextInput, TouchableOpacity } from 'react-native';
+import { View, Text, StyleSheet, TextInput, TouchableOpacity,} from 'react-native';
 import { Checkbox, Snackbar } from 'react-native-paper';
+import { get } from 'react-native/Libraries/TurboModule/TurboModuleRegistry';
+import { Picker } from '@react-native-picker/picker';
 
 const RepairCenterAvailabilityScreen = ({ route }) => {
   const { repaircenter_id } = route.params;
-
-  // Sample data for demonstration
+  const [repairCenters, setRepairCenters] = useState([]);
+  const [selectedRepairCenter, setSelectedRepairCenter] = useState('');
   const [availability, setAvailability] = useState([
     { day: 'Sunday', openingTime: '09:00', closingTime: '18:00', status: 'Open', selected: false },
     { day: 'Monday', openingTime: '09:00', closingTime: '18:00', status: 'Open', selected: false },
@@ -15,6 +18,27 @@ const RepairCenterAvailabilityScreen = ({ route }) => {
     { day: 'Friday', openingTime: '09:00', closingTime: '18:00', status: 'Open', selected: false },
     { day: 'Saturday', openingTime: '10:00', closingTime: '16:00', status: 'Open', selected: false },
   ]);
+
+  useEffect(() => {
+    const fetchRepairCenters = async () => {
+      try {
+        const response = await fetch(
+          `http://${REACT_APP_SERVER_IP}:${REACT_APP_SERVER_PORT}/api/fetchrepaircentersList/${repaircenter_id}`
+        );
+        if (response.ok) {
+          const data = await response.json();
+          console.log(data);
+          setRepairCenters(data);
+        } else {
+          console.error('Failed to fetch repair centers');
+        }
+      } catch (error) {
+        console.error('Error fetching repair centers:', error);
+      }
+    };
+
+    fetchRepairCenters();
+  }, [repaircenter_id]);
 
   const [snackbarVisible, setSnackbarVisible] = useState(false);
   const [message, setMessage] = useState('');
@@ -26,11 +50,11 @@ const RepairCenterAvailabilityScreen = ({ route }) => {
   };
   const handleSaveChanges = async () => {
     try {
-        console.log('updated availability',availability)
-        const payload = {
-            repaircenter_id: repaircenter_id,
-            availability: availability
-          };
+      console.log('selected repair center:', selectedRepairCenter);
+      const payload = {
+        repaircenters_id: selectedRepairCenter,
+        availability: availability
+      };
       const response = await fetch(
         `http://${REACT_APP_SERVER_IP}:${REACT_APP_SERVER_PORT}/api/updateAvailability`,
         {
@@ -56,6 +80,17 @@ const RepairCenterAvailabilityScreen = ({ route }) => {
   return (
     <View style={styles.container}>
       <Text style={styles.title}>Repair Center Availability</Text>
+      <Picker
+        selectedValue={selectedRepairCenter}
+        onValueChange={(itemValue, itemIndex) =>
+          setSelectedRepairCenter(itemValue)
+        }>
+        {repairCenters && repairCenters.map(center => (
+          <Picker.Item key={center.repaircenters_id} label={center.repaircenter_fname} value={center.repaircenters_id} >
+            <Text>{center.repaircenter_fname},&nbsp;{center.address}</Text>
+          </Picker.Item>
+        ))}
+      </Picker>
       {availability.map((item, index) => (
         <View key={index} style={styles.item}>
           <Checkbox.Android
@@ -110,6 +145,7 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     marginBottom: 20,
     textAlign: 'center',
+    marginTop : 25,
   },
   item: {
     flexDirection: 'row',
