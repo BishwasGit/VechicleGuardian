@@ -1,4 +1,5 @@
 import React, {useState, useEffect} from 'react';
+import {REACT_APP_SERVER_IP, REACT_APP_SERVER_PORT} from '@env';
 import {
   View,
   Text,
@@ -12,7 +13,6 @@ import {Picker} from '@react-native-picker/picker';
 import axios from 'axios';
 import {useNavigation} from '@react-navigation/native';
 import {IconButton} from 'react-native-paper';
-import {REACT_APP_SERVER_IP, REACT_APP_SERVER_PORT} from '@env';
 import * as ImagePicker from 'expo-image-picker';
 
 const AddVehicleScreen = ({route}) => {

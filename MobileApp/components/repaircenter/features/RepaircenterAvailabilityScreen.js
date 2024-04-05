@@ -2,10 +2,10 @@ import { REACT_APP_SERVER_IP, REACT_APP_SERVER_PORT } from '@env'
 import React, { useState, useEffect } from 'react';
 import { View, Text, StyleSheet, TextInput, TouchableOpacity,} from 'react-native';
 import { Checkbox, Snackbar } from 'react-native-paper';
-import { get } from 'react-native/Libraries/TurboModule/TurboModuleRegistry';
 import { Picker } from '@react-native-picker/picker';
+import { goBack } from '@react-navigation/native';
 
-const RepairCenterAvailabilityScreen = ({ route }) => {
+const RepairCenterAvailabilityScreen = ({ route , navigation }) => {
   const { repaircenter_id } = route.params;
   const [repairCenters, setRepairCenters] = useState([]);
   const [selectedRepairCenter, setSelectedRepairCenter] = useState('');
@@ -27,7 +27,6 @@ const RepairCenterAvailabilityScreen = ({ route }) => {
         );
         if (response.ok) {
           const data = await response.json();
-          console.log(data);
           setRepairCenters(data);
         } else {
           console.error('Failed to fetch repair centers');
@@ -50,13 +49,12 @@ const RepairCenterAvailabilityScreen = ({ route }) => {
   };
   const handleSaveChanges = async () => {
     try {
-      console.log('selected repair center:', selectedRepairCenter);
       const payload = {
         repaircenters_id: selectedRepairCenter,
         availability: availability
       };
       const response = await fetch(
-        `http://${REACT_APP_SERVER_IP}:${REACT_APP_SERVER_PORT}/api/updateAvailability`,
+        `http://${REACT_APP_SERVER_IP}:${REACT_APP_SERVER_PORT}/api/updateAvailability_repaircenter`,
         {
           method: 'POST',
           headers: {
@@ -76,7 +74,10 @@ const RepairCenterAvailabilityScreen = ({ route }) => {
       console.error('Error updating availability data:', error);
     }
   };
-
+  const handleGoBack = () => {
+    // Navigate back to the previous screen
+    navigation.goBack();
+  };
   return (
     <View style={styles.container}>
       <Text style={styles.title}>Repair Center Availability</Text>
@@ -121,6 +122,9 @@ const RepairCenterAvailabilityScreen = ({ route }) => {
       ))}
       <TouchableOpacity style={styles.saveButton} onPress={handleSaveChanges}>
         <Text style={styles.saveButtonText}>Save Changes</Text>
+      </TouchableOpacity>
+      <TouchableOpacity style={styles.goBackButton} onPress={handleGoBack}>
+        <Text style={styles.goBackButtonText}>Go Back</Text>
       </TouchableOpacity>
       <Snackbar
         visible={snackbarVisible}

@@ -121,6 +121,7 @@ const AddWorkerScreen = ({ route }) => {
             underlineColor="transparent"
             value={userName}
             onChangeText={(text) => setUserName(text)}
+
           />
           <TextInput
             label="Worker Name"
@@ -128,6 +129,7 @@ const AddWorkerScreen = ({ route }) => {
             underlineColor="transparent"
             value={workerName}
             onChangeText={(text) => setWorkerName(text)}
+
           />
           <TextInput
             label="Password"
@@ -136,6 +138,7 @@ const AddWorkerScreen = ({ route }) => {
             value={password}
             onChangeText={(text) => setPassword(text)}
             secureTextEntry
+
           />
           <TextInput
             label="Phone Number"
@@ -144,6 +147,7 @@ const AddWorkerScreen = ({ route }) => {
             value={phoneNumber}
             onChangeText={(text) => setPhoneNumber(text)}
             keyboardType="numeric"
+
           />
           <TextInput
             label="Email Address"
@@ -152,6 +156,7 @@ const AddWorkerScreen = ({ route }) => {
             value={emailAddress}
             onChangeText={(text) => setEmailAddress(text)}
             keyboardType="email-address"
+
           />
           <Button
             mode="contained"
@@ -207,14 +212,11 @@ const styles = StyleSheet.create({
     backgroundColor: "#0d5563",
   },
   textinput: {
-   marginBottom: 15,
-    borderRadius: 20,
-    borderTopLeftRadius: 20,
-    borderTopRightRadius: 20,
-    marginVertical: 10,
-    textDecorationLine: 'none',
-    backgroundColor: 'white',
-    elevation: 2,
+    height: 50,
+    backgroundColor: "#edf2f4",
+    width: "100%",
+    marginBottom: 10,
+    marginVertical: 10
   },
   contain: {
     padding: 40,

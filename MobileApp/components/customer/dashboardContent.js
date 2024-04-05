@@ -9,7 +9,6 @@ import {Ionicons} from '@expo/vector-icons';
 
 
 const DashboardContent = ({customerId}) => {
-  console.log('customer id in dashboard content',customerId)
   const [repairCenters, setRepairCenters] = useState([]);
   const navigation = useNavigation();
   useEffect(() => {
@@ -62,7 +61,7 @@ const DashboardContent = ({customerId}) => {
 
         <TouchableOpacity
           style={styles.buttonMain}
-          onPress={() => handleMenuNavigation("Appointment")}
+          onPress={() => handleMenuNavigation("AppointmentScreen")}
         >
           <Ionicons name="calendar-outline" size={30} color="white" />
           <Text style={{ paddingTop:10,

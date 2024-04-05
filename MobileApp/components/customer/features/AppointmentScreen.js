@@ -1,55 +1,44 @@
-import React from 'react';
-import { Ionicons } from '@expo/vector-icons';
+import React, { useState, useEffect } from 'react';
+import {REACT_APP_SERVER_IP, REACT_APP_SERVER_PORT} from '@env';
 import {TextInput, Checkbox} from 'react-native-paper';
 import {View,Title,Text,Image,Dimensions,StyleSheet, TouchableOpacity} from 'react-native';
+import RepairCenterList from './RepairCenterList'
 
-const Notification = () => {
+const CustomerAppoinmentScreen = ({ route, navigation }) => {
+  const [vehicleDetails, setVehicleDetails] = useState("");
+  const [availableRepaircenterList, setAvailableRepaircenterList] = useState("");
+  const { customer_id } = route.params;
+
+  useEffect(() => {
+    const fetchAvailableRepairCenters = async () => {
+      try {
+        const availableRepairCenters = await fetch(`http://${REACT_APP_SERVER_IP}:${REACT_APP_SERVER_PORT}/api/listAvailableRepairCenters/`);
+        const list = await availableRepairCenters.json();
+        setAvailableRepaircenterList(list);
+      } catch (error) {
+        console.log('Unable to fetch available repair centers', error);
+      }
+    };
+
+    fetchAvailableRepairCenters();
+  }, []);
 
   return (
     <View style={styles.container}>
-        <View style={styles.topContainer}>
-        <Ionicons
-          onPress={() => navigation.goBack()}
-          name="arrow-back"
-          size={25}
-          color="#808000"
-          style={styles.closeIcon}
-        />
-         <Text style={{ fontSize: 20, fontWeight: "bold", color: 'black', textAlign : 'left', }}> Book an Appointment</Text>
-        </View>
-
-     <View style={styles.formContainer}>
-     <Ionicons
-          name="cog"
-          size={66}
-          color="#c0c0c0"
-          style={styles.closeIcon}
-        />
-
-     <TextInput
-          style={styles.textinput}
-          placeholder="Vehicle Number"
-          left={<TextInput.Icon icon="tag-outline" color='gray' />}
-          underlineColor="transparent"
-
-        />
-          <TextInput
-          style={styles.textinput}
-          placeholder="Vehicle Number"
-          left={<TextInput.Icon icon="tag-outline" color='gray' />}
-          underlineColor="transparent"
-        />
-          <TextInput
-          style={styles.textinput}
-          placeholder="Vehicle Number"
-          left={<TextInput.Icon icon="tag-outline" color='gray' />}
-          underlineColor="transparent"
-        />
-     </View>
-
+      <View style={styles.topContainer}>
+        <Text style={{ fontSize: 24, fontWeight: "bold", color: 'black', textAlign: 'left', }}>Available Repair Centers</Text>
+      </View>
+      <View style={styles.formContainer}>
+        {availableRepaircenterList ? (
+          <RepairCenterList list={availableRepaircenterList} />
+        ) : (
+          <Text>Loading...</Text>
+        )}
+      </View>
     </View>
-  )
-}
+  );
+};
+
 
 const styles = StyleSheet.create({
   container: {
@@ -105,4 +94,4 @@ const styles = StyleSheet.create({
 
 });
 
-export default Notification;
+export default CustomerAppoinmentScreen;

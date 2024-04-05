@@ -34,6 +34,9 @@ const storevehicleincomeexpenses = require('./api/customers/storevehicleincomeex
 app.use('/api', storevehicleincomeexpenses);
 const getCustomerDetailsUsingVehicleDetailsId = require('./api/getCustomerDetailsUsingVehicleDetailsId')
 app.use('/api', getCustomerDetailsUsingVehicleDetailsId);
+const listAvailableRepairCenters = require('./api/customers/listAvailableRepairCenters')
+app.use('/api', listAvailableRepairCenters);
+
 
 //for chat feature
 const repairCenterWorker = require('./api/customers/repairCenterWorker');
@@ -84,6 +87,9 @@ const repairHistory = require('./api/repaircenters/repairHistory');
 app.use('/api', repairHistory);
 const repairCenterLists = require('./api/repaircenters/fetchrepaircentersList');
 app.use('/api', repairCenterLists);
+const updateAvlability = require('./api/repaircenters/updateAvailability')
+app.use('/api',updateAvlability);
+
 
 //admin side
 const getUnverifiedRepairCentersList = require('./api/admin/getUnverifiedRepairCentersList');
