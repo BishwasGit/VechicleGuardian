@@ -9,9 +9,7 @@ router.get('/fetchrepaircentersList/:repaircenter_id', async (req, res) => {
     const repairCenters = await db.query(`SELECT rc.* FROM repair_centers rc
     LEFT JOIN repaircenter_users ru ON ru.repaircenter_id = rc.repaircenter_id
     WHERE ru.repaircenter_id = ?`, [repaircenterId]);
-
     res.json(repairCenters[0]);
-    console.log('bishwas',repairCenters[0]);
   } catch (error) {
     console.error('Error fetching repair centers:', error);
     res.status(500).json({ error: 'Internal server error' });

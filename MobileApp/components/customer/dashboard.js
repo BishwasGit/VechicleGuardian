@@ -20,7 +20,6 @@ const ChatScreen = ({ customerId }) => {
 
 const CustomerDashboard = ({ route }) => {
   const { customer_id } = route.params;
-  console.log('customer id in customer dashboard',customer_id)
   const [customerDetails, setCustomerDetails] = useState(null);
   const [repairCenterProfile, setRepairCenterProfile] = useState(null);
   const [repairCenterSellerProfile, setRepairCenterSellerProfile] =

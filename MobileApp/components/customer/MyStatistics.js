@@ -14,10 +14,6 @@ const MyStatistics=() => {
   const handleNotificationPress = () => {
     navigation.navigate('Notification');
   };
-  const handleAppointmentPress = () => {
-    navigation.navigate('AppointmentScreen');
-  };
-
   const pieChartData=[
     {
       name: 'Expenses',
@@ -70,14 +66,6 @@ const MyStatistics=() => {
         <Ionicons name="notifications" size={20
         } color="white" />
       </TouchableOpacity>
-
-      <TouchableOpacity style={styles.bell}
-      onPress={handleAppointmentPress}
-      >
-        <Ionicons name="book" size={20
-        } color="white" />
-      </TouchableOpacity>
-
       </View>
     </View>
   );

@@ -95,7 +95,7 @@ const AddWorkerScreen = ({ route }) => {
             underlineColor="transparent"
             value={userName}
             onChangeText={(text) => setUserName(text)}
-            style={{ marginVertical: 10 }}
+
           />
           <TextInput
             label="Worker Name"
@@ -104,7 +104,7 @@ const AddWorkerScreen = ({ route }) => {
             underlineColor="transparent"
             value={workerName}
             onChangeText={(text) => setWorkerName(text)}
-            style={{ marginVertical: 10 }}
+
           />
           <TextInput
             label="Password"
@@ -114,7 +114,7 @@ const AddWorkerScreen = ({ route }) => {
             value={password}
             onChangeText={(text) => setPassword(text)}
             secureTextEntry
-            style={{ marginVertical: 10 }}
+
           />
           <TextInput
             label="Phone Number"
@@ -124,7 +124,7 @@ const AddWorkerScreen = ({ route }) => {
             value={phoneNumber}
             onChangeText={(text) => setPhoneNumber(text)}
             keyboardType="numeric"
-            style={{ marginVertical: 10 }}
+
           />
           <TextInput
             label="Email Address"
@@ -134,7 +134,7 @@ const AddWorkerScreen = ({ route }) => {
             value={emailAddress}
             onChangeText={(text) => setEmailAddress(text)}
             keyboardType="email-address"
-            style={{ marginVertical: 10 }}
+
           />
           <Button
             mode="contained"
@@ -187,6 +187,7 @@ const styles = StyleSheet.create({
     backgroundColor: "#edf2f4",
     width: "100%",
     marginBottom: 10,
+    marginVertical: 10 
   },
   contain: {
     padding: 40,
