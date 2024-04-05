@@ -1,5 +1,6 @@
 import { REACT_APP_SERVER_IP, REACT_APP_SERVER_PORT } from "@env";
 import React, { useState } from "react";
+import { IconButton } from 'react-native-paper';
 import { ScrollView, View, StyleSheet } from "react-native";
 import {
   Text,
@@ -9,6 +10,7 @@ import {
   Title,
   Snackbar,
 } from "react-native-paper";
+import { useNavigation } from "@react-navigation/native";
 
 const AddWorkerScreen = ({ route }) => {
   const { repaircenter_id } = route.params;
@@ -17,6 +19,7 @@ const AddWorkerScreen = ({ route }) => {
   const [password, setPassword] = useState("");
   const [phoneNumber, setPhoneNumber] = useState("");
   const [emailAddress, setEmailAddress] = useState("");
+  const navigation = useNavigation();
 
   const handleAddWorker = async () => {
     // Validate the form fields before submitting
@@ -77,73 +80,88 @@ const AddWorkerScreen = ({ route }) => {
       // Handle errors, show error messages, etc.
     }
   };
+  const handleCloseForm = () => {
+    navigation.goBack();
+    };
 
   return (
     <ScrollView>
-      <View style={styles.container}>
-        <Title style={styles.firstTitle}>
-          Welcome Back ! {"\n"}
+
+      <Card style={styles.card}>
+        {/* <Title style={styles.firstTitle}>
           <Title style={{ fontWeight: "normal", fontSize: 17 }}>
             Repair Center ID: {repaircenter_id}
           </Title>
-        </Title>
+        </Title> */}
+        <Title
+            style={{
+              fontWeight: 'normal',
+              fontSize: 16,
+              paddingTop: 40,
+              paddingLeft: 20,
+              paddingBottom: 10,
+              fontWeight: 'bold'
+            }}
+          >
+            Add Workers
+          </Title>
+          <IconButton
+            icon='close'
+            size={20}
+            color='black'
+            style={styles.closeIcon}
+            onPress={handleCloseForm}
+
+          />
+
         <View style={styles.card}>
           <TextInput
             label="User Name"
             style={styles.textinput}
-            mode="outlined"
             underlineColor="transparent"
             value={userName}
             onChangeText={(text) => setUserName(text)}
-            style={{ marginVertical: 10 }}
           />
           <TextInput
             label="Worker Name"
             style={styles.textinput}
-            mode="outlined"
             underlineColor="transparent"
             value={workerName}
             onChangeText={(text) => setWorkerName(text)}
-            style={{ marginVertical: 10 }}
           />
           <TextInput
             label="Password"
             style={styles.textinput}
-            mode="outlined"
             underlineColor="transparent"
             value={password}
             onChangeText={(text) => setPassword(text)}
             secureTextEntry
-            style={{ marginVertical: 10 }}
           />
           <TextInput
             label="Phone Number"
             style={styles.textinput}
-            mode="outlined"
             underlineColor="transparent"
             value={phoneNumber}
             onChangeText={(text) => setPhoneNumber(text)}
             keyboardType="numeric"
-            style={{ marginVertical: 10 }}
           />
           <TextInput
             label="Email Address"
             style={styles.textinput}
-            mode="outlined"
             underlineColor="transparent"
             value={emailAddress}
             onChangeText={(text) => setEmailAddress(text)}
             keyboardType="email-address"
-            style={{ marginVertical: 10 }}
           />
           <Button
             mode="contained"
             onPress={handleAddWorker}
             style={{
               padding: 8,
-              alignItems: "center",
-              marginTop: 20,
-              backgroundColor: "#c1121f",
+              color: 'white',
+              alignItems: 'center',
+              marginTop: '13%',
+              backgroundColor: '#808000'
             }}
           >
             <Text style={{ color: "white", fontSize: 16, fontWeight: "bold" }}>
@@ -151,21 +169,27 @@ const AddWorkerScreen = ({ route }) => {
             </Text>
           </Button>
         </View>
-      </View>
+        </Card>
     </ScrollView>
   );
 };
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#f5f1e9",
+
   },
   card: {
-    width: "80%",
-    marginTop: "10%",
-    margin: 35,
-    gap: 10,
-    marginBottom: 55,
+    paddingTop: 90,
+    width: '100%',
+    padding: 20,
+    // position: 'absolute',
+    backgroundColor: '#f5f5f5',
+  },
+  closeIcon: {
+    position: 'absolute',
+    top: 35,
+    right: 10,
+    zIndex: 1
   },
   firstTitle: {
     marginTop: "13%",
@@ -183,10 +207,14 @@ const styles = StyleSheet.create({
     backgroundColor: "#0d5563",
   },
   textinput: {
-    height: 50,
-    backgroundColor: "#edf2f4",
-    width: "100%",
-    marginBottom: 10,
+   marginBottom: 15,
+    borderRadius: 20,
+    borderTopLeftRadius: 20,
+    borderTopRightRadius: 20,
+    marginVertical: 10,
+    textDecorationLine: 'none',
+    backgroundColor: 'white',
+    elevation: 2,
   },
   contain: {
     padding: 40,

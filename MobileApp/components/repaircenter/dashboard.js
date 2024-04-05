@@ -802,7 +802,7 @@ const styles = StyleSheet.create({
     marginVertical: 10,
     textDecorationLine: 'none',
     backgroundColor: 'white',
-    elevation: 2
+    elevation: 2,
   },
   addButton: {
     padding: 8,

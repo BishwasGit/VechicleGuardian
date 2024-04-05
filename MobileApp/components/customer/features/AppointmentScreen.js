@@ -1,16 +1,31 @@
 import React from 'react';
+import { Ionicons } from '@expo/vector-icons';
 import {TextInput, Checkbox} from 'react-native-paper';
 import {View,Title,Text,Image,Dimensions,StyleSheet, TouchableOpacity} from 'react-native';
 
 const Notification = () => {
+
   return (
     <View style={styles.container}>
         <View style={styles.topContainer}>
-
-        <Text style={{ fontSize: 24, fontWeight: "bold", color: 'black', textAlign : 'left', }}>Appointment</Text>
+        <Ionicons
+          onPress={() => navigation.goBack()}
+          name="arrow-back"
+          size={25}
+          color="#808000"
+          style={styles.closeIcon}
+        />
+         <Text style={{ fontSize: 20, fontWeight: "bold", color: 'black', textAlign : 'left', }}> Book an Appointment</Text>
         </View>
 
      <View style={styles.formContainer}>
+     <Ionicons
+          name="cog"
+          size={66}
+          color="#c0c0c0"
+          style={styles.closeIcon}
+        />
+
      <TextInput
           style={styles.textinput}
           placeholder="Vehicle Number"
@@ -41,11 +56,19 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   topContainer: {
-    paddingTop: "13%",
-    padding: 20,
+    paddingTop: "15%",
+    padding: 30,
+
+    flexDirection: 'row',
+    flexWrap: 'wrap',
+    // justifyContent: 'space-b',
   },
   formContainer:{
     alignItems: 'center',
+  },
+  closeIcon: {
+    paddingRight:30,
+    marginBottom:15,
   },
   touchContainer: {
     flex: 1,
