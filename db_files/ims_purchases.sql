@@ -1,6 +1,6 @@
 -- MySQL dump 10.13  Distrib 8.0.34, for Win64 (x86_64)
 --
--- Host: localhost    Database: mobile_app
+-- Host: localhost    Database: ims
 -- ------------------------------------------------------
 -- Server version	8.2.0
 
@@ -16,32 +16,31 @@
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
--- Table structure for table `repair_parts`
+-- Table structure for table `purchases`
 --
 
-DROP TABLE IF EXISTS `repair_parts`;
+DROP TABLE IF EXISTS `purchases`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `repair_parts` (
-  `repair_parts_id` int NOT NULL AUTO_INCREMENT,
-  `repaircenter_id` int DEFAULT NULL,
-  `repaircenters_id` int DEFAULT NULL,
-  `parts_name` varchar(45) DEFAULT NULL,
-  `parts_image` varchar(255) DEFAULT NULL,
-  `parts_number` varchar(45) DEFAULT NULL,
-  `parts_quantity` bigint DEFAULT NULL,
-  PRIMARY KEY (`repair_parts_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+CREATE TABLE `purchases` (
+  `purchase_id` int NOT NULL AUTO_INCREMENT,
+  `item_id` int DEFAULT NULL,
+  `quantity_purchased` int DEFAULT NULL,
+  `total_price` decimal(10,2) DEFAULT NULL,
+  `purchased_at` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`purchase_id`),
+  KEY `item_id` (`item_id`),
+  CONSTRAINT `purchases_ibfk_1` FOREIGN KEY (`item_id`) REFERENCES `inventories` (`item_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `repair_parts`
+-- Dumping data for table `purchases`
 --
 
-LOCK TABLES `repair_parts` WRITE;
-/*!40000 ALTER TABLE `repair_parts` DISABLE KEYS */;
-INSERT INTO `repair_parts` VALUES (1,1,1,'Disk','https://bikeadvice.in/wp-content/uploads/2010/10/Disc-brake-6.jpg','Disk1123',12);
-/*!40000 ALTER TABLE `repair_parts` ENABLE KEYS */;
+LOCK TABLES `purchases` WRITE;
+/*!40000 ALTER TABLE `purchases` DISABLE KEYS */;
+/*!40000 ALTER TABLE `purchases` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
@@ -53,4 +52,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2024-04-07 23:14:44
+-- Dump completed on 2024-04-07 23:14:45
