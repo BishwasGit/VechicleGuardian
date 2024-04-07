@@ -4,6 +4,10 @@
 
 **/
 
+*{
+    font-family: "Futura";
+}
+
 p,
 h4,
 h3,
@@ -67,6 +71,17 @@ label {
     font-style: normal;
     font-display: swap
 }
+
+/* Futura font addition */
+
+@font-face {
+    font-family: "Futura";
+    src: local("Futura"), local("Futura Light"), url("../fonts/Futura-Light-Bt.woff") format("woff"), url("../fonts/Futura-Light-Bt.ttf") format("truetype");
+    font-weight: 600;
+    font-style: normal;
+    font-display: swap
+}
+
 
 /*!
  * Bootstrap v5.2.0-beta1 (https://getbootstrap.com/)
@@ -2386,7 +2401,8 @@ progress {
 .form-label {
     margin-bottom: .5rem;
     font-size: 0.875rem;
-    font-weight: 500
+    font-weight: 500;
+    font-family: "Futura";
 }
 
 .col-form-label {
@@ -27509,8 +27525,8 @@ h5,
 .h5,
 h6,
 .h6 {
-    font-weight: 700;
-    font-family: "Manrope", sans-serif
+    font-weight: 900;
+    font-family: "Futura"
 }
 
 h1:where(:last-child),
