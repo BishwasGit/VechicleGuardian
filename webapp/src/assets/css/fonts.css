@@ -1,0 +1,10 @@
+@font-face {
+    font-family: 'YourFontName';
+    src: url('./assets/fonts/futura medium bt.ttf') format('truetype'),
+    url('./assets/fonts/futura medium condensed bt.ttf') format('truetype'),
+    url('./assets/fonts/Futura-Light-Bt.ttf') format('truetype'),
+    url('./assets/fonts/Futura Bold font.ttf') format('truetype'),
+    url('./assets/fonts/Futura Bold Italic font.ttf') format('truetype'),
+    url('./assets/fonts/Futura Light font.ttf') format('truetype'),
+    url('./assets/fonts/Futura Light Italic font.ttf') format('truetype');
+  }
