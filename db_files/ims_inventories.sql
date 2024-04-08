@@ -42,7 +42,7 @@ CREATE TABLE `inventories` (
 
 LOCK TABLES `inventories` WRITE;
 /*!40000 ALTER TABLE `inventories` DISABLE KEYS */;
-INSERT INTO `inventories` VALUES (5,'4d276e29-7983-4a7c-91a8-788af52f3396','Exhaust-NS-200',NULL,15,70.00,'https://res.cloudinary.com/dpftkbsu6/image/upload/v1708843959/c2dmslfcpnfof1txsbtw.jpg','2024-02-25 01:07:39','2024-02-25 01:37:44');
+INSERT INTO `inventories` VALUES (5,'4d276e29-7983-4a7c-91a8-788af52f3396','Exhaust-NS-200','Bajaj Genuine Silencer and Exhaust Pipe for Bajaj Pulsar 200NS with 200cc DTSi Engine in authentic quality and price. Express delivery across India',50,70.00,'https://res.cloudinary.com/dpftkbsu6/image/upload/v1708843959/c2dmslfcpnfof1txsbtw.jpg','2024-02-25 01:07:39','2024-04-08 06:34:00');
 /*!40000 ALTER TABLE `inventories` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -55,4 +55,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2024-04-07 23:14:46
+-- Dump completed on 2024-04-08 13:11:44

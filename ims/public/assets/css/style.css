@@ -26059,7 +26059,8 @@ a.fc-event-darker-soft {
 }
 
 .nk-main {
-    position: relative
+    position: relative;
+    padding-bottom: 60px;
 }
 
 .nk-wrap {
@@ -26261,6 +26262,16 @@ a.fc-event-darker-soft {
     margin-left: 1.975rem
 }
 
+.nk-menu-footer {
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    background-color: #fff; /* Background color of the fixed menu */
+    border-top: 1px solid #e4e7eb; /* Border color */
+    padding: 15px 10px;
+    z-index: 1000; /* Ensure it's above other content */
+}
+
 .nk-menu-item .nk-menu-sub .nk-menu-sub {
     margin-left: 1.325rem
 }
@@ -26346,10 +26357,12 @@ a.fc-event-darker-soft {
     border-left-color: rgba(255, 255, 255, .1)
 }
 
-.is-theme .nk-menu .nk-menu-sub .active>.nk-menu-link {
+.is-theme .nk-menu .nk-menu-sub .active > .nk-menu-link {
     color: #151e43;
-    opacity: 1;
-    background-color : #f8f8f9;
+    background-color: #f8f8f9;
+    border-top-left-radius: 10px; /* Adjust the value for the desired curvature */
+    border-bottom-left-radius: 10px; /* Adjust the value for the desired curvature */
+    border: 1px solid #f8f8f9; /* Add border style if needed */
 }
 
 .nk-nav {

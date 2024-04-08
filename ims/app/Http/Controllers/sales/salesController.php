@@ -14,22 +14,37 @@ class salesController extends Controller
         $data = InventoryModel::get();
         return view('repairpartseller.sales.create',compact('data'));
     }
+    public function store(Request $request) {
+        // Decode the JSON data received from the frontend
+        $saleItems = json_decode($request->getContent(), true);
 
-    public function store(Request $request){
-        // Retrieve the item from the inventory
-        $item = InventoryModel::findOrFail($request->item_id);
+        // Initialize arrays to store item ids, quantity sold, and total prices
+        $itemIds = [];
+        $quantitiesSold = [];
+        $totalPrices = [];
 
-        // Update the quantity of the item in the inventory
-        $item->item_quantity -= $request->quantity_sold;
-        $item->save();
+        // Iterate through each item in the JSON data
+        foreach ($saleItems as $item) {
+            // Retrieve the item from the inventory
+            $inventoryItem = InventoryModel::findOrFail($item['item_id']);
+
+            // Update the quantity of the item in the inventory
+            $inventoryItem->item_quantity -= $item['quantity_sold'];
+            $inventoryItem->save();
+
+            // Store item id, quantity sold, and total price in arrays
+            $itemIds[] = $item['item_id'];
+            $quantitiesSold[] = $item['quantity_sold'];
+            $totalPrices[] = $item['total_price'];
+        }
 
         // Create a new sales record
         $sale = new SalesModel();
-        $sale->item_id = $request->item_id;
+        $sale->items_id = json_encode($itemIds); // Store item ids as JSON string
         $sale->sold_to = $request->sold_to;
-        $sale->quantity_sold = $request->quantity_sold;
-        $sale->total_price = $request->total_price;
-        $sale->sold_at = DB::raw('now()'); // Set sold_at to current timestamp
+        $sale->quantity_sold = json_encode($quantitiesSold); // Store quantities sold as JSON string
+        $sale->total_price = json_encode($totalPrices); // Store total prices as JSON string
+        $sale->sold_at = now(); // Set sold_at to current timestamp
         $sale->save();
 
         return redirect()->back()->with('success', 'Sale recorded successfully');

@@ -8,9 +8,10 @@ class sales extends Model
     protected $table = 'sales';
     protected $primaryKey = 'sales_id';
     protected $fillable = [
-                    'item_id',
+                    'items_id',
                     'quantity_sold',
                     'total_price',
+                    'grand_total',
                     'sold_at',
                     'sold_to',
                     'created_at',

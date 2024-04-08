@@ -71,6 +71,11 @@
                                                             </th>
                                                             <th class="tb-col" data-sortable="" style="width: 30.1887%;">
                                                                 <a href="#" class="dataTable-sorter">
+                                                                    <span class="overline-title">Item Image</span>
+                                                                </a>
+                                                            </th>
+                                                            <th class="tb-col" data-sortable="" style="width: 30.1887%;">
+                                                                <a href="#" class="dataTable-sorter">
                                                                     <span class="overline-title">Item_quantity</span>
                                                                 </a>
                                                             </th>
@@ -97,15 +102,17 @@
                                                                 <td class="tb-col">{{ $item->item_id }}</td>
                                                                 <td class="tb-col">
                                                                     <div class="media-group">
-                                                                        <div class="media media-md media-middle"><img
-                                                                                src="{{ $item->item_image }}"
-                                                                                alt="{{ $item->item_id }}"></div>
                                                                         <div class="media-text"><a href="#"
                                                                                 class="title">{{ $item->item_name }}</a>
-                                                                            <div class="text smaller d-none d-sm-block">
+                                                                            <div class="text smaller d-none d-sm-block text-justify">
                                                                                 {{ $item->item_description }}</div>
                                                                         </div>
                                                                     </div>
+                                                                </td>
+                                                                <td>
+                                                                    <div><img
+                                                                        src="{{ $item->item_image }}"
+                                                                        alt="{{ $item->item_id }}"></div>
                                                                 </td>
                                                                 <td class="tb-col">
                                                                     @if($item->item_quantity < 5)

@@ -3,6 +3,7 @@
         <div class="nk-sidebar-brand"><a href="index-2.html" class="logo-link">
                 <div class="logo-wrap">
                     <!-- SIDE BAR LOGO HERE-->
+                    <h1 class="logo-title">LOGO HERE</h1>
                 </div>
             </a>
             <div class="nk-compact-toggle me-n1"><button
@@ -122,7 +123,7 @@
                         </ul>
                     </li>
 
-                    <!-- Settings (Optional) -->
+                    <!-- settings -->
                     <li class="nk-menu-item has-sub">
                         <a href="#" class="nk-menu-link nk-menu-toggle">
                             <span class="nk-menu-icon"><em class="icon ni ni-setting"></em></span>
@@ -134,6 +135,17 @@
                             <li class="nk-menu-item"><a href="settings/user-management.html"
                                     class="nk-menu-link"><span class="nk-menu-text">User Management</span></a></li>
                         </ul>
+                    </li>
+                    <!-- profile settings -->
+                    <li class="nk-menu-item nk-menu-footer">
+                            <span class="media-group">
+                                <span class="media media-xl media-middle media-circle"><img src="{{ asset('assets/avatar.png') }}" alt=""></span>
+                                <span class="media-text nk-menu-text">
+                                    <span class="lead-text">{{ auth()->user()->username }}</span>
+                                    <span class="sub-text">Repair Parts Seller</span>
+                                    <a href="{{ route('logout') }}" class="lead-text text-primary"><span>Log
+                                        Out</span></a>
+                                </span>
                     </li>
 
                 </ul>
