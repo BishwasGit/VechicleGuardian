@@ -1,10 +1,10 @@
 import { REACT_APP_SERVER_IP, REACT_APP_SERVER_PORT } from "@env";
 import React, { useEffect, useState } from "react";
-import { View, StyleSheet, Text, TouchableOpacity } from "react-native";
+import { View, StyleSheet, Text, TouchableOpacity, ScrollView } from "react-native";
 import { Card, Title } from "react-native-paper";
 import { useNavigation } from "@react-navigation/native";
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
-
+import { List } from 'react-native-paper';
 import { Button, ActivityIndicator } from "react-native-paper";
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 
@@ -77,11 +77,24 @@ const WorkerDashboard = ({ route }) => {
       )}
       options={{
         tabBarIcon: ({color, size}) => (
-          <Icon name="view-dashboard" size={size} color={color} />
+          <Icon name="home" size={size} color={color} />
         ),
       }}
     >
       </Tab.Screen>
+
+      <Tab.Screen
+      name="Jobs"
+      children={() => (
+        <JobScreen
+        />
+      )}
+      options={{
+        tabBarIcon: ({color, size}) => (
+          <Icon name="view-dashboard" size={size} color={color} />
+        ),
+      }}
+    />
 
     <Tab.Screen
       name="Profile"
@@ -106,6 +119,7 @@ function MenuScreen({
   handleStartRepairing,
 }) {
   return (
+    <ScrollView>
     <View style={styles.container}>
    <Text style={styles.welcomeText}>
       Welcome to your {'\n'}
@@ -141,7 +155,34 @@ function MenuScreen({
     >
       Start Repairing
     </Button>
+
   </View>
+  </ScrollView>
+  );
+}
+
+function JobScreen({
+
+}) {
+  return (
+    <View style={styles.container}>
+
+    <View style={styles.list}>
+    <Text style={{ fontSize: 14, marginBottom: 15,fontWeight:'bold' }}>List of Works</Text>
+    <List.AccordionGroup style={styles.listt}>
+    <List.Accordion  style={styles.listItem} title="Yamaha : Charge Battery" id="1">
+      <List.Item style={styles.listTitle} title="Due Date: " />
+      <List.Item style={styles.listTitle} title="Changes:" />
+      <List.Item style={styles.listTitle} title="Progress: " />
+      <List.Item style={styles.listTitle} title=" " />
+    </List.Accordion>
+
+    <List.Accordion  style={styles.listItem} title="Accordion 2" id="2">
+      <List.Item title="Item 2" />
+    </List.Accordion>
+  </List.AccordionGroup>
+    </View>
+    </View>
   );
 }
 
@@ -196,6 +237,20 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     backgroundColor: '#fff',
   },
+  cardContainer: {
+    flex: 1,
+    paddingTop: '5%',
+    alignItems: "center",
+    width:'95%',
+    backgroundColor:'#f5f5f5',
+  },
+  card:{
+    padding:20,
+    width:'95%',
+    alignItems: "left",
+    backgroundColor:'#bcb88a',
+  },
+
   welcomeText: {
     fontWeight: "bold",
     color: "#d4af37",
@@ -210,6 +265,7 @@ const styles = StyleSheet.create({
     marginVertical: 15,
   },
   head: {
+    marginTop: '10%',
     width: "90%",
     padding: 40,
     borderColor: "#0d5563",
@@ -218,10 +274,25 @@ const styles = StyleSheet.create({
     borderTopLeftRadius: 20,
     borderTopRightRadius: 20,
   },
+  list:{
+    paddingTop: '10%',
+    width:"90%",
+    backgroundColor:'#f5f5f5',
+  },
+  listItem:{
+    elevation:2,
+    backgroundColor:'white',
+    borderWidth:0.15,
+    width:'100%',
+    // marginBottom:15,
+  },
+  listTitle:{
+
+  },
   profileContainer:{
     flex: 1,
     alignItems: 'left',
-    paddingTop:"25%",
+    paddingTop:"20%",
     paddingLeft:"5%",
   },
   profileTitle:{
@@ -236,7 +307,7 @@ const styles = StyleSheet.create({
   },
   buttonRow: {
     height:300,
-    width:"60%",
+    width:"100%",
   },
   buttonProfileText:{
     color:'black',
@@ -258,13 +329,11 @@ const styles = StyleSheet.create({
   },
   logOutButton:{
     backgroundColor:"#96a53c",
-    padding: 15,
-    borderRadius: 50,
-    width:'60%',
+    padding: 20,
+    borderRadius: 10,
+    width:'95%',
+    elevation:2,
     alignItems : 'center',
-    marginVertical : 20,
-    marginLeft : '50%',
-    marginRight : '50%'
   },
 });
 export default WorkerDashboard;
