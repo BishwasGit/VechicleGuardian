@@ -26,7 +26,7 @@
                                                         <input type="text" class="form-control" id="sold_to" name="sold_to" min="1">
                                                     </div>
                                                     <div class="form-group col-3 my-3">
-                                                        <label class="form-label" for="sold_to">Sold At</label>
+                                                        <label class="form-label" for="sold_at">Sold At</label>
                                                         <input type="text" class="form-control" id="sold_at" name="sold_at" value={{ Date(now()) }} readonly>
                                                     </div>
                                                 </div>
@@ -43,8 +43,7 @@
                                                         </thead>
                                                         <tbody id="sale-items">
                                                             <tr>
-                                                                <td><button type="button" class="btn btn-primary mt-3" id="add-row">Add Items</button></td>
-                                                                <td colspan="2"></td>
+                                                                <td colspan="2"><button type="button" class="btn btn-primary mt-3" id="add-row">Add Items</button></td>
                                                             <td>
                                                                 <div>
                                                                     <label for="vat">VAT:</label>
@@ -52,9 +51,13 @@
                                                                 </div>
                                                             </td>
                                                             <td>
+                                                                <label for="showtotalprices">Total: (without VAT)</label>
+                                                                <input class="form-control" id="showtotalprices" name="showtotalprices" readonly>
+                                                            </td>
+                                                            <td>
                                                             <div>
                                                                 <label for="grand_total">Grand Total:</label>
-                                                                <input type="number" class="form-control" id="total_price" name="total_price" readonly>
+                                                                <input type="number" class="form-control" id="grand_total" name="grand_total" readonly>
                                                             </div>
                                                             </td>
                                                             </tr>
@@ -129,47 +132,88 @@
 
         $('#total_price_' + rowId).val(totalPrice.toFixed(2));
     }
-    $('#submit-sales').click(function(event) {
-        event.preventDefault();
-        var saleItems = [];
+    function calculateGrandTotal() {
+        var totalPrices = 0; // Initialize total prices variable
         $('[id^="item_id_"]').each(function() {
             var rowId = $(this).attr('id').split('_')[2];
-            var itemId = $(this).val();
-            var currentQuantity = $('#current_quantity_' + rowId).val();
-            var pricePerUnit = $('#price_per_unit_' + rowId).val();
-            var quantitySold = $('.quantity_sold[data-row="' + rowId + '"]').val();
             var totalPrice = $('#total_price_' + rowId).val();
-            var rowData = {
-                item_id: itemId,
-                current_quantity: currentQuantity,
-                price_per_unit: pricePerUnit,
-                quantity_sold: quantitySold,
-                total_price: totalPrice
-            };
-            saleItems.push(rowData);
+            totalPrices += parseFloat(totalPrice); // Add to total prices
         });
-        var jsonData = JSON.stringify(saleItems);
-        var csrfToken = $('meta[name="csrf-token"]').attr('content');
-        $.ajax({
-            url: '{{ route("repairpartseller.sales.store") }}',
-            type: 'POST',
-            dataType: 'json',
-            contentType: 'application/json',
-            headers: {
-                'X-CSRF-TOKEN': csrfToken
-            },
-            data: jsonData,
-            success: function(response) {
-                // Handle successful response from the backend
-                console.log(response);
-                // Optionally, redirect to another page or show a success message
-            },
-            error: function(xhr, status, error) {
-                // Handle errors
-                console.error(xhr.responseText);
-                // Optionally, display an error message to the user
-            }
-        });
+
+        var vatPercentage = parseFloat($('#vat').val()); // Get VAT percentage
+        var vatAmount = (totalPrices * vatPercentage) / 100; // Calculate VAT amount
+        var grandTotal = totalPrices + vatAmount; // Calculate grand total
+        // Display VAT amount and grand total
+        $('#vat').val(vatAmount.toFixed(2));
+        $('#grand_total').val(grandTotal.toFixed(2));
+        $('#showtotalprices').val(totalPrices.toFixed(2));
+    }
+    calculateGrandTotal();
+    $('#vat').change(function() {
+        calculateGrandTotal();
+    });
+    $('#submit-sales').click(function(event) {
+                        event.preventDefault();
+                        var saleItems = [];
+                        var grandTotal = $('#grand_total').val();
+                        var vatAmmount = $('#vat').val();
+                        var soldTo = $('#sold_to').val();
+                        $('[id^="item_id_"]').each(function() {
+                            var rowId = $(this).attr('id').split('_')[2];
+                            var itemId = $(this).val();
+                            var currentQuantity = $('#current_quantity_' + rowId).val();
+                            var pricePerUnit = $('#price_per_unit_' + rowId).val();
+                            var quantitySold = $('.quantity_sold[data-row="' + rowId + '"]').val();
+                            var totalPrice = $('#total_price_' + rowId).val();
+                            var rowData = {
+                                item_id: itemId,
+                                current_quantity: currentQuantity,
+                                price_per_unit: pricePerUnit,
+                                quantity_sold: quantitySold,
+                                total_price: totalPrice,
+                                grand_total: grandTotal,
+                                vat: vatAmmount,
+                                sold_to : soldTo,
+                            };
+                            saleItems.push(rowData);
+                        });
+                        var jsonData = JSON.stringify(saleItems);
+                        var csrfToken = $('meta[name="csrf-token"]').attr('content');
+                        $.ajax({
+                    url: '{{ route("repairpartseller.sales.store") }}',
+                    type: 'POST',
+                    dataType: 'json',
+                    contentType: 'application/json',
+                    headers: {
+                        'X-CSRF-TOKEN': csrfToken
+                    },
+                    data: jsonData
+                })
+                .then(function(response) {
+                    // Handle success response
+                    console.log(response);
+                    // Show success message using SweetAlert
+                    Swal.fire({
+                        icon: 'success',
+                        title: 'Success',
+                        text: 'Sale recorded successfully',
+                        showConfirmButton: false,
+                        timer: 1500
+                    });
+                    window.reload();
+                })
+                .catch(function(xhr, status, error) {
+                    // Handle error response
+                    console.error(xhr.responseText);
+                    // Show error message using SweetAlert
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Error',
+                        text: 'An error occurred. Please try again later.',
+                        showConfirmButton: false,
+                        timer: 1500
+                    });
+                });
     });
 });
 

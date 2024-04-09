@@ -11,9 +11,9 @@ import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 
 const Tab = createBottomTabNavigator ();
 
-const WorkerDashboard = ({
-  route }) => {
+const WorkerDashboard = ({ route }) => {
   const { repaircenter_workers_id } = route.params;
+  console.log('repair center worker id in worker dashboard',repaircenter_workers_id);
   const navigation = useNavigation();
   const [workerDetails, setWorkerDetails] = useState(null);
   const [loading, setLoading] = useState(true);
@@ -36,7 +36,7 @@ const WorkerDashboard = ({
         const result = await response.json();
 
         if (result.success) {
-          setWorkerDetails(result.data); // Access the 'data' property
+          setWorkerDetails(result.data);
         }
       } catch (error) {
         console.error("Error fetching worker details:", error);
@@ -81,7 +81,6 @@ const WorkerDashboard = ({
         ),
       }}
     >
-        {() => <MenuScreen repaircenterWorkersId={repaircenter_workers_id} />}
       </Tab.Screen>
 
     <Tab.Screen
@@ -108,36 +107,35 @@ function MenuScreen({
 }) {
   return (
     <View style={styles.container}>
-    <Title style={styles.welcomeText}>Worker Dashboard</Title>
-    <View style={styles.head}>
-      {loading ? (
-        <ActivityIndicator animating={true} />
-      ) : workerDetails ? (
-        <>
-          <Text style={{ fontSize: 20, color: "#c1121f" }}>
-            Welcome! {workerDetails.worker_name}
-          </Text>
-          <Text style={{ marginTop: 5 }}>
-            Contact Number: {workerDetails.phone_number}
-          </Text>
-          <Text style={{ marginTop: 5 }}>
-            Email Address: {workerDetails.email_address}
-          </Text>
-          {/* Add other worker details here */}
-        </>
-      ) : (
-        <Text>No worker details found</Text>
-      )}
-    </View>
-
+   <Text style={styles.welcomeText}>
+      Welcome to your {'\n'}
+      <Text style={{color: "#d4af37"}}>Worker Dashboard</Text>
+    </Text>
+    <Card style={styles.card}>
+        <Card.Content style={{ padding : 5 }}>
+          {loading ? (
+            <ActivityIndicator animating={true} />
+          ) : workerDetails ? (
+            <>
+              <Text style={{ fontSize: 20, color: "#d4af37" }}>
+              Name :  {workerDetails.worker_name}
+              </Text>
+              <Text style={styles.text}>
+                Contact Number: {workerDetails.phone_number}
+              </Text>
+              <Text style={styles.text}>
+                Email Address: {workerDetails.email_address}
+              </Text>
+            </>
+          ) : (
+            <Text>No worker details found</Text>
+          )}
+        </Card.Content>
+      </Card>
     <Button
-      style={{
-        width: "90%",
-        padding: 15,
-        alignItems: "center",
-        marginTop: 50,
-        backgroundColor: "#0d5563",
-      }}
+      style={
+        styles.logOutButton
+      }
       onPress={handleStartRepairing}
       labelStyle={{ color: "white" }}
     >
@@ -182,7 +180,7 @@ function ProfileScreen({
       </View>
       <View style={styles.buttonRow}>
           <TouchableOpacity
-        style={styles.switchprofileLogbutton}
+        style={styles.logOutButton}
         onPress={handleLogout}
       >
         <Text style={{color:'white',fontSize:16,fontWeight:'bold'}}>Log Out</Text>
@@ -194,15 +192,22 @@ function ProfileScreen({
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-
-    alignItems: "center",
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: '#fff',
   },
   welcomeText: {
-    paddingTop: 50,
     fontWeight: "bold",
-    color: "#c1121f",
-    paddingBottom: 50,
+    color: "#d4af37",
     fontSize: 25,
+    textAlign:'center'
+  },
+  card: {
+    marginVertical: 50,
+    padding : 25
+  },
+  text: {
+    marginVertical: 15,
   },
   head: {
     width: "90%",
@@ -251,7 +256,7 @@ const styles = StyleSheet.create({
     borderWidth:0.2,
     borderColor:'#e5e4e2',
   },
-  switchprofileLogbutton:{
+  logOutButton:{
     backgroundColor:"#96a53c",
     padding: 15,
     borderRadius: 50,

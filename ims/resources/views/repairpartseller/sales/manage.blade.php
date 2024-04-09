@@ -74,27 +74,46 @@
                                                         @foreach ($sales as $item)
                                                             <tr>
                                                                 <td class="tb-col">{{ $item->sales_id }}</td>
-                                                                <td class="tb-col">{{ $item->item->item_name }}</td>
-                                                                <td class="tb-col">{{ $item->quantity_sold }}</td>
-                                                                <td class="tb-col">{{ $item->total_price }}</td>
+                                                                <td class="tb-col">
+                                                                    @foreach(json_decode($item->items_id) as $item_id)
+                                                                        @php
+                                                                            $itemData =DB::table('inventories')->where('item_id', $item_id)->first();
+                                                                        @endphp
+                                                                        @if ($itemData)
+                                                                            {{ $itemData->item_name }}<br>
+                                                                        @else
+                                                                            Item not found
+                                                                        @endif
+                                                                    @endforeach
+                                                                </td>
+                                                                <td class="tb-col">
+                                                                    @foreach(json_decode($item->quantity_sold) as $quantity)
+                                                                        {{ $quantity }}<br>
+                                                                    @endforeach
+                                                                </td>
+                                                                <td class="tb-col">
+                                                                    @foreach(json_decode($item->grand_total) as $grand_price)
+                                                                        {{ $grand_price }}<br>
+                                                                    @endforeach
+                                                                </td>
                                                                 <td class="tb-col">{{ $item->sold_at }}</td>
                                                                 <td class="tb-col tb-col-end">
                                                                     <div class="d-flex justify-content-end gap g-2">
                                                                         <div class="gap-col"><a type="button"
                                                                                 class="btn btn-sm btn-icon bg-primary-soft"
                                                                                 title="Print"
-                                                                                href="{{ route('sales.edit', ['id' => $item->sales_id]) }}"><em
+                                                                                href="{{ route('sales.edit', ['id' => $item->sales_uuid]) }}"><em
                                                                                     class="icon ni ni-edit"></em></a>
                                                                         </div>
                                                                         <div class="gap-col"><a
-                                                                                href="{{ route('sales.show', ['id' => $item->sales_id]) }}"
+                                                                                href="{{ route('sales.show', ['id' => $item->sales_uuid]) }}"
                                                                                 class="btn btn-sm bg-success-soft"> <em
                                                                                     class="icon ni ni-eye"></em>
                                                                             </a></div>
                                                                         <div class="gap-col">
                                                                             <a href="#" id="delete-item"
                                                                                 class="btn btn-sm bg-danger-soft delete-item"
-                                                                                data-item-id="{{ $item->sales_id }}">
+                                                                                data-item-id="{{ $item->sales_uuid }}">
                                                                                 <em class="icon ni ni-trash"></em>
                                                                             </a>
                                                                         </div>

@@ -24,12 +24,14 @@ DROP TABLE IF EXISTS `sales`;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `sales` (
   `sales_id` int NOT NULL AUTO_INCREMENT,
+  `sales_uuid` varchar(255) DEFAULT NULL,
   `items_id` json DEFAULT NULL,
   `quantity_sold` json DEFAULT NULL,
   `total_price` json DEFAULT NULL,
-  `grand_total` decimal(10,2) DEFAULT NULL,
+  `vat` json DEFAULT NULL,
+  `grand_total` json DEFAULT NULL,
   `sold_at` timestamp NULL DEFAULT NULL,
-  `sold_to` text,
+  `sold_to` json DEFAULT NULL,
   `created_at` datetime DEFAULT NULL,
   `updated_at` datetime DEFAULT NULL,
   PRIMARY KEY (`sales_id`)
@@ -54,4 +56,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2024-04-08 13:11:44
+-- Dump completed on 2024-04-09 23:17:47
