@@ -65,4 +65,14 @@ class salesController extends Controller
         $sales = SalesModel::all();
         return view('repairpartseller.sales.manage', ['sales' => $sales]);
     }
+    public function delete($id)
+    {
+        $sales = SalesModel::where('sales_uuid', $id)->first();
+        if ($sales) {
+            $sales->delete();
+            return redirect()->back()->with('success', 'Sales record deleted successfully.');
+        } else {
+            return redirect()->back()->with('error', 'Sales record not found.');
+        }
+    }
 }

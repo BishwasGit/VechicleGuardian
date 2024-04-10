@@ -42,13 +42,32 @@
                         <ul class="nk-menu-sub">
                             <li class="nk-menu-item"><a href="{{ route('repairpartseller.inventories.inventories.index') }}" class="nk-menu-link"><span
                                         class="nk-menu-text">Add Item</span></a></li>
-                            <li class="nk-menu-item"><a href="inventory/manage-items.html" class="nk-menu-link"><span
-                                        class="nk-menu-text">Manage Items</span></a></li>
                             <li class="nk-menu-item"><a href="{{route('inventories.lowstock',['selleruuid' => auth()->user()->seller_uuid])}}" class="nk-menu-link"><span
                                         class="nk-menu-text">Low Stock</span></a></li>
                         </ul>
                     </li>
+                    <li class="nk-menu-item has-sub">
+                        <a href="#" class="nk-menu-link nk-menu-toggle">
+                            <span class="nk-menu-icon"><em class="icon ni ni-users"></em></span>
+                            <span class="nk-menu-text">Debtors</span>
+                        </a>
+                        <ul class="nk-menu-sub">
+                            <li class="nk-menu-item"><a href="{{ route('repairpartseller.debtors') }}" class="nk-menu-link"><span
+                                        class="nk-menu-text">Add Debtor</span></a></li>
+                        </ul>
+                    </li>
 
+                    <!-- Creditors Management -->
+                    <li class="nk-menu-item has-sub">
+                        <a href="#" class="nk-menu-link nk-menu-toggle">
+                            <span class="nk-menu-icon"><em class="icon ni ni-user-check"></em></span>
+                            <span class="nk-menu-text">Creditors</span>
+                        </a>
+                        <ul class="nk-menu-sub">
+                            <li class="nk-menu-item"><a href="{{ route('repairpartseller.creditors') }}" class="nk-menu-link"><span
+                                        class="nk-menu-text">Add Creditor</span></a></li>
+                        </ul>
+                    </li>
                     <!-- Sales Management -->
                     <li class="nk-menu-item has-sub">
                         <a href="#" class="nk-menu-link nk-menu-toggle">
@@ -74,34 +93,6 @@
                                         class="nk-menu-text">New Purchase</span></a></li>
                             <li class="nk-menu-item"><a href="purchases/manage-purchases.html"
                                     class="nk-menu-link"><span class="nk-menu-text">Manage Purchases</span></a></li>
-                        </ul>
-                    </li>
-
-                    <!-- Debtors Management -->
-                    <li class="nk-menu-item has-sub">
-                        <a href="#" class="nk-menu-link nk-menu-toggle">
-                            <span class="nk-menu-icon"><em class="icon ni ni-users"></em></span>
-                            <span class="nk-menu-text">Debtors</span>
-                        </a>
-                        <ul class="nk-menu-sub">
-                            <li class="nk-menu-item"><a href="#" class="nk-menu-link"><span
-                                        class="nk-menu-text">Add Debtor</span></a></li>
-                            <li class="nk-menu-item"><a href="debtors/manage-debtors.html" class="nk-menu-link"><span
-                                        class="nk-menu-text">Manage Debtors</span></a></li>
-                        </ul>
-                    </li>
-
-                    <!-- Creditors Management -->
-                    <li class="nk-menu-item has-sub">
-                        <a href="#" class="nk-menu-link nk-menu-toggle">
-                            <span class="nk-menu-icon"><em class="icon ni ni-user-check"></em></span>
-                            <span class="nk-menu-text">Creditors</span>
-                        </a>
-                        <ul class="nk-menu-sub">
-                            <li class="nk-menu-item"><a href="creditors/add-creditor.html" class="nk-menu-link"><span
-                                        class="nk-menu-text">Add Creditor</span></a></li>
-                            <li class="nk-menu-item"><a href="creditors/manage-creditors.html"
-                                    class="nk-menu-link"><span class="nk-menu-text">Manage Creditors</span></a></li>
                         </ul>
                     </li>
 

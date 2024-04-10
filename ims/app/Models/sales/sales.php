@@ -9,6 +9,7 @@ class sales extends Model
     protected $primaryKey = 'sales_id';
     protected $fillable = [
                     'items_id',
+                    'seller_uuid',
                     'sales_uuid',
                     'quantity_sold',
                     'total_price',

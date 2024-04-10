@@ -200,7 +200,9 @@
                         showConfirmButton: false,
                         timer: 1500
                     });
-                    window.reload();
+                    setTimeout(function(){
+                            window.location.reload();
+                        }, 1500);
                 })
                 .catch(function(xhr, status, error) {
                     // Handle error response

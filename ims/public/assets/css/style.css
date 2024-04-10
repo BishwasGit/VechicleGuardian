@@ -26360,9 +26360,9 @@ a.fc-event-darker-soft {
 .is-theme .nk-menu .nk-menu-sub .active > .nk-menu-link {
     color: #151e43;
     background-color: #f8f8f9;
-    border-top-left-radius: 10px; /* Adjust the value for the desired curvature */
-    border-bottom-left-radius: 10px; /* Adjust the value for the desired curvature */
-    border: 1px solid #f8f8f9; /* Add border style if needed */
+    border-top-left-radius: 5px;
+    border-bottom-left-radius: 5px;
+    border: 1px solid #f8f8f9;
 }
 
 .nk-nav {
