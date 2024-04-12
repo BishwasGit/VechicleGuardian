@@ -1,1 +1,11 @@
-@import url('./assets/css/fonts.css');
+/* @import url('./assets/css/fonts.css'); */
+
+@font-face {
+	font-family: "Futura";
+	src: local("Futura"),
+		url(./assets/fonts/Futura-Light-Bt.ttf) format("truetype");
+}
+
+* {
+	font-family: "Futura", "sans-serif";
+}
