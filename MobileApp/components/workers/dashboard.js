@@ -11,9 +11,9 @@ import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 
 const Tab = createBottomTabNavigator ();
 
-const WorkerDashboard = ({
-  route }) => {
+const WorkerDashboard = ({ route }) => {
   const { repaircenter_workers_id } = route.params;
+  console.log('repair center worker id in worker dashboard',repaircenter_workers_id);
   const navigation = useNavigation();
   const [workerDetails, setWorkerDetails] = useState(null);
   const [loading, setLoading] = useState(true);
@@ -36,7 +36,7 @@ const WorkerDashboard = ({
         const result = await response.json();
 
         if (result.success) {
-          setWorkerDetails(result.data); // Access the 'data' property
+          setWorkerDetails(result.data);
         }
       } catch (error) {
         console.error("Error fetching worker details:", error);
@@ -81,7 +81,6 @@ const WorkerDashboard = ({
         ),
       }}
     >
-        {() => <MenuScreen repaircenterWorkersId={repaircenter_workers_id} />}
       </Tab.Screen>
 
       <Tab.Screen
@@ -122,73 +121,37 @@ function MenuScreen({
   return (
     <ScrollView>
     <View style={styles.container}>
-    <Title style={styles.welcomeText}>Worker Dashboard</Title>
-
-    <View style={styles.cardContainer}>
+   <Text style={styles.welcomeText}>
+      Welcome to your {'\n'}
+      <Text style={{color: "#d4af37"}}>Worker Dashboard</Text>
+    </Text>
     <Card style={styles.card}>
-      <Card.Content style={{alignItems: "left",padding:10,}}>
-        <Text variant="titleLarge">Works for Today</Text>
-        <Text style={{fontSize:18,fontWeight:'bold',paddingTop:6,}} variant="bodyMedium">Top Prioity:  10</Text>
-        <Text style={{fontSize:18,fontWeight:'bold',paddingTop:6,}} variant="bodyMedium">Total Work:  20</Text>
-      </Card.Content>
-      <Card.Actions style={{alignItems: "left",paddingTop:15,}}>
-        <Button style={{borderColor:'white',borderRadius:8,borderWidth:1,backgroundColor:'#808000'}}><Text style={{color:'white',fontWeight:'bold'}} >Check Top Prioity </Text></Button>
-        <Button style={{borderColor:'white',borderRadius:8,borderWidth:1,backgroundColor:'#808000',}}><Text style={{color:'white',fontWeight:'bold'}} >Check All List </Text></Button>
-      </Card.Actions>
-   </Card>
-    </View>
-
-    <View style={styles.head}>
-      {loading ? (
-        <ActivityIndicator animating={true} />
-      ) : workerDetails ? (
-        <>
-          <Text style={{ fontSize: 20, color: "#c1121f" }}>
-            Welcome! {workerDetails.worker_name}
-          </Text>
-          <Text style={{ marginTop: 5 }}>
-            Contact Number: {workerDetails.phone_number}
-          </Text>
-          <Text style={{ marginTop: 5 }}>
-            Email Address: {workerDetails.email_address}
-          </Text>
-          {/* Add other worker details here */}
-        </>
-      ) : (
-        <Text>No worker details found</Text>
-      )}
-    </View>
-
-
-
-    <View style={styles.list}>
-    <Text style={{ fontSize: 14, marginBottom: 15,fontWeight:'bold' }}>Status Board</Text>
-    <List.AccordionGroup style={styles.listt}>
-    <List.Accordion  style={styles.listItem} title="Yamaha : Charge Battery" id="1">
-      <List.Item style={styles.listTitle} title="Due Date: " />
-      <List.Item style={styles.listTitle} title="Changes:" />
-      <List.Item style={styles.listTitle} title="Progress: " />
-      <List.Item style={styles.listTitle} title=" " />
-    </List.Accordion>
-
-    <List.Accordion  style={styles.listItem} title="Accordion 2" id="2">
-      <List.Item title="Item 2" />
-    </List.Accordion>
-  </List.AccordionGroup>
-    </View>
-
+        <Card.Content style={{ padding : 5 }}>
+          {loading ? (
+            <ActivityIndicator animating={true} />
+          ) : workerDetails ? (
+            <>
+              <Text style={{ fontSize: 20, color: "#d4af37" }}>
+              Name :  {workerDetails.worker_name}
+              </Text>
+              <Text style={styles.text}>
+                Contact Number: {workerDetails.phone_number}
+              </Text>
+              <Text style={styles.text}>
+                Email Address: {workerDetails.email_address}
+              </Text>
+            </>
+          ) : (
+            <Text>No worker details found</Text>
+          )}
+        </Card.Content>
+      </Card>
     <Button
-      style={{
-        margin:40,
-        width: "90%",
-        padding: 15,
-        alignItems: "center",
-        marginTop: 50,
-        backgroundColor: "#808000",
-      }}
-      labelStyle={{ color: "white" }}
+      style={
+        styles.logOutButton
+      }
       onPress={handleStartRepairing}
-
+      labelStyle={{ color: "white" }}
     >
       Start Repairing
     </Button>
@@ -258,7 +221,7 @@ function ProfileScreen({
       </View>
       <View style={styles.buttonRow}>
           <TouchableOpacity
-        style={styles.switchprofileLogbutton}
+        style={styles.logOutButton}
         onPress={handleLogout}
       >
         <Text style={{color:'white',fontSize:16,fontWeight:'bold'}}>Log Out</Text>
@@ -270,9 +233,9 @@ function ProfileScreen({
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    paddingTop: '15%',
-    alignItems: "center",
-    backgroundColor:'#f5f5f5',
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: '#fff',
   },
   cardContainer: {
     flex: 1,
@@ -290,9 +253,16 @@ const styles = StyleSheet.create({
 
   welcomeText: {
     fontWeight: "bold",
-    color: "black",
-    // paddingBottom: 50,
-    fontSize: 22,
+    color: "#d4af37",
+    fontSize: 25,
+    textAlign:'center'
+  },
+  card: {
+    marginVertical: 50,
+    padding : 25
+  },
+  text: {
+    marginVertical: 15,
   },
   head: {
     marginTop: '10%',
@@ -357,8 +327,7 @@ const styles = StyleSheet.create({
     borderWidth:0.2,
     borderColor:'#e5e4e2',
   },
-  switchprofileLogbutton:{
-    marginTop:"35%",
+  logOutButton:{
     backgroundColor:"#96a53c",
     padding: 20,
     borderRadius: 10,

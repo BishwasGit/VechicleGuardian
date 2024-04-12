@@ -9,8 +9,11 @@ class sales extends Model
     protected $primaryKey = 'sales_id';
     protected $fillable = [
                     'items_id',
+                    'seller_uuid',
+                    'sales_uuid',
                     'quantity_sold',
                     'total_price',
+                    'vat',
                     'grand_total',
                     'sold_at',
                     'sold_to',
@@ -18,7 +21,7 @@ class sales extends Model
                     'updated_at',
             ];
 
-            public function item()
+            public function getItemData()
             {
                 return $this->belongsTo(InventoryModel::class, 'item_id');
             }

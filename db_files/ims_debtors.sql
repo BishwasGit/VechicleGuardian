@@ -24,11 +24,14 @@ DROP TABLE IF EXISTS `debtors`;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `debtors` (
   `debtor_id` int NOT NULL AUTO_INCREMENT,
+  `seller_uuid` varchar(255) DEFAULT NULL,
   `debtor_name` varchar(255) DEFAULT NULL,
   `debtor_contact` varchar(255) DEFAULT NULL,
   `amount_due` decimal(10,2) DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`debtor_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -37,6 +40,7 @@ CREATE TABLE `debtors` (
 
 LOCK TABLES `debtors` WRITE;
 /*!40000 ALTER TABLE `debtors` DISABLE KEYS */;
+INSERT INTO `debtors` VALUES (2,'4d276e29-7983-4a7c-91a8-788af52f3396','Bishwas','9869133344',25000.00,'2024-04-10 00:25:16','2024-04-10 00:25:16');
 /*!40000 ALTER TABLE `debtors` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -49,4 +53,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2024-04-08 13:11:44
+-- Dump completed on 2024-04-10 13:18:08

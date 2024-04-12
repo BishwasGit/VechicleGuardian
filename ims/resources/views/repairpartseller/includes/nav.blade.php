@@ -13,8 +13,8 @@
             <div class="nk-header-tools">
                 <!-- Search box here-->
                 <div class="search-inline">
-                    <div class="form-control-wrap flex-grow-1"><input placeholder="Search Here" type="text"
-                            class="form-control-plaintext"></div><em class="icon icon-sm ni ni-search"></em>
+                    <div class="form-control-wrap flex-grow-1 dataTable-search"><input placeholder="Search Here" type="text"
+                            class="form-control-plaintext" class="dataTable-input"></div><em class="icon icon-sm ni ni-search"></em>
                 </div>
             </div>
         </div>
