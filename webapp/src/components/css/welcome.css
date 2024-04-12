@@ -1,0 +1,38 @@
+ /* body{
+    background-image: url('../../assets/images/background-1.jpg');
+    background-repeat: no-repeat;
+    background-size: cover;
+ } */
+ .left-content {
+     display: flex;
+     justify-content: center !important;
+     align-items: left !important;
+     height: 100vh;
+     flex-direction: column;
+ }
+
+ .right-content {
+     display: flex;
+     justify-content: center !important;
+     align-items: center;
+     height: 100vh;
+ }
+
+ .new-card {
+     border-left: 2px solid #cccccca8 !important;
+ }
+
+ .second-column-cardcontents {
+     margin-left: 10%;
+     padding: 10%;
+ }
+
+ .second-column-cardcontents h2 {
+     text-align: center;
+ }
+
+ #login-options-buttons {
+     border-radius: 7px;
+     margin-bottom: 20px;
+     margin-top: 10px;
+ }

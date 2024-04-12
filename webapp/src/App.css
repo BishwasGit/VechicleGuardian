@@ -1,5 +1,10 @@
 /* @import url('./assets/css/fonts.css'); */
 
+:root {
+	--primary-color: #2e58af;
+	--font-color: #272727;
+}
+
 @font-face {
 	font-family: "Futura";
 	src: local("Futura"),
@@ -8,4 +13,16 @@
 
 * {
 	font-family: "Futura", "sans-serif";
+}
+
+h1 {
+	font-weight: 700;
+}
+
+h2 {
+	font-weight: 500;
+}
+
+.text-center {
+	text-align: center;
 }
