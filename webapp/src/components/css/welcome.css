@@ -1,38 +1,85 @@
- /* body{
-    background-image: url('../../assets/images/background-1.jpg');
-    background-repeat: no-repeat;
-    background-size: cover;
- } */
- .left-content {
-     display: flex;
-     justify-content: center !important;
-     align-items: left !important;
-     height: 100vh;
-     flex-direction: column;
- }
+body {
+	margin: 0 !important;
+	padding: 0 !important;
+}
+.left-content {
+	display: flex;
+	width: 100%;
+	/* justify-content: center !important; */
+	/* align-items: left !important; */
+	height: 100vh;
+	flex-direction: column;
+}
 
- .right-content {
-     display: flex;
-     justify-content: center !important;
-     align-items: center;
-     height: 100vh;
- }
+.right-content {
+	display: flex;
+	justify-content: center !important;
+	align-items: center;
+	height: 100vh;
+}
 
- .new-card {
-     border-left: 2px solid #cccccca8 !important;
- }
+.new-card {
+	border-left: 2px solid #cccccca8 !important;
+}
 
- .second-column-cardcontents {
-     margin-left: 10%;
-     padding: 10%;
- }
+.second-column-cardcontents {
+	margin-left: 10%;
+	padding: 10%;
+}
 
- .second-column-cardcontents h2 {
-     text-align: center;
- }
+.second-column-cardcontents h2 {
+	text-align: center;
+}
 
- #login-options-buttons {
-     border-radius: 7px;
-     margin-bottom: 20px;
-     margin-top: 10px;
- }
+#login-options-buttons {
+	border-radius: 7px;
+	margin-bottom: 20px;
+	margin-top: 10px;
+}
+.carousel {
+	text-align: left;
+	justify-content: center !important;
+	align-items: center;
+}
+.text {
+	position: absolute;
+	top: 40%;
+	left: 10%;
+}
+.image-container {
+	position: relative;
+	width: 100%;
+	height: 100vh;
+	overflow: hidden;
+}
+
+.image-container img {
+	width: auto;
+	height: 100%;
+	object-fit: cover;
+}
+
+.buttons {
+	position: absolute;
+	bottom: 30px; /* Adjust as needed */
+	left: 10%;
+	transform: translateX(-50%);
+}
+
+.buttons button {
+	width: 10px;
+	height: 10px;
+	border-radius: 50%;
+	margin: 0 5px;
+	background-color: #fff; /* Change this to your button color */
+	border: none;
+	cursor: pointer;
+}
+
+.buttons button.active {
+	background-color: rgb(
+		212,
+		176,
+		176
+	); /* Change this to your active button color */
+}
