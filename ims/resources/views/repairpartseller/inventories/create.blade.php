@@ -36,7 +36,7 @@
                                                                 <div class="col-lg-4">
                                                                     <div class="form-group">
                                                                         <label for="item_name"
-                                                                            class="form-label">Item_name</label>
+                                                                            class="form-label">Item name</label>
                                                                         <div class="form-control-wrap">
                                                                             <input type="text" class="form-control"
                                                                                 id="item_name" name="item_name"
@@ -47,7 +47,7 @@
                                                                 <div class="col-lg-4">
                                                                     <div class="form-group">
                                                                         <label for="item_quantity"
-                                                                            class="form-label">Item_quantity</label>
+                                                                            class="form-label">Item quantity</label>
                                                                         <div class="form-control-wrap">
                                                                             <input type="text" class="form-control"
                                                                                 id="item_quantity" name="item_quantity"
@@ -81,13 +81,28 @@
                                                                             class="form-control" type="file"
                                                                             id="item_image" name="item_image"> </div>
                                                                 </div>
+                                                                <div class="col-lg-6">
+                                                                    <label class="form-label">Select item category</label>
+                                                                    <select class="form-select" name="category">
+                                                                        @foreach($getCatregoriesNames as $names)
+                                                                            <option value="{{ $names->category_id }}" name="{{ $names->category_id }}">{{$names->category_name }}</option>
+                                                                        @endforeach
+                                                                    </select>
+                                                                </div>
+                                                                <div class="col-lg-6">
+                                                                    <label class="form-label">Is the item for sale ?</label>
+                                                                    <select class="form-select" name="item_for_sale">
+                                                                            <option value="0" name="0">Yes</option>
+                                                                            <option value="1" name="1">No</option>
+                                                                    </select>
+                                                                </div>
                                                             </div>
                                                             <div class="col-lg-6">
                                                                 <div class="form-group">
                                                                     <div class="form-control-wrap">
                                                                         <button type="submit"
                                                                             class="btn btn-primary mt-3"
-                                                                            name="submit">Submit</button>
+                                                                            >Submit</button>
                                                                     </div>
                                                                 </div>
                                                             </div>

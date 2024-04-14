@@ -31,3 +31,5 @@ require __DIR__ . '/inventories/inventories.php';
 require __DIR__ . '/sales/sales.php';
 require __DIR__ . '/debtors/debotrs.php';
 require __DIR__ . '/creditors/creditors.php';
+require __DIR__ . '/categories/categories.php';
+require __DIR__ . '/shop/shop.php';

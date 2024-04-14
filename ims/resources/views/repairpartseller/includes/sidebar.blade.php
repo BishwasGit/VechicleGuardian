@@ -40,6 +40,8 @@
                             <span class="nk-menu-text">Inventory</span>
                         </a>
                         <ul class="nk-menu-sub">
+                            <li class="nk-menu-item"><a href="{{ route('repairpartseller.categories') }}" class="nk-menu-link"><span
+                                class="nk-menu-text">Add Categories</span></a></li>
                             <li class="nk-menu-item"><a href="{{ route('repairpartseller.inventories.inventories.index') }}" class="nk-menu-link"><span
                                         class="nk-menu-text">Add Item</span></a></li>
                             <li class="nk-menu-item"><a href="{{route('inventories.lowstock',['selleruuid' => auth()->user()->seller_uuid])}}" class="nk-menu-link"><span

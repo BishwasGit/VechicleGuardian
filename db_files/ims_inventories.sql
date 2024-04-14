@@ -24,16 +24,19 @@ DROP TABLE IF EXISTS `inventories`;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `inventories` (
   `item_id` int NOT NULL AUTO_INCREMENT,
+  `item_uuid` varchar(255) DEFAULT NULL,
   `seller_uuid` varchar(255) DEFAULT NULL,
+  `category` varchar(45) DEFAULT NULL,
   `item_name` varchar(255) DEFAULT NULL,
   `item_description` text,
   `item_quantity` int DEFAULT NULL,
   `item_price` decimal(10,2) DEFAULT NULL,
   `item_image` varchar(255) DEFAULT NULL,
+  `item_for_sale` enum('0','1') DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
   `updated_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (`item_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -42,7 +45,7 @@ CREATE TABLE `inventories` (
 
 LOCK TABLES `inventories` WRITE;
 /*!40000 ALTER TABLE `inventories` DISABLE KEYS */;
-INSERT INTO `inventories` VALUES (5,'4d276e29-7983-4a7c-91a8-788af52f3396','Exhaust-NS-200','Bajaj Genuine Silencer and Exhaust Pipe for Bajaj Pulsar 200NS with 200cc DTSi Engine in authentic quality and price. Express delivery across India',19,70.00,'https://res.cloudinary.com/dpftkbsu6/image/upload/v1708843959/c2dmslfcpnfof1txsbtw.jpg','2024-02-25 01:07:39','2024-04-09 23:41:27');
+INSERT INTO `inventories` VALUES (5,'efa4dfb4-2w2d-48sse-98a6-114awe4930d8','4d276e29-7983-4a7c-91a8-788af52f3396','1','Exhaust-NS-200','Bajaj Genuine Silencer and Exhaust Pipe for Bajaj Pulsar 200NS with 200cc DTSi Engine in authentic quality and price. Express delivery across India',19,70.00,'https://res.cloudinary.com/dpftkbsu6/image/upload/v1713115037/z6xiks4uazab9fnj8tom.jpg','0','2024-02-25 01:07:39','2024-04-14 17:44:47'),(6,'efa4feb4-092d-489e-98a6-114adb4930d8','4d276e29-7983-4a7c-91a8-788af52f3396','1','Brakes','Brakes are responsible for slowing the motorcycle or bringing it to a complete stop.',20,120.00,'https://res.cloudinary.com/dpftkbsu6/image/upload/v1713115037/z6xiks4uazab9fnj8tom.jpg','0','2024-04-14 11:32:20','2024-04-14 11:32:20');
 /*!40000 ALTER TABLE `inventories` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -55,4 +58,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2024-04-10 13:18:06
+-- Dump completed on 2024-04-14 23:50:09

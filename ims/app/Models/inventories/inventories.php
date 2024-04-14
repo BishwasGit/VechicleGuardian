@@ -8,12 +8,15 @@ class inventories extends Model
     protected $table = 'inventories';
     protected $primaryKey = 'item_id';
     protected $fillable = [
+                    'item_uuid',
                     'seller_uuid',
+                    'category',
                     'item_name',
                     'item_description',
                     'item_quantity',
                     'item_price',
                     'item_image',
+                    'item_for_sale',
                     'created_at',
                     'updated_at',
             ];

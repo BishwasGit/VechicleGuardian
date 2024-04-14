@@ -7,6 +7,8 @@ use App\Models\inventories\inventories as InventoryModel;
 use CloudinaryLabs\CloudinaryLaravel\Facades\Cloudinary;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Support\Facades\DB;
+use App\Models\categories\categories as ItemCategories;
+use Illuminate\Support\Str;
 
 class inventoriesController extends Controller
 {
@@ -18,20 +20,24 @@ class inventoriesController extends Controller
 
     public function create()
     {
-        return view('repairpartseller.inventories.create');
+        $getCatregoriesNames = ItemCategories::get();
+        return view('repairpartseller.inventories.create',compact('getCatregoriesNames'));
     }
 
     public function store(Request $request)
     {
         $uploadedFileUrl = Cloudinary::upload($request->file('item_image')->getRealPath())->getSecurePath();
-
+        $itemUUID = Str::uuid();
         InventoryModel::create([
+            'item_uuid' => $itemUUID,
             'seller_uuid' => auth()->user()->seller_uuid,
+            'category'=>$request->category,
             'item_name' => $request->item_name,
             'item_description' => $request->item_description,
             'item_quantity' => $request->item_quantity,
             'item_price' => $request->item_price,
             'item_image' => $uploadedFileUrl,
+            'item_for_sale' => $request->item_for_sale
         ]);
 
         // Redirect back or to a success page
@@ -46,8 +52,9 @@ class inventoriesController extends Controller
 
     public function edit($id)
     {
-        $inventories = InventoryModel::where('item_id', $id)->firstOrFail();
-        return view('repairpartseller.inventories.edit', compact('inventories'));
+        $getCatregoriesNames = ItemCategories::get();
+        $inventories = InventoryModel::where('item_uuid', $id)->firstOrFail();
+        return view('repairpartseller.inventories.edit', compact('inventories','getCatregoriesNames'));
     }
     public function update(Request $request, $id)
     {

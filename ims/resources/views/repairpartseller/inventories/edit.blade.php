@@ -91,6 +91,21 @@
                                                                         <input class="form-control" type="file" id="new_item_image" name="new_item_image">
                                                                     </div>
                                                                 </div>
+                                                                <div class="col-lg-6">
+                                                                    <label class="form-label">Select item category</label>
+                                                                    <select class="form-select" name="category">
+                                                                        @foreach($getCatregoriesNames as $names)
+                                                                            <option value="{{ $names->category_id }}" {{ $names->category_id == $inventories->category ? 'selected' : '' }}>{{ $names->category_name }}</option>
+                                                                        @endforeach
+                                                                    </select>
+                                                                </div>
+                                                                <div class="col-lg-6">
+                                                                    <label class="form-label">Is the item for sale ?</label>
+                                                                    <select class="form-select" name="item_for_sale">
+                                                                        <option value="1" {{ $inventories->item_for_sale == 1 ? 'selected' : '' }}>No</option>
+                                                                        <option value="0" {{ $inventories->item_for_sale == 0 ? 'selected' : '' }}>Yes</option>
+                                                                    </select>
+                                                                </div>
                                                             </div>
                                                             <div class="col-lg-6">
                                                                 <div class="form-group">

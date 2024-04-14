@@ -81,7 +81,7 @@ const Welcome = () => {
 								</Button>
 								<Button
 									variant="outlined"
-									color="primary"
+									color="contained"
 									fullWidth
 									style={{ marginBottom: "10px" }}
 									endIcon={<i className="fab fa-facebook"></i>}

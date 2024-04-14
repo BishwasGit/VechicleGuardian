@@ -132,11 +132,11 @@
                                                                         <div class="gap-col"><a type="button"
                                                                                 class="btn btn-sm btn-icon bg-primary-soft"
                                                                                 title="Print"
-                                                                                href="{{ route('repairpartseller.inventories.inventories.edit', ['id' => $item->item_id]) }}"><em
+                                                                                href="{{ route('repairpartseller.inventories.inventories.edit', ['id' => $item->item_uuid]) }}"><em
                                                                                     class="icon ni ni-edit"></em></a>
                                                                         </div>
                                                                         <div class="gap-col"><a
-                                                                                href="{{ route('repairpartseller.inventories.inventories.show', ['id' => $item->item_id]) }}"
+                                                                                href="{{ route('repairpartseller.inventories.inventories.show', ['id' => $item->item_uuid]) }}"
                                                                                 class="btn btn-sm bg-success-soft"> <em
                                                                                     class="icon ni ni-eye"></em>
                                                                             </a></div>

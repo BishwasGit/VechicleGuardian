@@ -16,28 +16,27 @@
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
--- Table structure for table `inventoryreports`
+-- Table structure for table `vehicle_category`
 --
 
-DROP TABLE IF EXISTS `inventoryreports`;
+DROP TABLE IF EXISTS `vehicle_category`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `inventoryreports` (
-  `inventoryreport_id` int NOT NULL AUTO_INCREMENT,
-  `report_type` varchar(255) DEFAULT NULL,
-  `report_data` text,
-  `generated_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
-  PRIMARY KEY (`inventoryreport_id`)
+CREATE TABLE `vehicle_category` (
+  `vehicle_category_id` int NOT NULL,
+  `Vehicle_category` varchar(45) DEFAULT NULL,
+  PRIMARY KEY (`vehicle_category_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `inventoryreports`
+-- Dumping data for table `vehicle_category`
 --
 
-LOCK TABLES `inventoryreports` WRITE;
-/*!40000 ALTER TABLE `inventoryreports` DISABLE KEYS */;
-/*!40000 ALTER TABLE `inventoryreports` ENABLE KEYS */;
+LOCK TABLES `vehicle_category` WRITE;
+/*!40000 ALTER TABLE `vehicle_category` DISABLE KEYS */;
+INSERT INTO `vehicle_category` VALUES (1,'Two Wheeler'),(2,'Four Wheeler'),(3,'Six Wheeler');
+/*!40000 ALTER TABLE `vehicle_category` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 

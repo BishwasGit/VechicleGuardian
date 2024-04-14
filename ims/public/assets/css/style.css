@@ -29260,8 +29260,22 @@ img {
 
 .search-inline {
     display: flex;
-    align-items: center
+    align-items: center;
+    width:60%;
 }
+
+.search-inline-1 {
+    display: flex;
+    align-items: center;
+}
+
+.search-inline input[type="text"] {
+    border-bottom: 1px solid rgba(0,0,0,0.5);
+}
+
+/* .search-inline input[type="text"]::placeholder {
+    text-align: center; /* Align placeholder text to center */
+} */
 
 .rating {
     display: flex;

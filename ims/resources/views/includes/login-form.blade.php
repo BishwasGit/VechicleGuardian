@@ -71,6 +71,13 @@
                     </button>
                   </div>
                 </div>
+                <div class="col-12">
+                  <div class="d-grid">
+                    <a class="btn" href="{{ route('shop.index') }}">
+                      Continue to shop
+                    </a>
+                  </div>
+                </div>
               </div>
             </form>
             <div class="my-3 text-center">

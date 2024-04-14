@@ -12,7 +12,7 @@
             </nav>
             <div class="nk-header-tools">
                 <!-- Search box here-->
-                <div class="search-inline">
+                <div class="search-inline-1">
                     <div class="form-control-wrap flex-grow-1 dataTable-search"><input placeholder="Search Here" type="text"
                             class="form-control-plaintext" class="dataTable-input"></div><em class="icon icon-sm ni ni-search"></em>
                 </div>
