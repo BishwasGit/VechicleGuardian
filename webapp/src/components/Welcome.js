@@ -1,14 +1,12 @@
 import React, { useState } from "react";
-import Container from "@mui/material/Container";
 import Grid from "@mui/material/Grid";
 import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
 import Button from "@mui/material/Button";
 import Link from "@mui/material/Link";
 import "./css/welcome.css";
-import { Carousel } from "react-responsive-carousel";
 import background1 from "../assets/images/background-1.jpg";
-import background2 from "../assets/images/background-2.jpg";
+import background2 from "../assets/images/background-1.jpg";
 
 const Welcome = () => {
 	const [currentImage, setCurrentImage] = useState(0);
@@ -48,7 +46,7 @@ const Welcome = () => {
 								<img
 									className="image-contain"
 									src={images[currentImage]}
-									alt={`Image ${currentImage + 1}`}
+									alt={`${currentImage + 1}`}
 								/>
 								<div className="buttons">
 									{images.map((_, index) => (
@@ -91,14 +89,16 @@ const Welcome = () => {
 									Sign Up using Facebook
 								</Button>
 								<h3 class="text-center">OR</h3>
-								<Button
+								<Link
 									variant="contained"
 									color="primary"
 									fullWidth
 									id="login-options-buttons"
-								>
+									component={Link}
+									href="/register"
+									>
 									Create an Account
-								</Button>
+									</Link>
 								<p>
 									By signing up, you will agree to the
 									<Link
@@ -119,7 +119,7 @@ const Welcome = () => {
 								<div style={{ marginTop: "20px" }}>
 									Already have an account ?&nbsp;
 									<Link
-										href="#"
+										href="/login"
 										variant="body2"
 									>
 										Login Here
