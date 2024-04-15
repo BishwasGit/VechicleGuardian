@@ -16,3 +16,25 @@
             });
          @endif
 </script>
+<script>
+    function updateClock() {
+        var now = new Date();
+        var hours = now.getHours();
+        var minutes = now.getMinutes();
+        var seconds = now.getSeconds();
+
+        // Add leading zero if single digit
+        hours = ('0' + hours).slice(-2);
+        minutes = ('0' + minutes).slice(-2);
+        seconds = ('0' + seconds).slice(-2);
+
+        // Display the time in HH:MM:SS format
+        document.getElementById('clock').innerHTML = hours + ':' + minutes + ':' + seconds;
+
+        // Update the clock every second
+        setTimeout(updateClock, 1000);
+    }
+
+    // Initial call to updateClock to start the clock
+    updateClock();
+</script>

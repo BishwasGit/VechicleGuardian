@@ -6,7 +6,7 @@
             <nav class="nk-header-menu nk-navbar">
                 <ul class="nk-nav">
                     <li class="nk-nav-item">
-                        <h5 class="nk-nav-text">Good Morning </h5>
+                        <h5 class="nk-nav-text" id="clock"></h5>
                     </li>
                 </ul>
             </nav>

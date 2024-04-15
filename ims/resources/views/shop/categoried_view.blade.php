@@ -8,18 +8,23 @@
                 <div class="nk-content">
                     <div class="container-fluid">
                         <div class="nk-content-inner">
-                            @php
-                                $products = DB::table('inventories')->where('item_for_sale', '0')->get()
-                            @endphp
+                            <h1>
+                                @php
+                                $category = DB::table('categories')->where('category_id', $id)->first();
+                                $categoryName = $category->category_name;
+                                $pluralCategoryName = substr($categoryName, -1) === 's' ? $categoryName : $categoryName . 's';
+                                echo $pluralCategoryName;
+                                @endphp
+                            </h1>
                             <div class="row g-gs">
-                                @foreach($products as $product)
+                                @foreach($getdata as $data)
                                 <div class="col-sm-6 col-xl-4 col-xxl-3">
                                     <div class="card text-center h-100">
                                         <div class="card-body">
                                             <div class=""><img
-                                                    src="{{ $product->item_image }}" alt="user"></div>
+                                                    src="{{ $data->item_image }}" alt="user"></div>
                                             <div class="mt-1 mb-4"><a href="#"
-                                                    class="my-2 h3">{{ $product->item_name }}</a>
+                                                    class="my-2 h3">{{ $data->item_name }}</a>
                                             </div>
                                             <div class="rating">
                                                 <li class="rating-label checked"><em class="icon ni ni-star-fill"></em></li>

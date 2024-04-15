@@ -26207,8 +26207,9 @@ a.fc-event-darker-soft {
     color: #2e314a;
     font-weight: 400;
     font-size: .875rem;
-    padding: .625rem 1.75rem;
-    background-color: rgba(0, 0, 0, 0)
+    padding: .400rem 1.75rem;
+    background-color: rgba(0, 0, 0, 0);
+    margin: 6px 0px;
 }
 
 .nk-menu-link::after {
@@ -26281,8 +26282,8 @@ a.fc-event-darker-soft {
 }
 
 .nk-menu-sub .nk-menu-link {
-    padding-top: .5rem;
-    padding-bottom: .5rem;
+    padding-top: .400rem;
+    padding-bottom: .400rem;
     font-size: .813rem;
     font-weight: 400;
     color: #43476b;

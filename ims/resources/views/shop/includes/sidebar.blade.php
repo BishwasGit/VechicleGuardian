@@ -47,7 +47,7 @@
                                     @endphp
                                     @foreach($associatedCategories as $associatedCategory)
                                     <li class="nk-menu-item">
-                                        <a href="#" class="nk-menu-link">
+                                        <a href="{{ route('shop.categorized.details',['id'=>$associatedCategory->category_id]) }}" class="nk-menu-link">
                                             <span class="nk-menu-text">{{ $associatedCategory->category_name }}</span>
                                         </a>
                                     </li>
