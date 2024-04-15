@@ -38,16 +38,16 @@ const Welcome = () => {
 									<h1>Welcome To</h1>
 									<h1>Vehicle Guardian</h1>
 									<p>
-										This app is a comprehensive solution bridging the gap
-										<div>between vehicle owners and repair centers,</div>
+										This app is a comprehensive solution bridging the gap<br />
+										between vehicle owners and repair centers,
 										streamlining the entire repair and maintenance process
 									</p>
 								</div>
-								<img
+								{/* <img
 									className="image-contain"
 									src={images[currentImage]}
 									alt={`${currentImage + 1}`}
-								/>
+								/> */}
 								<div className="buttons">
 									{images.map((_, index) => (
 										<button
@@ -66,39 +66,40 @@ const Welcome = () => {
 					lg={4}
 					sm={12}
 				>
-					<Card class="new-card">
+					<Card className="new-card">
 						<div className="right-content">
 							<CardContent className="second-column-cardcontents">
 								<h2>Login Options</h2>
 								<Button
-									variant="outlined"
-									color="primary"
-									fullWidth
-									style={{ marginBottom: "10px" }}
-									endIcon={<i className="fab fa-google"></i>}
-								>
-									Sign Up using Google
-								</Button>
+								variant="outlined"
+								color="primary" 
+								fullWidth
+								style={{ marginBottom: "10px" }}
+								endIcon={<i className="fab fa-google"></i>}
+							>
+								Sign Up using Google
+							</Button>
+							<Button
+								variant="outlined"
+								color="primary"
+								fullWidth
+								style={{ marginBottom: "10px" }}
+								endIcon={<i className="fab fa-facebook"></i>}
+							>
+								Sign Up using Facebook
+							</Button>
+								<h3 className="text-center">OR</h3>
 								<Button
-									variant="outlined"
-									color="contained"
-									fullWidth
-									style={{ marginBottom: "10px" }}
-									endIcon={<i className="fab fa-facebook"></i>}
+								variant="contained"
+								color="primary"
+								fullWidth
 								>
-									Sign Up using Facebook
-								</Button>
-								<h3 class="text-center">OR</h3>
 								<Link
-									variant="contained"
-									color="primary"
-									fullWidth
-									id="login-options-buttons"
-									component={Link}
 									href="/register"
 									>
-									Create an Account
+									<span className="register-button-text">Create an Account</span>
 									</Link>
+									</Button>
 								<p>
 									By signing up, you will agree to the
 									<Link
