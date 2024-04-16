@@ -5,12 +5,12 @@ import CardContent from "@mui/material/CardContent";
 import Button from "@mui/material/Button";
 import Link from "@mui/material/Link";
 import "./css/welcome.css";
-import background1 from "../assets/images/background-1.jpg";
+import background3 from "../assets/images/background-3.png";
 import background2 from "../assets/images/background-1.jpg";
 
 const Welcome = () => {
 	const [currentImage, setCurrentImage] = useState(0);
-	const images = [background1, background2];
+	const images = [background3, background2];
 
 	const goToImage = index => {
 		setCurrentImage(index);
@@ -45,18 +45,19 @@ const Welcome = () => {
 									</p>
 									s
 								</div>
-								{/* <img
+								<img
 									className="image-contain"
 									src={images[currentImage]}
 									alt={`${currentImage + 1}`}
-								/> */}
+								/>
 								<div className="buttons">
 									{images.map((_, index) => (
-										<Button
+										<button
+											id="button"
 											key={index}
 											className={index === currentImage ? "active" : ""}
 											onClick={() => goToImage(index)}
-										></Button>
+										></button>
 									))}
 								</div>
 							</div>
