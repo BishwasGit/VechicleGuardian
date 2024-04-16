@@ -18,7 +18,7 @@ const Welcome = () => {
 
 	return (
 		<div
-			className="main-container"
+			className="container"
 			maxWidth="lg"
 		>
 			<Grid
@@ -42,6 +42,7 @@ const Welcome = () => {
 										<div>between vehicle owners and repair centers,</div>
 										streamlining the entire repair and maintenance process
 									</p>
+									s
 								</div>
 								<img
 									className="image-contain"
@@ -50,11 +51,11 @@ const Welcome = () => {
 								/>
 								<div className="buttons">
 									{images.map((_, index) => (
-										<button
+										<Button
 											key={index}
 											className={index === currentImage ? "active" : ""}
 											onClick={() => goToImage(index)}
-										></button>
+										></Button>
 									))}
 								</div>
 							</div>
@@ -96,9 +97,9 @@ const Welcome = () => {
 									id="login-options-buttons"
 									component={Link}
 									href="/register"
-									>
+								>
 									Create an Account
-									</Link>
+								</Link>
 								<p>
 									By signing up, you will agree to the
 									<Link
