@@ -83,3 +83,8 @@ body {
 		176
 	); /* Change this to your active button color */
 }
+
+.register-button-text {
+	text-decoration: none;
+	color: white;
+}

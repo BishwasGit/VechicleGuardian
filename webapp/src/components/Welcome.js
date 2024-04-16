@@ -39,16 +39,17 @@ const Welcome = () => {
 									<h1>Vehicle Guardian</h1>
 									<p>
 										This app is a comprehensive solution bridging the gap
-										<div>between vehicle owners and repair centers,</div>
-										streamlining the entire repair and maintenance process
+										<br />
+										between vehicle owners and repair centers, streamlining the
+										entire repair and maintenance process
 									</p>
 									s
 								</div>
-								<img
+								{/* <img
 									className="image-contain"
 									src={images[currentImage]}
 									alt={`${currentImage + 1}`}
-								/>
+								/> */}
 								<div className="buttons">
 									{images.map((_, index) => (
 										<Button
@@ -67,7 +68,7 @@ const Welcome = () => {
 					lg={4}
 					sm={12}
 				>
-					<Card class="new-card">
+					<Card className="new-card">
 						<div className="right-content">
 							<CardContent className="second-column-cardcontents">
 								<h2>Login Options</h2>
@@ -82,24 +83,25 @@ const Welcome = () => {
 								</Button>
 								<Button
 									variant="outlined"
-									color="contained"
+									color="primary"
 									fullWidth
 									style={{ marginBottom: "10px" }}
 									endIcon={<i className="fab fa-facebook"></i>}
 								>
 									Sign Up using Facebook
 								</Button>
-								<h3 class="text-center">OR</h3>
-								<Link
+								<h3 className="text-center">OR</h3>
+								<Button
 									variant="contained"
 									color="primary"
 									fullWidth
-									id="login-options-buttons"
-									component={Link}
-									href="/register"
 								>
-									Create an Account
-								</Link>
+									<Link href="/register">
+										<span className="register-button-text">
+											Create an Account
+										</span>
+									</Link>
+								</Button>
 								<p>
 									By signing up, you will agree to the
 									<Link
