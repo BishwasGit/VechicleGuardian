@@ -6,6 +6,7 @@ const jwt = require('jsonwebtoken')
 
 router.post('/login', async (req, res) => {
   const { username, password } = req.body;
+  console.log('uname and pass is here',username,password)
   const SECRET_KEY = process.env.SECRET_KEY || 'uE9pgkZlDD4d2I_kbAlODrxz36F3-wWaP9NAAg-vZ3Q';
   try {
     let result;

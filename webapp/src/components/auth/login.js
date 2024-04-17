@@ -1,98 +1,174 @@
-import React from "react";
-import "./css/login.css";
-import { FormControl, FormControlLabel, Checkbox } from "@mui/material";
-import TextField from "@material-ui/core/TextField";
-import { Button } from "@mui/material";
+import React, { useState } from 'react'
+import './css/login.css'
+import { FormControl, FormControlLabel, Checkbox } from '@mui/material'
+import TextField from '@material-ui/core/TextField'
+import { Button } from '@mui/material'
+import axios from 'axios'
+import { useNavigate } from 'react-router-dom'
+import CircularProgress from '@mui/material/CircularProgress'
 
 const LoginPage = () => {
-	return (
-		<div>
-			<div className="main">
-				<div className="form">
-					<div className="button-links">
-						<div>
-							<h3
-								className="title"
-								style={{
-									paddingLeft: "10px",
-								}}
-							>
-								Login into your account with
-							</h3>{" "}
-							<br />
-							<Button
-								endIcon={<i className="fab fa-google"></i>}
-								variant="outlined"
-								color="primary"
-							/>
-							<Button
-								variant="outlined"
-								color="primary"
-								endIcon={<i className="fab fa-facebook"></i>}
-							/>
-							<Button
-								variant="outlined"
-								color="primary"
-								endIcon={<i className="fab fa-apple"></i>}
-							/>
-							<h3
-								className="title"
-								style={{
-									paddingLeft: "115px",
-								}}
-							>
-								or
-							</h3>{" "}
-							<br />
-						</div>
-					</div>
-					<div>
-						<FormControl
-							fullWidth
-							className="form-contain"
-						>
-							<TextField
-								required
-								id="email"
-								label="Enter your Email"
-								variant="outlined"
-								className="form-field"
-								margin="normal"
-							/>
-							<TextField
-								required
-								id="password"
-								label="Enter your Password"
-								variant="outlined"
-								type="password"
-								className="form-field"
-								margin="normal"
-							/>
+  const [username, setUsername] = useState('')
+  const [password, setPassword] = useState('')
+  const [message, setMessage] = useState('')
+  const [loading, setLoading] = useState(false)
+  const navigate = useNavigate()
+  const [dialogVisible, setDialogVisible] = useState(false)
 
-							<FormControlLabel
-								required
-								control={<Checkbox />}
-								label="I agree to all terms and conditons"
-								style={{
-									marginTop: "10px",
-									marginBottom: "20px",
-									fontWeight: "bold",
-								}}
-							/>
-							<Button variant="contained">Login</Button>
-							<h3
-								style={{
-									paddingLeft: "20px",
-								}}
-							>
-								Don't have a account? <a href="">Register Here</a>
-							</h3>
-						</FormControl>
-					</div>
-				</div>
-			</div>
-		</div>
-	);
-};
+  const handleLogin = async () => {
+    setLoading(true)
+    try {
+      const response = await axios.post(
+        `http://${process.env.REACT_APP_SERVER_IP}:${process.env.REACT_APP_SERVER_PORT}/api/login`,{ username, password },
+        {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+        }
+      )
+      const data = response.data
+      console.log('data after login success', data)
+      if (response.status === 200) {
+        // Handle different user types or roles as needed
+        if (
+          data.userType === 'customer' ||
+          data.userType === 'seller' ||
+          data.userType === 'repaircenter' ||
+          data.userType === 'repaircenter_workers'
+        ) {
+          // Navigate based on userType
+          setTimeout(() => {
+            navigate(
+              data.userType === 'customer'
+                ? '/customerDashboard'
+                : data.userType === 'seller'
+                ? '/repairPartsSellerDashboard'
+                : data.userType === 'repaircenter'
+                ? '/repairCenterDashboard'
+                : '/workerDashboard',
+              { [`${data.userType}_id`]: data.userId }
+            )
+          }, 1000)
+        } else if (data.userType === 'admin') {
+          // Navigate to AdminDashboard
+          setDialogVisible(true)
+          setTimeout(() => {
+            setDialogVisible(false)
+            navigate('/adminDashboard', { admin_id: data.userId })
+          }, 1000)
+        }
+      } else {
+        setMessage(data.error)
+      }
+    } catch (error) {
+      console.error('Error during login:', error)
+      setMessage('Login failed. Please try again.')
+    } finally {
+      setLoading(false)
+    }
+  }
+  return (
+    <div>
+      <div className='main'>
+        <div className='form'>
+          {/* <div className='button-links'>
+            <div>
+              <h3
+                className='title'
+                style={{
+                  paddingLeft: '10px'
+                }}
+              >
+                Login into your account with
+              </h3>{' '}
+              <br />
+              <Button
+                variant='outlined'
+                color='primary'
+                fullWidth
+                style={{ marginBottom: '10px' }}
+                endIcon={<i className='fab fa-google'></i>}
+              >
+                Sign Up using Google
+              </Button>
+              <Button
+                variant='outlined'
+                color='primary'
+                fullWidth
+                style={{ marginBottom: '10px' }}
+                endIcon={<i className='fab fa-facebook'></i>}
+              >
+                Sign Up using Facebook
+              </Button>
+              <h3
+                className='title'
+                style={{
+                  paddingLeft: '115px'
+                }}
+              >
+                or
+              </h3>{' '}
+              <br />
+            </div>
+          </div> */}
+          <div>
+		  <h2>Login</h2>
+            <FormControl fullWidth className='form-contain'>
+              <TextField
+                required
+                id='username'
+                label='Enter your Username'
+                variant='outlined'
+                className='form-field'
+                margin='normal'
+                value={username}
+                onChange={e => setUsername(e.target.value)}
+              />
+              <TextField
+                required
+                id='password'
+                label='Enter your Password'
+                variant='outlined'
+                type='password'
+                className='form-field'
+                margin='normal'
+                value={password}
+                onChange={e => setPassword(e.target.value)}
+              />
+              <FormControlLabel
+                required
+                control={<Checkbox />}
+                label='I agree to all terms and conditons'
+                style={{
+                  marginTop: '10px',
+                  marginBottom: '20px',
+                  fontWeight: 'bold'
+                }}
+              />
+              <Button
+                variant='contained'
+                onClick={handleLogin}
+                disabled={loading}
+              >
+                {loading ? 'Loading...' : 'Login'}
+              </Button>
+              <h3
+                style={{
+                  paddingLeft: '20px'
+                }}
+              >
+                Don't have a account? <a href='/register'>Register Here</a>
+              </h3>
 
-export default LoginPage;
+              {message && <p>{message}</p>}
+              {dialogVisible && <CircularProgress />}
+            </FormControl>
+          </div>
+        </div>
+      </div>
+    </div>
+  )
+}
+
+export default LoginPage
