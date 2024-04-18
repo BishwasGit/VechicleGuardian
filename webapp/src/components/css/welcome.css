@@ -5,10 +5,17 @@ body {
 .left-content {
 	display: flex;
 	width: 100%;
-	/* justify-content: center !important; */
-	/* align-items: left !important; */
+	justify-content: center !important;
+	align-items: center !important;
 	height: 100vh;
-	flex-direction: column;
+}
+.text {
+	position: absolute;
+	top: 15%;
+	margin: 25% 20%;
+	color: white !important;
+	justify-content: center !important;
+	align-items: center !important;
 }
 
 .right-content {
@@ -23,15 +30,6 @@ body {
 	border-left: 2px solid #cccccca8 !important;
 }
 
-.second-column-cardcontents {
-	margin-left: 10%;
-	padding: 10%;
-}
-
-.second-column-cardcontents h2 {
-	text-align: center;
-}
-
 #login-options-buttons {
 	border-radius: 7px;
 	margin-bottom: 20px;
@@ -42,11 +40,7 @@ body {
 	justify-content: center !important;
 	align-items: center;
 }
-.text {
-	position: absolute;
-	top: 40%;
-	left: 25%;
-}
+
 .image-container {
 	position: relative;
 	width: 100%;
@@ -59,6 +53,40 @@ body {
 	height: 100%;
 	object-fit: cover;
 }
+.button-carousel {
+	position: absolute;
+	right: 49%;
+	top: 10%;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+	border-radius: 5px;
+}
+
+.mainButton {
+	background-color: transparent !important;
+	border: 0 !important;
+	padding: 20px !important;
+	cursor: pointer;
+	width: 130px;
+}
+
+.mainButton a {
+	text-decoration: none;
+	font-size: 20px;
+	font-weight: bold;
+	color: white !important;
+}
+
+.mainButton.active {
+	background-color: white !important;
+}
+
+.mainButton.active a {
+	color: black !important;
+	font-size: 23px;
+}
 
 .buttons {
 	position: absolute;
@@ -68,8 +96,8 @@ body {
 }
 
 .buttons #button {
-	width: 10px;
-	height: 10px;
+	width: 20px;
+	height: 20px;
 	border-radius: 50%;
 	margin: 0 5px;
 	background-color: #fff; /* Change this to your button color */
@@ -78,14 +106,69 @@ body {
 }
 
 .buttons #button.active {
-	background-color: rgb(
-		212,
-		176,
-		176
-	); /* Change this to your active button color */
+	background-color: #808000;
+	color: white;
 }
 
 .register-button-text {
 	text-decoration: none;
 	color: white;
+}
+
+.main {
+	width: auto;
+	height: 100vh;
+	display: flex;
+	align-items: center !important;
+	justify-content: center !important;
+}
+.button-links {
+	display: flex;
+	padding: 10%;
+}
+.button-links Button {
+	margin-right: 20px;
+	height: 50px;
+}
+
+.form {
+	align-items: center !important;
+	justify-content: center !important;
+	margin-left: -15% !important;
+	background-color: #fefefa;
+	display: flex;
+	padding: 6% 15% !important;
+	width: 100%;
+	border: 0 !important;
+	box-shadow: none !important;
+}
+.custom-label {
+	color: rgb(
+		204,
+		204,
+		218
+	) !important; /* Use !important to override any other conflicting styles */
+}
+
+.form-field {
+	width: 350px;
+	box-shadow: none !important;
+}
+.submit {
+	height: 50px;
+	width: 350px;
+}
+.form .iconDiv {
+	display: flex;
+	align-items: center !important;
+	justify-content: center !important;
+}
+.form .iconDiv .submitAnother {
+	height: 50px;
+	margin: 2%;
+	/* margin-bottom: 5% !important; */
+	box-shadow: 1px 1px 2px rgba(232, 231, 231, 0.1),
+		/* top-left */ -1px 1px 2px rgba(203, 201, 201, 0.1),
+		/* top-right */ 1px -1px 2px rgba(215, 213, 213, 0.1),
+		/* bottom-left */ -1px -1px 2px rgba(185, 184, 184, 0.1); /* bottom-right */
 }
