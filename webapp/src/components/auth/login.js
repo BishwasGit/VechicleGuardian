@@ -30,10 +30,11 @@ const LoginPage = () => {
       const data = response.data
       console.log('data after login success', data)
       if (response.status === 200) {
-        // Handle different user types or roles as needed
+        localStorage.setItem('userToken', data.token);
+        localStorage.setItem('userId', data.userId);
+        localStorage.setItem('userType', data.userType);
         if (
-          data.userType === 'customer' ||
-          data.userType === 'seller' ||
+          data.userType === 'customer' |
           data.userType === 'repaircenter' ||
           data.userType === 'repaircenter_workers'
         ) {
@@ -41,12 +42,10 @@ const LoginPage = () => {
           setTimeout(() => {
             navigate(
               data.userType === 'customer'
-                ? '/customerDashboard'
-                : data.userType === 'seller'
-                ? '/repairPartsSellerDashboard'
+                ? `/customerDashboard/${data.userId}`
                 : data.userType === 'repaircenter'
-                ? '/repairCenterDashboard'
-                : '/workerDashboard',
+                ? `/repairCenterDashboard/${data.userId}`
+                : `/workerDashboard/${data.userId}`,
               { [`${data.userType}_id`]: data.userId }
             )
           }, 1000)
@@ -55,7 +54,15 @@ const LoginPage = () => {
           setDialogVisible(true)
           setTimeout(() => {
             setDialogVisible(false)
-            navigate('/adminDashboard', { admin_id: data.userId })
+            navigate(`/adminDashboard/${data.userId}`, { admin_id: data.userId })
+          }, 1000)
+        }
+        else if(data.userType === 'seller'){
+          setTimeout(() => {
+            setDialogVisible(false)
+            const userId = data.userId;
+            const redirectUrl = `http://127.0.0.1:8000/dashboard/${userId}`;
+            window.location.href = redirectUrl;
           }, 1000)
         }
       } else {
@@ -137,9 +144,8 @@ const LoginPage = () => {
                 onChange={e => setPassword(e.target.value)}
               />
               <FormControlLabel
-                required
                 control={<Checkbox />}
-                label='I agree to all terms and conditons'
+                label='Remember Me'
                 style={{
                   marginTop: '10px',
                   marginBottom: '20px',
