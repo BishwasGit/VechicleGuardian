@@ -138,11 +138,11 @@ const LoginPage = () => {
                     '& .MuiButton-startIcon': {
                       minWidth: 0,
                       marginRight: '-5px',
-                      fontSize: '50px' // Adjust the size as needed
+
                     }
                   }}
                   startIcon={
-                    <i class='fa fa-facebook' style={{ fontSize: '50px' }} />
+                    <i class='fa fa-facebook' style={{ fontSize: '25px' }} />
                   }
                 ></Button>
 
@@ -154,11 +154,11 @@ const LoginPage = () => {
                     '& .MuiButton-startIcon': {
                       minWidth: 0,
                       marginRight: '-5px',
-                      fontSize: '50px' // Adjust the size as needed
+
                     }
                   }}
                   startIcon={
-                    <i class='fa fa-google' style={{ fontSize: '50px' }} />
+                    <i class='fa fa-google' style={{ fontSize: '25px' }} />
                   }
                 ></Button>
                 <Button
@@ -169,11 +169,11 @@ const LoginPage = () => {
                     '& .MuiButton-startIcon': {
                       minWidth: 0,
                       marginRight: '-5px',
-                      fontSize: '50px' // Adjust the size as needed
+
                     }
                   }}
                   startIcon={
-                    <i class='fa fa-apple' style={{ fontSize: '50px' }} />
+                    <i class='fa fa-apple' style={{ fontSize: '25px' }} />
                   }
                 ></Button>
               </div>
