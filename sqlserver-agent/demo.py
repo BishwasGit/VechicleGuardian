@@ -8,12 +8,12 @@ from langchain_community.chat_models import ChatOpenAI
 import os
 
 
-os.environ["OPENAI_API_KEY"] = "your_openai_api_key_here"
+os.environ["OPENAI_API_KEY"] = "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"
 sql_server_db_uri = "mysql+mysqlconnector://Bishwas:Bishwas%401@localhost:3306/ims"
 db = SQLDatabase.from_uri(database_uri=sql_server_db_uri)
 toolkit = SQLDatabaseToolkit(db=db, llm=OpenAI(temperature=0))
 agent_executor = create_sql_agent(
-    llm=ChatOpenAI(temperature=0, model="gpt-4"),
+    llm=ChatOpenAI(temperature=0, model="gpt-3.5-turbo-16k-0613"),
     toolkit=toolkit,
     verbose=True,
     agent_type=AgentType.ZERO_SHOT_REACT_DESCRIPTION,
