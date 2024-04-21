@@ -51,7 +51,7 @@
                                                                         <div class="form-control-wrap">
                                                                             <select name="vehicle_category_id"
                                                                                 id="vehicle_category_id"
-                                                                                class="form-select js-form-select js-select">
+                                                                                class="form-select">
                                                                                 @foreach ($getVehicleTypes as $vehicleType)
                                                                                     <option
                                                                                         name="{{ $vehicleType->vehicle_category_id }}">
