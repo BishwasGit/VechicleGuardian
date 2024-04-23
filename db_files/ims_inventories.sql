@@ -26,6 +26,7 @@ CREATE TABLE `inventories` (
   `item_id` int NOT NULL AUTO_INCREMENT,
   `item_uuid` varchar(255) DEFAULT NULL,
   `seller_uuid` varchar(255) DEFAULT NULL,
+  `model_id` int DEFAULT NULL,
   `category` varchar(45) DEFAULT NULL,
   `item_name` varchar(255) DEFAULT NULL,
   `item_description` text,
@@ -45,7 +46,7 @@ CREATE TABLE `inventories` (
 
 LOCK TABLES `inventories` WRITE;
 /*!40000 ALTER TABLE `inventories` DISABLE KEYS */;
-INSERT INTO `inventories` VALUES (5,'efa4dfb4-2w2d-48sse-98a6-114awe4930d8','4d276e29-7983-4a7c-91a8-788af52f3396','1','Exhaust-NS-200','Bajaj Genuine Silencer and Exhaust Pipe for Bajaj Pulsar 200NS with 200cc DTSi Engine in authentic quality and price. Express delivery across India',19,70.00,'https://res.cloudinary.com/dpftkbsu6/image/upload/v1713115037/z6xiks4uazab9fnj8tom.jpg','0','2024-02-25 01:07:39','2024-04-14 17:44:47'),(6,'efa4feb4-092d-489e-98a6-114adb4930d8','4d276e29-7983-4a7c-91a8-788af52f3396','1','Brakes','Brakes are responsible for slowing the motorcycle or bringing it to a complete stop.',20,120.00,'https://res.cloudinary.com/dpftkbsu6/image/upload/v1713115037/z6xiks4uazab9fnj8tom.jpg','0','2024-04-14 11:32:20','2024-04-14 11:32:20');
+INSERT INTO `inventories` VALUES (5,'efa4dfb4-2w2d-48sse-98a6-114awe4930d8','4d276e29-7983-4a7c-91a8-788af52f3396',1,'1','Exhaust-NS-200','Bajaj Genuine Silencer and Exhaust Pipe for Bajaj Pulsar 200NS with 200cc DTSi Engine in authentic quality and price. Express delivery across India',19,70.00,'https://w7.pngwing.com/pngs/912/899/png-transparent-exhaust-system-car-aftermarket-exhaust-parts-catalytic-converter-exhaust-gas-exhaust-system-exhaust-system-angle-car-thumbnail.png','0','2024-02-25 01:07:39','2024-04-23 07:54:57'),(6,'efa4feb4-092d-489e-98a6-114adb4930d8','4d276e29-7983-4a7c-91a8-788af52f3396',1,'1','Brakes','Brakes are responsible for slowing the motorcycle or bringing it to a complete stop.',20,120.00,'https://w7.pngwing.com/pngs/494/288/png-transparent-car-disc-brake-brembo-brake-wear-indicator-car-car-automobile-repair-shop-vehicle-thumbnail.png','0','2024-04-14 11:32:20','2024-04-23 07:54:57');
 /*!40000 ALTER TABLE `inventories` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -58,4 +59,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2024-04-19 11:17:31
+-- Dump completed on 2024-04-23 13:40:48

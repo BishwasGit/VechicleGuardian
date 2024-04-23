@@ -10,24 +10,29 @@
             @endphp
             <div class="nk-content products-in-shop" style="margin-top: 5%;">
                 <div class="container mt-5">
-                    <div class="nk-content-inner">
-                    <div id="carouselExampleIndicators" class="carousel slide">
-                            <div class="carousel-indicators">
-                                <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
-                                <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1" aria-label="Slide 2"></button>
-                                <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="2" aria-label="Slide 3"></button>
-                            </div>
+                    <div class="nk-content-inner mt-5">
+                        <div id="carouselExampleIndicators" class="carousel slide mt-5">
                             <div class="carousel-inner">
-                                <div class="carousel-item active">
-                                <img src="https://www.shutterstock.com/image-vector/bicycle-parts-gears-260nw-582381541.jpg" class="d-block w-100" alt="...">
+                                @php
+                                $companies = DB::table('vehicle_companies')->get();
+                                $totalCompanies = count($companies);
+                                $itemsPerSlide = 5; // Number of items per slide
+                                $totalSlides = ceil($totalCompanies / $itemsPerSlide);
+                                @endphp
+
+                                @for ($i = 0; $i < $totalSlides; $i++)
+                                <div class="carousel-item {{ $i === 0 ? 'active' : '' }}">
+                                    <div class="row mt-5">
+                                        @for ($j = $i * $itemsPerSlide; $j < min(($i + 1) * $itemsPerSlide, $totalCompanies); $j++)
+                                        <div class="col">
+                                            <img src="{{ $companies[$j]->company_logo }}" class="img-fluid" alt="{{ $companies[$j]->company_name }}" width="150" height="150">
+                                        </div>
+                                        @endfor
+                                    </div>
                                 </div>
-                                <div class="carousel-item">
-                                <img src="https://www.shutterstock.com/image-vector/bicycle-parts-gears-260nw-582381541.jpg" class="d-block w-100" alt="...">
-                                </div>
-                                <div class="carousel-item">
-                                <img src="https://www.shutterstock.com/image-vector/bicycle-parts-gears-260nw-582381541.jpg" class="d-block w-100" alt="...">
-                                </div>
+                                @endfor
                             </div>
+
                             <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
                                 <span class="carousel-control-prev-icon" aria-hidden="true"></span>
                                 <span class="visually-hidden">Previous</span>
@@ -36,7 +41,8 @@
                                 <span class="carousel-control-next-icon" aria-hidden="true"></span>
                                 <span class="visually-hidden">Next</span>
                             </button>
-                            </div>
+                        </div>
+
                         <div class="row g-gs mt-5">
                             @foreach($products as $product)
                             <div class="col-sm-6 col-xl-4 col-xxl-3">
@@ -59,7 +65,7 @@
                                                 <a href="#" class="btn btn-primary"><em class="icon ni ni-plus"></em>&nbsp;Add to cart</a>
                                             </div>
                                             <div class="col">
-                                                <a href="#" class="btn btn-success"><em class="icon ni ni-equal-sm"></em>&nbsp;Description</a>
+                                                <a href="#" class="btn btn-success"><em class="icon ni ni-equal-sm"></em>&nbsp;Add to Wishlist</a>
                                             </div>
                                         </div>
                                     </div>

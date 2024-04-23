@@ -10,6 +10,7 @@ class inventories extends Model
     protected $fillable = [
                     'item_uuid',
                     'seller_uuid',
+                    'model_id',
                     'category',
                     'item_name',
                     'item_description',

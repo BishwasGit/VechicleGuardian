@@ -10,7 +10,7 @@ class ShopController extends Controller
 {
     public function view_categoried($id)
     {
-        $getdata = ItemInventories::where('category',$id)->get();
+        $getdata = ItemInventories::where('model_id',$id)->get();
        if($getdata){
        return view('shop.categoried_view',compact('getdata','id'));
         }

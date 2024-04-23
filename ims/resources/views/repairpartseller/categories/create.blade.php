@@ -44,24 +44,6 @@
                                                                         </div>
                                                                     </div>
                                                                 </div>
-                                                                <div class="col-lg-4">
-                                                                    <div class="form-group">
-                                                                        <label for="vehicle_category_id"
-                                                                            class="form-label">Vehicle Type</label>
-                                                                        <div class="form-control-wrap">
-                                                                            <select name="vehicle_category_id"
-                                                                                id="vehicle_category_id"
-                                                                                class="form-select">
-                                                                                @foreach ($getVehicleTypes as $vehicleType)
-                                                                                    <option
-                                                                                        name="{{ $vehicleType->vehicle_category_id }}">
-                                                                                        {{ $vehicleType->Vehicle_category }}
-                                                                                    </option>
-                                                                                @endforeach
-                                                                            </select>
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
                                                                 <div class="col-lg-6">
                                                                     <div class="form-group">
                                                                         <div class="form-control-wrap">

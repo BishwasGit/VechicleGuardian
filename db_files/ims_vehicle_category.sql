@@ -23,10 +23,12 @@ DROP TABLE IF EXISTS `vehicle_category`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `vehicle_category` (
-  `vehicle_category_id` int NOT NULL,
+  `vehicle_category_id` int NOT NULL AUTO_INCREMENT,
   `Vehicle_category` varchar(45) DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`vehicle_category_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -35,7 +37,7 @@ CREATE TABLE `vehicle_category` (
 
 LOCK TABLES `vehicle_category` WRITE;
 /*!40000 ALTER TABLE `vehicle_category` DISABLE KEYS */;
-INSERT INTO `vehicle_category` VALUES (1,'Two Wheeler'),(2,'Four Wheeler'),(3,'Six Wheeler');
+INSERT INTO `vehicle_category` VALUES (1,'Two Wheeler','2024-04-22 01:59:08','2024-04-22 01:59:08'),(2,'Four Wheeler','2024-04-22 01:59:08','2024-04-22 01:59:08'),(3,'Six Wheeler','2024-04-22 01:59:08','2024-04-22 01:59:08'),(4,'Eight Wheeler','2024-04-22 01:59:08','2024-04-22 01:59:08');
 /*!40000 ALTER TABLE `vehicle_category` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -48,4 +50,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2024-04-19 11:17:32
+-- Dump completed on 2024-04-23 13:40:45

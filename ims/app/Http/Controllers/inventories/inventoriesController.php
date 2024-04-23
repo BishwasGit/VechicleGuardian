@@ -9,7 +9,7 @@ use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Support\Facades\DB;
 use App\Models\categories\categories as ItemCategories;
 use Illuminate\Support\Str;
-
+use App\Models\vehiclemodel\Vehiclemodel as VehicleModel;
 class inventoriesController extends Controller
 {
     public function index(Request $request)
@@ -21,7 +21,8 @@ class inventoriesController extends Controller
     public function create()
     {
         $getCatregoriesNames = ItemCategories::get();
-        return view('repairpartseller.inventories.create',compact('getCatregoriesNames'));
+        $vehiclemodels = VehicleModel::all();
+        return view('repairpartseller.inventories.create',compact('getCatregoriesNames','vehiclemodels'));
     }
 
     public function store(Request $request)
@@ -31,6 +32,7 @@ class inventoriesController extends Controller
         InventoryModel::create([
             'item_uuid' => $itemUUID,
             'seller_uuid' => auth()->user()->seller_uuid,
+            'model_id'=>$request->model_id,
             'category'=>$request->category,
             'item_name' => $request->item_name,
             'item_description' => $request->item_description,
