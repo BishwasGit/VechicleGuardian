@@ -20,18 +20,10 @@ class CategoriesController extends Controller
     }
 
     public function store(Request $request){
-        $vehicleType = $request->vehicle_category_id;
-        $getVehicleTypeId = DB::Table('vehicle_category')->where('Vehicle_category',$vehicleType)->first();
-        if ($getVehicleTypeId) {
-            $vehicleCategoryId = $getVehicleTypeId->vehicle_category_id;
             $storecategory = new ItemCategories();
             $storecategory->category_name = $request->category_name;
-            $storecategory->vehicle_category_id = $vehicleCategoryId;
             $storecategory->save();
-            return redirect()->route('repairpartseller.categories')->with('success', 'Item category created successfully.');
-        } else {
-            return redirect()->back()->with('error', 'Vehicle category not found.');
-        }
+            return response()->json(['message' => 'Category stored successfully'], 200);
     }
 
     public function edit(){

@@ -3,7 +3,7 @@
         <div class="nk-sidebar-brand"><a href="index-2.html" class="logo-link">
                 <div class="logo-wrap">
                     <!-- SIDE BAR LOGO HERE-->
-                    <h1 class="logo-title">LOGO HERE</h1>
+                    <h1 class="logo-title"></h1>
                 </div>
             </a>
             <div class="nk-compact-toggle me-n1"><button
@@ -26,24 +26,23 @@
                             <span class="nk-menu-text">Dashboard</span>
                         </a>
                     </li>
-                    {{-- <li class="nk-menu-item">
-                        <a href="{{ route("crud_index") }}" class="nk-menu-link">
-                            <span class="nk-menu-icon"><em class="icon ni ni-dashboard"></em></span>
-                            <span class="nk-menu-text">Generate CRUD</span>
-                        </a>
-                    </li> --}}
-
                     <!-- Inventory Management -->
                     <li class="nk-menu-item has-sub">
                         <a href="#" class="nk-menu-link nk-menu-toggle">
                             <span class="nk-menu-icon"><em class="icon ni ni-box"></em></span>
-                            <span class="nk-menu-text">Inventory</span>
+                            <span class="nk-menu-text">Inventory Management</span>
                         </a>
                         <ul class="nk-menu-sub">
+                            <li class="nk-menu-item"><a href="{{ route('companies.index') }}" class="nk-menu-link"><span
+                                class="nk-menu-text">Add Vehicle Companies</span></a></li>
+                            <li class="nk-menu-item"><a href="{{ route('wheelercategory.index') }}" class="nk-menu-link"><span
+                                class="nk-menu-text">Add Wheeler Category</span></a></li>
                             <li class="nk-menu-item"><a href="{{ route('repairpartseller.categories') }}" class="nk-menu-link"><span
-                                class="nk-menu-text">Add Categories</span></a></li>
+                                class="nk-menu-text">Add Parts Categories</span></a></li>
+                            <li class="nk-menu-item"><a href="{{ route('vehiclemodel.index') }}" class="nk-menu-link"><span
+                                class="nk-menu-text">Add Vehicle Models</span></a></li>
                             <li class="nk-menu-item"><a href="{{ route('repairpartseller.inventories.inventories.index') }}" class="nk-menu-link"><span
-                                        class="nk-menu-text">Add Item</span></a></li>
+                                        class="nk-menu-text">Add Rpeiar Parts to Inventory</span></a></li>
                             <li class="nk-menu-item"><a href="{{route('inventories.lowstock',['selleruuid' => auth()->user()->seller_uuid])}}" class="nk-menu-link"><span
                                         class="nk-menu-text">Low Stock</span></a></li>
                         </ul>

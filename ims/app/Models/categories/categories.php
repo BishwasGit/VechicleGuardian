@@ -9,12 +9,11 @@ class categories extends Model
 {
     use HasFactory;
 
-    protected $table = 'categories';
+    protected $table = 'vehicle_parts_categories';
 
     protected $primaryKey = 'category_id';
 
     protected $fillable = [
-        'vehicle_category_id',
         'category_name',
         'created_at',
         'updated_at',

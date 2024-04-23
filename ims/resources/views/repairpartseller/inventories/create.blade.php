@@ -34,6 +34,29 @@
                                                         <div class="card-body">
                                                             <div class="row g-gs">
                                                                 <div class="col-lg-4">
+                                                                    <label class="form-label">Select item category</label>
+                                                                    <select class="form-select" name="category">
+                                                                        @foreach($getCatregoriesNames as $names)
+                                                                            <option value="{{ $names->category_id }}" name="{{ $names->category_id }}">{{$names->category_name }}</option>
+                                                                        @endforeach
+                                                                    </select>
+                                                                </div>
+                                                                <div class="col-lg-4">
+                                                                    <label class="form-label">Select vehicle model</label>
+                                                                    <select class="form-select" name="model_id">
+                                                                        @foreach($vehiclemodels as $model)
+                                                                            <option value="{{ $model->model_id }}" name="{{ $model->model_id }}">{{$model->vehicle_model }}&nbsp;({{ $model->year_of_launch }})</option>
+                                                                        @endforeach
+                                                                    </select>
+                                                                </div>
+                                                                <div class="col-lg-4">
+                                                                    <label class="form-label">Sell in online platform ?</label>
+                                                                    <select class="form-select" name="item_for_sale">
+                                                                            <option value="0" name="0">Yes</option>
+                                                                            <option value="1" name="1">No</option>
+                                                                    </select>
+                                                                </div>
+                                                                <div class="col-lg-4">
                                                                     <div class="form-group">
                                                                         <label for="item_name"
                                                                             class="form-label">Item name</label>
@@ -80,21 +103,6 @@
                                                                     <div class="form-control-wrap"> <input
                                                                             class="form-control" type="file"
                                                                             id="item_image" name="item_image"> </div>
-                                                                </div>
-                                                                <div class="col-lg-6">
-                                                                    <label class="form-label">Select item category</label>
-                                                                    <select class="form-select" name="category">
-                                                                        @foreach($getCatregoriesNames as $names)
-                                                                            <option value="{{ $names->category_id }}" name="{{ $names->category_id }}">{{$names->category_name }}</option>
-                                                                        @endforeach
-                                                                    </select>
-                                                                </div>
-                                                                <div class="col-lg-6">
-                                                                    <label class="form-label">Is the item for sale ?</label>
-                                                                    <select class="form-select" name="item_for_sale">
-                                                                            <option value="0" name="0">Yes</option>
-                                                                            <option value="1" name="1">No</option>
-                                                                    </select>
                                                                 </div>
                                                             </div>
                                                             <div class="col-lg-6">

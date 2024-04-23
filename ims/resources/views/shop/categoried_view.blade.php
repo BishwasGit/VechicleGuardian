@@ -5,21 +5,13 @@
             @include('shop.includes.sidebar')
             <div class="nk-wrap">
                 @include('shop.includes.navbar')
-                <div class="nk-content">
-                    <div class="container-fluid">
-                        <div class="nk-content-inner">
-                            <h1>
-                                @php
-                                $category = DB::table('categories')->where('category_id', $id)->first();
-                                $categoryName = $category->category_name;
-                                $pluralCategoryName = substr($categoryName, -1) === 's' ? $categoryName : $categoryName . 's';
-                                echo $pluralCategoryName;
-                                @endphp
-                            </h1>
-                            <div class="row g-gs">
+                <div class="nk-content mt-5">
+                    <div class="container-fluid mt-5">
+                        <div class="nk-content-inner mt-5">
+                            <div class="row g-gs mt-5">
                                 @foreach($getdata as $data)
-                                <div class="col-sm-6 col-xl-4 col-xxl-3">
-                                    <div class="card text-center h-100">
+                                <div class="col-sm-6 col-xl-4 col-xxl-3 mt-5">
+                                    <div class="card text-center h-100 mt-5">
                                         <div class="card-body">
                                             <div class=""><img
                                                     src="{{ $data->item_image }}" alt="user"></div>
@@ -34,7 +26,7 @@
                                                     <a href="#" class="btn btn-primary"><em class="icon ni ni-plus"></em>&nbsp;Add to cart</a>
                                                 </div>
                                                 <div class="col">
-                                                   <a href="#" class="btn btn-success"><em class="icon ni ni-equal-sm"></em>&nbsp;Description</a>
+                                                   <a href="#" class="btn btn-success"><em class="icon ni ni-equal-sm"></em>&nbsp;Add to Wishlist</a>
                                                 </div>
                                             </div>
                                         </div>
