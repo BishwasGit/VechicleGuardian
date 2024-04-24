@@ -16,32 +16,37 @@
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
--- Table structure for table `creditors`
+-- Table structure for table `parties`
 --
 
-DROP TABLE IF EXISTS `creditors`;
+DROP TABLE IF EXISTS `parties`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `creditors` (
-  `creditor_id` int NOT NULL AUTO_INCREMENT,
+CREATE TABLE `parties` (
+  `party_id` int NOT NULL AUTO_INCREMENT,
   `seller_uuid` varchar(255) DEFAULT NULL,
-  `creditor_name` varchar(255) DEFAULT NULL,
-  `creditor_contact` varchar(255) DEFAULT NULL,
+  `party_name` varchar(255) NOT NULL,
+  `contact_person` varchar(255) DEFAULT NULL,
+  `email` varchar(255) DEFAULT NULL,
+  `phone` varchar(20) DEFAULT NULL,
+  `address` text,
+  `is_debtor` tinyint(1) DEFAULT '0',
+  `is_creditor` tinyint(1) DEFAULT '0',
   `amount_due` decimal(10,2) DEFAULT NULL,
-  `created_at` timestamp NULL DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
   `updated_at` timestamp NULL DEFAULT NULL,
-  PRIMARY KEY (`creditor_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+  PRIMARY KEY (`party_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `creditors`
+-- Dumping data for table `parties`
 --
 
-LOCK TABLES `creditors` WRITE;
-/*!40000 ALTER TABLE `creditors` DISABLE KEYS */;
-INSERT INTO `creditors` VALUES (1,'4d276e29-7983-4a7c-91a8-788af52f3396','Bishwas','9803488071',25000.00,'2024-04-10 01:34:59','2024-04-10 01:34:59');
-/*!40000 ALTER TABLE `creditors` ENABLE KEYS */;
+LOCK TABLES `parties` WRITE;
+/*!40000 ALTER TABLE `parties` DISABLE KEYS */;
+INSERT INTO `parties` VALUES (1,'4d27ss29-4483-hh7c-5ga8-788vdf4ff34g6','Bishwas','9869133344','workmail.bishwas@gmail.com','9869133344','Kathmandu, Nepal',1,0,25000.00,'2024-04-24 01:50:28','2024-04-24 01:50:28');
+/*!40000 ALTER TABLE `parties` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
@@ -53,4 +58,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2024-04-24 13:58:14
+-- Dump completed on 2024-04-24 13:58:19

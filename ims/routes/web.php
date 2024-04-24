@@ -36,3 +36,4 @@ require __DIR__ . '/shop/shop.php';
 require __DIR__ . '/companies/companies.php';
 require __DIR__ . '/wheeler_category/wheeler_category.php';
 require __DIR__ . '/vehicle_model/vehicle_model.php';
+require __DIR__ . '/party/party.php';

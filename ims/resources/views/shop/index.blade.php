@@ -52,7 +52,7 @@
                                         <div class="mt-1 mb-4"><a href="#" class="my-2 h3">{{ $product->item_name }}</a>
                                         </div>
                                         <div class="price" style="list-style: none;">
-                                            <li class="">₹{{ $product->item_price }}</li>
+                                            <li class="">₹{{ $product->selling_price }}</li>
                                         </div>
                                         <div class="rating d-flex flex-row align-items-center justify-content-center py-2" style="list-style: none;">
                                             <li class="rating-label checked"><em class="icon ni ni-star-fill"></em></li>

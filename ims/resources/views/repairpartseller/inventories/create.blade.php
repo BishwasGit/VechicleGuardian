@@ -89,6 +89,16 @@
                                                                         </div>
                                                                     </div>
                                                                 </div>
+                                                                <div class="col-lg-4">
+                                                                    <div class="form-group">
+                                                                        <label for="selling_price" class="form-label">Selling Price</label>
+                                                                        <div class="form-control-wrap">
+                                                                            <input type="text" class="form-control"
+                                                                                id="selling_price" name="selling_price"
+                                                                                placeholder="Selling Price">
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
                                                                 <div class="col-lg-12">
                                                                     <div class="form-group"><label
                                                                             class="form-label">Description</label>

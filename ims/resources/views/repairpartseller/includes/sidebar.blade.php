@@ -42,11 +42,25 @@
                             <li class="nk-menu-item"><a href="{{ route('vehiclemodel.index') }}" class="nk-menu-link"><span
                                 class="nk-menu-text">Add Vehicle Models</span></a></li>
                             <li class="nk-menu-item"><a href="{{ route('repairpartseller.inventories.inventories.index') }}" class="nk-menu-link"><span
-                                        class="nk-menu-text">Add Rpeiar Parts to Inventory</span></a></li>
+                                        class="nk-menu-text">Add Repair Parts to Inventory</span></a></li>
                             <li class="nk-menu-item"><a href="{{route('inventories.lowstock',['selleruuid' => auth()->user()->seller_uuid])}}" class="nk-menu-link"><span
                                         class="nk-menu-text">Low Stock</span></a></li>
                         </ul>
                     </li>
+
+                    <!-- Creditors Management -->
+                    <li class="nk-menu-item has-sub">
+                        <a href="#" class="nk-menu-link nk-menu-toggle">
+                            <span class="nk-menu-icon"><em class="icon ni ni-user-check"></em></span>
+                            <span class="nk-menu-text">Party Management</span>
+                        </a>
+                        <ul class="nk-menu-sub">
+                            <li class="nk-menu-item"><a href="{{ route('party.index') }}" class="nk-menu-link"><span
+                                        class="nk-menu-text">Manage Party</span></a></li>
+                        </ul>
+                    </li>
+
+                    {{-- <!-- Debtors Management -->
                     <li class="nk-menu-item has-sub">
                         <a href="#" class="nk-menu-link nk-menu-toggle">
                             <span class="nk-menu-icon"><em class="icon ni ni-users"></em></span>
@@ -68,7 +82,8 @@
                             <li class="nk-menu-item"><a href="{{ route('repairpartseller.creditors') }}" class="nk-menu-link"><span
                                         class="nk-menu-text">Add Creditor</span></a></li>
                         </ul>
-                    </li>
+                    </li> --}}
+
                     <!-- Sales Management -->
                     <li class="nk-menu-item has-sub">
                         <a href="#" class="nk-menu-link nk-menu-toggle">

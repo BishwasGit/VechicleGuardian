@@ -12,14 +12,18 @@
                                 <div class="nk-block-head">
                                     <div class="nk-block-head-between flex-wrap gap g-2">
                                         <div class="nk-block-head-content">
-                                            <h2 class="nk-block-title">inventories List</h2>
-                                            <nav>
-                                                <ol class="breadcrumb breadcrumb-arrow mb-0">
-                                                    <li class="breadcrumb-item"><a href="#">inventories</a></li>
-                                                    <li class="breadcrumb-item active" aria-current="page">Add inventories
-                                                    </li>
-                                                </ol>
-                                            </nav>
+                                            <div class="nk-block-head-content">
+                                                <div class="dropdown">
+                                                    <button class="btn btn-success dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                                      Download As
+                                                    </button>
+                                                    <ul class="dropdown-menu">
+                                                      <li><a class="dropdown-item" href="#">CSV</a></li>
+                                                      <li><a class="dropdown-item" href="#">Excel</a></li>
+                                                      <li><a class="dropdown-item" href="#">PDF</a></li>
+                                                    </ul>
+                                                  </div>
+                                            </div>
                                         </div>
                                         <div class="nk-block-head-content">
                                             <ul class="d-flex">
@@ -59,6 +63,15 @@
                                                     data-nk-container="table-responsive">
                                                     <thead class="table-light">
                                                         <tr>
+                                                            <th colspan="5"></th>
+                                                            <th class="tb-col text-center" data-sortable="" style="width: 30.1887%;" colspan="2">
+                                                                <a href="#">
+                                                                    <span class="overline-title">Price</span>
+                                                                </a>
+                                                            </th>
+                                                            <th colspan="2"></th>
+                                                        </tr>
+                                                        <tr>
                                                             <th class="tb-col" data-sortable="" style="width: 30.1887%;">
                                                                 <a href="#" class="dataTable-sorter">
                                                                     <span class="overline-title">Item_id</span>
@@ -80,9 +93,16 @@
                                                                 </a>
                                                             </th>
                                                             <th class="tb-col" data-sortable="" style="width: 30.1887%;">
-                                                                <a href="#" class="dataTable-sorter">
-                                                                    <span class="overline-title">Item_price</span>
-                                                                </a>
+                                                                <th class="tb-col" data-sortable="" style="width: 30.1887%;">
+                                                                    <a href="#" class="dataTable-sorter">
+                                                                        <span class="overline-title">Cost Price<span>
+                                                                    </a>
+                                                                </th>
+                                                                <th class="tb-col" data-sortable="" style="width: 30.1887%;">
+                                                                    <a href="#" class="dataTable-sorter">
+                                                                        <span class="overline-title">Selling Price<span>
+                                                                    </a>
+                                                                </th>
                                                             </th>
                                                             <th class="tb-col" data-sortable="" style="width: 30.1887%;">
                                                                 <a href="#" class="dataTable-sorter">
@@ -123,7 +143,10 @@
                                                                     <span class="btn btn-sm btn-icon bg-success-soft"> {{ $item->item_quantity }}</span>
                                                                     @endif
                                                                 </td>
-                                                                <td class="tb-col">{{ $item->item_price }}</td>
+                                                                <td class="tb-col">
+                                                                        <td>{{ $item->item_price }}</td>
+                                                                        <td>{{ $item->selling_price }}</td>
+                                                                </td>
                                                                 <td class="tb-col"><span
                                                                         class="badge text-bg-success-soft">In Stock</span>
                                                                 </td>

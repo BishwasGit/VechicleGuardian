@@ -66,8 +66,6 @@
                                                     <button type="submit" class="btn btn-primary mt-3" id="submit-sales">Add Sale</button>
                                                 </form>
                                             </div>
-                                </div>
-                                </div>
                             </div>
                           </div>
                         </div>

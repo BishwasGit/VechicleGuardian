@@ -30,35 +30,39 @@
         <div class="container my-3">
             <ul class="nk-menu-sub flex-row" style="display: flex; flex-direction: row;">
                 @php
-                    $vehicleCompanies = DB::table('vehicle_companies')->get();
-                @endphp
-                @foreach ($vehicleCompanies as $vehicleCompany)
-                    <li class="nk-menu-item has-sub" style="list-style-type: none; margin-right: 10px;">
-                        <a href="#" class="nk-menu-link nk-menu-toggle">
-                            <span class="nk-menu-text"
-                                style="margin-right: 10px;">{{ $vehicleCompany->company_name }}</span>
-                            <span class="dropdown-arrow">&nbsp;&nbsp;&nbsp;&nbsp;</span>
-                        </a>
-                        <ul class="nk-menu-sub" style="display: none; flex-direction: row;">
-                            @php
-                                $associatedModels = DB::table('vehicle_model')
-                                    ->where('companies_id', $vehicleCompany->companies_id)
-                                    ->get();
-                            @endphp
-                            <div class="row">
-                                @foreach ($associatedModels as $associatedModel)
-                                    <span class="col">
-                                        &nbsp;<a
-                                            href="{{ route('shop.categorized.details', ['id' => $associatedModel->model_id]) }}">
-                                            <span
-                                                class="nk-menu-text">{{ $associatedModel->vehicle_model }}&nbsp;({{ $associatedModel->year_of_launch }})</span>
-                                        </a>
-                                    </span>
+                $vehicleCompanies = DB::table('vehicle_companies')->get();
+            @endphp
+
+            @foreach ($vehicleCompanies as $vehicleCompany)
+                <li class="nk-menu-item has-sub" style="list-style-type: none; margin-right: 10px;">
+                    <a href="#" class="nk-menu-link nk-menu-toggle">
+                        <span class="nk-menu-text" style="margin-right: 10px;">{{ $vehicleCompany->company_name }}</span>
+                        <span class="dropdown-arrow">&nbsp;&nbsp;&nbsp;&nbsp;</span>
+                    </a>
+                    <ul class="nk-menu-sub" style="display: none; flex-direction: row;">
+                        @php
+                            $wheelerCategories = DB::table('vehicle_category')
+                                ->get();
+                        @endphp
+                        @foreach ($wheelerCategories as $wheelerCategory)
+                        <li class="has-sub">
+                            <a href="#" class="nk-menu-link nk-menu-toggle">
+                                <span class="nk-menu-text">{{ $wheelerCategory->Vehicle_category }}</span>
+                                <span class="dropdown-arrow">&nbsp;&nbsp;&nbsp;&nbsp;</span>
+                            </a>
+                            <ul class="nk-menu-sub" style="left: 100%; top: 0;">
+                                @php
+                                    $vehiclePartsCategories = DB::table('vehicle_parts_categories')->get();
+                                @endphp
+                                @foreach ($vehiclePartsCategories as $vehiclePartsCategory)
+                                    <li><a href="#" style="text-decoration:none;color:black;" class="px-2">{{ $vehiclePartsCategory->category_name }}</a></li>
                                 @endforeach
-                            </div>
-                        </ul>
-                    </li>
-                @endforeach
+                            </ul>
+                        </li>
+                        @endforeach
+                    </ul>
+                </li>
+            @endforeach
             </ul>
         </div>
     </div>

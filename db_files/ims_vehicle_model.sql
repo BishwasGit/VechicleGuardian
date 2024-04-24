@@ -47,7 +47,7 @@ CREATE TABLE `vehicle_model` (
 
 LOCK TABLES `vehicle_model` WRITE;
 /*!40000 ALTER TABLE `vehicle_model` DISABLE KEYS */;
-INSERT INTO `vehicle_model` VALUES (1,1,2,'Camry',2024,'sedan','petrol',30.50,'automatic',5,250000.00,'Sunroof, Leather Seats, Navigation System','2024-04-23 00:40:50','2024-04-23 00:40:50'),(2,1,2,'Camry',2024,'sedan','petrol',30.50,'automatic',5,250000.00,'Sunroof, Leather Seats, Navigation System','2024-04-23 00:41:16','2024-04-23 00:41:16');
+INSERT INTO `vehicle_model` VALUES (1,1,2,'Camry',2024,'sedan','petrol',30.50,'automatic',5,250000.00,'Sunroof, Leather Seats, Navigation System','2024-04-23 00:40:50','2024-04-23 00:40:50');
 /*!40000 ALTER TABLE `vehicle_model` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -60,4 +60,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2024-04-23 13:40:48
+-- Dump completed on 2024-04-24 13:58:20

@@ -12,9 +12,16 @@
                                 <div class="nk-block-head">
                                     <div class="nk-block-head-between flex-wrap gap g-2">
                                         <div class="nk-block-head-content">
-                                            <ul class="d-flex">
-
-                                            </ul>
+                                            <div class="dropdown">
+                                                <button class="btn btn-success dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                                  Download As
+                                                </button>
+                                                <ul class="dropdown-menu">
+                                                  <li><a class="dropdown-item" href="#">CSV</a></li>
+                                                  <li><a class="dropdown-item" href="#">Excel</a></li>
+                                                  <li><a class="dropdown-item" href="#">PDF</a></li>
+                                                </ul>
+                                              </div>
                                         </div>
                                     </div>
                                 </div>

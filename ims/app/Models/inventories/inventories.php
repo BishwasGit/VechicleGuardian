@@ -16,6 +16,7 @@ class inventories extends Model
                     'item_description',
                     'item_quantity',
                     'item_price',
+                    'selling_price',
                     'item_image',
                     'item_for_sale',
                     'created_at',
