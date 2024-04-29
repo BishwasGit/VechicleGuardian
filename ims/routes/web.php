@@ -2,11 +2,15 @@
 
 use App\Http\Controllers\DashboardController;
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\inventories\inventoriesController;
 
-
 Route::get('/',function(){
-return view('/shop/index');
+   if (Auth::check()) {
+    return redirect()->route('shop.authenticated.user',['uuid' => auth()->user()->user_uuid]);
+    } else {
+        return view('shop.index');
+    }
 })->name('shop.index');
 
 Route::get('/userlogin', function () {
@@ -37,3 +41,4 @@ require __DIR__ . '/companies/companies.php';
 require __DIR__ . '/wheeler_category/wheeler_category.php';
 require __DIR__ . '/vehicle_model/vehicle_model.php';
 require __DIR__ . '/party/party.php';
+require __DIR__ . '/ecomm/users/ecomm_users.php';

@@ -3,7 +3,7 @@
 <div class="nk-app-root">
     <div class="nk-main">
         <div class="nk-wrap">
-            @include('shop.includes.navbar')
+            @include('shop.authenticated.includes.navbar')
             @php
             $products = DB::table('inventories')->where('item_for_sale', '0')->get()
             @endphp
@@ -18,7 +18,6 @@
                                 $itemsPerSlide = 5; // Number of items per slide
                                 $totalSlides = ceil($totalCompanies / $itemsPerSlide);
                                 @endphp
-
                                 @for ($i = 0; $i < $totalSlides; $i++)
                                 <div class="carousel-item {{ $i === 0 ? 'active' : '' }}">
                                     <div class="row mt-5">

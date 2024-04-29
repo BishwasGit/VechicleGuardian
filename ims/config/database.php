@@ -34,7 +34,6 @@ return [
     */
 
     'connections' => [
-
         'sqlite' => [
             'driver' => 'sqlite',
             'url' => env('DATABASE_URL'),
@@ -47,6 +46,14 @@ return [
             'host' => 'localhost',
             'port' => '3306',
             'database' => 'mobile_app',
+            'username' => 'Bishwas',
+            'password' => 'Bishwas@1',
+        ],
+        'ecomm' => [
+            'driver' => 'mysql',
+            'host' => 'localhost',
+            'port' => '3306',
+            'database' => 'ecomm',
             'username' => 'Bishwas',
             'password' => 'Bishwas@1',
         ],

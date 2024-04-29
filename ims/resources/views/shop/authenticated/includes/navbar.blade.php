@@ -1,15 +1,21 @@
 <div class="nk-header nk-header-fixed mb-5">
     <div class="container-fluid">
         <div class="nk-header-wrap">
-            <div class="nk-header-logo ms-n1">
-            </div>
             <nav class="nk-header-menu nk-navbar py-3">
                 <ul class="nk-nav">
                     <li class="nk-nav-item">
-                        <h5 class="nk-nav-text" id="clock"></h5>
-                    </li>
-                    <li class="nk-nav-item">
-                        <img class="nk-nav-text" src="{{ asset('/assets/output1.png') }}" height="" width="200px">
+                        @php
+                            $currentTime = date("H");
+                            $greeting = '';
+                            if ($currentTime < 12) {
+                                $greeting = 'Good Morning';
+                            } elseif ($currentTime >= 12 && $currentTime < 17) {
+                                $greeting = 'Good Afternoon';
+                            } else {
+                                $greeting = 'Good Evening';
+                            }
+                        @endphp
+                        <h5>{{ $greeting }}, {{ $user->user_name }}</h5>
                     </li>
                 </ul>
             </nav>

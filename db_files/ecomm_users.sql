@@ -1,6 +1,6 @@
 -- MySQL dump 10.13  Distrib 8.0.34, for Win64 (x86_64)
 --
--- Host: localhost    Database: ims
+-- Host: localhost    Database: ecomm
 -- ------------------------------------------------------
 -- Server version	8.2.0
 
@@ -16,29 +16,34 @@
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
--- Table structure for table `vehicle_category`
+-- Table structure for table `users`
 --
 
-DROP TABLE IF EXISTS `vehicle_category`;
+DROP TABLE IF EXISTS `users`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `vehicle_category` (
-  `vehicle_category_id` int NOT NULL AUTO_INCREMENT,
-  `Vehicle_category` varchar(45) DEFAULT NULL,
-  `updated_at` timestamp NULL DEFAULT NULL,
+CREATE TABLE `users` (
+  `user_id` int NOT NULL AUTO_INCREMENT,
+  `user_uuid` varchar(255) DEFAULT NULL,
+  `user_name` varchar(45) DEFAULT NULL,
+  `user_phone` bigint DEFAULT NULL,
+  `user_email` varchar(255) DEFAULT NULL,
+  `user_password` varchar(255) DEFAULT NULL,
+  `remember_token` varchar(255) DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
-  PRIMARY KEY (`vehicle_category_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+  `updated_at` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`user_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `vehicle_category`
+-- Dumping data for table `users`
 --
 
-LOCK TABLES `vehicle_category` WRITE;
-/*!40000 ALTER TABLE `vehicle_category` DISABLE KEYS */;
-INSERT INTO `vehicle_category` VALUES (1,'Two Wheeler','2024-04-22 01:59:08','2024-04-22 01:59:08'),(2,'Four Wheeler','2024-04-22 01:59:08','2024-04-22 01:59:08'),(3,'Six Wheeler','2024-04-22 01:59:08','2024-04-22 01:59:08'),(4,'Eight Wheeler','2024-04-22 01:59:08','2024-04-22 01:59:08');
-/*!40000 ALTER TABLE `vehicle_category` ENABLE KEYS */;
+LOCK TABLES `users` WRITE;
+/*!40000 ALTER TABLE `users` DISABLE KEYS */;
+INSERT INTO `users` VALUES (3,'5aa4d64a-fbaf-4a9d-893b-88e82e7313fd','ecommuser',9869133344,'workmail.bishwas@gmail.com','$2y$12$XAscG6J02D5PqYU9mi8Ab.tIddMZTVW44zfDuS5w3H8YHNgdbtbGq','8He7es5nZMo7g09ahLwcr2asdbHFj8dcLFHeteXp9ZWSDJE1UuZqxknPTctD','2024-04-29 00:01:54','2024-04-29 00:01:54');
+/*!40000 ALTER TABLE `users` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
@@ -50,4 +55,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2024-04-29 12:51:30
+-- Dump completed on 2024-04-29 12:51:26

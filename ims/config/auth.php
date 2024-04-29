@@ -40,6 +40,10 @@ return [
             'driver' => 'session',
             'provider' => 'users',
         ],
+        'ecomm' => [
+            'driver' => 'session',
+            'provider' => 'ecomm_users',
+        ],
     ],
 
     /*
@@ -63,6 +67,10 @@ return [
         'users' => [
             'driver' => 'eloquent',
             'model' => App\Models\User::class,
+        ],
+        'ecomm_users' => [
+            'driver' => 'eloquent',
+            'model' => App\Models\ecomm\EcommUser::class,
         ],
 
         // 'users' => [
