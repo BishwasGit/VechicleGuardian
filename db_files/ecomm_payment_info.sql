@@ -1,6 +1,6 @@
 -- MySQL dump 10.13  Distrib 8.0.34, for Win64 (x86_64)
 --
--- Host: localhost    Database: mobile_app
+-- Host: localhost    Database: ecomm
 -- ------------------------------------------------------
 -- Server version	8.2.0
 
@@ -16,30 +16,34 @@
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
--- Table structure for table `repaircenter_users`
+-- Table structure for table `payment_info`
 --
 
-DROP TABLE IF EXISTS `repaircenter_users`;
+DROP TABLE IF EXISTS `payment_info`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `repaircenter_users` (
-  `repaircenter_id` int NOT NULL AUTO_INCREMENT,
-  `username` varchar(45) DEFAULT NULL,
-  `password` varchar(512) DEFAULT NULL,
-  `email` varchar(45) DEFAULT NULL,
-  `phone` varchar(45) DEFAULT NULL,
-  PRIMARY KEY (`repaircenter_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+CREATE TABLE `payment_info` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `user_uuid` varchar(36) DEFAULT NULL,
+  `card_number` varchar(20) DEFAULT NULL,
+  `cardholder_name` varchar(100) DEFAULT NULL,
+  `expiry_month` int DEFAULT NULL,
+  `expiry_year` int DEFAULT NULL,
+  `cvv` varchar(10) DEFAULT NULL,
+  `billing_address` text,
+  `created_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
+  `updated_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `repaircenter_users`
+-- Dumping data for table `payment_info`
 --
 
-LOCK TABLES `repaircenter_users` WRITE;
-/*!40000 ALTER TABLE `repaircenter_users` DISABLE KEYS */;
-INSERT INTO `repaircenter_users` VALUES (1,'Bishwas','$2b$10$4n4f.gdlCIidenwSrCVPNuSm8vp0.Yg375Nmw3v4fqwFY7KBmY79W','workmail.bishwas@gmail.com','9869133344'),(2,'Repair','$2b$10$4n4f.gdlCIidenwSrCVPNuSm8vp0.Yg375Nmw3v4fqwFY7KBmY79W','repair123@gmail.com','980480099'),(3,'repairdai','$2b$10$i6/pK9hkNuDeKY5Q2Yscpulx7v8oSMp3FSiYlYK6eUZfbixWoKlWy','Repairdai123@gmail.com','9803488071');
-/*!40000 ALTER TABLE `repaircenter_users` ENABLE KEYS */;
+LOCK TABLES `payment_info` WRITE;
+/*!40000 ALTER TABLE `payment_info` DISABLE KEYS */;
+/*!40000 ALTER TABLE `payment_info` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
@@ -51,4 +55,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2024-05-02 11:40:42
+-- Dump completed on 2024-05-02 11:40:31

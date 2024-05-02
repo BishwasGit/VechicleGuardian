@@ -8,7 +8,8 @@ use App\Models\ecomm\EcommUser;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
-
+use App\Models\ecomm\ShoppingCart;
+use App\Models\inventories\inventories as InventoryModel;
 class EcommUserController extends Controller
 {
     public function login_index(){
@@ -61,4 +62,34 @@ class EcommUserController extends Controller
             return redirect()->back()->withInput()->withErrors(['credentials' => 'An unexpected error occurred']);
         }
     }
+    public function dashboard($uuid){
+        return view('shop.authenticated.dashboard');
+    }
+    public function addtocart($product_uuid,$user_uuid){
+            $shoppingCart = new ShoppingCart();
+            $shoppingCart->user_uuid = $user_uuid;
+            $shoppingCart->item_uuid = $product_uuid;
+            $shoppingCart->quantity = 1;
+            $shoppingCart->save();
+
+            $isInCart = ShoppingCart::where('user_uuid', $user_uuid)
+                ->where('item_uuid', $product_uuid)
+                ->exists();
+
+            return response()->json(['message' => 'Product added to cart successfully','isInCart' => $isInCart]);
+    }
+
+    public function getItemDetails(Request $request){
+        $itemUUID = $request->input('item_uuid');
+        $itemDetails = InventoryModel::where('item_uuid', $itemUUID)->first();
+        return response()->json($itemDetails);
+    }
+    public function view_cart($uuid){
+
+    }
+
+    public function wishlist($product_uuid,$user_uuid){
+
+    }
+
 }

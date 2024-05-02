@@ -11,6 +11,10 @@ Route::get('/',function(){
     } else {
         return view('shop.index');
     }
+});
+
+Route::get('/shop',function(){
+    return view('shop.index');
 })->name('shop.index');
 
 Route::get('/userlogin', function () {

@@ -19,4 +19,7 @@ class ShopController extends Controller
         }
 
     }
+    public function detailed_view($uuid){
+
+    }
 }

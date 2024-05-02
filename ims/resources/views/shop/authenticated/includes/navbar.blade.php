@@ -26,8 +26,8 @@
             </div>
             <div class="nk-header-tools">
                 <a class="btn btn-icon btn-md btn-zoom d-none d-sm-inline-flex"><em class="icon ni ni-bell"></em></a>
-                <a class="btn btn-icon btn-md btn-zoom d-none d-sm-inline-flex"><em class="icon ni ni-cart-fill"></em></a>
-                <a class="btn btn-icon btn-md btn-zoom d-none d-sm-inline-flex" href="{{ route('ecomm.user.login') }}"><em class="icon ni ni-user-alt-fill"></em></a>
+                <a class="btn btn-icon btn-md btn-zoom d-none d-sm-inline-flex" href="{{ route('view.cart', ['user_uuid' => $user->user_uuid]) }}"><em class="icon ni ni-cart-fill"></em></a>
+                <a class="btn btn-icon btn-md btn-zoom d-none d-sm-inline-flex" href="{{ route('ecomm.user.dashboard',['uuid' => $user->user_uuid]) }}"><em class="icon ni ni-masonry-fill"></em></a>
             </div>
         </div>
         <div class="container my-3">

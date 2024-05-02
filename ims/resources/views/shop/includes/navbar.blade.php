@@ -21,7 +21,11 @@
             <div class="nk-header-tools">
                 <a class="btn btn-icon btn-md btn-zoom d-none d-sm-inline-flex"><em class="icon ni ni-bell"></em></a>
                 <a class="btn btn-icon btn-md btn-zoom d-none d-sm-inline-flex"><em class="icon ni ni-cart-fill"></em></a>
-                <a class="btn btn-icon btn-md btn-zoom d-none d-sm-inline-flex" href="{{ route('ecomm.user.login') }}"><em class="icon ni ni-user-alt-fill"></em></a>
+                @if(Auth::check())
+                <a class="btn btn-icon btn-md btn-zoom d-none d-sm-inline-flex" href="{{ route('shop.authenticated.user',['uuid'=>auth()->user()->uuid]) }}"><em class="icon ni ni-user-alt-fill"></em></a>
+                @else
+                    <a class="btn btn-icon btn-md btn-zoom d-none d-sm-inline-flex" href="{{ route('ecomm.user.login') }}"><em class="icon ni ni-user-alt-fill"></em></a>
+                @endif
             </div>
         </div>
         <div class="container my-3">

@@ -8,6 +8,7 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <title>Buy Repair parts</title>
 </head>
+@stack('css')
 <body class="nk-body" data-sidebar-collapse="lg" data-navbar-collapse="lg">
 
 

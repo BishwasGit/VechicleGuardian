@@ -61,10 +61,10 @@
                                         </div>
                                         <div class="row g-gs d-flex flex-column">
                                             <div class="col">
-                                                <a href="#" class="btn btn-primary"><em class="icon ni ni-plus"></em>&nbsp;Add to cart</a>
+                                                <a href="{{ route('ecomm.user.login') }}" class="btn btn-primary"><em class="icon ni ni-plus"></em>&nbsp;Add to cart</a>
                                             </div>
                                             <div class="col">
-                                                <a href="#" class="btn btn-success"><em class="icon ni ni-equal-sm"></em>&nbsp;Add to Wishlist</a>
+                                                <a href="{{ route('ecomm.user.login') }}" class="btn btn-success"><em class="icon ni ni-equal-sm"></em>&nbsp;Add to Wishlist</a>
                                             </div>
                                         </div>
                                     </div>
