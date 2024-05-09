@@ -85,10 +85,10 @@ const LoginPage = () => {
   }
   return (
     <div>
+         {showLoginCard && (
       <div className='main'>
         <div className='form'>
           <div>
-            {showLoginCard &&
             <FormControl fullWidth className='form'>
               <p>
                 <span style={{ fontSize: 24, fontWeight: 'bold' }}>
@@ -150,11 +150,11 @@ const LoginPage = () => {
               {dialogVisible && <CircularProgress />}
 
             </FormControl>
-            }
-             {showRegisterCard && <RegisterPage />}
           </div>
         </div>
       </div>
+        )}
+      {showRegisterCard && <RegisterPage />}
     </div>
   )
 }
