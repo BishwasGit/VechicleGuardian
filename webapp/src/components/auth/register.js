@@ -1,9 +1,12 @@
 import React, { useState } from 'react'
-import { TextField, Button, Checkbox, FormControlLabel } from '@mui/material'
-import { FormControl } from '@mui/material'
+import { TextField, Button,} from '@mui/material'
+import { FormControl,FormControlLabel,Checkbox} from '@mui/material';
 import axios from 'axios'
 import Alert from '@mui/material/Alert'
+import LoginPage from './login'
 import CardContent from '@mui/material/CardContent'
+import { Typography } from '@mui/material';
+import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 
 const RegisterPage = () => {
   const [username, setUsername] = useState('')
@@ -17,7 +20,12 @@ const RegisterPage = () => {
   })
   const [registrationStatus, setRegistrationStatus] = useState(null)
   const [alertMessage, setAlertMessage] = useState(null)
-
+  const [showLoginCard, setShowLoginCard] = useState(false)
+  const [showRegisterCard, setShowRegisterCard] = useState(true)
+  const handleLoginClick = () => {
+    setShowRegisterCard(false)
+    setShowLoginCard(true)
+  }
   const handleRegistration = async () => {
     const formData = {
       userTypes,
@@ -65,8 +73,8 @@ const RegisterPage = () => {
   return (
     <div className='container' maxWidth='lg'>
       <div className='right-content'>
+        {showRegisterCard && 
         <CardContent className='second-column-cardcontents'>
-          <h2>Registration</h2>
           {alertMessage && (
             <Alert icon={<i class='fa-solid fa-check'></i>} severity='success'>
               {alertMessage}
@@ -78,11 +86,9 @@ const RegisterPage = () => {
             </Alert>
           )}
           <FormControl fullWidth className='form'>
-            <p>
-              <span style={{ fontSize: 30, fontWeight: 'bold' }}>
-                Register !!!
-              </span>
-            </p>
+          <Typography variant="h4" gutterBottom><span style={{ fontSize: 24, fontWeight: 'bold' }}>Register Here</span>
+          <ArrowBackIcon fontSize="large" onClick={handleLoginClick} style={{float:'right'}}/> 
+          </Typography>
             <TextField
               required
               id='username'
@@ -128,7 +134,8 @@ const RegisterPage = () => {
               onChange={e => setPassword(e.target.value)}
               InputLabelProps={{ style: { color: '#dcdcdc' } }}
             />
-            <FormControlLabel
+             <FormControl>
+             <FormControlLabel
               control={
                 <Checkbox
                   checked={userTypes.customer}
@@ -155,6 +162,7 @@ const RegisterPage = () => {
               }
               label='Repair Parts Seller'
             />
+            </FormControl>
             <Button
               className='submit'
               variant='contained'
@@ -162,15 +170,10 @@ const RegisterPage = () => {
             >
               Register
             </Button>
-            <h4
-              style={{
-                paddingLeft: '20px'
-              }}
-            >
-              Already have an account? <a href='/login'>Sign in</a>
-            </h4>
           </FormControl>
         </CardContent>
+      }
+       {showLoginCard && <LoginPage/> }
       </div>
     </div>
   )

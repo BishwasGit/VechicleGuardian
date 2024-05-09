@@ -2,8 +2,8 @@
 	width: auto;
 	height: 100vh;
 	display: flex;
-	align-items: center !important;
-	justify-content: center !important;
+	align-items: left !important;
+	justify-content: left !important;
 }
 .button-links {
 	display: flex;
@@ -17,20 +17,9 @@
 .form {
 	padding: 3%;
 	display: flex;
-	width: 50%;
-	align-items: center !important;
-	justify-content: center !important;
-	box-shadow: 2px 2px 2px rgba(63, 63, 63, 0.1),
-		/* top-left */ -2px 2px 2px rgba(63, 63, 63, 0.1),
-		/* top-right */ 2px -2px 2px rgba(63, 63, 63, 0.1),
-		/* bottom-left */ -2px -2px 2px rgba(63, 63, 63, 0.1); /* bottom-right */
+	align-items: left !important;
+	justify-content: left !important;
 }
 .form-contain {
 	padding: 10%;
-}
-.form-field {
-	box-shadow: 1px 2px 2px rgba(232, 231, 231, 0.1),
-		/* top-left */ -1px 2px 2px rgba(203, 201, 201, 0.1),
-		/* top-right */ 2px -2px 2px rgba(215, 213, 213, 0.1),
-		/* bottom-left */ -2px -2px 2px rgba(185, 184, 184, 0.1); /* bottom-right */
 }

@@ -7,8 +7,10 @@ import background3 from '../assets/images/bg7.jpg'
 import background2 from '../assets/images/bg4.jpg'
 import LoginPage from './auth/login'
 import RegisterPage from './auth/register'
+import { Button } from '@mui/material'
+
+
 const Welcome = () => {
-  const [loginActive, setLoginActive] = useState(true)
   const [currentImage, setCurrentImage] = useState(0)
   const images = [background3, background2]
   const goToImage = index => {
@@ -16,22 +18,12 @@ const Welcome = () => {
   }
   const [showRegisterCard, setShowRegisterCard] = useState(false)
   const [showLoginCard, setShowLoginCard] = useState(true)
-  const handleRegisterClick = () => {
-    setShowRegisterCard(true)
-    setShowLoginCard(false)
-    setLoginActive(false)
-  }
-  const handleLoginClick = () => {
-    setShowRegisterCard(false)
-    setShowLoginCard(true)
-    setLoginActive(true)
-  }
   return (
     <div className='container' maxWidth='lg'>
       <Grid container justifyContent='center' alignItems='center'>
         <Grid
           item
-          lg={6}
+          lg={8}
           sm={12}
           style={{
             position: 'relative',
@@ -83,32 +75,10 @@ const Welcome = () => {
             </div>
           </div>
         </Grid>
-        <Grid item lg={6} sm={12}>
+        <Grid item lg={4} sm={12}>
           <Card className='new-card'>
             <div className='right-content'>
               <CardContent className='card'>
-                <div className='button-carousel'>
-                  <button
-                    className={`mainButton ${loginActive ? 'active' : ''}`}
-                    variant='contained'
-                    fullWidth
-                    onClick={handleLoginClick}
-                  >
-                    <span style={{ color: 'black', fontWeight: 'bold' }}>
-                      Login
-                    </span>
-                  </button>
-                  <button
-                    className={`mainButton ${!loginActive ? 'active' : ''}`}
-                    variant='contained'
-                    fullWidth
-                    onClick={handleRegisterClick}
-                  >
-                    <span style={{ color: 'black', fontWeight: 'bold' }}>
-                      Register
-                    </span>
-                  </button>
-                </div>
                 {showLoginCard && <LoginPage />}
                 {showRegisterCard && <RegisterPage />}
               </CardContent>

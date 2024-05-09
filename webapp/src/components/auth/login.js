@@ -6,6 +6,7 @@ import { Button } from '@mui/material'
 import axios from 'axios'
 import { useNavigate } from 'react-router-dom'
 import CircularProgress from '@mui/material/CircularProgress'
+import RegisterPage from './register'
 
 const LoginPage = () => {
   const [username, setUsername] = useState('')
@@ -14,6 +15,12 @@ const LoginPage = () => {
   const [loading, setLoading] = useState(false)
   const navigate = useNavigate()
   const [dialogVisible, setDialogVisible] = useState(false)
+  const [showRegisterCard, setShowRegisterCard] = useState(false)
+  const [showLoginCard, setShowLoginCard] = useState(true)
+  const handleRegisterClick = () => {
+    setShowRegisterCard(true)
+    setShowLoginCard(false)
+  }
 
   const handleLogin = async () => {
     setLoading(true)
@@ -81,10 +88,11 @@ const LoginPage = () => {
       <div className='main'>
         <div className='form'>
           <div>
+            {showLoginCard &&
             <FormControl fullWidth className='form'>
               <p>
-                <span style={{ fontSize: 30, fontWeight: 'bold' }}>
-                  Welcome Back !!!
+                <span style={{ fontSize: 24, fontWeight: 'bold' }}>
+                  Login Here
                 </span>
               </p>
               <TextField
@@ -128,66 +136,22 @@ const LoginPage = () => {
               >
                 {loading ? 'Loading...' : 'Login'}
               </Button>
-              <h4>or you can sign up with</h4>
-              <div className='iconDiv'>
-                <Button
-                  variant='contained'
-                  onClick={handleLogin}
-                  className='submitAnother'
-                  sx={{
-                    '& .MuiButton-startIcon': {
-                      minWidth: 0,
-                      marginRight: '-5px',
-
-                    }
-                  }}
-                  startIcon={
-                    <i class='fa fa-facebook' style={{ fontSize: '25px' }} />
-                  }
-                ></Button>
-
-                <Button
-                  variant='contained'
-                  onClick={handleLogin}
-                  className='submitAnother'
-                  sx={{
-                    '& .MuiButton-startIcon': {
-                      minWidth: 0,
-                      marginRight: '-5px',
-
-                    }
-                  }}
-                  startIcon={
-                    <i class='fa fa-google' style={{ fontSize: '25px' }} />
-                  }
-                ></Button>
-                <Button
-                  variant='contained'
-                  onClick={handleLogin}
-                  className='submitAnother'
-                  sx={{
-                    '& .MuiButton-startIcon': {
-                      minWidth: 0,
-                      marginRight: '-5px',
-
-                    }
-                  }}
-                  startIcon={
-                    <i class='fa fa-apple' style={{ fontSize: '25px' }} />
-                  }
-                ></Button>
-              </div>
-              <h4
-                style={{
-                  paddingLeft: '20px'
-                }}
+              <Button
+                className='submit'
+                variant='outlined'
+                onClick={handleRegisterClick}
+                disabled={loading}
+                style={{marginTop : '10px'}}
               >
-                Don't have a account? <a href='/register'>Register Here</a>
-              </h4>
+                Register
+              </Button>
 
               {message && <p>{message}</p>}
               {dialogVisible && <CircularProgress />}
+
             </FormControl>
+            }
+             {showRegisterCard && <RegisterPage />}
           </div>
         </div>
       </div>

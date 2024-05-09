@@ -155,7 +155,7 @@
                                                     aria-label="Close"></button>
                                             </div>
                                             <div class="modal-body">
-                                                <div class="spinner-grow text-primary" role="status" id="loader">
+                                                <div class="spinner-grow text-primary d-flex justify-content-center align-item-center" role="status" id="loader">
                                                     <span class="visually-hidden">Loading...</span>
                                                 </div>
                                                 <span id="itemDetails">
